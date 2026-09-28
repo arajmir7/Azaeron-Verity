@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:709c2ddc-70e1-4ab6-9c6f-36bddf50fbac",
+  "serialNumber": "urn:uuid:719b51eb-325d-4068-ba41-e4610e38942e",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T08:09:32+00:00",
+    "timestamp": "2026-09-28T08:35:00+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "871fbebd-9b8c-4acd-81ab-35efd0f0c9f9",
+      "bom-ref": "cef733c8-f275-4dc2-a658-a40af84eb5fd",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -77,7 +77,22 @@
   },
   "components": [
     {
-      "bom-ref": "95f3e009-03e6-4f13-a55f-aa6c7e02aada",
+      "bom-ref": "b76a8087-edee-44e3-9c28-72c2557e9b59",
+      "type": "application",
+      "name": "mailpit",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
+        }
+      ]
+    },
+    {
+      "bom-ref": "c723834d-f091-465b-be92-6488c90dc29a",
       "type": "operating-system",
       "name": "alpine",
       "version": "3.24.2",
@@ -89,21 +104,6 @@
         {
           "name": "aquasecurity:trivy:Type",
           "value": "alpine"
-        }
-      ]
-    },
-    {
-      "bom-ref": "a1b56f6a-062f-4436-ad71-9868c65655e2",
-      "type": "application",
-      "name": "mailpit",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
         }
       ]
     },
@@ -2308,14 +2308,13 @@
   ],
   "dependencies": [
     {
-      "ref": "871fbebd-9b8c-4acd-81ab-35efd0f0c9f9",
+      "ref": "b76a8087-edee-44e3-9c28-72c2557e9b59",
       "dependsOn": [
-        "95f3e009-03e6-4f13-a55f-aa6c7e02aada",
-        "a1b56f6a-062f-4436-ad71-9868c65655e2"
+        "pkg:golang/github.com/axllent/mailpit@v1.31.2%2Bdirty"
       ]
     },
     {
-      "ref": "95f3e009-03e6-4f13-a55f-aa6c7e02aada",
+      "ref": "c723834d-f091-465b-be92-6488c90dc29a",
       "dependsOn": [
         "pkg:apk/alpine/alpine-baselayout@3.7.2-r1?arch=aarch64&distro=3.24.2",
         "pkg:apk/alpine/alpine-release@3.24.2-r0?arch=aarch64&distro=3.24.2",
@@ -2326,9 +2325,10 @@
       ]
     },
     {
-      "ref": "a1b56f6a-062f-4436-ad71-9868c65655e2",
+      "ref": "cef733c8-f275-4dc2-a658-a40af84eb5fd",
       "dependsOn": [
-        "pkg:golang/github.com/axllent/mailpit@v1.31.2%2Bdirty"
+        "b76a8087-edee-44e3-9c28-72c2557e9b59",
+        "c723834d-f091-465b-be92-6488c90dc29a"
       ]
     },
     {

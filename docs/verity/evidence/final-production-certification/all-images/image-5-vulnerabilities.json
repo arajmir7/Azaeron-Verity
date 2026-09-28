@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.74.0"
   },
-  "ReportID": "01a0e70f-db2b-76ec-9dd8-a025bccde221",
-  "CreatedAt": "2026-09-28T08:09:31.179455882Z",
+  "ReportID": "01a0e727-2935-74d1-accb-b264334c5da0",
+  "CreatedAt": "2026-09-28T08:34:58.485317505Z",
   "ArtifactID": "sha256:fa7a6bbc1f419a5ae2c70d13f06656f6cab11da1c85038de4dabe18072c1d9b8",
   "ArtifactName": "/scan/image.tar",
   "ArtifactType": "container_image",

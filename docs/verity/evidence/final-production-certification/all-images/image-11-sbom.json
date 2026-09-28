@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:9898fe61-5fe7-49db-a995-d56113064334",
+  "serialNumber": "urn:uuid:1e87a2d9-0baa-4050-b6eb-fac8edcb9801",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T08:09:44+00:00",
+    "timestamp": "2026-09-28T08:35:11+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "e4e70675-2182-40d8-84a9-bc2256927072",
+      "bom-ref": "3688c29e-29f8-4e69-8126-90b02ba7d72e",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -105,22 +105,7 @@
   },
   "components": [
     {
-      "bom-ref": "05108fae-afd7-4414-b6f8-9eea58869876",
-      "type": "application",
-      "name": "usr/local/bin/gosu",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
-        }
-      ]
-    },
-    {
-      "bom-ref": "93a33c72-34ba-4a19-9fa4-47b09842b3c7",
+      "bom-ref": "28ce3d95-af34-45bd-9638-d8c1d79e6293",
       "type": "operating-system",
       "name": "debian",
       "version": "12.15",
@@ -132,6 +117,21 @@
         {
           "name": "aquasecurity:trivy:Type",
           "value": "debian"
+        }
+      ]
+    },
+    {
+      "bom-ref": "cb4573de-7448-4ee0-a191-3a132da5c12b",
+      "type": "application",
+      "name": "usr/local/bin/gosu",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
         }
       ]
     },
@@ -11343,13 +11343,7 @@
   ],
   "dependencies": [
     {
-      "ref": "05108fae-afd7-4414-b6f8-9eea58869876",
-      "dependsOn": [
-        "pkg:golang/github.com/tianon/gosu@v1.19.0"
-      ]
-    },
-    {
-      "ref": "93a33c72-34ba-4a19-9fa4-47b09842b3c7",
+      "ref": "28ce3d95-af34-45bd-9638-d8c1d79e6293",
       "dependsOn": [
         "pkg:deb/debian/apt@2.6.1?arch=arm64&distro=debian-12.15",
         "pkg:deb/debian/base-passwd@3.6.1?arch=arm64&distro=debian-12.15",
@@ -11387,10 +11381,16 @@
       ]
     },
     {
-      "ref": "e4e70675-2182-40d8-84a9-bc2256927072",
+      "ref": "3688c29e-29f8-4e69-8126-90b02ba7d72e",
       "dependsOn": [
-        "05108fae-afd7-4414-b6f8-9eea58869876",
-        "93a33c72-34ba-4a19-9fa4-47b09842b3c7"
+        "28ce3d95-af34-45bd-9638-d8c1d79e6293",
+        "cb4573de-7448-4ee0-a191-3a132da5c12b"
+      ]
+    },
+    {
+      "ref": "cb4573de-7448-4ee0-a191-3a132da5c12b",
+      "dependsOn": [
+        "pkg:golang/github.com/tianon/gosu@v1.19.0"
       ]
     },
     {

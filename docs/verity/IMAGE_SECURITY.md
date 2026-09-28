@@ -46,6 +46,15 @@ application Dockerfiles pin their base images; the application build and its
 SBOM must be regenerated for a new source snapshot. The same backend artifact
 serves the API, worker, beat, and migration commands in this deployment.
 
+The hosted runner could not pull MinIO's `mc` image through Docker Hub. The
+MinIO server and client references now use the upstream Quay.io names with the
+same content digests. The upstream release build publishes the corresponding
+MinIO image tags to both registries from the same multi-platform build
+([client build](https://github.com/minio/mc/blob/master/docker-buildx.sh),
+[server build](https://github.com/minio/minio/pull/21560/files)). Hosted pulls
+must still succeed on the corrected workflow before this change is considered
+CI-verified.
+
 An inference router and generative/semantic model runtimes have no approved
 model, build, or deployed image. They are explicitly **BLOCKED** in the
 inventory, not marked scanned. Any release that adds one must add its image to

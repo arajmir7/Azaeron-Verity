@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:6c89cc4a-7296-400d-95a1-3cb410762224",
+  "serialNumber": "urn:uuid:b136ea83-ba48-42d6-9577-3b46482727cc",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T08:09:39+00:00",
+    "timestamp": "2026-09-28T08:35:06+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "0c4035f4-33e8-4b64-9c40-b94aa3e791e3",
+      "bom-ref": "ae6b3bc9-f84a-4e95-8395-b833a7aee4d1",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -137,7 +137,7 @@
   },
   "components": [
     {
-      "bom-ref": "09e10c91-fbbf-4987-907b-255a1f53d518",
+      "bom-ref": "8468f1a7-0d37-4a95-aadc-8dbd0ca6dc05",
       "type": "operating-system",
       "name": "redhat",
       "version": "9.6",
@@ -153,7 +153,7 @@
       ]
     },
     {
-      "bom-ref": "a7f47e52-c019-4d83-b853-651ddcbcd4f6",
+      "bom-ref": "e569ff1e-23f4-466e-84ac-d4700e009381",
       "type": "application",
       "name": "usr/bin/mc",
       "properties": [
@@ -4496,7 +4496,7 @@
   ],
   "dependencies": [
     {
-      "ref": "09e10c91-fbbf-4987-907b-255a1f53d518",
+      "ref": "8468f1a7-0d37-4a95-aadc-8dbd0ca6dc05",
       "dependsOn": [
         "pkg:rpm/redhat/coreutils-single@8.32-39.el9?arch=aarch64&distro=redhat-9.6",
         "pkg:rpm/redhat/gpg-pubkey@5a6340b3-6229229e?arch=None&distro=redhat-9.6",
@@ -4504,14 +4504,14 @@
       ]
     },
     {
-      "ref": "0c4035f4-33e8-4b64-9c40-b94aa3e791e3",
+      "ref": "ae6b3bc9-f84a-4e95-8395-b833a7aee4d1",
       "dependsOn": [
-        "09e10c91-fbbf-4987-907b-255a1f53d518",
-        "a7f47e52-c019-4d83-b853-651ddcbcd4f6"
+        "8468f1a7-0d37-4a95-aadc-8dbd0ca6dc05",
+        "e569ff1e-23f4-466e-84ac-d4700e009381"
       ]
     },
     {
-      "ref": "a7f47e52-c019-4d83-b853-651ddcbcd4f6",
+      "ref": "e569ff1e-23f4-466e-84ac-d4700e009381",
       "dependsOn": [
         "pkg:golang/github.com/minio/mc@v0.0.0-20250813083541-7394ce0dd2a8%2Bdirty"
       ]

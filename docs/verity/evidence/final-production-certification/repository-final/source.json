@@ -270,7 +270,7 @@
   "backend/tests/test_worker_redelivery.py": "6f72df672f0e4ece3872d6d83b9548db60a95a50faee0ed34cc0414cee277597",
   "backend/tests/test_workspace_onboarding.py": "79020a9cd08c6794e940f9fcb743ad8f9542be8a36070a88d713982886ece9a0",
   "config/models/registry.json": "09ab735893091e98e40c54350bbba9dae11a17860b8548aebd57d5cb77c8d83c",
-  "docker-compose.yml": "d60a5fae53a1a7d889381f24bb1f593ada59dcb6c645047a95b5f84a545d8347",
+  "docker-compose.yml": "04359ada9055bcf0099feeaf2e50da1b6c1f319ee3b570fc2d42366c1a5fe772",
   "frontend/Dockerfile": "c61e95c4d0255773eb88b363faa3c2337f300677c7aa42db684125a281d0c266",
   "frontend/next.config.ts": "d2e597b41a6c9a932504fae3291ce3d7740d1941b8bb7269d5c9759a16f31b7e",
   "frontend/package-lock.json": "1a6327d6c4988aa2bc7e9a8e058ad4594bc82e3b82975afe1d37e48eba7a5231",

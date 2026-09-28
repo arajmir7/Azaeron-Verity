@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:3e8d62b8-fd8e-4f72-8a53-06bb6245659c",
+  "serialNumber": "urn:uuid:e6485d4c-e5f5-4d64-9c6e-1aa6065be03f",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T08:09:49+00:00",
+    "timestamp": "2026-09-28T08:35:16+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "9bea80a2-8737-443b-8d21-d1ad3ac58f65",
+      "bom-ref": "3695ba6e-691c-4ea3-b5cd-9c1061e30e74",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -69,7 +69,7 @@
   },
   "components": [
     {
-      "bom-ref": "e1f74042-83d4-4541-9ce2-bbe6c466fd55",
+      "bom-ref": "ccf1dbda-9564-46f7-8882-80b12c86ba39",
       "type": "operating-system",
       "name": "alpine",
       "version": "3.21.7",
@@ -1020,13 +1020,13 @@
   ],
   "dependencies": [
     {
-      "ref": "9bea80a2-8737-443b-8d21-d1ad3ac58f65",
+      "ref": "3695ba6e-691c-4ea3-b5cd-9c1061e30e74",
       "dependsOn": [
-        "e1f74042-83d4-4541-9ce2-bbe6c466fd55"
+        "ccf1dbda-9564-46f7-8882-80b12c86ba39"
       ]
     },
     {
-      "ref": "e1f74042-83d4-4541-9ce2-bbe6c466fd55",
+      "ref": "ccf1dbda-9564-46f7-8882-80b12c86ba39",
       "dependsOn": [
         "pkg:apk/alpine/.redis-rundeps@20260818.165642?arch=noarch&distro=3.21.7",
         "pkg:apk/alpine/alpine-baselayout@3.6.8-r1?arch=aarch64&distro=3.21.7",

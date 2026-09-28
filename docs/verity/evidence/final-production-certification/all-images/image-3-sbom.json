@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:deac8f2b-b435-4a4c-8959-50e53d62ca02",
+  "serialNumber": "urn:uuid:f4c5cf45-1ac6-4841-9495-1205e0305fda",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T08:09:23+00:00",
+    "timestamp": "2026-09-28T08:34:51+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "004bb0c3-dfcc-45d5-93a3-30dc99a35eca",
+      "bom-ref": "4f63ecea-fa2c-4e1e-9306-2ecd368df24d",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -97,7 +97,7 @@
   },
   "components": [
     {
-      "bom-ref": "333f4963-2ed4-48ad-b4cb-0a65e9115756",
+      "bom-ref": "a0089a21-fb70-46eb-9778-b26679dacaff",
       "type": "operating-system",
       "name": "alpine",
       "version": "3.24.2",
@@ -1851,9 +1851,9 @@
   ],
   "dependencies": [
     {
-      "ref": "004bb0c3-dfcc-45d5-93a3-30dc99a35eca",
+      "ref": "4f63ecea-fa2c-4e1e-9306-2ecd368df24d",
       "dependsOn": [
-        "333f4963-2ed4-48ad-b4cb-0a65e9115756",
+        "a0089a21-fb70-46eb-9778-b26679dacaff",
         "pkg:npm/%40edge-runtime/cookies@6.0.0",
         "pkg:npm/%40edge-runtime/ponyfill@4.0.0",
         "pkg:npm/%40edge-runtime/primitives@6.0.0",
@@ -1880,7 +1880,7 @@
       ]
     },
     {
-      "ref": "333f4963-2ed4-48ad-b4cb-0a65e9115756",
+      "ref": "a0089a21-fb70-46eb-9778-b26679dacaff",
       "dependsOn": [
         "pkg:apk/alpine/alpine-baselayout@3.7.2-r1?arch=aarch64&distro=3.24.2",
         "pkg:apk/alpine/alpine-release@3.24.2-r0?arch=aarch64&distro=3.24.2",

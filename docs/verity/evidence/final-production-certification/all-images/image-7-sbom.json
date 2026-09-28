@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:264baba3-80b3-461c-b8d7-1e418390ffb7",
+  "serialNumber": "urn:uuid:f01d3d31-6259-4687-aff9-814b7afd190d",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T08:09:35+00:00",
+    "timestamp": "2026-09-28T08:35:03+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "ab355747-0f25-4d44-b355-1d7ccedbeefd",
+      "bom-ref": "2742d8f3-6b2e-4d83-b364-f84cde431ac9",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -153,7 +153,7 @@
   },
   "components": [
     {
-      "bom-ref": "5c24e19b-33ee-441e-b7ce-6fec9b7f98b7",
+      "bom-ref": "ef456cbf-b355-452c-8caf-a63aa82153ab",
       "type": "operating-system",
       "name": "debian",
       "version": "13.7",
@@ -4466,30 +4466,9 @@
   ],
   "dependencies": [
     {
-      "ref": "5c24e19b-33ee-441e-b7ce-6fec9b7f98b7",
+      "ref": "2742d8f3-6b2e-4d83-b364-f84cde431ac9",
       "dependsOn": [
-        "pkg:deb/debian/base-files@13.8%2Bdeb13u7?arch=arm64&distro=debian-13.7",
-        "pkg:deb/debian/ca-certificates@20250419?arch=all&distro=debian-13.7",
-        "pkg:deb/debian/libbz2-1.0@1.0.8-6?arch=arm64&distro=debian-13.7",
-        "pkg:deb/debian/libc6@2.41-12%2Bdeb13u4?arch=arm64&distro=debian-13.7",
-        "pkg:deb/debian/libcrypt1@4.4.38-1?arch=arm64&distro=debian-13.7&epoch=1",
-        "pkg:deb/debian/libffi8@3.4.8-2?arch=arm64&distro=debian-13.7",
-        "pkg:deb/debian/libgcc-s1@14.2.0-19?arch=arm64&distro=debian-13.7",
-        "pkg:deb/debian/liblzma5@5.8.1-1%2Bdeb13u1?arch=arm64&distro=debian-13.7",
-        "pkg:deb/debian/libssl3t64@3.5.7-1~deb13u2?arch=arm64&distro=debian-13.7",
-        "pkg:deb/debian/libstdc%2B%2B6@14.2.0-19?arch=arm64&distro=debian-13.7",
-        "pkg:deb/debian/libzstd1@1.5.7%2Bdfsg-1?arch=arm64&distro=debian-13.7",
-        "pkg:deb/debian/media-types@13.0.0?arch=all&distro=debian-13.7",
-        "pkg:deb/debian/netbase@6.5?arch=all&distro=debian-13.7",
-        "pkg:deb/debian/tzdata-legacy@2026c-0%2Bdeb13u1?arch=all&distro=debian-13.7",
-        "pkg:deb/debian/tzdata@2026c-0%2Bdeb13u1?arch=all&distro=debian-13.7",
-        "pkg:deb/debian/zlib1g@1.3.dfsg%2Breally1.3.1-1%2Bb1?arch=arm64&distro=debian-13.7&epoch=1"
-      ]
-    },
-    {
-      "ref": "ab355747-0f25-4d44-b355-1d7ccedbeefd",
-      "dependsOn": [
-        "5c24e19b-33ee-441e-b7ce-6fec9b7f98b7",
+        "ef456cbf-b355-452c-8caf-a63aa82153ab",
         "pkg:pypi/alembic@1.14.0",
         "pkg:pypi/amqp@5.4.0",
         "pkg:pypi/annotated-doc@0.0.5",
@@ -4595,6 +4574,27 @@
         "pkg:pypi/wrapt@1.17.3",
         "pkg:pypi/zipp@3.23.0",
         "pkg:pypi/zipp@4.1.0"
+      ]
+    },
+    {
+      "ref": "ef456cbf-b355-452c-8caf-a63aa82153ab",
+      "dependsOn": [
+        "pkg:deb/debian/base-files@13.8%2Bdeb13u7?arch=arm64&distro=debian-13.7",
+        "pkg:deb/debian/ca-certificates@20250419?arch=all&distro=debian-13.7",
+        "pkg:deb/debian/libbz2-1.0@1.0.8-6?arch=arm64&distro=debian-13.7",
+        "pkg:deb/debian/libc6@2.41-12%2Bdeb13u4?arch=arm64&distro=debian-13.7",
+        "pkg:deb/debian/libcrypt1@4.4.38-1?arch=arm64&distro=debian-13.7&epoch=1",
+        "pkg:deb/debian/libffi8@3.4.8-2?arch=arm64&distro=debian-13.7",
+        "pkg:deb/debian/libgcc-s1@14.2.0-19?arch=arm64&distro=debian-13.7",
+        "pkg:deb/debian/liblzma5@5.8.1-1%2Bdeb13u1?arch=arm64&distro=debian-13.7",
+        "pkg:deb/debian/libssl3t64@3.5.7-1~deb13u2?arch=arm64&distro=debian-13.7",
+        "pkg:deb/debian/libstdc%2B%2B6@14.2.0-19?arch=arm64&distro=debian-13.7",
+        "pkg:deb/debian/libzstd1@1.5.7%2Bdfsg-1?arch=arm64&distro=debian-13.7",
+        "pkg:deb/debian/media-types@13.0.0?arch=all&distro=debian-13.7",
+        "pkg:deb/debian/netbase@6.5?arch=all&distro=debian-13.7",
+        "pkg:deb/debian/tzdata-legacy@2026c-0%2Bdeb13u1?arch=all&distro=debian-13.7",
+        "pkg:deb/debian/tzdata@2026c-0%2Bdeb13u1?arch=all&distro=debian-13.7",
+        "pkg:deb/debian/zlib1g@1.3.dfsg%2Breally1.3.1-1%2Bb1?arch=arm64&distro=debian-13.7&epoch=1"
       ]
     },
     {

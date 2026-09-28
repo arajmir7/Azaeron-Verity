@@ -1,6 +1,7 @@
 import { createHmac, randomBytes } from "node:crypto";
 import { expect, test } from "@playwright/test";
 import axe from "axe-core";
+import { postWithRetryAfter } from "./live-request";
 
 test.use({ actionTimeout: 15_000 });
 
@@ -35,7 +36,7 @@ test("real SMTP verification, MFA recovery login, password reset and device revo
     }
     throw new Error("Authentication remained rate limited after Retry-After");
   }
-  expect((await page.request.post("/api/v1/auth/register", { headers, data: credentials })).status()).toBe(201);
+  expect((await postWithRetryAfter(page.request, "/api/v1/auth/register", { headers, data: credentials })).status()).toBe(201);
   await page.goto("/login");
   await page.getByLabel("Work email").fill(credentials.email);
   await page.getByLabel("Password", { exact: true }).fill(credentials.password);

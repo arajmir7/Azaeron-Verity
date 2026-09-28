@@ -96,7 +96,7 @@ test("live signup, personal workspace, upload, refresh and persistent switching"
   await page.goto("/documents");
   await page.reload();
   await page.getByRole("combobox", { name: "Active workspace" }).selectOption(secondId);
-  await expect(page.getByText("Your library is empty")).toBeVisible();
+  await expect(page.getByText("Create your first document or import a file")).toBeVisible();
   expect((await page.request.get(`/api/v1/documents/${document.id}`)).status()).toBe(404);
   const refreshed = await page.request.post("/api/v1/auth/refresh", { headers, data: {} });
   expect(refreshed.status()).toBe(200);

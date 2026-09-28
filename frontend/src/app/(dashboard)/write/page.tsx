@@ -17,7 +17,7 @@ const button = "rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium
 const primary = `${button} border-transparent bg-indigo-700 text-white hover:bg-indigo-800 dark:text-white`;
 type Draft = { base: string; text: string; updated: number };
 
-export default function WritePage() {
+export default function WritePage({ mode = "editor" }: { mode?: "editor" | "humaniser" }) {
   const { currentOrg, user } = useStore();
   const params = useSearchParams();
   const requestedDocument = params.get("document") || "";
@@ -162,11 +162,11 @@ export default function WritePage() {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
-  if (loading) return <LoadingState label="Loading AZAERON WRITE…" rows={4} />;
-  return <div className="max-w-6xl"><PageHeader eyebrow="Verity Refine · responsible editing" title="Improve a draft without hiding its provenance" description="Review mechanical edits, save a new version, and retain the original." />
+  if (loading) return <LoadingState label="Loading document…" rows={4} />;
+  return <div className="max-w-6xl"><PageHeader eyebrow={mode === "humaniser" ? "AI Humaniser" : "Document Editor"} title={mode === "humaniser" ? "Make your writing clearer" : "Edit your document"} description={mode === "humaniser" ? "Compare your original with suggested edits. Generative rewriting is unavailable until an approved private model is deployed; these are limited editorial rules." : "Work on a draft, review suggested edits, and save a new version without losing the original."} />
     {error && <div className="mb-5"><ErrorState message={error} /></div>}
-    {!documents.length ? <Panel title="Start with a document"><Link href="/upload" className={primary}>Upload document</Link></Panel> : <>
-      <Panel className="mb-5" title="Editorial session" description="Each save appends a version. Text revisions are saved as UTF-8 text; original files remain available in history.">
+    {!documents.length ? <Panel title="Start with a document"><Link href={`/check?next=${mode === "humaniser" ? "humaniser" : "editor"}`} className={primary}>Create or import a document</Link></Panel> : <>
+      <Panel className="mb-5" title={mode === "humaniser" ? "Choose a document" : "Your document"} description="Each save appends a version. The original file remains available in history.">
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="text-sm font-medium text-slate-700 dark:text-slate-200">Document<select disabled={!!busy} value={documentId} onChange={(event) => { setDocumentId(event.target.value); void loadVersion(event.target.value); }} className="mt-2 w-full min-w-0 rounded-lg border border-slate-300 bg-white p-2 dark:border-slate-600 dark:bg-slate-950">{documents.map((item) => <option key={item.id} value={item.id}>{item.title || item.original_filename}</option>)}</select></label>
           <label className="text-sm font-medium text-slate-700 dark:text-slate-200">Version history<select aria-label="Editor version history" disabled={!!busy} value={versionId} onChange={(event) => void loadVersion(documentId, event.target.value, false)} className="mt-2 w-full min-w-0 rounded-lg border border-slate-300 bg-white p-2 dark:border-slate-600 dark:bg-slate-950">{versions.map((version) => <option key={version.id} value={version.id}>Version {version.version_number} · {version.change_summary || version.edit_type}</option>)}</select></label>
@@ -175,11 +175,12 @@ export default function WritePage() {
           <select disabled={!!busy} value={focus} onChange={(event) => { setFocus(event.target.value as typeof focus); setResult(null); setSelected([]); refineOperation.current = null; setStatus("Focus changed · review again for new suggestions"); }} className="mt-2 w-full rounded-lg border border-slate-300 bg-white p-2 dark:border-slate-600 dark:bg-slate-950">{EDITORIAL_FOCUSES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select>
         </label>
         <p className="mt-2 text-xs text-slate-500">{selectedFocus.description} Suggestions come from limited editorial rules, not a generative writing model.</p>
-        <div className="mt-4 flex flex-wrap items-center gap-3"><p role="status" aria-label="Editor status" className="text-sm text-slate-700 dark:text-slate-200">{!online ? "Offline · your draft remains in this tab" : busy || status}</p>{versionId && latest && versionId !== latest.id && <button className={button} disabled={!!busy || !online} onClick={() => void save(false, true)}>Restore this version</button>}<button className={button} disabled={!!busy} onClick={() => void loadVersion(documentId, latest?.id || "", false)}>Review latest version</button></div>
+        <div className="mt-4 flex flex-wrap items-center gap-3"><Link href={`/documents/${documentId}`} className="text-sm font-semibold text-teal-800 hover:underline dark:text-teal-300">Advanced Analysis</Link><p role="status" aria-label="Editor status" className="text-sm text-slate-700 dark:text-slate-200">{!online ? "Offline · your draft remains in this tab" : busy || status}</p>{versionId && latest && versionId !== latest.id && <button className={button} disabled={!!busy || !online} onClick={() => void save(false, true)}>Restore this version</button>}<button className={button} disabled={!!busy} onClick={() => void loadVersion(documentId, latest?.id || "", false)}>Review latest version</button></div>
       </Panel>
       <div className="grid gap-5 lg:grid-cols-2">
         <Panel title="Your draft" description="Mechanical editing. Draft recovery lasts up to 24 hours in this tab and is cleared on sign-out.">
           <textarea aria-label="Draft text" value={text} readOnly={busy === "Saving" || busy === "Loading version"} onChange={(event) => updateText(event.target.value)} className="min-h-80 w-full resize-y rounded-lg border border-slate-300 bg-slate-50 p-3 text-sm leading-6 text-slate-900 focus:outline-2 focus:outline-indigo-600 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-100" />
+          <div className="mt-3 text-xs text-slate-500">{text.trim() ? text.trim().split(/\s+/u).length : 0} words · {dirty ? "Unsaved changes" : "Saved version"}</div>
           <div className="mt-4 flex flex-wrap gap-2"><button className={primary} disabled={!!busy || !online || !versionId || !text.trim()} onClick={() => void refine()}>Improve draft</button><button className={button} disabled={!!busy || !online || !versionId || !dirty || !text.trim()} onClick={() => void save(false)}>Save draft</button><button className={button} disabled={!!busy || !dirty} onClick={() => updateText(savedText)}>Undo draft edits</button><button className={button} disabled={!text} onClick={downloadDraft}>Download draft</button></div>
         </Panel>
         <Panel title="Reviewable editorial pass" description="The candidate remains separate until you accept it.">

@@ -3,7 +3,7 @@
 Updated 2026-09-28. The verified application schema is `20260924_0035`. The
 baseline remediation, registry, and first product-intake work reached
 `origin/main` at `3c7fc43`.
-The current local product-intake snapshot passes all 11 repository gates and
+The focused-product source snapshot passes all 11 repository gates and
 the rebuilt frontend image scan/SBOM. Both read-only Quay secret names are
 configured in GitHub Actions; [the authenticated hosted rerun](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36400101044/attempts/2)
 logged in successfully but still received `unauthorized` for the pinned MinIO
@@ -13,12 +13,48 @@ distribution remains necessary. The repository remains
 [release certification](RELEASE_CERTIFICATION.md)
 and [remediation ledger](REMEDIATION_STATE.md).
 
+## 2026-09-28 focused product rebuild
+
+- **Task:** make Home, Azaeron AI, AI Humaniser, AI Detector, Plagiarism
+  Checker, and the Document Editor the clear customer paths while retaining
+  document history and advanced evidence review.
+- **Change:** the primary navigation now contains Home, the five product paths
+  (the editor is reached through Documents), Documents, and History. Settings,
+  Help, and Account are secondary. Home has direct actions and actual recent
+  documents/reports; chat history is explicitly unavailable. Report, graph,
+  sources, citations, authorship, and provenance remain reachable inside a
+  document's collapsed Advanced Analysis menu. The existing immutable editor,
+  experimental detector, and workspace-scoped similarity analysis are exposed
+  through named product routes. Text intake returns to the chosen workflow.
+  Azaeron AI fails closed because no approved private model is deployed.
+- **Gate:** [final source-stable results](evidence/focused-product-20260928-release/results.json)
+  pass 11/11 checks: 250 backend unit/security/worker/contract tests, 30 live
+  PostgreSQL/RLS tests, 26 browser tests including live editor, identity,
+  document and similarity workflows, formatting, lint, types, production build,
+  and Compose validation. The source-manifest digest is
+  `cd21ad56c500ea9cfefe35bcab8f73aa1fbff5a5041908e500f5afaca5b72d6f`.
+  The [rebuilt frontend image scan and SBOM](evidence/focused-product-20260928-release/frontend-image/results.json)
+  pass, with zero HIGH/CRITICAL findings. `npm audit` reports zero findings in
+  the [current audit](evidence/focused-product-20260928-release/npm-audit.json).
+  The reviewed-secret gate reports zero unreviewed findings.
+- **Result:** the focused paths work in the isolated development stack. The
+  detector remains uncalibrated and abstains; the Humaniser offers only
+  deterministic editorial suggestions, not generative rewriting. The Document
+  Editor still lacks server-backed autosave, rename, and complete selection
+  actions. Chat persistence and private generation are not implemented. The
+  browser checks do not establish full WCAG conformance or production load.
+- **Blocker:** production release remains blocked by the unapproved private
+  model/verifier and detector calibration, prior failing infrastructure image
+  scans and save/conflict latency budgets, incomplete product and permission
+  coverage, and hosted CI's unauthorized pinned MinIO pull. The new frontend
+  image's clean scan does not clear the other image findings.
+
 ## Current evidence
 
-- The latest source-stable repository gate passed backend formatting, lint,
+- The previous product-intake gate passed backend formatting, lint,
   typing, 250 unit/security/worker/contract tests, 30 PostgreSQL integration
   tests, frontend lint/build/types, 25 browser tests and source stability. The
-  live browser tests verify that pasted text survives the private intake path
+  live browser tests verified that pasted text survives the private intake path
   as exact processed content and that a selected editorial focus reaches the
   refinement API. Its source-manifest digest is
   `934a1d4f375e516a44e9604368dba124cef215fc26ffb6f4e2825bd6f921c3ff`.

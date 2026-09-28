@@ -2,7 +2,7 @@
 
 import { useCallback, useRef, useState } from "react";
 import { CheckCircle2, FileText, FileUp, LockKeyhole, UploadCloud } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { api } from "@/lib/api";
 import { useStore } from "@/lib/store";
 import { Button, DegradedBanner, EmptyState, Notice, PageHeader, Panel } from "@/components/design-system";
@@ -13,6 +13,7 @@ const MAX_PASTED_CHARACTERS = 200_000;
 
 export default function UploadPage() {
   const router = useRouter();
+  const next = useSearchParams().get("next");
   const { currentOrg } = useStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
@@ -46,11 +47,13 @@ export default function UploadPage() {
       setStatus("Creating immutable document version…");
       const document = await api.confirmUpload(request.upload_id, request.storage_key, hash, file.name);
       setStatus("Queued for analysis.");
-      router.push(openDocument ? `/documents/${document.id}` : "/documents");
+      const destinations: Record<string, string> = { detector: "/detector", plagiarism: "/plagiarism", humaniser: "/humaniser", editor: "/write" };
+      const destination = next && destinations[next];
+      router.push(destination ? `${destination}?document=${encodeURIComponent(document.id)}` : openDocument ? `/documents/${document.id}` : "/documents");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Upload failed."); setUploading(false);
     }
-  }, [currentOrg, router]);
+  }, [currentOrg, router, next]);
 
   const selectFile = (file?: File) => { if (!file) return; const validation = validateFile(file); if (validation) { setError(validation); return; } void upload(file); };
   const submitText = (event: React.FormEvent<HTMLFormElement>) => {

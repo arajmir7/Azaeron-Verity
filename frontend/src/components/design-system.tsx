@@ -7,25 +7,23 @@ import {
   AlertCircle,
   AlertTriangle,
   ArrowUpRight,
-  BookOpen,
   CheckCircle2,
   ChevronDown,
   FileCheck2,
   FileText,
   History,
+  HelpCircle,
   LayoutDashboard,
-  Library,
   LockKeyhole,
   LogOut,
   Menu,
-  Network,
   PenLine,
   Plus,
+  ScanSearch,
   Settings,
   ShieldCheck,
   Sparkles,
-  UserRoundSearch,
-  UploadCloud,
+  UserRound,
   WifiOff,
   X,
 } from "lucide-react";
@@ -159,24 +157,14 @@ export function isPermissionError(error: unknown) {
   return error instanceof Error && "status" in error && [401, 403].includes((error as ApiError).status);
 }
 
-const navGroups = [
-  { label: "Workflows", items: [
-    { href: "/dashboard", label: "Workspace home", icon: LayoutDashboard },
-    { href: "/check", label: "Check", icon: UploadCloud },
-    { href: "/documents", label: "Review", icon: FileCheck2 },
-    { href: "/write", label: "Write", icon: PenLine },
-    { href: "/citations", label: "Research", icon: BookOpen },
-  ] },
-  { label: "Evidence & records", items: [
-    { href: "/documents", label: "Documents", icon: FileText },
-    { href: "/reports", label: "Analysis report", icon: FileCheck2 },
-    { href: "/evidence-graph", label: "Evidence graph", icon: Network },
-    { href: "/sources", label: "Sources", icon: Library },
-    { href: "/citations", label: "Citations", icon: BookOpen },
-    { href: "/authorship", label: "Authorship", icon: UserRoundSearch },
-    { href: "/provenance", label: "Provenance", icon: History },
-  ] },
-  { label: "Administration", items: [{ href: "/admin", label: "Admin", icon: ShieldCheck }] },
+const navItems = [
+  { href: "/dashboard", label: "Home", icon: LayoutDashboard },
+  { href: "/ai", label: "Azaeron AI", icon: Sparkles },
+  { href: "/humaniser", label: "AI Humaniser", icon: PenLine },
+  { href: "/detector", label: "AI Detector", icon: ScanSearch },
+  { href: "/plagiarism", label: "Plagiarism Checker", icon: FileCheck2 },
+  { href: "/documents", label: "Documents", icon: FileText },
+  { href: "/history", label: "History", icon: History },
 ];
 
 export function WorkspaceSwitcher({ mobile = false }: { mobile?: boolean }) {
@@ -313,18 +301,18 @@ export function DashboardShell({ children }: { children: ReactNode }) {
     <aside id="workspace-navigation" ref={navigationRef} role={modalOpen ? "dialog" : undefined} aria-modal={modalOpen || undefined} aria-hidden={mobileViewport && !mobileOpen || undefined} inert={mobileViewport && !mobileOpen} className={cn("fixed inset-y-0 left-0 z-50 flex w-[286px] flex-col border-r border-slate-200 bg-white transition-transform duration-200 dark:border-slate-800 dark:bg-slate-900 lg:visible lg:translate-x-0", mobileOpen ? "visible translate-x-0" : "invisible -translate-x-full")} aria-label="Primary navigation">
       <div className="flex h-[76px] items-center justify-between border-b border-slate-100 px-5 dark:border-slate-800"><Link href="/dashboard" aria-label="AZAERON dashboard" onClick={() => setMobileOpen(false)}><AzaeronMark /></Link><button ref={closeNavigationRef} type="button" className="grid h-9 w-9 place-items-center rounded-lg text-slate-500 hover:bg-slate-100 lg:hidden dark:hover:bg-slate-800" onClick={() => setMobileOpen(false)} aria-label="Close navigation"><X size={18} /></button></div>
       <div className="px-3 py-5"><WorkspaceSwitcher /></div>
-      <nav className="min-h-0 flex-1 overflow-y-auto px-3 pb-5" aria-label="Workspace navigation">{navGroups.map((group) => <div key={group.label} className="mb-6"><p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-600 dark:text-slate-400">{group.label}</p><div className="space-y-1">{group.items.map((item) => { const Icon = item.icon; const active = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(`${item.href}/`)); return <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} aria-current={active ? "page" : undefined} className={cn("group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors", active ? "bg-teal-50 text-teal-950 dark:bg-teal-950/50 dark:text-teal-200" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white")}><Icon size={17} strokeWidth={active ? 2.3 : 1.8} aria-hidden="true" /><span>{item.label}</span>{active && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-teal-700 dark:bg-teal-300" />}</Link>; })}</div></div>)}</nav>
-      <div className="border-t border-slate-100 p-3 dark:border-slate-800"><Link href="/settings" onClick={() => setMobileOpen(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800"><Settings size={17} aria-hidden="true" /> Settings</Link><button type="button" onClick={handleLogout} className="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800"><LogOut size={17} aria-hidden="true" /> Sign out</button>{logoutError && <p role="alert" className="mt-2 px-3 text-xs text-rose-700 dark:text-rose-300">{logoutError}</p>}</div>
+      <nav className="min-h-0 flex-1 overflow-y-auto px-3 pb-5" aria-label="Workspace navigation"><div className="space-y-1">{navItems.map((item) => { const Icon = item.icon; const active = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(`${item.href}/`)) || (item.href === "/plagiarism" && pathname === "/similarity") || (item.href === "/documents" && ["/write", "/check", "/upload"].includes(pathname)); return <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} aria-current={active ? "page" : undefined} className={cn("group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors", active ? "bg-teal-50 text-teal-950 dark:bg-teal-950/50 dark:text-teal-200" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white")}><Icon size={17} strokeWidth={active ? 2.3 : 1.8} aria-hidden="true" /><span>{item.label}</span>{active && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-teal-700 dark:bg-teal-300" />}</Link>; })}</div></nav>
+      <div className="border-t border-slate-100 p-3 dark:border-slate-800"><Link href="/settings" onClick={() => setMobileOpen(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800"><Settings size={17} aria-hidden="true" /> Settings</Link><Link href="/help" onClick={() => setMobileOpen(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800"><HelpCircle size={17} aria-hidden="true" /> Help</Link><Link href="/settings?tab=profile" onClick={() => setMobileOpen(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800"><UserRound size={17} aria-hidden="true" /> Account</Link><button type="button" onClick={handleLogout} className="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800"><LogOut size={17} aria-hidden="true" /> Sign out</button>{logoutError && <p role="alert" className="mt-2 px-3 text-xs text-rose-700 dark:text-rose-300">{logoutError}</p>}</div>
     </aside>
-    <div className="lg:pl-[286px]" inert={modalOpen}><header className="sticky top-0 z-30 flex h-[76px] items-center justify-between border-b border-slate-200/80 bg-[#f7faf8]/90 px-4 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90 sm:px-6 lg:px-10"><div className="flex items-center gap-3"><button type="button" onClick={() => setMobileOpen(true)} className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 lg:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200" aria-label="Open navigation" aria-controls="workspace-navigation" aria-expanded={modalOpen}><Menu size={19} /></button><div className="hidden items-center gap-2 text-xs font-medium text-slate-500 sm:flex"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Secure workspace</div></div><div className="flex items-center gap-3"><Link href="/write" className="hidden items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold text-teal-900 hover:bg-teal-50 sm:inline-flex dark:text-teal-200 dark:hover:bg-teal-950/40"><PenLine size={15} /> Write</Link><div className="flex h-9 w-9 items-center justify-center rounded-full bg-teal-950 text-xs font-bold text-white" role="img" aria-label={`Signed in as ${user.email}`}>{(user.first_name?.[0] || user.email[0] || "A").toUpperCase()}</div></div></header><main className="mx-auto max-w-[1440px] px-4 py-7 sm:px-6 lg:px-10 lg:py-10"><DegradedBanner />{organizationState === "selecting" ? <LoadingState label="Switching workspace…" /> : organizationState === "selection_failed" ? <ErrorState message={organizationError || "We could not confirm your workspace. Retry or select another workspace from the sidebar."} onRetry={retryWorkspace} /> : !currentOrg && !pathname.startsWith("/settings") ? <div className="space-y-5"><PageHeader eyebrow="Your workspace" title="Start with your own workspace" description="Create a workspace here and continue to your document. Your account and settings remain available." />{organizations.length > 0 && <Notice tone="warning">Choose a workspace from the sidebar, or create one below.</Notice>}<WorkspaceSetup /></div> : <div key={currentOrg?.id || "account"}>{children}</div>}</main></div>
+    <div className="lg:pl-[286px]" inert={modalOpen}><header className="sticky top-0 z-30 flex h-[76px] items-center justify-between border-b border-slate-200/80 bg-[#f7faf8]/90 px-4 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90 sm:px-6 lg:px-10"><div className="flex items-center gap-3"><button type="button" onClick={() => setMobileOpen(true)} className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 lg:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200" aria-label="Open navigation" aria-controls="workspace-navigation" aria-expanded={modalOpen}><Menu size={19} /></button><div className="hidden items-center gap-2 text-xs font-medium text-slate-500 sm:flex"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Secure workspace</div></div><div className="flex items-center gap-3"><Link href="/write" className="hidden items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold text-teal-900 hover:bg-teal-50 sm:inline-flex dark:text-teal-200 dark:hover:bg-teal-950/40"><PenLine size={15} /> Document Editor</Link><div className="flex h-9 w-9 items-center justify-center rounded-full bg-teal-950 text-xs font-bold text-white" role="img" aria-label={`Signed in as ${user.email}`}>{(user.first_name?.[0] || user.email[0] || "A").toUpperCase()}</div></div></header><main className="mx-auto max-w-[1440px] px-4 py-7 sm:px-6 lg:px-10 lg:py-10"><DegradedBanner />{organizationState === "selecting" ? <LoadingState label="Switching workspace…" /> : organizationState === "selection_failed" ? <ErrorState message={organizationError || "We could not confirm your workspace. Retry or select another workspace from the sidebar."} onRetry={retryWorkspace} /> : !currentOrg && !pathname.startsWith("/settings") ? <div className="space-y-5"><PageHeader eyebrow="Your workspace" title="Start with your own workspace" description="Create a workspace here and continue to your document. Your account and settings remain available." />{organizations.length > 0 && <Notice tone="warning">Choose a workspace from the sidebar, or create one below.</Notice>}<WorkspaceSetup /></div> : <div key={currentOrg?.id || "account"}>{children}</div>}</main></div>
   </div>;
 }
 
 export function ModuleNav({ documentId, versionId }: { documentId?: string; versionId?: string }) {
   if (!documentId) return null;
-  return <nav aria-label="Document analysis navigation" className="mb-6 flex gap-2 overflow-x-auto border-b border-slate-200 pb-2 text-sm dark:border-slate-800">{[
+  return <details className="mb-6 rounded-xl border border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-slate-900"><summary className="cursor-pointer text-sm font-semibold text-teal-900 dark:text-teal-200">Advanced Analysis</summary><nav aria-label="Document analysis navigation" className="mt-3 flex gap-2 overflow-x-auto border-t border-slate-100 pt-3 text-sm dark:border-slate-800">{[
     ["Report", `/documents/${documentId}`], ["Similarity", `/similarity?document=${documentId}`], ["Graph", `/evidence-graph?document=${documentId}`], ["Sources", `/sources?document=${documentId}`], ["Citations", `/citations?document=${documentId}`], ["Authorship", `/authorship?document=${documentId}`], ["Provenance", `/provenance?document=${documentId}`],
-  ].map(([label, href]) => <Link key={href} href={versionId ? `${href}${href.includes("?") ? "&" : "?"}version=${encodeURIComponent(versionId)}` : href} className="whitespace-nowrap rounded-lg px-3 py-2 font-semibold text-slate-500 hover:bg-slate-100 hover:text-teal-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-teal-200">{label}</Link>)}</nav>;
+  ].map(([label, href]) => <Link key={href} href={versionId ? `${href}${href.includes("?") ? "&" : "?"}version=${encodeURIComponent(versionId)}` : href} className="whitespace-nowrap rounded-lg px-3 py-2 font-semibold text-slate-500 hover:bg-slate-100 hover:text-teal-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-teal-200">{label}</Link>)}</nav></details>;
 }
 
 export function Notice({ children, tone = "neutral" }: { children: ReactNode; tone?: StatusTone }) {

@@ -2,25 +2,25 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, BookOpen, CheckCircle2, Clock3, FileCheck2, FileText, PenLine, UploadCloud } from "lucide-react";
+import { ArrowUpRight, FileCheck2, FileText, PenLine, ScanSearch, Sparkles } from "lucide-react";
 import { api, type DocumentRecord } from "@/lib/api";
 import { useStore } from "@/lib/store";
-import { Button, EmptyState, ErrorState, isPermissionError, LoadingState, PageHeader, Panel, StatusBadge, WorkflowCard, WorkspaceSetup } from "@/components/design-system";
+import { Button, ErrorState, isPermissionError, LoadingState, StatusBadge } from "@/components/design-system";
 
-type DashboardState = "loading" | "success" | "empty" | "error" | "permission";
+type DashboardState = "loading" | "ready" | "error" | "permission";
 
-const workflows = [
-  { step: "01 · Check", icon: UploadCloud, title: "Check a document", outcome: "Create a trustworthy starting point", detail: "Paste, type, or upload a document. AZAERON fingerprints the version before available analyses begin.", href: "/check" },
-  { step: "02 · Review", icon: FileCheck2, title: "Review the evidence", outcome: "Move from findings to a human decision", detail: "Open exact spans, sources, citations, signal limitations, and provenance in one document context.", href: "/documents" },
-  { step: "03 · Write", icon: PenLine, title: "Improve a draft", outcome: "Make visible, reversible editorial changes", detail: "Compare original and revision, review each reason, and preserve the change ledger for the document.", href: "/write" },
-  { step: "04 · Research", icon: BookOpen, title: "Strengthen source support", outcome: "Connect claims to real references", detail: "Inspect citation support, reference metadata, source quality, and unresolved evidence gaps.", href: "/citations" },
+const actions = [
+  { href: "/ai", label: "Ask Azaeron AI", detail: "Private AI pending approval", icon: Sparkles },
+  { href: "/humaniser", label: "Humanise text", detail: "Review changes to your writing", icon: PenLine },
+  { href: "/detector", label: "Detect AI", detail: "Inspect experimental writing signals", icon: ScanSearch },
+  { href: "/plagiarism", label: "Check plagiarism", detail: "Compare with available sources", icon: FileCheck2 },
+  { href: "/write", label: "Open document", detail: "Edit and preserve your versions", icon: FileText },
 ];
 
 export default function DashboardPage() {
   const { user, currentOrg } = useStore();
   const [state, setState] = useState<DashboardState>("loading");
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
-  const [total, setTotal] = useState<number | null>(null);
   const [error, setError] = useState("");
 
   const loadData = useCallback(async () => {
@@ -29,12 +29,10 @@ export default function DashboardPage() {
     setError("");
     try {
       const response = await api.getDocuments(1);
-      const items = response.items || [];
-      setDocuments(items.slice(0, 5));
-      setTotal(response.total);
-      setState(items.length ? "success" : "empty");
+      setDocuments((response.items || []).slice(0, 5));
+      setState("ready");
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Unable to load workspace data.");
+      setError(reason instanceof Error ? reason.message : "Unable to load your documents.");
       setState(isPermissionError(reason) ? "permission" : "error");
     }
   }, [currentOrg]);
@@ -43,27 +41,25 @@ export default function DashboardPage() {
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { void loadData(); }, [loadData]);
 
-  const processing = documents.filter((document) => document.status === "processing" || document.status === "queued").length;
-  const completed = documents.filter((document) => document.status === "completed").length;
-  const failed = documents.filter((document) => document.status === "failed").length;
   const displayName = user?.first_name || user?.email?.split("@")[0] || "there";
+  const reports = documents.filter((document) => document.status === "completed").slice(0, 3);
 
-  return <div>
-    <PageHeader eyebrow="Workspace home" title={`Move from draft to defensible decision, ${displayName}.`} description={currentOrg ? `${currentOrg.name} · one evidence-first workspace for checking, reviewing, writing, and research` : "Select a workspace to view tenant-scoped evidence."} action={<div className="flex flex-wrap gap-2"><Link href="/write"><Button variant="secondary"><PenLine size={16} aria-hidden="true" /> Open Write</Button></Link><Link href="/check"><Button><UploadCloud size={16} aria-hidden="true" /> Start a check</Button></Link></div>} />
-    {!currentOrg ? <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,.9fr)]"><WorkspaceSetup /><Panel eyebrow="Why a workspace?" title="A clear boundary for every decision"><div className="space-y-4 text-sm leading-6 text-slate-600 dark:text-slate-300"><p>Documents, analysis runs, sources, and provenance stay together inside a tenant-scoped workspace.</p><div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1"><div className="rounded-xl border border-slate-200 p-3 dark:border-slate-800"><p className="font-semibold text-slate-900 dark:text-white">Private by default</p><p className="mt-1 text-xs text-slate-500">Only authorized members can access records.</p></div><div className="rounded-xl border border-slate-200 p-3 dark:border-slate-800"><p className="font-semibold text-slate-900 dark:text-white">Version-aware</p><p className="mt-1 text-xs text-slate-500">Every review stays attached to its source version.</p></div><div className="rounded-xl border border-slate-200 p-3 dark:border-slate-800"><p className="font-semibold text-slate-900 dark:text-white">Evidence-first</p><p className="mt-1 text-xs text-slate-500">Missing evidence is shown instead of guessed.</p></div></div></div></Panel></div> : state === "loading" ? <LoadingState label="Loading workspace overview…" rows={4} /> : state === "permission" ? <ErrorState permission message="Your current role cannot read this workspace. Ask a workspace administrator to grant access." onRetry={() => void loadData()} /> : state === "error" ? <ErrorState message={error} onRetry={() => void loadData()} /> : <>
-      <Panel eyebrow="One workspace · four outcomes" title="Choose the job you need to do" description="The workflow changes the next action; the same document, evidence, and provenance remain connected underneath.">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">{workflows.map((workflow) => <WorkflowCard key={workflow.step} {...workflow} />)}</div>
-      </Panel>
+  return <div className="mx-auto max-w-6xl space-y-8">
+    <header className="rounded-3xl bg-teal-950 px-6 py-9 text-white sm:px-9 sm:py-11">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-200">Hello, {displayName}</p>
+      <h1 className="mt-3 max-w-2xl text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">Write better. Check confidently. Understand your work.</h1>
+      <p className="mt-3 max-w-xl text-sm leading-6 text-teal-100/80">One place to work on a draft, inspect writing signals, and review matches with sources you can see.</p>
+      <Link href="/ai" className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-teal-950 hover:bg-teal-50">View Azaeron AI <ArrowUpRight size={16} aria-hidden="true" /></Link>
+    </header>
 
-      <div className="my-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {[{ label: "Documents in workspace", value: total, icon: FileText, tone: "text-teal-800" }, { label: "In progress · recent view", value: processing, icon: Clock3, tone: "text-amber-700" }, { label: "Ready to inspect · recent view", value: completed, icon: CheckCircle2, tone: "text-emerald-700" }, { label: "Needs attention · recent view", value: failed, icon: FileCheck2, tone: "text-rose-700" }].map((card) => { const Icon = card.icon; return <div key={card.label} className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-[0_18px_55px_-38px_rgba(15,23,42,0.38)] dark:border-slate-800 dark:bg-slate-900"><div className="flex items-center justify-between"><span className={`grid h-9 w-9 place-items-center rounded-xl bg-slate-50 ${card.tone} dark:bg-slate-950`}><Icon size={17} aria-hidden="true" /></span>{card.label === "Documents in workspace" && <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-600">Live</span>}</div><p className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-slate-950 dark:text-white">{card.value === null ? "—" : card.value}</p><p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{card.label}</p></div>; })}
-      </div>
+    <section aria-labelledby="start-title">
+      <h2 id="start-title" className="text-lg font-semibold text-slate-950 dark:text-white">What would you like to do?</h2>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{actions.map(({ href, label, detail, icon: Icon }) => <Link key={href} href={href} className="group flex min-h-28 items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-teal-400 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-600/40 dark:border-slate-800 dark:bg-slate-900"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-teal-50 text-teal-900 dark:bg-teal-950 dark:text-teal-200"><Icon size={19} aria-hidden="true" /></span><span><span className="block text-sm font-semibold text-slate-950 dark:text-white">{label}</span><span className="mt-1 block text-xs leading-5 text-slate-500 dark:text-slate-400">{detail}</span></span><ArrowUpRight size={15} className="ml-auto shrink-0 text-slate-400 group-hover:text-teal-800" aria-hidden="true" /></Link>)}</div>
+    </section>
 
-      <Panel eyebrow="Continue where you left off" title="Recent documents" description="Open a document to inspect its immutable version, evidence, and available analyses." action={<Link href="/documents" className="inline-flex items-center gap-1 text-sm font-semibold text-teal-800 hover:text-teal-950 dark:text-teal-300">Open review queue <ArrowUpRight size={15} aria-hidden="true" /></Link>}>
-        {state === "empty" ? <EmptyState icon={FileText} title="No documents yet" description="Upload a document to create its first immutable version and start evidence collection." action={<Link href="/check"><Button variant="secondary"><UploadCloud size={16} aria-hidden="true" /> Upload your first document</Button></Link>} /> : <div className="divide-y divide-slate-100 dark:divide-slate-800">{documents.map((document) => <Link key={document.id} href={`/documents/${document.id}`} className="flex items-center justify-between gap-4 py-4 first:pt-0 last:pb-0 hover:bg-slate-50/70 dark:hover:bg-slate-800/30"><div className="min-w-0"><p className="truncate text-sm font-semibold text-slate-900 dark:text-white">{document.title || document.original_filename}</p><p className="mt-1 text-xs text-slate-500">{new Date(document.created_at).toLocaleDateString()} · {document.original_filename}</p></div><StatusBadge status={document.status} /></Link>)}</div>}
-      </Panel>
-
-      <div className="mt-6 grid gap-4 lg:grid-cols-2"><Panel eyebrow="Interpretation" title="Evidence before conclusion"><p className="text-sm leading-6 text-slate-600 dark:text-slate-300">AZAERON separates originality, similarity, AI-writing signals, authorship consistency, citation integrity, source quality, and provenance. A missing or unvalidated analysis remains visible as insufficient evidence.</p><Link href="/reports" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-teal-800 dark:text-teal-300">Open an analysis report <ArrowUpRight size={15} /></Link></Panel><Panel eyebrow="Responsible writing" title="Improve without hiding lineage"><p className="text-sm leading-6 text-slate-600 dark:text-slate-300">AZAERON Write is for better writing, not detector bypass. Every supported editorial suggestion keeps the original, revision, and reason together.</p><Link href="/write" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-teal-800 dark:text-teal-300">Open the change ledger <ArrowUpRight size={15} /></Link></Panel></div>
-    </>}
+    {state === "loading" ? <LoadingState label="Loading your recent work…" rows={3} /> : state === "permission" ? <ErrorState permission message="Your role cannot read documents in this workspace." onRetry={() => void loadData()} /> : state === "error" ? <ErrorState message={error} onRetry={() => void loadData()} /> : <div className="grid gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+      <section aria-labelledby="recent-documents" className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"><div className="flex items-center justify-between gap-3"><h2 id="recent-documents" className="text-base font-semibold">Recent documents</h2><Link href="/documents" className="text-xs font-semibold text-teal-800 dark:text-teal-300">View all</Link></div>{documents.length ? <ul className="mt-4 divide-y divide-slate-100 dark:divide-slate-800">{documents.map((document) => <li key={document.id} className="flex items-center gap-3 py-3"><FileText size={17} className="shrink-0 text-teal-800" aria-hidden="true" /><Link href={`/write?document=${document.id}`} className="min-w-0 flex-1 truncate text-sm font-medium hover:text-teal-800">{document.title || document.original_filename}</Link><StatusBadge status={document.status} /></li>)}</ul> : <div className="mt-4 rounded-xl border border-dashed border-slate-300 px-5 py-6 text-center dark:border-slate-700"><p className="text-sm font-semibold">No documents yet</p><p className="mt-2 text-xs text-slate-500">Create a draft or import a file to get started.</p><Link href="/check" className="mt-4 inline-block"><Button variant="secondary">Create document</Button></Link></div>}</section>
+      <div className="space-y-5"><section aria-labelledby="recent-reports" className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"><h2 id="recent-reports" className="text-base font-semibold">Recent reports</h2>{reports.length ? <ul className="mt-3 space-y-2">{reports.map((document) => <li key={document.id}><Link href={`/documents/${document.id}`} className="flex items-center gap-2 rounded-lg py-2 text-sm font-medium hover:text-teal-800"><FileCheck2 size={16} aria-hidden="true" /><span className="truncate">{document.title || document.original_filename}</span><ArrowUpRight size={14} className="ml-auto shrink-0" aria-hidden="true" /></Link></li>)}</ul> : <p className="mt-3 text-sm leading-6 text-slate-500">Reports appear here after a document finishes processing.</p>}</section><section aria-labelledby="recent-chats" className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"><h2 id="recent-chats" className="text-base font-semibold">Recent chats</h2><p className="mt-3 text-sm leading-6 text-slate-500">Chat history will appear when private AI is available. No conversations are recorded yet.</p></section></div>
+    </div>}
   </div>;
 }

@@ -55,7 +55,7 @@ test("similarity: real corpus, evidence, exclusions, pagination and immutable ve
   await expect.poll(async () => (await (await page.request.get(`/api/v1/documents/${target.id}`)).json()).status, { timeout: 60_000 }).toBe("completed");
   await page.goto(`/documents/${target.id}`);
   await page.getByRole("link", { name: "Review similarity" }).click();
-  await expect(page.getByRole("heading", { name: "Similarity review", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Review matching text", exact: true })).toBeVisible();
   await expect(page.getByTestId("similarity-percentage")).not.toHaveText("Unavailable");
   await expect(page.getByText("PRIVATE_WORKSPACE", { exact: true })).toBeVisible();
   await expect(page.getByText("PUBLIC_METADATA", { exact: true })).toBeVisible();

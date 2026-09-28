@@ -89,19 +89,19 @@ test("revoked recent membership falls back only after server validation", async 
   await expect(page.getByRole("combobox", { name: "Active workspace" })).toHaveValue(personal.id);
   expect(calls.selected.slice(0, 2)).toEqual([team.id, personal.id]);
   await expect(page.getByRole("option", { name: team.name })).toHaveCount(0);
-  await expect(page.getByText("Your library is empty")).toBeVisible();
+  await expect(page.getByText("Create your first document or import a file")).toBeVisible();
 });
 
 test("failed switching hides tenant data and offers a working retry", async ({ page }) => {
   await mockWorkspace(page, { failSwitch: true });
   await page.goto("/documents");
-  await expect(page.getByText("Your library is empty")).toBeVisible();
+  await expect(page.getByText("Create your first document or import a file")).toBeVisible();
   await page.getByRole("combobox", { name: "Active workspace" }).selectOption(team.id);
   await expect(page.getByText("Workspace service temporarily unavailable")).toBeVisible();
-  await expect(page.getByText("Your library is empty")).toHaveCount(0);
+  await expect(page.getByText("Create your first document or import a file")).toHaveCount(0);
   await page.getByRole("button", { name: /Retry|Try again/ }).click();
   await expect(page.getByRole("combobox", { name: "Active workspace" })).toHaveValue(personal.id);
-  await expect(page.getByText("Your library is empty")).toBeVisible();
+  await expect(page.getByText("Create your first document or import a file")).toBeVisible();
   await page.getByRole("combobox", { name: "Active workspace" }).selectOption(team.id);
   await expect(page.getByRole("combobox", { name: "Active workspace" })).toHaveValue(team.id);
   await page.reload();
@@ -114,4 +114,26 @@ test("cached workspace IDs cannot override the server's active membership", asyn
   await page.goto("/check");
   await expect(page.getByRole("combobox", { name: "Active workspace" })).toHaveValue(personal.id);
   expect(calls.selected).not.toContain("foreign-tenant");
+});
+
+test("focused workspace navigation exposes five products and honest empty states", async ({ page }) => {
+  await mockWorkspace(page);
+  await page.goto("/dashboard");
+  await expect(page.getByRole("heading", { name: "Write better. Check confidently. Understand your work." })).toBeVisible();
+  const navigation = page.getByRole("navigation", { name: "Workspace navigation" });
+  await expect(navigation.getByRole("link")).toHaveText([
+    "Home", "Azaeron AI", "AI Humaniser", "AI Detector", "Plagiarism Checker", "Documents", "History",
+  ]);
+  await expect(navigation.getByRole("link", { name: "Evidence graph" })).toHaveCount(0);
+  await navigation.getByRole("link", { name: "Azaeron AI" }).click();
+  await expect(page.getByText("Private AI is being prepared")).toBeVisible();
+  await expect(page.getByText(/will not be sent to an outside AI provider/)).toBeVisible();
+  await navigation.getByRole("link", { name: "AI Detector" }).click();
+  await expect(page.getByText("Paste text or choose a document to analyse")).toBeVisible();
+  await navigation.getByRole("link", { name: "Plagiarism Checker" }).click();
+  await expect(page.getByText("Upload or paste content to check for matching text")).toBeVisible();
+  await navigation.getByRole("link", { name: "History" }).click();
+  await expect(page.getByText("No history yet")).toBeVisible();
+  await page.goto("/write");
+  await expect(navigation.getByRole("link", { name: "Documents" })).toHaveAttribute("aria-current", "page");
 });

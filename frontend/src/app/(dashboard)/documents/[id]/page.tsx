@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useStore } from "@/lib/store";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import { ArrowUpRight, Download, FileCheck2, FileText, Info, SlidersHorizontal } from "lucide-react";
+import { ArrowUpRight, Download, FileText, Info, SlidersHorizontal } from "lucide-react";
 import { api, type AuthorshipSignal, type CitationAnalysis, type DetectionExplainability, type DetectionResult, type DocumentContent, type DocumentRecord, type EvidenceFirstReport, type EvidenceGraph, type ProvenanceTimeline, type SimilarityMatch } from "@/lib/api";
 import { Button, DegradedBanner, EmptyState, ErrorState, LoadingState, ModuleNav, Notice, PageHeader, Panel, StatusBadge, cn } from "@/components/design-system";
 
@@ -178,7 +178,7 @@ export default function DocumentEvidencePage() {
 
   return <div className="max-w-[1600px]">
     <DegradedBanner />
-    <PageHeader eyebrow="Review · evidence workspace" title={document?.title || document?.original_filename || "Document evidence"} description="Inspect the exact recorded spans, understand the statistical signal, and make a human decision without treating any signal as proof." action={<div className="flex flex-wrap gap-2"><Link href={`/reports?document=${params.id}&version=${versionId}`}><Button variant="secondary"><FileCheck2 size={16} aria-hidden="true" /> Full report</Button></Link><Link href={`/similarity?document=${params.id}&version=${report?.document_version_id || documentContent?.document_version_id || ""}`}><Button variant="secondary">Review similarity</Button></Link><Link href={`/write?document=${params.id}&version=${versionId}`}><Button variant="secondary">Improve with Write</Button></Link><Button variant="secondary" onClick={() => void handleDownload()} disabled={downloading}><Download size={16} aria-hidden="true" /> {downloading ? "Preparing…" : "Download"}</Button></div>} />
+    <PageHeader eyebrow="Review · evidence workspace" title={document?.title || document?.original_filename || "Document evidence"} description="Inspect the exact recorded spans, understand the statistical signal, and make a human decision without treating any signal as proof." action={<div className="flex flex-wrap gap-2"><Link href={`/plagiarism?document=${params.id}&version=${report?.document_version_id || documentContent?.document_version_id || ""}`}><Button variant="secondary">Review similarity</Button></Link><Link href={`/write?document=${params.id}&version=${versionId}`}><Button variant="secondary">Improve with Write</Button></Link><Button variant="secondary" onClick={() => void handleDownload()} disabled={downloading}><Download size={16} aria-hidden="true" /> {downloading ? "Preparing…" : "Download"}</Button></div>} />
     <ModuleNav documentId={params.id} versionId={versionId} />
     <label className="mb-5 block text-sm font-semibold">Document version<select aria-label="Document analysis version" value={versionId} onChange={(event) => router.replace(`/documents/${params.id}?version=${event.target.value}`, { scroll: false })} className="ml-3 rounded-lg border border-slate-300 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900">{provenanceTimeline?.versions.map((version) => <option key={version.id} value={version.id}>Version {version.version_number}</option>)}</select></label>
 

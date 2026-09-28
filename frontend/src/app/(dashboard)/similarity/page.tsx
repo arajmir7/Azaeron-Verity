@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { FileText, Search } from "lucide-react";
 import { api, type DocumentRecord, type ProvenanceTimeline, type SimilarityEvidence, type SimilarityWorkflow } from "@/lib/api";
 import { useStore } from "@/lib/store";
@@ -37,6 +37,7 @@ function EvidencePane({ match, source }: { match: SimilarityEvidence; source?: b
 
 export default function SimilarityPage() {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const queryString = searchParams.toString();
   const documentId = searchParams.get("document") || "";
@@ -102,7 +103,7 @@ export default function SimilarityPage() {
     }
     setLinkCopied(false);
     setPendingQuery({ base: queryString, next: params.toString() });
-    router.replace(`/similarity?${params.toString()}`, { scroll: false });
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
   async function run() {
@@ -114,7 +115,7 @@ export default function SimilarityPage() {
 
   async function copyLink() {
     const params = new URLSearchParams(queryString); params.set("version", versionId);
-    try { await navigator.clipboard.writeText(`${window.location.origin}/similarity?${params}`); setLinkCopied(true); }
+    try { await navigator.clipboard.writeText(`${window.location.origin}${pathname}?${params}`); setLinkCopied(true); }
     catch { setError("Copy the current address to share this view with an authorized workspace member."); }
   }
 
@@ -123,7 +124,7 @@ export default function SimilarityPage() {
   const exclusions = report?.exclusions;
 
   return <div className="mx-auto max-w-7xl">
-    <PageHeader eyebrow="Check · similarity evidence" title="Similarity review" description={context?.document.title || context?.document.original_filename || "Document similarity"} action={<Button variant="secondary" onClick={() => void copyLink()} disabled={!report}>{linkCopied ? "Review link copied" : "Copy review link"}</Button>} />
+    <PageHeader eyebrow="Plagiarism Checker" title="Review matching text" description={context?.document.title || context?.document.original_filename || "Compare with indexed workspace sources. A match alone does not establish plagiarism."} action={<Button variant="secondary" onClick={() => void copyLink()} disabled={!report}>{linkCopied ? "Review link copied" : "Copy review link"}</Button>} />
     <ModuleNav documentId={documentId} versionId={versionId} />
     {context && <div className="mb-5 flex flex-wrap items-center gap-4"><label className="text-sm font-semibold">Document version<select aria-label="Similarity document version" value={versionId} onChange={(event) => { setReport(null); update({ version: event.target.value, match: null, group: null, source_version_id: null, excluded_source_version_ids: null }); }} className="ml-3 rounded-lg border border-slate-300 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900">{context.timeline.versions.map((version) => <option key={version.id} value={version.id}>Version {version.version_number}</option>)}</select></label><span className="text-xs text-slate-500">{report?.analyzed_at ? `Analyzed ${new Date(report.analyzed_at).toLocaleString()}` : "No completed similarity snapshot"}</span></div>}
     {error && <div className="mb-5"><ErrorState message={error} onRetry={() => setRefresh((value) => value + 1)} /></div>}

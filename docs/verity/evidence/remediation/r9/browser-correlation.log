@@ -1,0 +1,30 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/observability-live.spec.ts --workers=1
+
+
+Running 1 test using 1 worker
+
+(node:78270) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [chromium] › tests/observability-live.spec.ts:7:5 › browser upload correlates API, database, storage and worker without customer text
+  1) [chromium] › tests/observability-live.spec.ts:7:5 › browser upload correlates API, database, storage and worker without customer text 
+
+    TypeError: Cannot read properties of undefined (reading 'tags')
+
+      39 |   expect(raw).not.toContain("db.statement");
+      40 |   const api = spans.find(s => s.operationName === "POST /api/v1/documents/upload-confirm")!;
+    > 41 |   expect(api.tags.some(t => t.key === "request.id" && t.value === requestId)).toBeTruthy();
+         |              ^
+      42 |   const consumer = spans.find(s => s.operationName === "celery.process_document" && s.tags.some(t => t.key === "request.id" && t.value === requestId))!;
+      43 |   expect(consumer).toBeTruthy();
+      44 |   expect(consumer.references.some(r => r.spanID === api.spanID)).toBeTruthy();
+        at /Users/ajmiraribam/Projects/azaeron_verity/frontend/tests/observability-live.spec.ts:41:14
+
+    Error Context: test-results/observability-live-browser-98bd1-orker-without-customer-text-chromium/error-context.md
+
+
+  1 failed
+    [chromium] › tests/observability-live.spec.ts:7:5 › browser upload correlates API, database, storage and worker without customer text 

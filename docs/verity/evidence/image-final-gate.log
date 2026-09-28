@@ -1,0 +1,4 @@
+azaeron-verity-cert-runtime:latest: vulnerabilities → FAIL
+azaeron-verity-cert-runtime:latest: sbom → PASS
+azaeron-verity-cert-frontend:latest: vulnerabilities → PASS
+azaeron-verity-cert-frontend:latest: sbom → PASS

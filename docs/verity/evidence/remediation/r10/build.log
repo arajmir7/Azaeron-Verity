@@ -1,0 +1,83 @@
+ Image azaeron-verity-r10-runtime:latest Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.07kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.50kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#3 ...
+
+#4 [internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#4 DONE 2.9s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#3 DONE 6.4s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 105B done
+#5 DONE 0.0s
+
+#6 [runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#6 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 0.0s done
+#6 DONE 0.0s
+
+#7 [runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#7 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 137.14kB 0.0s done
+#8 DONE 0.1s
+
+#9 [runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#9 CACHED
+
+#10 [assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#10 CACHED
+
+#11 [runtime-base 2/4] WORKDIR /app
+#11 CACHED
+
+#12 [runtime-base 3/4] COPY requirements.lock ./
+#12 CACHED
+
+#13 [assemble 1/3] COPY --from=runtime-os / /base/
+#13 CACHED
+
+#14 [runtime 1/6] WORKDIR /app
+#14 CACHED
+
+#15 [assemble 3/3] RUN python /assemble_runtime.py
+#15 CACHED
+
+#16 [runtime 2/6] COPY --from=assemble /runtime-root/ /
+#16 CACHED
+
+#17 [runtime 3/6] COPY --chown=65532:65532 app ./app
+#17 DONE 0.1s
+
+#18 [runtime 4/6] COPY --chown=65532:65532 alembic ./alembic
+#18 DONE 0.0s
+
+#19 [runtime 5/6] COPY --chown=65532:65532 migration_snapshots ./migration_snapshots
+#19 DONE 0.0s
+
+#20 [runtime 6/6] COPY --chown=65532:65532 alembic.ini ./
+#20 DONE 0.0s
+
+#21 exporting to image
+#21 exporting layers 0.1s done
+#21 exporting manifest sha256:2845748173f85a33e3f5d8c43e7bf0bdcd5eb9a1da4dfd52094c5e630b026330 done
+#21 exporting config sha256:7e94cb8e7ebe49a7940fb29a2fb8ebc7be95cd0ad0c259fe727d32f7f6f42006 done
+#21 exporting attestation manifest sha256:82efc4c888b48b794abb2e7a3a3928207ee2f339d4fe73ef39a095d6a8d43440 done
+#21 exporting manifest list sha256:3c8dbf917deea1f9a41609691909582bdeeb05435b8d7c6c684f3560d4997e2e done
+#21 naming to docker.io/library/azaeron-verity-r10-runtime:latest done
+#21 unpacking to docker.io/library/azaeron-verity-r10-runtime:latest 0.1s done
+#21 DONE 0.2s
+
+#22 resolving provenance for metadata file
+#22 DONE 0.0s
+ Image azaeron-verity-r10-runtime:latest Built 

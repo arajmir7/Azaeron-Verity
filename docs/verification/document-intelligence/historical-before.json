@@ -1,0 +1,50 @@
+{
+  "processed_documents": {
+    "count": 114,
+    "digest": "6e3bab1ec014ce0b1b21e014acdfe9d9"
+  },
+  "document_versions": {
+    "count": 114,
+    "digest": "49b084a386bc00b36b2c30d3ce59864c"
+  },
+  "jobs": {
+    "count": 115,
+    "digest": "eb4a94e5836012fb006202dec9d6d695"
+  },
+  "detection_results": {
+    "count": 114,
+    "digest": "0244d517e877478e7cbee358e67d90dc"
+  },
+  "detection_segments": {
+    "count": 5041,
+    "digest": "70e5616704e4975676556e15dc295f39"
+  },
+  "evidence_nodes": {
+    "count": 38646,
+    "digest": "e79259c9948251c3c057cef483586f1d"
+  },
+  "evidence_edges": {
+    "count": 76684,
+    "digest": "317fa11653893cd6798cd439567863aa"
+  },
+  "citation_sources": {
+    "count": 0,
+    "digest": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "citation_findings": {
+    "count": 9899,
+    "digest": "e7e8a7873ce50d0ed52cb804c4e3f2f6"
+  },
+  "similarity_matches": {
+    "count": 8900,
+    "digest": "a3456a45b312fd60e588026c9c5b9796"
+  },
+  "authorship_signals": {
+    "count": 109,
+    "digest": "3108158fa3fd2230e3009f8f33ca7c14"
+  },
+  "analysis_runs": {
+    "count": 112,
+    "digest": "9c469956a21c65c0f04acfb1e8557cba"
+  }
+}

@@ -1,0 +1,7 @@
+ Container azaeron-verity-cert-verification-run-98a8e48addf9 Creating 
+ Container azaeron-verity-cert-verification-run-98a8e48addf9 Created 
+reformatted tests/test_worker_redelivery.py
+reformatted tests/integration/test_postgres_rls.py
+
+All done! ✨ 🍰 ✨
+2 files reformatted.

@@ -1,0 +1,13 @@
+
+> azaeron-frontend@1.0.0 lint
+> eslint .
+
+
+/Users/ajmiraribam/Projects/azaeron_verity/frontend/src/components/error-recovery.tsx
+  17:10  error  Do not use an `<a>` element to navigate to `/documents/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+/Users/ajmiraribam/Projects/azaeron_verity/frontend/tests/onboarding-live.spec.ts
+  1:10  warning  'postWithRetryAfter' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 2 problems (1 error, 1 warning)
+

@@ -1,0 +1,222 @@
+{
+  "ARCHITECTURE.md": {
+    "before": null,
+    "after": "c047f33c9c2752aeaba2be493d543277febb2e23f58e625f8abfe9bf62400d67",
+    "status": "modified"
+  },
+  "backend/alembic/versions/20260913_0024_document_intelligence.py": {
+    "before": null,
+    "after": "d2a0fca6af69d89ecb5b58bd0046888611d8cf1811a1a2e1003a1c9efe8eddcd",
+    "status": "added"
+  },
+  "backend/app/api/v1/aegiswrite.py": {
+    "before": "5025d0a5c94670a2e1b323a6e422462d4653342a59f8783e8affbee864da317d",
+    "after": "ffa5f274dd07c24ffa844b576ae9cf6f67b95bd533b2b79d25e8d308e51e48b4",
+    "status": "modified"
+  },
+  "backend/app/api/v1/authorship.py": {
+    "before": "359091e6d01da7c1d2116ba86630563345ce85ead60392d2354d3ff1fe25805c",
+    "after": "7969a89cd6f97be7afab5896a656ec86e90691c7691cfd4ffb72294a90eb0ac4",
+    "status": "modified"
+  },
+  "backend/app/api/v1/citations.py": {
+    "before": "0981302dd52241979af83a2928409441c9874a954099b499519eecbbf9a857aa",
+    "after": "f02147f76a4ad1fcdc49a584a80722dc13b6ec84f644980fa76b45821a2e6a88",
+    "status": "modified"
+  },
+  "backend/app/api/v1/detection.py": {
+    "before": "b2142f9f36af715523e141517c04854db9e02a1d37af44329c1867e2cc65f4d9",
+    "after": "f71c7f67f4902cd31ba2484e35f15f70a38fd0cc1574aca4cea0a64ca4d29f20",
+    "status": "modified"
+  },
+  "backend/app/api/v1/documents.py": {
+    "before": "5ee40b947907f949887e23ecb9ad71854972a35743bbc0ccd5c6e7008f190a37",
+    "after": "37550e5a6cfff4f548a72c6aa6b44258f3b6659b9c3ab000105a58d5131310c1",
+    "status": "modified"
+  },
+  "backend/app/modules/aegiswrite/service.py": {
+    "before": "2a0fea76355b92036be2f67a247a1e2ed8200c9bb43e14d5c499dd7cec5966e0",
+    "after": "48ac58de0efd934d3fa4d517931bfc80d63cef2d9e957664c034c396fb24f7e6",
+    "status": "modified"
+  },
+  "backend/app/modules/authorship/intelligence.py": {
+    "before": "e4a0a4558ee624f056fc3c1ab2e67c76964070707e20df674d28798748e0b8b3",
+    "after": "c5f962e3c4b3d2265ca694ebe300f50b1e0c32ffc508c212909247e176f71aeb",
+    "status": "modified"
+  },
+  "backend/app/modules/authorship/service.py": {
+    "before": "043e236ec8ef68ad1b39719822e42fb0224b347c51c57b6e1c4c8c687a6059de",
+    "after": "fa561646934df30454af7fe6bb4d0b72b2e25e68e747421bb7c1de9eaa4356ed",
+    "status": "modified"
+  },
+  "backend/app/modules/citations/models.py": {
+    "before": "f855d05904060601fdc3f30063ec94bfd3596c7e13f044ac699b5f49a5dea493",
+    "after": "c44429de65b5ef9cd4c9cfb6fcaad1226fdc7be7b4ba52c2ab2bf302e7d95613",
+    "status": "modified"
+  },
+  "backend/app/modules/citations/schemas.py": {
+    "before": "2611f866f33dbaedd24afab91911f039d799d89b97a3b3f68be36286b9ae7d8d",
+    "after": "15bcc84382fb77bf340df58f4f6fbdbb4ed5beb34ac9ac34def806f671aee883",
+    "status": "modified"
+  },
+  "backend/app/modules/citations/service.py": {
+    "before": "58ca38d213fe4b320ae639a7b4c25e55b06a152f22d6457e49ddffa1b4c7e262",
+    "after": "2a671be5b258ff5ee9de030217b2adcf37de7cfaa242be2b10f7de0dab0d0e2f",
+    "status": "modified"
+  },
+  "backend/app/modules/detection/models.py": {
+    "before": "52536bbdc1d9ffba6d836119be117e20e81ecab150a145b17286893b71677542",
+    "after": "ba6d27ad6b74e3e8f7585b7338344f0fd584f1d8d98640f6b3c9e10360c40aef",
+    "status": "modified"
+  },
+  "backend/app/modules/detection/schemas.py": {
+    "before": "e2e21a7ab9191e2a1443658604beda0f0d4477cd5be8c910d916e2bb6c3ad747",
+    "after": "d7851faf44160ffc6b803743f8667cddc5b57f87eb78a79579874df2f8157bdc",
+    "status": "modified"
+  },
+  "backend/app/modules/detection/service.py": {
+    "before": "53a6adcd8e804b75d2ed1ef9f0f54c71356535e069973f1e4ee88b8184e79558",
+    "after": "50dce323a4f70f7a1434401f63e981f24865709c38521d84b305db8f0a1898bb",
+    "status": "modified"
+  },
+  "backend/app/modules/documents/schemas.py": {
+    "before": "09c7d35b679f89c8b49ab505035662d30886b2472ac0aff90b616cd92febd47f",
+    "after": "c61cf68e1cd29c850739a8356c594c1d414801ba9f3c7df1c76efc16ca5e47ff",
+    "status": "modified"
+  },
+  "backend/app/modules/documents/service.py": {
+    "before": "0ba678fb3cdbba7147a154b4c20efb47ace0ee31971a5d097e9c1e887b6b65ae",
+    "after": "a9cfb1d8b9e632dc3bb53f42ee165cb7b1508704fb7a2b934d2fe306352a63d8",
+    "status": "modified"
+  },
+  "backend/app/modules/documents/target.py": {
+    "before": null,
+    "after": "1a733f978027a64c9dcc0c8a4812967342519a8adcee82ea4bfb680b9e61df0f",
+    "status": "added"
+  },
+  "backend/app/modules/evidence/models.py": {
+    "before": "4a43e584fbd7ce67536bdf6bf2c92f2053b1269da089862027b560c92b10d72c",
+    "after": "4d9f12c41f8d6f82ae0e9e1bb1dd5aeff5a7526b567ea5b10ff409585e3fad66",
+    "status": "modified"
+  },
+  "backend/app/modules/evidence/schemas.py": {
+    "before": "9480918c7063f579da26862f8653c30c24fc7d3b22fea6c33a42ad0e53122a16",
+    "after": "a44fabca6891d7e63b81ffe5edcf64db0c004249d65c82685f1337eb71605d3d",
+    "status": "modified"
+  },
+  "backend/app/modules/evidence/service.py": {
+    "before": "b118aa73047c92a17ff052fbdfdc3b93f600d17fa3f27dbca0e5e07d8684133c",
+    "after": "b4bd1fa27c3776c2058b39282b76981933811adf08a34abeaf15f557fffe35fb",
+    "status": "modified"
+  },
+  "backend/app/modules/jobs/models.py": {
+    "before": "fe00098a066fbf3db0b4036d25b868f36fe958800006ef664ea652b0ab79ba0c",
+    "after": "e8954364ff2311665e126c7c4256d95b760276f3307f5e6d7aa0d95efaf273e7",
+    "status": "modified"
+  },
+  "backend/app/modules/jobs/schemas.py": {
+    "before": "f63842b402f0754dd056e9451f54350e70de26b97433c7e2044b69badcfb5279",
+    "after": "0f84ecf6d4d3ef786746eecf9f3f2597b0a9d60e5c04f061c37ead3c2c481dc5",
+    "status": "modified"
+  },
+  "backend/app/modules/jobs/service.py": {
+    "before": "b65b21e294114cc20fc8bde5fe2a1707f0c92fd57705ec76b3d7c358356e5736",
+    "after": "eeca2413b4d3f021c98ae4b5375cd0c0ba701a0ec1740d5b7ac69b67b552c9db",
+    "status": "modified"
+  },
+  "backend/app/modules/processing/extraction.py": {
+    "before": null,
+    "after": "2cb5af9fd50d8382607029a1557073c3894ceac82b687d533d85f37f393794e8",
+    "status": "added"
+  },
+  "backend/app/modules/processing/models.py": {
+    "before": "fdd1e6a4b293faa1a2262a0cc627e7f481c4d5c6cb7680cfc567320e924e8d08",
+    "after": "4eaf6d80b7a2136275139bc12aab896e55c710181b34cb27eeb4c2ea1de24daa",
+    "status": "modified"
+  },
+  "backend/app/modules/processing/service.py": {
+    "before": "5949545c844092974df95a7d667ba413527982e6136ee44e416bb7d34cf2580e",
+    "after": "c5f5744cb1cc7e5c336bb60adf7db4faa419fffa3dfc155774a53525f06e87bd",
+    "status": "modified"
+  },
+  "backend/app/modules/processing/structure.py": {
+    "before": null,
+    "after": "b0128ad9378c7454bfb8cd373b89e045236b2597ec1b85b152daf7702267725e",
+    "status": "added"
+  },
+  "backend/app/modules/similarity/report.py": {
+    "before": "324ef23d9c5331848eb2904bba2df14e86ec48f5a1e8afec775372c15bb525d4",
+    "after": "d06fbcb27d6ee1e6e6a5e2c88c79585bc420e19377dbd5a3a4aba1158165b681",
+    "status": "modified"
+  },
+  "backend/app/modules/similarity/service.py": {
+    "before": "3e3cf8c36ec1fa5cca37eded4b61db3149df8f526d2174a68438e22e7c23ba9f",
+    "after": "e83d22130b25edf16af76bbda1b0bf947787d186b83b7f55185e3ba209323db3",
+    "status": "modified"
+  },
+  "backend/app/workers/tasks.py": {
+    "before": "9a66e3327280d7b580561ed7bfd9af62db7ab355a46cfa7afc1e8086f618770e",
+    "after": "811b3b31906d5523337a9893eabee9174a4935bfe273de0f8ed59b90e3809262",
+    "status": "modified"
+  },
+  "backend/docs/document-intelligence-core.md": {
+    "before": null,
+    "after": "f5db1cc809d8c514c5bb4f0d59e06ab280accffb673391ddaaba32029e6cff09",
+    "status": "added"
+  },
+  "backend/tests/integration/test_postgres_rls.py": {
+    "before": "53be22d8066a234ff39a2d04a69b5130394d0eb0327edf7b37c1adab49195119",
+    "after": "3060cc1eec511ed7cc1108485735b8ae7269100e968eee952332d0e62504bf7d",
+    "status": "modified"
+  },
+  "backend/tests/security/test_tenant_authorization.py": {
+    "before": "dbe72fdfd204a829f8505225154c13c50d1d3e8e564397b76c8a1b20a8ff5967",
+    "after": "fa40c4e4e7c57a0ff803481053f51929f7c23f5742893e000a4e833f42c0c7e0",
+    "status": "modified"
+  },
+  "backend/tests/test_document_intelligence.py": {
+    "before": null,
+    "after": "d963ff5805b58335745efd5e58666c375e43b0ead8d44f7728ab78edae3be7b3",
+    "status": "added"
+  },
+  "backend/tests/test_failure_gate.py": {
+    "before": "e08e1d91617ee436410467be7fa7e308defa564994da530650adc65343beabac",
+    "after": "c02f99b85bfcc4c8e084f98f6f0673c35134647a621f954421fa0f1b83255a93",
+    "status": "modified"
+  },
+  "frontend/src/app/(dashboard)/documents/[id]/page.tsx": {
+    "before": "f8cdea8efabb0be8a3bba1d817454db7d84ab569eda718fe898ced25de681d4e",
+    "after": "9d1c53c6f83f3b8cbb30210a1f94b771fab49bf443fcf65419731d774250a15d",
+    "status": "modified"
+  },
+  "frontend/src/app/(dashboard)/similarity/page.tsx": {
+    "before": "4f05724a38e885b7fb14db2ffe2642891a1b83f6e17316575d6bfc02030664a6",
+    "after": "f5ab264f6b011a7b9a7ed29d4d77fe4303d15820806f49ef20dded4c73b64504",
+    "status": "modified"
+  },
+  "frontend/src/app/(dashboard)/write/page.tsx": {
+    "before": "14e57f13ac01866d6819ef21fc9613342ccdc3606690b2a396fdef9ac92f0e87",
+    "after": "389349b85fd6637e58a461fd990f7ed408f943ce59f89ee196b9a50e09720d4f",
+    "status": "modified"
+  },
+  "frontend/src/components/design-system.tsx": {
+    "before": "122ab2a99b5df82a6561266768d3ba6463036c3bc84b9773ae1e706a547f155b",
+    "after": "df8d1f313bafb15cd58c0c3712d5e06666ad4a1fb158fa2925a6d5a7883e6a6f",
+    "status": "modified"
+  },
+  "frontend/src/components/module-page.tsx": {
+    "before": "688d28f82913a890c9f6f3ad0720a9ea23b3e483a3173fb42489ee4483dd076c",
+    "after": "4856e396054c6fd16c8e9c8a609cc2d48ae2f661c260828d8e1e6339a9586dd0",
+    "status": "modified"
+  },
+  "frontend/src/lib/api.ts": {
+    "before": "9441fc80c743cd5d2a1d4425da56cf77d060c3784fa9ddc3da815c6bf7ee567d",
+    "after": "cac92ca4d1b372e87c714eab79049db125ee9f395beac500099dbd295c09b2d8",
+    "status": "modified"
+  },
+  "frontend/tests/document-intelligence-live.spec.ts": {
+    "before": null,
+    "after": "56393fa6b788f31b19eb5f1cbcd7edaa390e8bc9d7066d1faf8ee3782e2a30c3",
+    "status": "added"
+  }
+}

@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 818, in <module>
+    {
+    ~
+    ...<4 lines>...
+        "replay": replay,
+        ~~~~~~~~~~~~~~~~~
+    }[phase]()
+    ~~~~~~~~^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 721, in replay
+    response = target_store.get_object(BUCKET, key)
+  File "/opt/anaconda3/lib/python3.13/site-packages/minio/api.py", line 1257, in get_object
+    return self._execute(
+           ~~~~~~~~~~~~~^
+        "GET",
+        ^^^^^^
+    ...<4 lines>...
+        preload_content=False,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/anaconda3/lib/python3.13/site-packages/minio/api.py", line 444, in _execute
+    return self._url_open(
+           ~~~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<7 lines>...
+        no_body_trace=no_body_trace,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/anaconda3/lib/python3.13/site-packages/minio/api.py", line 427, in _url_open
+    raise response_error
+minio.error.S3Error: S3 operation failed; code: NoSuchKey, message: The specified key does not exist., resource: /azaeron-documents/tests/c7e85f44-a877-4da4-b395-9accf359d8b6.txt, request_id: 18D885D79ABFC655, host_id: dd9025bab4ad464b049177c95eb6ebf374d3b3fd1af9251148b658df7ac2e3e8, bucket_name: azaeron-documents, object_name: tests/c7e85f44-a877-4da4-b395-9accf359d8b6.txt

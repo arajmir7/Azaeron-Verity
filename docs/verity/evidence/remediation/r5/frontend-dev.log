@@ -1,0 +1,18 @@
+
+> azaeron-frontend@1.0.0 dev
+> node ./node_modules/next/dist/bin/next dev --port 4701
+
+▲ Next.js 16.3.3 (Turbopack)
+- Local:         http://localhost:4701
+- Network:       http://10.201.133.99:4701
+✓ Ready in 254ms
+✓ Running next.config.ts took 90ms
+Creating turbopack project {
+  dir: '/Users/ajmiraribam/Projects/azaeron_humanize/frontend',
+  testMode: true
+}
+
+✓ Generated AGENTS.md and CLAUDE.md for AI agents. Set `agentRules: false` in next.config to disable.
+ GET /settings?tab=security 200 in 1168ms (next.js: 1094ms, application-code: 74ms)
+ GET /settings?tab=security 200 in 15ms (next.js: 1.2ms, application-code: 13ms)
+[?25h

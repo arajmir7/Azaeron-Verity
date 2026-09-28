@@ -1,0 +1,375 @@
+ Container azaeron-verity-cert-backend-run-27846d27a671 Creating 
+ Container azaeron-verity-cert-backend-run-27846d27a671 Created 
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:208: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-8.3.0, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: anyio-4.14.2, Faker-30.0.0, asyncio-0.24.0
+asyncio: mode=Mode.AUTO, default_loop_scope=None
+collected 158 items
+
+tests/security/test_document_mutation_authorization.py ..                [  1%]
+tests/security/test_failure_privacy.py ..                                [  2%]
+tests/security/test_readonly_permissions.py FF                           [  3%]
+tests/security/test_security_gate.py ...                                 [  5%]
+tests/security/test_session_boundary.py ....FF.....                      [ 12%]
+tests/security/test_tenant_authorization.py ..                           [ 13%]
+tests/security/test_upload_validation.py ...                             [ 15%]
+tests/security/test_zero_external_ai.py .........                        [ 21%]
+tests/test_aegiswrite.py ....                                            [ 24%]
+tests/test_auth.py ......F.F                                             [ 29%]
+tests/test_authorship_consistency.py ...                                 [ 31%]
+tests/test_capability_contract.py ..                                     [ 32%]
+tests/test_citation_intelligence.py ..                                   [ 34%]
+tests/test_detector_intelligence.py .......                              [ 38%]
+tests/test_document_intelligence.py .........                            [ 44%]
+tests/test_evidence_graph.py ..                                          [ 45%]
+tests/test_evidence_report.py ...                                        [ 47%]
+tests/test_failure_gate.py ....F.                                        [ 51%]
+tests/test_governance.py ...                                             [ 53%]
+tests/test_lineage_contract.py ...................                       [ 65%]
+tests/test_operations.py ....                                            [ 67%]
+tests/test_organization_state_contract.py ..                             [ 68%]
+tests/test_provenance.py ..                                              [ 70%]
+tests/test_refine_invariants.py ................                         [ 80%]
+tests/test_similarity_engine.py .....                                    [ 83%]
+tests/test_similarity_workflow.py .......                                [ 87%]
+tests/test_storage_urls.py .                                             [ 88%]
+tests/test_validation_gate.py ......                                     [ 92%]
+tests/test_workspace_onboarding.py FFFFFFFFFFFF                          [100%]
+
+=================================== FAILURES ===================================
+__ test_readonly_members_cannot_mutate_documents_jobs_or_refinement[auditor] ___
+tests/security/test_readonly_permissions.py:25: in test_readonly_members_cannot_mutate_documents_jobs_or_refinement
+    org_id = org.json()["id"]
+E   KeyError: 'id'
+----------------------------- Captured stdout call -----------------------------
+{"user_id": "ac70e474-429e-45fc-9aa6-9213c4621ef1", "email": "writer@example.com", "event": "user_registered", "request_id": "d4c69bd0-2f04-4096-9184-8b807ab3eb6c", "correlation_id": "d4c69bd0-2f04-4096-9184-8b807ab3eb6c", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:19.167616Z"}
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+HTTP Request: POST http://test/api/v1/organizations "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     app.modules.auth.service:service.py:56 {"user_id": "ac70e474-429e-45fc-9aa6-9213c4621ef1", "email": "writer@example.com", "event": "user_registered", "request_id": "d4c69bd0-2f04-4096-9184-8b807ab3eb6c", "correlation_id": "d4c69bd0-2f04-4096-9184-8b807ab3eb6c", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:19.167616Z"}
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/organizations "HTTP/1.1 403 Forbidden"
+__ test_readonly_members_cannot_mutate_documents_jobs_or_refinement[reviewer] __
+tests/security/test_readonly_permissions.py:25: in test_readonly_members_cannot_mutate_documents_jobs_or_refinement
+    org_id = org.json()["id"]
+E   KeyError: 'id'
+----------------------------- Captured stdout call -----------------------------
+{"user_id": "a44109c7-189f-4cb9-8a2a-cb062960dda1", "email": "writer@example.com", "event": "user_registered", "request_id": "2e22b6a5-44ad-468a-85c4-4474f3eebbc5", "correlation_id": "2e22b6a5-44ad-468a-85c4-4474f3eebbc5", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:19.957250Z"}
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+HTTP Request: POST http://test/api/v1/organizations "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     app.modules.auth.service:service.py:56 {"user_id": "a44109c7-189f-4cb9-8a2a-cb062960dda1", "email": "writer@example.com", "event": "user_registered", "request_id": "2e22b6a5-44ad-468a-85c4-4474f3eebbc5", "correlation_id": "2e22b6a5-44ad-468a-85c4-4474f3eebbc5", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:19.957250Z"}
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/organizations "HTTP/1.1 403 Forbidden"
+_________ test_logout_revokes_copied_access_token_and_allows_new_login _________
+tests/security/test_session_boundary.py:40: in test_logout_revokes_copied_access_token_and_allows_new_login
+    assert (
+E   assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+{"user_id": "006b2913-42f3-474d-b1ac-bbe161b5d870", "email": "boundary@example.com", "event": "user_registered", "request_id": "3ecefc6c-6fd9-4d07-9f9f-c9fa2d7c07f7", "correlation_id": "3ecefc6c-6fd9-4d07-9f9f-c9fa2d7c07f7", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:25.354282Z"}
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+HTTP Request: POST http://test/api/v1/auth/logout "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     app.modules.auth.service:service.py:56 {"user_id": "006b2913-42f3-474d-b1ac-bbe161b5d870", "email": "boundary@example.com", "event": "user_registered", "request_id": "3ecefc6c-6fd9-4d07-9f9f-c9fa2d7c07f7", "correlation_id": "3ecefc6c-6fd9-4d07-9f9f-c9fa2d7c07f7", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:25.354282Z"}
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/logout "HTTP/1.1 403 Forbidden"
+_______________ test_password_change_revokes_copied_access_token _______________
+tests/security/test_session_boundary.py:80: in test_password_change_revokes_copied_access_token
+    assert response.status_code == 200
+E   assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+{"user_id": "886ec5a9-3fb0-4db5-9c51-0d752b664641", "email": "boundary@example.com", "event": "user_registered", "request_id": "dcf163a6-26c0-43e9-b687-0d62129c6c8c", "correlation_id": "dcf163a6-26c0-43e9-b687-0d62129c6c8c", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:26.183255Z"}
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+HTTP Request: POST http://test/api/v1/auth/change-password "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     app.modules.auth.service:service.py:56 {"user_id": "886ec5a9-3fb0-4db5-9c51-0d752b664641", "email": "boundary@example.com", "event": "user_registered", "request_id": "dcf163a6-26c0-43e9-b687-0d62129c6c8c", "correlation_id": "dcf163a6-26c0-43e9-b687-0d62129c6c8c", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:26.183255Z"}
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/change-password "HTTP/1.1 403 Forbidden"
+______________ TestAuth.test_refresh_token_rotation_rejects_reuse ______________
+tests/test_auth.py:61: in test_refresh_token_rotation_rejects_reuse
+    assert first.status_code == 200
+E   assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+{"user_id": "4ee8bea0-5716-41ce-af4c-1071902d195a", "email": "rotate@example.com", "event": "user_registered", "request_id": "23405475-e60e-4053-93a5-700ebff93a9d", "correlation_id": "23405475-e60e-4053-93a5-700ebff93a9d", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:34.389413Z"}
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+HTTP Request: POST http://test/api/v1/auth/refresh "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     app.modules.auth.service:service.py:56 {"user_id": "4ee8bea0-5716-41ce-af4c-1071902d195a", "email": "rotate@example.com", "event": "user_registered", "request_id": "23405475-e60e-4053-93a5-700ebff93a9d", "correlation_id": "23405475-e60e-4053-93a5-700ebff93a9d", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:34.389413Z"}
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/refresh "HTTP/1.1 403 Forbidden"
+_______ TestAuth.test_signed_but_unregistered_refresh_token_is_rejected ________
+tests/test_auth.py:80: in test_signed_but_unregistered_refresh_token_is_rejected
+    assert response.status_code == 401
+E   assert 403 == 401
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/refresh "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/refresh "HTTP/1.1 403 Forbidden"
+_____________________ test_logout_revokes_refresh_session ______________________
+tests/test_failure_gate.py:69: in test_logout_revokes_refresh_session
+    assert logout.status_code == 200
+E   assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+{"user_id": "24afef65-8b77-4110-a5ae-1ce95936011c", "email": "failure-session@example.com", "event": "user_registered", "request_id": "1efbe14a-74a9-4918-865b-feece62880cf", "correlation_id": "1efbe14a-74a9-4918-865b-feece62880cf", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:43.961165Z"}
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+HTTP Request: POST http://test/api/v1/auth/logout "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     app.modules.auth.service:service.py:56 {"user_id": "24afef65-8b77-4110-a5ae-1ce95936011c", "email": "failure-session@example.com", "event": "user_registered", "request_id": "1efbe14a-74a9-4918-865b-feece62880cf", "correlation_id": "1efbe14a-74a9-4918-865b-feece62880cf", "logger": "app.modules.auth.service", "level": "info", "timestamp": "2026-09-19T17:41:43.961165Z"}
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 201 Created"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/login "HTTP/1.1 200 OK"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/logout "HTTP/1.1 403 Forbidden"
+__ test_onboarding_creates_and_selects_one_personal_workspace[student-/check] __
+tests/test_workspace_onboarding.py:32: in test_onboarding_creates_and_selects_one_personal_workspace
+    await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+_ test_onboarding_creates_and_selects_one_personal_workspace[teacher-/documents] _
+tests/test_workspace_onboarding.py:32: in test_onboarding_creates_and_selects_one_personal_workspace
+    await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+_ test_onboarding_creates_and_selects_one_personal_workspace[professor-/documents] _
+tests/test_workspace_onboarding.py:32: in test_onboarding_creates_and_selects_one_personal_workspace
+    await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+_ test_onboarding_creates_and_selects_one_personal_workspace[researcher-/citations] _
+tests/test_workspace_onboarding.py:32: in test_onboarding_creates_and_selects_one_personal_workspace
+    await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+_ test_onboarding_creates_and_selects_one_personal_workspace[reviewer-/documents] _
+tests/test_workspace_onboarding.py:32: in test_onboarding_creates_and_selects_one_personal_workspace
+    await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+_ test_onboarding_creates_and_selects_one_personal_workspace[institution-/documents] _
+tests/test_workspace_onboarding.py:32: in test_onboarding_creates_and_selects_one_personal_workspace
+    await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+_____ test_onboarding_and_workspace_creation_cannot_set_plan_or_admin_role _____
+tests/test_workspace_onboarding.py:51: in test_onboarding_and_workspace_creation_cannot_set_plan_or_admin_role
+    await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/onboarding "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/onboarding "HTTP/1.1 401 Unauthorized"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+_______ test_refresh_and_login_preserve_workspace_but_recheck_revocation _______
+tests/test_workspace_onboarding.py:58: in test_refresh_and_login_preserve_workspace_but_recheck_revocation
+    user = await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+___ test_invitation_is_email_bound_idempotent_and_cannot_restore_revocation ____
+tests/test_workspace_onboarding.py:82: in test_invitation_is_email_bound_idempotent_and_cannot_restore_revocation
+    await register_login(client, "inviter@example.com")
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+___________________ test_invalid_and_expired_invitation_fail ___________________
+tests/test_workspace_onboarding.py:104: in test_invalid_and_expired_invitation_fail
+    await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+____ test_entitlements_are_server_owned_and_expired_plans_fall_back_to_free ____
+tests/test_workspace_onboarding.py:115: in test_entitlements_are_server_owned_and_expired_plans_fall_back_to_free
+    await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+______________ test_document_and_write_quotas_enforced_by_service ______________
+tests/test_workspace_onboarding.py:138: in test_document_and_write_quotas_enforced_by_service
+    user = await register_login(client)
+tests/test_workspace_onboarding.py:20: in register_login
+    assert response.status_code == 201, response.text
+E   AssertionError: {"detail":"Cross-origin cookie request rejected"}
+E   assert 403 == 201
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/auth/register "HTTP/1.1 403 Forbidden"
+=============================== warnings summary ===============================
+../usr/local/lib/python3.12/site-packages/starlette/formparsers.py:12
+  /usr/local/lib/python3.12/site-packages/starlette/formparsers.py:12: PendingDeprecationWarning: Please use `import python_multipart` instead.
+    import multipart
+
+app/modules/auth/schemas.py:43
+  /app/app/modules/auth/schemas.py:43: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.9/migration/
+    @validator("password")
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_config.py:291: 11 warnings
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_config.py:291: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.9/migration/
+    warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in DocumentContentResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in SimilarityMatchResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in CitationFindingResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in AuthorshipSignalResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_id" in ProvenanceAnalysisRunResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in ProvenanceAnalysisRunResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in ProvenanceEventResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+tests/security/test_security_gate.py: 6 warnings
+tests/security/test_session_boundary.py: 3 warnings
+tests/security/test_tenant_authorization.py: 14 warnings
+tests/test_auth.py: 2 warnings
+tests/test_failure_gate.py: 1 warning
+tests/test_organization_state_contract.py: 6 warnings
+  /usr/local/lib/python3.12/site-packages/jose/jwt.py:311: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    now = timegm(datetime.utcnow().utctimetuple())
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/security/test_readonly_permissions.py::test_readonly_members_cannot_mutate_documents_jobs_or_refinement[auditor]
+FAILED tests/security/test_readonly_permissions.py::test_readonly_members_cannot_mutate_documents_jobs_or_refinement[reviewer]
+FAILED tests/security/test_session_boundary.py::test_logout_revokes_copied_access_token_and_allows_new_login
+FAILED tests/security/test_session_boundary.py::test_password_change_revokes_copied_access_token
+FAILED tests/test_auth.py::TestAuth::test_refresh_token_rotation_rejects_reuse
+FAILED tests/test_auth.py::TestAuth::test_signed_but_unregistered_refresh_token_is_rejected
+FAILED tests/test_failure_gate.py::test_logout_revokes_refresh_session - asse...
+FAILED tests/test_workspace_onboarding.py::test_onboarding_creates_and_selects_one_personal_workspace[student-/check]
+FAILED tests/test_workspace_onboarding.py::test_onboarding_creates_and_selects_one_personal_workspace[teacher-/documents]
+FAILED tests/test_workspace_onboarding.py::test_onboarding_creates_and_selects_one_personal_workspace[professor-/documents]
+FAILED tests/test_workspace_onboarding.py::test_onboarding_creates_and_selects_one_personal_workspace[researcher-/citations]
+FAILED tests/test_workspace_onboarding.py::test_onboarding_creates_and_selects_one_personal_workspace[reviewer-/documents]
+FAILED tests/test_workspace_onboarding.py::test_onboarding_creates_and_selects_one_personal_workspace[institution-/documents]
+FAILED tests/test_workspace_onboarding.py::test_onboarding_and_workspace_creation_cannot_set_plan_or_admin_role
+FAILED tests/test_workspace_onboarding.py::test_refresh_and_login_preserve_workspace_but_recheck_revocation
+FAILED tests/test_workspace_onboarding.py::test_invitation_is_email_bound_idempotent_and_cannot_restore_revocation
+FAILED tests/test_workspace_onboarding.py::test_invalid_and_expired_invitation_fail
+FAILED tests/test_workspace_onboarding.py::test_entitlements_are_server_owned_and_expired_plans_fall_back_to_free
+FAILED tests/test_workspace_onboarding.py::test_document_and_write_quotas_enforced_by_service
+================= 19 failed, 139 passed, 52 warnings in 33.86s =================
+

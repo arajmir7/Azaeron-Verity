@@ -1,0 +1,11 @@
+ Container azaeron-verity-cert-verification-run-45d8c52b02f5 Creating 
+ Container azaeron-verity-cert-verification-run-45d8c52b02f5 Created 
+reformatted alembic/versions/20260924_0031_storage_lifecycle.py
+reformatted tests/test_privacy.py
+reformatted /app/app/modules/privacy/storage.py
+reformatted app/core/config.py
+reformatted app/modules/provenance/service.py
+reformatted tests/integration/test_postgres_rls.py
+
+All done! ✨ 🍰 ✨
+6 files reformatted, 9 files left unchanged.

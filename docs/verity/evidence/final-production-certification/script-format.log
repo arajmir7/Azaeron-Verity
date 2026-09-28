@@ -1,0 +1,12 @@
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/scripts/fetch_similarity_model.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/scripts/telemetry_drill.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/scripts/prepare_slice0_compose.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_observability_gate.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_identity_migration_gate.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_load_gate.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_privacy_migration_gate.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_usage_migration_gate.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/scripts/scale_gate.py
+
+All done! ✨ 🍰 ✨
+9 files reformatted, 10 files left unchanged.

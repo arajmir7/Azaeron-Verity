@@ -1,0 +1,5 @@
+ Container azaeron-verity-cert-verification-run-1d18a38b3353 Creating 
+ Container azaeron-verity-cert-verification-run-1d18a38b3353 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0032 -> 20260924_0033, Do not relocate objects while queued or running jobs still name them.

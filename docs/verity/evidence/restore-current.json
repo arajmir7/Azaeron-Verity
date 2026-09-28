@@ -1,0 +1,8 @@
+{
+  "scope": "PostgreSQL isolated verification database only; object-store backup and operational RPO/RTO not certified",
+  "source_version_signature": "5d02eb7d96a133f8432fe0ceaef989b4d9cb7f8729ac52e115a0f891909f4d39",
+  "restored_version_signature": "5d02eb7d96a133f8432fe0ceaef989b4d9cb7f8729ac52e115a0f891909f4d39",
+  "seconds": 1.59,
+  "status": "PASS",
+  "migration": "20260920_0027"
+}

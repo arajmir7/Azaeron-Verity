@@ -1,0 +1,5 @@
+ Container azaeron_humanize-backend-run-4d25496e3a09 Creating 
+ Container azaeron_humanize-backend-run-4d25496e3a09 Created 
+app/modules/similarity/retrieval.py:75: error: Incompatible types in assignment (expression has type "count", target has type "float")  [assignment]
+Found 1 error in 1 file (checked 131 source files)
+

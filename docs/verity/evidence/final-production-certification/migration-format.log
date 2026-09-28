@@ -1,0 +1,35 @@
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260826_0002_runtime_db_role.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0008_ai_generated_verdict.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/env.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0010_fix_evaluation_immutability_trigger.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0005_analysis_run_rls.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0011_fix_dataset_delete_trigger.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0012_require_dataset_provenance.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260826_0001_initial_schema.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0016_scope_authorship_profiles.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0018_fix_provenance_event_enum.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0009_evaluation_integrity.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0007_detector_inference_contract.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0015_authorship_consistency_engine.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0022_account_audit_rls.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0021_workspace_onboarding.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260910_0003_tenant_integrity_guards.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0019_evidence_graph.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0020_aegiswrite_editorial_contract.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260920_0028_api_keys.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260913_0023_similarity_workflow.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0006_analysis_lineage_contract.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0017_document_provenance.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0013_similarity_retrieval_engine.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260924_0035_usage_maintenance.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260920_0029_identity.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260924_0031_storage_lifecycle.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260913_0024_document_intelligence.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0014_citation_intelligence.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260913_0025_similarity_engine_v2.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260912_0004_intelligence_governance.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/alembic/versions/20260921_0030_privacy_erasure.py
+reformatted /Users/ajmiraribam/Projects/azaeron_verity/backend/migration_snapshots/initial_20260826.py
+
+All done! ✨ 🍰 ✨
+32 files reformatted, 6 files left unchanged.

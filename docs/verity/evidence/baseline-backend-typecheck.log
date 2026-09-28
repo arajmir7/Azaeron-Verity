@@ -1,0 +1,17 @@
+ Container azaeron_humanize-backend-run-e504aaef124f Creating 
+ Container azaeron_humanize-backend-run-e504aaef124f Created 
+app/modules/similarity/intelligence/chunks.py:21: error: Need type annotation for "result" (hint: "result: list[<type>] = ...")  [var-annotated]
+app/modules/similarity/retrieval.py:45: error: Unsupported operand types for + ("object" and "int")  [operator]
+app/modules/similarity/retrieval.py:58: error: Unsupported operand types for + ("object" and "int")  [operator]
+app/modules/similarity/retrieval.py:60: error: Need type annotation for "scores"  [var-annotated]
+app/modules/similarity/retrieval.py:61: error: Need type annotation for "fused"  [var-annotated]
+app/modules/similarity/retrieval.py:64: error: Unsupported target for indexed assignment ("object")  [index]
+app/modules/similarity/retrieval.py:64: error: "object" has no attribute "get"  [attr-defined]
+app/modules/similarity/retrieval.py:68: error: Unsupported operand types for + ("object" and "int")  [operator]
+app/modules/similarity/service.py:231: error: Need type annotation for "records" (hint: "records: dict[<type>, <type>] = ...")  [var-annotated]
+app/modules/similarity/service.py:240: error: Unsupported operand types for + ("object" and "int")  [operator]
+app/modules/similarity/service.py:254: error: Need type annotation for "groups" (hint: "groups: list[<type>] = ...")  [var-annotated]
+app/modules/similarity/service.py:261: error: Unexpected keyword argument "structure" for "TextAnnotations"  [call-arg]
+app/modules/similarity/service.py:330: error: Value of type "dict[str, Any] | None" is not indexable  [index]
+Found 13 errors in 3 files (checked 130 source files)
+

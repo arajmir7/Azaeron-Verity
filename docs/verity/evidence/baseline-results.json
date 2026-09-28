@@ -1,0 +1,108 @@
+[
+  {
+    "gate": "backend-lint",
+    "command": [
+      "docker",
+      "compose",
+      "run",
+      "--rm",
+      "--no-deps",
+      "-T",
+      "-v",
+      "/Users/ajmiraribam/Projects/azaeron_humanize/backend:/app",
+      "backend",
+      "ruff",
+      "check",
+      "app",
+      "tests"
+    ],
+    "status": "FAIL",
+    "exit_code": 1,
+    "seconds": 0.85
+  },
+  {
+    "gate": "backend-typecheck",
+    "command": [
+      "docker",
+      "compose",
+      "run",
+      "--rm",
+      "--no-deps",
+      "-T",
+      "-v",
+      "/Users/ajmiraribam/Projects/azaeron_humanize/backend:/app",
+      "backend",
+      "mypy",
+      "app"
+    ],
+    "status": "FAIL",
+    "exit_code": 1,
+    "seconds": 44.53
+  },
+  {
+    "gate": "backend-tests",
+    "command": [
+      "docker",
+      "compose",
+      "run",
+      "--rm",
+      "--no-deps",
+      "-T",
+      "-v",
+      "/Users/ajmiraribam/Projects/azaeron_humanize/backend:/app",
+      "backend",
+      "pytest",
+      "tests",
+      "--ignore=tests/integration",
+      "-q"
+    ],
+    "status": "FAIL",
+    "exit_code": 1,
+    "seconds": 39.78
+  },
+  {
+    "gate": "frontend-lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 3.17
+  },
+  {
+    "gate": "frontend-typecheck",
+    "command": [
+      "npx",
+      "tsc",
+      "--noEmit"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 1.15
+  },
+  {
+    "gate": "frontend-build",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 5.23
+  },
+  {
+    "gate": "compose-config",
+    "command": [
+      "docker",
+      "compose",
+      "config",
+      "--quiet"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 0.07
+  }
+]

@@ -1,0 +1,79 @@
+[
+  {
+    "Service": "backend",
+    "ID": "d913f1eba27a",
+    "Image": "sha256:da763f824150eed6b3b9f0826ff8c7f585dcecc2ac7086f5b28764dcc1675967",
+    "State": "running",
+    "Health": "healthy"
+  },
+  {
+    "Service": "celery-worker",
+    "ID": "4360c16efa55",
+    "Image": "sha256:c16f4885856975efee0f7c75b9d4747a4af934c26f86a3ede4626c4e8907354c",
+    "State": "running",
+    "Health": "healthy"
+  },
+  {
+    "Service": "celery-beat",
+    "ID": "72ee0be9a1dc",
+    "Image": "sha256:ffd5902b60346b50b6edcb0666ade4bc836749641547560d9705afc49756aff8",
+    "State": "running",
+    "Health": ""
+  },
+  {
+    "Service": "frontend",
+    "ID": "da88f53ccfe5",
+    "Image": "sha256:4f4ad4b3c05e41caf926a7639b247e771a3496b26ecdf4fe1f23462bb9129c68",
+    "State": "running",
+    "Health": "healthy"
+  },
+  {
+    "Service": "grafana",
+    "ID": "bf635331211d",
+    "Image": "grafana/grafana:latest",
+    "State": "running",
+    "Health": ""
+  },
+  {
+    "Service": "jaeger",
+    "ID": "9ad25020c756",
+    "Image": "jaegertracing/all-in-one:1.62.0",
+    "State": "running",
+    "Health": ""
+  },
+  {
+    "Service": "minio",
+    "ID": "c00f43a505d7",
+    "Image": "minio/minio:latest",
+    "State": "running",
+    "Health": "healthy"
+  },
+  {
+    "Service": "otel-collector",
+    "ID": "56cd270bab97",
+    "Image": "otel/opentelemetry-collector-contrib:0.111.0",
+    "State": "running",
+    "Health": ""
+  },
+  {
+    "Service": "postgres",
+    "ID": "27bc1e699919",
+    "Image": "pgvector/pgvector:pg16",
+    "State": "running",
+    "Health": "healthy"
+  },
+  {
+    "Service": "prometheus",
+    "ID": "39aaf9490217",
+    "Image": "prom/prometheus:latest",
+    "State": "running",
+    "Health": ""
+  },
+  {
+    "Service": "redis",
+    "ID": "a55aaa95d075",
+    "Image": "redis:7-alpine",
+    "State": "running",
+    "Health": "healthy"
+  }
+]

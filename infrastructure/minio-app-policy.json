@@ -1,0 +1,38 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket"
+      ],
+      "Resource": "arn:aws:s3:::azaeron-documents",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": [
+            "uploads/*",
+            "versions/*"
+          ]
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation"
+      ],
+      "Resource": "arn:aws:s3:::azaeron-documents"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::azaeron-documents/uploads/*",
+        "arn:aws:s3:::azaeron-documents/versions/*"
+      ]
+    }
+  ]
+}

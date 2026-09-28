@@ -1,0 +1,29 @@
+{
+  "executed_utc": "2026-09-28T07:25:42.937736+00:00",
+  "results": [
+    {
+      "dependency": "redis",
+      "outage_status": 503,
+      "outage_seconds": 6.017,
+      "recovered_status": 200,
+      "recovery_seconds": 1.022,
+      "status": "PASS"
+    },
+    {
+      "dependency": "minio",
+      "outage_status": 503,
+      "outage_seconds": 5.008,
+      "recovered_status": 200,
+      "recovery_seconds": 0.411,
+      "status": "PASS"
+    },
+    {
+      "dependency": "postgres",
+      "outage_status": 503,
+      "outage_seconds": 0.01,
+      "recovered_status": 200,
+      "recovery_seconds": 1.05,
+      "status": "PASS"
+    }
+  ]
+}

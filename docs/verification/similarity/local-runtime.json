@@ -1,0 +1,77 @@
+{
+  "migration_head": "20260913_0023",
+  "similarity_snapshot_rls": {
+    "relrowsecurity": true,
+    "relforcerowsecurity": true
+  },
+  "processed_indexes": [
+    "CREATE INDEX ix_processed_documents_document_id ON public.processed_documents USING btree (document_id)",
+    "CREATE INDEX ix_processed_documents_document_version_id ON public.processed_documents USING btree (document_version_id)",
+    "CREATE INDEX ix_processed_documents_organization_id ON public.processed_documents USING btree (organization_id)",
+    "CREATE UNIQUE INDEX processed_documents_pkey ON public.processed_documents USING btree (id)",
+    "CREATE UNIQUE INDEX uq_processed_documents_version ON public.processed_documents USING btree (document_version_id)"
+  ],
+  "similarity_lookup_index": "CREATE INDEX ix_similarity_index_lookup ON public.similarity_index_entries USING btree (organization_id, index_version, term_type, term)",
+  "forced_rls_table_count": 31,
+  "backend_health": {
+    "status": "healthy",
+    "version": "1.0.0"
+  },
+  "services": [
+    {
+      "Service": "backend",
+      "State": "running",
+      "Health": "healthy"
+    },
+    {
+      "Service": "celery-worker",
+      "State": "running",
+      "Health": "healthy"
+    },
+    {
+      "Service": "celery-beat",
+      "State": "running",
+      "Health": ""
+    },
+    {
+      "Service": "frontend",
+      "State": "running",
+      "Health": "healthy"
+    },
+    {
+      "Service": "grafana",
+      "State": "running",
+      "Health": ""
+    },
+    {
+      "Service": "jaeger",
+      "State": "running",
+      "Health": ""
+    },
+    {
+      "Service": "minio",
+      "State": "running",
+      "Health": "healthy"
+    },
+    {
+      "Service": "otel-collector",
+      "State": "running",
+      "Health": ""
+    },
+    {
+      "Service": "postgres",
+      "State": "running",
+      "Health": "healthy"
+    },
+    {
+      "Service": "prometheus",
+      "State": "running",
+      "Health": ""
+    },
+    {
+      "Service": "redis",
+      "State": "running",
+      "Health": "healthy"
+    }
+  ]
+}

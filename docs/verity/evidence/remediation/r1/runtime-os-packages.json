@@ -1,0 +1,18 @@
+{
+  "base-files": "13.8+deb13u7",
+  "liblzma5": "5.8.1-1+deb13u1",
+  "libcrypt1": "1:4.4.38-1",
+  "libffi8": "3.4.8-2",
+  "libgcc-s1": "14.2.0-19",
+  "libstdc++6": "14.2.0-19",
+  "libbz2-1.0": "1.0.8-6",
+  "zlib1g": "1:1.3.dfsg+really1.3.1-1+b1",
+  "libzstd1": "1.5.7+dfsg-1",
+  "libssl3t64": "3.5.7-1~deb13u2",
+  "libc6": "2.41-12+deb13u4",
+  "ca-certificates": "20250419",
+  "media-types": "13.0.0",
+  "tzdata-legacy": "2026c-0+deb13u1",
+  "tzdata": "2026c-0+deb13u1",
+  "netbase": "6.5"
+}

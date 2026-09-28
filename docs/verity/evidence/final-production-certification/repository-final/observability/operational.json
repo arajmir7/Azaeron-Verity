@@ -1,0 +1,37 @@
+{
+  "result": "PASS",
+  "scope": "isolated self-hosted telemetry, not production SLO compliance",
+  "checks": {
+    "metrics_authentication": "PASS",
+    "scrape_targets": [
+      {
+        "job": "azaeron-backend",
+        "instance": "backend:8000"
+      },
+      {
+        "job": "azaeron-worker",
+        "instance": "celery-worker:9100"
+      }
+    ],
+    "loaded_alerts": [
+      "AzaeronApiAvailabilityBurn",
+      "AzaeronApiLatencyHigh",
+      "AzaeronDependencyNotReady",
+      "AzaeronQueueBacklog",
+      "AzaeronDeadLetterGrowth",
+      "AzaeronTelemetryTargetMissing",
+      "AzaeronDatabaseFailures",
+      "AzaeronStorageFailures",
+      "AzaeronAuthorizationDenials",
+      "AzaeronRateLimitEvents",
+      "AzaeronInferenceErrors",
+      "AzaeronWorkerFailures",
+      "AzaeronFrontendErrors"
+    ],
+    "provisioned_dashboard": "Verity operations \u2014 measured signals",
+    "trace_persistence_after_restart": "PASS",
+    "content_and_metrics_secret_absent_from_logs": "PASS",
+    "all_required_queues_have_consumers": "PASS"
+  },
+  "model_runtime": "BLOCKED: approved model and hardware unavailable"
+}

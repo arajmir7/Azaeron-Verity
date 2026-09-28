@@ -1,0 +1,2 @@
+2026-09-28T07:22:38Z	INFO	"--format cyclonedx" disables security scanning. Specify "--scanners vuln" explicitly if you want to include vulnerabilities in the "cyclonedx" report.
+2026-09-28T07:22:38Z	INFO	Number of language-specific files	num=1

@@ -1,0 +1,5 @@
+ Container verity-final-20260925-verification-run-79e8bf45a9de Creating 
+ Container verity-final-20260925-verification-run-79e8bf45a9de Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade 20260920_0029 -> 20260920_0028, Identity challenges, encrypted mail outbox and MFA replay state.

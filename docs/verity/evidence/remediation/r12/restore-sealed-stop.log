@@ -1,0 +1,6 @@
+ Container azaeron-verity-dr-postgres-1 Stopping 
+ Container azaeron-verity-dr-minio-1 Stopping 
+ Container azaeron-verity-dr-redis-1 Stopping 
+ Container azaeron-verity-dr-minio-1 Stopped 
+ Container azaeron-verity-dr-redis-1 Stopped 
+ Container azaeron-verity-dr-postgres-1 Stopped 

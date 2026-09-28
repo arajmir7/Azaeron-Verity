@@ -1,0 +1,35 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/identity-live.spec.ts --workers=1
+
+
+Running 1 test using 1 worker
+
+(node:3966) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [chromium] › tests/identity-live.spec.ts:16:5 › real SMTP verification, MFA recovery login, password reset and device revocation
+  1) [chromium] › tests/identity-live.spec.ts:16:5 › real SMTP verification, MFA recovery login, password reset and device revocation 
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.inputValue: Test timeout of 180000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Authenticator setup secret', { exact: true })
+
+
+      53 |   await page.getByLabel("Current password", { exact: true }).fill(credentials.password);
+      54 |   await page.getByRole("button", { name: "Set up MFA" }).click();
+    > 55 |   const setupSecret = await page.getByLabel("Authenticator setup secret", { exact: true }).inputValue();
+         |                                                                                            ^
+      56 |   await page.getByLabel("Authenticator or recovery code", { exact: true }).fill(authenticatorCode(setupSecret));
+      57 |   await page.getByRole("button", { name: "Confirm authenticator" }).click();
+      58 |   const recoveryField = page.getByLabel("Recovery codes — save now", { exact: true });
+        at /Users/ajmiraribam/Projects/azaeron_humanize/frontend/tests/identity-live.spec.ts:55:92
+
+    Error Context: test-results/identity-live-real-SMTP-ve-47583-reset-and-device-revocation-chromium/error-context.md
+
+
+  1 failed
+    [chromium] › tests/identity-live.spec.ts:16:5 › real SMTP verification, MFA recovery login, password reset and device revocation 

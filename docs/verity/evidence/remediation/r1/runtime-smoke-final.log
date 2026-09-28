@@ -1,0 +1,1 @@
+{"status": "PASS", "python": "3.12.14", "machine": "aarch64", "uid": 65532, "checks": ["no-shell-or-package-manager", "no-tests-or-headers", "CA-certificates", "timezone", "zlib", "bcrypt", "cryptography", "DOCX", "PDF", "numpy", "FastAPI", "Celery", "asyncpg", "MinIO"]}

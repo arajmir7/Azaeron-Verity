@@ -1,0 +1,7 @@
+ Container azaeron-verity-cert-verification-run-3346c91edb8a Creating 
+ Container azaeron-verity-cert-verification-run-3346c91edb8a Created 
+reformatted /app/tests/test_api_keys.py
+reformatted /app/tests/integration/test_postgres_rls.py
+
+All done! ✨ 🍰 ✨
+2 files reformatted, 183 files left unchanged.

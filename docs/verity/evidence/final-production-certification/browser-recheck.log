@@ -1,0 +1,14 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/document-intelligence-live.spec.ts tests/onboarding-live.spec.ts --workers=1
+
+
+Running 2 tests using 1 worker
+
+(node:52176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] [chromium] › tests/document-intelligence-live.spec.ts:7:5 › document core: upload, analyze and switch immutable versions across existing views
+[2/2] [chromium] › tests/onboarding-live.spec.ts:5:5 › live signup, personal workspace, upload, refresh and persistent switching
+  2 passed (10.2s)

@@ -1,0 +1,14 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/privacy.spec.ts tests/api-keys.spec.ts --workers=1
+
+
+Running 2 tests using 1 worker
+
+(node:59434) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] [chromium] › tests/api-keys.spec.ts:4:5 › API keys show the secret once, rotate, revoke, and avoid browser storage
+[2/2] [chromium] › tests/privacy.spec.ts:4:5 › privacy form requires explicit confirmation and keeps its receipt out of persistent storage
+  2 passed (6.2s)

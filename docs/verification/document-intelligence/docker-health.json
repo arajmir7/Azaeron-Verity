@@ -1,0 +1,213 @@
+{
+  "recorded_at": "2026-09-13T11:52:18.772698+00:00",
+  "projects": {
+    "isolated": {
+      "services": [
+        {
+          "Service": "backend",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "azaeron-document-core-gate-backend"
+        },
+        {
+          "Service": "celery-beat",
+          "State": "running",
+          "Health": "",
+          "Image": "azaeron-document-core-gate-celery-beat"
+        },
+        {
+          "Service": "celery-worker",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "azaeron-document-core-gate-celery-worker"
+        },
+        {
+          "Service": "frontend",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "azaeron-document-core-gate-frontend"
+        },
+        {
+          "Service": "minio",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "minio/minio:latest"
+        },
+        {
+          "Service": "postgres",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "pgvector/pgvector:pg16"
+        },
+        {
+          "Service": "redis",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "redis:7-alpine"
+        }
+      ],
+      "http": {
+        "8300/health/live": {
+          "status": 200,
+          "response": {
+            "status": "alive"
+          }
+        },
+        "8300/health/ready": {
+          "status": 200,
+          "response": {
+            "status": "ready",
+            "checks": {
+              "database": {
+                "status": "ok",
+                "latency_ms": 8.74
+              },
+              "redis": {
+                "status": "ok",
+                "latency_ms": 2.47
+              },
+              "storage": {
+                "status": "ok",
+                "latency_ms": 11.48
+              },
+              "workers": {
+                "status": "ok",
+                "latency_ms": 1.7,
+                "workers": 1
+              }
+            }
+          }
+        },
+        "3300/": {
+          "status": 200
+        }
+      },
+      "source_check": {
+        "backend": {
+          "status": "PASS",
+          "source_files_matched": 127
+        },
+        "celery-worker": {
+          "status": "PASS",
+          "source_files_matched": 127
+        }
+      }
+    },
+    "primary": {
+      "services": [
+        {
+          "Service": "backend",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "azaeron_humanize-backend"
+        },
+        {
+          "Service": "celery-worker",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "azaeron_humanize-celery-worker"
+        },
+        {
+          "Service": "celery-beat",
+          "State": "running",
+          "Health": "",
+          "Image": "azaeron_humanize-celery-beat"
+        },
+        {
+          "Service": "frontend",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "azaeron_humanize-frontend"
+        },
+        {
+          "Service": "grafana",
+          "State": "running",
+          "Health": "",
+          "Image": "grafana/grafana:latest"
+        },
+        {
+          "Service": "jaeger",
+          "State": "running",
+          "Health": "",
+          "Image": "jaegertracing/all-in-one:1.62.0"
+        },
+        {
+          "Service": "minio",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "minio/minio:latest"
+        },
+        {
+          "Service": "otel-collector",
+          "State": "running",
+          "Health": "",
+          "Image": "otel/opentelemetry-collector-contrib:0.111.0"
+        },
+        {
+          "Service": "postgres",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "pgvector/pgvector:pg16"
+        },
+        {
+          "Service": "prometheus",
+          "State": "running",
+          "Health": "",
+          "Image": "prom/prometheus:latest"
+        },
+        {
+          "Service": "redis",
+          "State": "running",
+          "Health": "healthy",
+          "Image": "redis:7-alpine"
+        }
+      ],
+      "http": {
+        "8000/health/live": {
+          "status": 200,
+          "response": {
+            "status": "alive"
+          }
+        },
+        "8000/health/ready": {
+          "status": 200,
+          "response": {
+            "status": "ready",
+            "checks": {
+              "database": {
+                "status": "ok",
+                "latency_ms": 2.7
+              },
+              "redis": {
+                "status": "ok",
+                "latency_ms": 1.26
+              },
+              "storage": {
+                "status": "ok",
+                "latency_ms": 5.95
+              },
+              "workers": {
+                "status": "ok",
+                "latency_ms": 0.72,
+                "workers": 1
+              }
+            }
+          }
+        },
+        "3000/": {
+          "status": 200
+        }
+      },
+      "source_check": {
+        "backend": {
+          "status": "PASS",
+          "source_files_matched": 127
+        },
+        "celery-worker": {
+          "status": "PASS",
+          "source_files_matched": 127
+        }
+      }
+    }
+  }
+}

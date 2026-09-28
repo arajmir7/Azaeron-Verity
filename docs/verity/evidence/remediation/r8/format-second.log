@@ -1,0 +1,11 @@
+ Container azaeron-verity-cert-verification-run-2a7c43917235 Creating 
+ Container azaeron-verity-cert-verification-run-2a7c43917235 Created 
+reformatted /app/app/api/v1/aegiswrite.py
+reformatted /app/app/modules/billing/maintenance.py
+reformatted /app/tests/integration/test_usage_concurrency.py
+reformatted alembic/versions/20260924_0035_usage_maintenance.py
+reformatted /app/app/workers/tasks.py
+reformatted /app/tests/integration/test_postgres_rls.py
+
+All done! ✨ 🍰 ✨
+6 files reformatted, 200 files left unchanged.

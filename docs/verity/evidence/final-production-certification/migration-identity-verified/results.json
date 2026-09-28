@@ -1,0 +1,52 @@
+{
+  "results": [
+    {
+      "gate": "create-isolated-database",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "fresh-to-identity",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "seed-account",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "downgrade-to-api-keys",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "reupgrade-identity",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "account-preserved-and-enable-guard",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "mfa-downgrade-rejected",
+      "exit_code": 1,
+      "expected": "rejection",
+      "status": "PASS"
+    },
+    {
+      "gate": "remove-isolated-database",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,374 @@
+services:
+  postgres:
+    # PostgreSQL 16 preserves the established /var/lib/postgresql/data volume
+    # layout. PostgreSQL 18 requires a different parent mount path.
+    image: pgvector/pgvector:pg16@sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b
+    container_name: azaeron-postgres
+    environment:
+      POSTGRES_USER: azaeron
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-azaeron_dev_password}
+      POSTGRES_DB: azaeron
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/scripts/init-pgvector.sql:/docker-entrypoint-initdb.d/02-init-pgvector.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U azaeron"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - azaeron-network
+
+  redis:
+    image: redis:7.4-alpine@sha256:ff02b58f971e7d7d156a1267e283fcbbeee91773b6aa36c49dac28ecfe28eadf
+    container_name: azaeron-redis
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy noeviction
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - azaeron-network
+
+  minio:
+    image: minio/minio:latest@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e
+    container_name: azaeron-minio
+    environment:
+      MINIO_API_STALE_UPLOADS_EXPIRY: 24h
+      MINIO_API_STALE_UPLOADS_CLEANUP_INTERVAL: 1h
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-azaeronminio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-azaeronminio123}
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - azaeron-network
+
+  minio-init:
+    image: minio/mc:latest@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727
+    entrypoint:
+      - /bin/sh
+      - -c
+      - 'set -eu; mc alias set local http://minio:9000 "$$MINIO_ROOT_USER" "$$MINIO_ROOT_PASSWORD"; mc mb --ignore-existing "local/$$MINIO_BUCKET"; mc admin policy create local azaeron-app-policy /config/minio-app-policy.json; mc admin user add local "$$MINIO_APP_USER" "$$MINIO_APP_PASSWORD"; mc admin policy attach local azaeron-app-policy --user "$$MINIO_APP_USER"; mc admin policy create local azaeron-maintenance-policy /config/minio-maintenance-policy.json; mc admin user add local "$$PRIVACY_MINIO_ACCESS_KEY" "$$PRIVACY_MINIO_SECRET_KEY"; mc admin policy attach local azaeron-maintenance-policy --user "$$PRIVACY_MINIO_ACCESS_KEY"'
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-azaeronminio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-azaeronminio123}
+      MINIO_APP_USER: ${MINIO_APP_ACCESS_KEY:-azaeronapp}
+      MINIO_APP_PASSWORD: ${MINIO_APP_SECRET_KEY:-azaeronapp123}
+      MINIO_BUCKET: azaeron-documents
+      PRIVACY_MINIO_ACCESS_KEY: ${PRIVACY_MINIO_ACCESS_KEY:-azaeron-maintenance}
+      PRIVACY_MINIO_SECRET_KEY: ${PRIVACY_MINIO_SECRET_KEY:-azaeron-maintenance-dev-only}
+    volumes:
+      - ./infrastructure/minio-app-policy.json:/config/minio-app-policy.json:ro
+      - ./infrastructure/minio-maintenance-policy.json:/config/minio-maintenance-policy.json:ro
+    depends_on:
+      minio:
+        condition: service_healthy
+    networks:
+      - azaeron-network
+
+  migrate:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql+asyncpg://azaeron:${DB_PASSWORD:-azaeron_dev_password}@postgres:5432/azaeron
+      MIGRATION_DATABASE_URL: postgresql+asyncpg://azaeron:${DB_PASSWORD:-azaeron_dev_password}@postgres:5432/azaeron
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:-azaeron_app_dev_password}
+      AZAERON_DEBUG: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: alembic upgrade head
+    networks:
+      - azaeron-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: azaeron-backend
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://azaeron_app:${APP_DB_PASSWORD:-azaeron_app_dev_password}@postgres:5432/azaeron
+      - REDIS_URL=redis://redis:6379/0
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_PUBLIC_ENDPOINT=${MINIO_PUBLIC_ENDPOINT:-localhost:9000}
+      - MINIO_ACCESS_KEY=${MINIO_APP_ACCESS_KEY:-azaeronapp}
+      - MINIO_SECRET_KEY=${MINIO_APP_SECRET_KEY:-azaeronapp123}
+      - MINIO_BUCKET=azaeron-documents
+      - SECRET_KEY=${SECRET_KEY:-azaeron-super-secret-key-change-in-production-32-chars-long}
+      - REFRESH_SECRET_KEY=${REFRESH_SECRET_KEY:-azaeron-refresh-secret-key-change-in-production-32-chars}
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=15
+      - REFRESH_TOKEN_EXPIRE_DAYS=7
+      - ZERO_EXTERNAL_AI_API=true
+      - EMAIL_ENABLED=${EMAIL_ENABLED:-false}
+      - EMAIL_PUBLIC_URL=${EMAIL_PUBLIC_URL:-http://localhost:3000}
+      - IDENTITY_ENCRYPTION_KEY=${IDENTITY_ENCRYPTION_KEY:-}
+      - USAGE_ENCRYPTION_KEY=${USAGE_ENCRYPTION_KEY:-}
+      - SMTP_HOST=${SMTP_HOST:-mailpit}
+      - SMTP_PORT=${SMTP_PORT:-1025}
+      - SMTP_FROM=${SMTP_FROM:-security@azaeron.local}
+      - SMTP_STARTTLS=${SMTP_STARTTLS:-true}
+      - SMTP_USERNAME=${SMTP_USERNAME:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - INFERENCE_ENABLED=${INFERENCE_ENABLED:-false}
+      - INFERENCE_ENDPOINT=${INFERENCE_ENDPOINT:-https://inference-runtime:8000}
+      - INFERENCE_VERIFY_ENDPOINT=${INFERENCE_VERIFY_ENDPOINT:-https://verification-runtime:8000}
+      - INFERENCE_CA_FILE=${INFERENCE_CA_FILE:-}
+      - INFERENCE_CERT_FILE=${INFERENCE_CERT_FILE:-}
+      - INFERENCE_KEY_FILE=${INFERENCE_KEY_FILE:-}
+      - READINESS_REQUIRE_WORKER=${READINESS_REQUIRE_WORKER:-true}
+      - RELEASE_ID=${RELEASE_ID:-development}
+      - METRICS_TOKEN=${METRICS_TOKEN:-}
+      - OTEL_SERVICE_NAME=azaeron-api
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${OTEL_EXPORTER_OTLP_ENDPOINT:-http://otel-collector:4317}
+      - OTEL_EXPORTER_OTLP_INSECURE=${OTEL_EXPORTER_OTLP_INSECURE:-true}
+    volumes:
+      - ./config/models:/etc/azaeron/models:ro
+    ports:
+      - "127.0.0.1:8000:8000"
+    init: true
+    stop_grace_period: 40s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+      migrate:
+        condition: service_completed_successfully
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --timeout-keep-alive 5 --timeout-graceful-shutdown 30 --limit-concurrency 1000 --backlog 2048 --no-access-log
+    networks:
+      - azaeron-network
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: "2.0"
+    mem_limit: 2g
+    cpus: 2.0
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/live', timeout=4).close()"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  celery-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: azaeron-celery
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://azaeron_app:${APP_DB_PASSWORD:-azaeron_app_dev_password}@postgres:5432/azaeron
+      - REDIS_URL=redis://redis:6379/0
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=${MINIO_APP_ACCESS_KEY:-azaeronapp}
+      - MINIO_SECRET_KEY=${MINIO_APP_SECRET_KEY:-azaeronapp123}
+      - MINIO_BUCKET=azaeron-documents
+      - SECRET_KEY=${SECRET_KEY:-azaeron-super-secret-key-change-in-production-32-chars-long}
+      - REFRESH_SECRET_KEY=${REFRESH_SECRET_KEY:-azaeron-refresh-secret-key-change-in-production-32-chars}
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - ZERO_EXTERNAL_AI_API=true
+      - EMAIL_ENABLED=${EMAIL_ENABLED:-false}
+      - EMAIL_PUBLIC_URL=${EMAIL_PUBLIC_URL:-http://localhost:3000}
+      - IDENTITY_ENCRYPTION_KEY=${IDENTITY_ENCRYPTION_KEY:-}
+      - USAGE_ENCRYPTION_KEY=${USAGE_ENCRYPTION_KEY:-}
+      - SMTP_HOST=${SMTP_HOST:-mailpit}
+      - SMTP_PORT=${SMTP_PORT:-1025}
+      - SMTP_FROM=${SMTP_FROM:-security@azaeron.local}
+      - SMTP_STARTTLS=${SMTP_STARTTLS:-true}
+      - SMTP_USERNAME=${SMTP_USERNAME:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - INFERENCE_ENABLED=${INFERENCE_ENABLED:-false}
+      - INFERENCE_ENDPOINT=${INFERENCE_ENDPOINT:-https://inference-runtime:8000}
+      - INFERENCE_VERIFY_ENDPOINT=${INFERENCE_VERIFY_ENDPOINT:-https://verification-runtime:8000}
+      - INFERENCE_CA_FILE=${INFERENCE_CA_FILE:-}
+      - INFERENCE_CERT_FILE=${INFERENCE_CERT_FILE:-}
+      - INFERENCE_KEY_FILE=${INFERENCE_KEY_FILE:-}
+      - CELERY_WORKER=true
+      - PRIVACY_MINIO_ACCESS_KEY=${PRIVACY_MINIO_ACCESS_KEY:-azaeron-maintenance}
+      - PRIVACY_MINIO_SECRET_KEY=${PRIVACY_MINIO_SECRET_KEY:-azaeron-maintenance-dev-only}
+      - RELEASE_ID=${RELEASE_ID:-development}
+      - OTEL_SERVICE_NAME=azaeron-worker
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${OTEL_EXPORTER_OTLP_ENDPOINT:-http://otel-collector:4317}
+      - OTEL_EXPORTER_OTLP_INSECURE=${OTEL_EXPORTER_OTLP_INSECURE:-true}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+      migrate:
+        condition: service_completed_successfully
+    volumes:
+      - ./config/models:/etc/azaeron/models:ro
+    command: ["python", "-m", "app.workers.entrypoint", "--loglevel=info", "--concurrency=2", "--max-tasks-per-child=50", "-Q", "document_processing,similarity_analysis,citation_analysis,ai_detection,authorship_analysis,report_generation,identity"]
+    networks:
+      - azaeron-network
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: "2.0"
+    init: true
+    stop_grace_period: 90s
+    mem_limit: 4g
+    cpus: 2.0
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; from app.workers.celery_app import celery_app; replies = celery_app.control.inspect(destination=['celery@' + socket.gethostname()], timeout=5).ping(); raise SystemExit(0 if replies else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  celery-beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: azaeron-celery-beat
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://azaeron_app:${APP_DB_PASSWORD:-azaeron_app_dev_password}@postgres:5432/azaeron
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-azaeron-super-secret-key-change-in-production-32-chars-long}
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: ["celery", "-A", "app.workers.celery_app", "beat", "--loglevel=info", "--schedule=/tmp/celerybeat-schedule"]
+    networks:
+      - azaeron-network
+    init: true
+    stop_grace_period: 30s
+    mem_limit: 512m
+    cpus: 0.5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        API_URL: http://backend:8000
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
+    container_name: azaeron-frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-}
+      - API_URL=http://backend:8000
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - azaeron-network
+
+  mailpit:
+    # Development-only local sink. Production uses self-controlled SMTP.
+    profiles: ["mail"]
+    image: axllent/mailpit:v1.31.2@sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d
+    user: "65532:65532"
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    environment:
+      MP_DATABASE: /tmp/mailpit.db
+      MP_MAX_MESSAGES: "100"
+    tmpfs: ["/tmp:uid=65532,gid=65532,size=128m"]
+    ports:
+      - "127.0.0.1:8025:8025"
+    networks:
+      - azaeron-network
+
+  prometheus:
+    image: prom/prometheus:latest@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0
+    container_name: azaeron-prometheus
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./infrastructure/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./infrastructure/prometheus-rules.yml:/etc/prometheus/prometheus-rules.yml:ro
+      - ${METRICS_TOKEN_FILE:-./infrastructure/metrics-token.development}:/run/secrets/metrics-token:ro
+      - prometheus_data:/prometheus
+    networks:
+      - azaeron-network
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.62.0@sha256:836e9b69c88afbedf7683ea7162e179de63b1f981662e83f5ebb68badadc710f
+    container_name: azaeron-jaeger
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+      SPAN_STORAGE_TYPE: badger
+      BADGER_EPHEMERAL: "false"
+      BADGER_DIRECTORY_VALUE: /tmp/badger/data
+      BADGER_DIRECTORY_KEY: /tmp/badger/key
+    volumes:
+      - jaeger_data:/tmp
+    ports:
+      - "127.0.0.1:16686:16686"
+    networks:
+      - azaeron-network
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.111.0@sha256:a2a52e43c1a80aa94120ad78c2db68780eb90e6d11c8db5b3ce2f6a0cc6b5029
+    container_name: azaeron-otel-collector
+    command: ["--config=/etc/otelcol/config.yaml"]
+    volumes:
+      - ./infrastructure/otel-collector.yml:/etc/otelcol/config.yaml:ro
+    depends_on:
+      jaeger:
+        condition: service_started
+    networks:
+      - azaeron-network
+
+  grafana:
+    environment:
+      GF_ANALYTICS_ENABLED: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
+      GF_PLUGINS_PREINSTALL_DISABLED: "true"
+    image: grafana/grafana:latest@sha256:3fd54ae1214669f8355f065ec9f6445d5279a3d77095ab048ca045685272429b
+    container_name: azaeron-grafana
+    ports:
+      - "127.0.0.1:3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./infrastructure/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./infrastructure/grafana/dashboards:/etc/grafana/dashboards:ro
+    networks:
+      - azaeron-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+  prometheus_data:
+  grafana_data:
+  jaeger_data:
+
+networks:
+  azaeron-network:
+    driver: bridge

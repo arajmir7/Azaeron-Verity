@@ -1,0 +1,33 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/accessibility-review.spec.ts --workers=1
+
+
+Running 1 test using 1 worker
+
+(node:44059) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [chromium] › tests/accessibility-review.spec.ts:4:5 › critical navigation stays operable at narrow widths and restores focus
+  1) [chromium] › tests/accessibility-review.spec.ts:4:5 › critical navigation stays operable at narrow widths and restores focus 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 404
+
+      10 |     password: "AccessibleReview123!",
+      11 |   };
+    > 12 |   expect((await postWithRetryAfter(page.request, "/api/v1/auth/register", { headers, data: credentials })).status()).toBe(201);
+         |                                                                                                                      ^
+      13 |   expect((await postWithRetryAfter(page.request, "/api/v1/auth/login", { headers, data: credentials })).status()).toBe(200);
+      14 |   expect((await page.request.post("/api/v1/auth/onboarding", { headers, data: { product_role: "researcher" } })).ok()).toBeTruthy();
+      15 |
+        at /Users/ajmiraribam/Projects/azaeron_verity/frontend/tests/accessibility-review.spec.ts:12:118
+
+    Error Context: test-results/accessibility-review-criti-e2b75-w-widths-and-restores-focus-chromium/error-context.md
+
+
+  1 failed
+    [chromium] › tests/accessibility-review.spec.ts:4:5 › critical navigation stays operable at narrow widths and restores focus 

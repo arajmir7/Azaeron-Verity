@@ -1,0 +1,277 @@
+ Container azaeron-verity-cert-verification-run-5fec3b7802e7 Creating 
+ Container azaeron-verity-cert-verification-run-5fec3b7802e7 Created 
+tests/test_document_intelligence.py:3:1: E402 Module level import not at top of file
+  |
+1 | from datetime import datetime, timezone
+2 | """Document structure and complete version isolation through real analysis services."""
+3 | import hashlib
+  | ^^^^^^^^^^^^^^ E402
+4 | import io
+5 | from uuid import uuid4
+  |
+
+tests/test_document_intelligence.py:4:1: E402 Module level import not at top of file
+  |
+2 | """Document structure and complete version isolation through real analysis services."""
+3 | import hashlib
+4 | import io
+  | ^^^^^^^^^ E402
+5 | from uuid import uuid4
+  |
+
+tests/test_document_intelligence.py:5:1: E402 Module level import not at top of file
+  |
+3 | import hashlib
+4 | import io
+5 | from uuid import uuid4
+  | ^^^^^^^^^^^^^^^^^^^^^^ E402
+6 | 
+7 | import pytest
+  |
+
+tests/test_document_intelligence.py:7:1: E402 Module level import not at top of file
+  |
+5 | from uuid import uuid4
+6 | 
+7 | import pytest
+  | ^^^^^^^^^^^^^ E402
+8 | from fastapi import HTTPException
+9 | from sqlalchemy import select
+  |
+
+tests/test_document_intelligence.py:8:1: E402 Module level import not at top of file
+   |
+ 7 | import pytest
+ 8 | from fastapi import HTTPException
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+ 9 | from sqlalchemy import select
+10 | from docx import Document as WordDocument
+   |
+
+tests/test_document_intelligence.py:9:1: E402 Module level import not at top of file
+   |
+ 7 | import pytest
+ 8 | from fastapi import HTTPException
+ 9 | from sqlalchemy import select
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+10 | from docx import Document as WordDocument
+   |
+
+tests/test_document_intelligence.py:10:1: E402 Module level import not at top of file
+   |
+ 8 | from fastapi import HTTPException
+ 9 | from sqlalchemy import select
+10 | from docx import Document as WordDocument
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+11 | 
+12 | from app.core.dependencies import get_current_active_user
+   |
+
+tests/test_document_intelligence.py:12:1: E402 Module level import not at top of file
+   |
+10 | from docx import Document as WordDocument
+11 | 
+12 | from app.core.dependencies import get_current_active_user
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+13 | from app.main import app
+14 | from app.modules.auth.models import User
+   |
+
+tests/test_document_intelligence.py:13:1: E402 Module level import not at top of file
+   |
+12 | from app.core.dependencies import get_current_active_user
+13 | from app.main import app
+   | ^^^^^^^^^^^^^^^^^^^^^^^^ E402
+14 | from app.modules.auth.models import User
+15 | from app.modules.organizations.models import Membership, Organization, OrganizationRole
+   |
+
+tests/test_document_intelligence.py:14:1: E402 Module level import not at top of file
+   |
+12 | from app.core.dependencies import get_current_active_user
+13 | from app.main import app
+14 | from app.modules.auth.models import User
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+15 | from app.modules.organizations.models import Membership, Organization, OrganizationRole
+16 | from app.modules.documents.models import Document, DocumentVersion
+   |
+
+tests/test_document_intelligence.py:15:1: E402 Module level import not at top of file
+   |
+13 | from app.main import app
+14 | from app.modules.auth.models import User
+15 | from app.modules.organizations.models import Membership, Organization, OrganizationRole
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+16 | from app.modules.documents.models import Document, DocumentVersion
+17 | from app.modules.documents.service import DocumentService
+   |
+
+tests/test_document_intelligence.py:16:1: E402 Module level import not at top of file
+   |
+14 | from app.modules.auth.models import User
+15 | from app.modules.organizations.models import Membership, Organization, OrganizationRole
+16 | from app.modules.documents.models import Document, DocumentVersion
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+17 | from app.modules.documents.service import DocumentService
+18 | from app.modules.documents.target import AnalysisTarget
+   |
+
+tests/test_document_intelligence.py:17:1: E402 Module level import not at top of file
+   |
+15 | from app.modules.organizations.models import Membership, Organization, OrganizationRole
+16 | from app.modules.documents.models import Document, DocumentVersion
+17 | from app.modules.documents.service import DocumentService
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+18 | from app.modules.documents.target import AnalysisTarget
+19 | from app.modules.processing.extraction import extract_document
+   |
+
+tests/test_document_intelligence.py:18:1: E402 Module level import not at top of file
+   |
+16 | from app.modules.documents.models import Document, DocumentVersion
+17 | from app.modules.documents.service import DocumentService
+18 | from app.modules.documents.target import AnalysisTarget
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+19 | from app.modules.processing.extraction import extract_document
+20 | from app.modules.processing.models import ProcessedDocument
+   |
+
+tests/test_document_intelligence.py:19:1: E402 Module level import not at top of file
+   |
+17 | from app.modules.documents.service import DocumentService
+18 | from app.modules.documents.target import AnalysisTarget
+19 | from app.modules.processing.extraction import extract_document
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+20 | from app.modules.processing.models import ProcessedDocument
+21 | from app.modules.processing.service import DocumentProcessingService
+   |
+
+tests/test_document_intelligence.py:20:1: E402 Module level import not at top of file
+   |
+18 | from app.modules.documents.target import AnalysisTarget
+19 | from app.modules.processing.extraction import extract_document
+20 | from app.modules.processing.models import ProcessedDocument
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+21 | from app.modules.processing.service import DocumentProcessingService
+22 | from app.modules.processing.structure import build_structure, normalize_source
+   |
+
+tests/test_document_intelligence.py:21:1: E402 Module level import not at top of file
+   |
+19 | from app.modules.processing.extraction import extract_document
+20 | from app.modules.processing.models import ProcessedDocument
+21 | from app.modules.processing.service import DocumentProcessingService
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+22 | from app.modules.processing.structure import build_structure, normalize_source
+23 | from app.modules.jobs.models import Job, JobType, JobStatus
+   |
+
+tests/test_document_intelligence.py:22:1: E402 Module level import not at top of file
+   |
+20 | from app.modules.processing.models import ProcessedDocument
+21 | from app.modules.processing.service import DocumentProcessingService
+22 | from app.modules.processing.structure import build_structure, normalize_source
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+23 | from app.modules.jobs.models import Job, JobType, JobStatus
+24 | from app.modules.jobs.schemas import JobCreate
+   |
+
+tests/test_document_intelligence.py:23:1: E402 Module level import not at top of file
+   |
+21 | from app.modules.processing.service import DocumentProcessingService
+22 | from app.modules.processing.structure import build_structure, normalize_source
+23 | from app.modules.jobs.models import Job, JobType, JobStatus
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+24 | from app.modules.jobs.schemas import JobCreate
+25 | from app.modules.jobs.service import JobService
+   |
+
+tests/test_document_intelligence.py:24:1: E402 Module level import not at top of file
+   |
+22 | from app.modules.processing.structure import build_structure, normalize_source
+23 | from app.modules.jobs.models import Job, JobType, JobStatus
+24 | from app.modules.jobs.schemas import JobCreate
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+25 | from app.modules.jobs.service import JobService
+26 | from app.modules.detection.service import DetectionService
+   |
+
+tests/test_document_intelligence.py:25:1: E402 Module level import not at top of file
+   |
+23 | from app.modules.jobs.models import Job, JobType, JobStatus
+24 | from app.modules.jobs.schemas import JobCreate
+25 | from app.modules.jobs.service import JobService
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+26 | from app.modules.detection.service import DetectionService
+27 | from app.modules.citations.service import CitationService
+   |
+
+tests/test_document_intelligence.py:26:1: E402 Module level import not at top of file
+   |
+24 | from app.modules.jobs.schemas import JobCreate
+25 | from app.modules.jobs.service import JobService
+26 | from app.modules.detection.service import DetectionService
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+27 | from app.modules.citations.service import CitationService
+28 | from app.modules.authorship.service import AuthorshipService
+   |
+
+tests/test_document_intelligence.py:27:1: E402 Module level import not at top of file
+   |
+25 | from app.modules.jobs.service import JobService
+26 | from app.modules.detection.service import DetectionService
+27 | from app.modules.citations.service import CitationService
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+28 | from app.modules.authorship.service import AuthorshipService
+29 | from app.modules.similarity.service import SimilarityService
+   |
+
+tests/test_document_intelligence.py:28:1: E402 Module level import not at top of file
+   |
+26 | from app.modules.detection.service import DetectionService
+27 | from app.modules.citations.service import CitationService
+28 | from app.modules.authorship.service import AuthorshipService
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+29 | from app.modules.similarity.service import SimilarityService
+30 | from app.modules.evidence.service import EvidenceService
+   |
+
+tests/test_document_intelligence.py:29:1: E402 Module level import not at top of file
+   |
+27 | from app.modules.citations.service import CitationService
+28 | from app.modules.authorship.service import AuthorshipService
+29 | from app.modules.similarity.service import SimilarityService
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+30 | from app.modules.evidence.service import EvidenceService
+31 | from app.modules.evidence.models import EvidenceNodeType, EvidenceEdgeType
+   |
+
+tests/test_document_intelligence.py:30:1: E402 Module level import not at top of file
+   |
+28 | from app.modules.authorship.service import AuthorshipService
+29 | from app.modules.similarity.service import SimilarityService
+30 | from app.modules.evidence.service import EvidenceService
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+31 | from app.modules.evidence.models import EvidenceNodeType, EvidenceEdgeType
+32 | from app.workers.tasks import validate_job_target
+   |
+
+tests/test_document_intelligence.py:31:1: E402 Module level import not at top of file
+   |
+29 | from app.modules.similarity.service import SimilarityService
+30 | from app.modules.evidence.service import EvidenceService
+31 | from app.modules.evidence.models import EvidenceNodeType, EvidenceEdgeType
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+32 | from app.workers.tasks import validate_job_target
+   |
+
+tests/test_document_intelligence.py:32:1: E402 Module level import not at top of file
+   |
+30 | from app.modules.evidence.service import EvidenceService
+31 | from app.modules.evidence.models import EvidenceNodeType, EvidenceEdgeType
+32 | from app.workers.tasks import validate_job_target
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+   |
+
+Found 28 errors.
+

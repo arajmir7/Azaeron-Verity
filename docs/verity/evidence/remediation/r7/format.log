@@ -1,0 +1,16 @@
+ Container azaeron-verity-cert-verification-run-f29e5ad9681a Creating 
+ Container azaeron-verity-cert-verification-run-f29e5ad9681a Created 
+reformatted /app/app/modules/privacy/models.py
+reformatted app/modules/compliance/models.py
+reformatted app/api/v1/privacy.py
+reformatted app/modules/assignments/models.py
+reformatted /app/app/modules/privacy/service.py
+reformatted app/workers/celery_app.py
+reformatted alembic/versions/20260921_0030_privacy_erasure.py
+reformatted app/modules/organizations/models.py
+reformatted app/modules/auth/models.py
+reformatted app/modules/documents/models.py
+reformatted app/workers/tasks.py
+
+All done! ✨ 🍰 ✨
+11 files reformatted, 7 files left unchanged.

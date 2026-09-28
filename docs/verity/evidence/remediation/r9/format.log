@@ -1,0 +1,17 @@
+ Container azaeron-verity-cert-verification-run-49dbf1be6a7e Creating 
+ Container azaeron-verity-cert-verification-run-49dbf1be6a7e Created 
+reformatted /app/app/api/v1/__init__.py
+reformatted /app/app/api/v1/telemetry.py
+reformatted /app/app/core/object_storage.py
+reformatted /app/app/core/queue.py
+reformatted /app/app/core/health.py
+reformatted /app/app/core/config.py
+reformatted /app/app/main.py
+reformatted /app/app/core/observability.py
+reformatted /app/app/workers/telemetry.py
+reformatted /app/tests/test_operations.py
+reformatted /app/tests/test_observability.py
+reformatted /app/app/workers/tasks.py
+
+All done! ✨ 🍰 ✨
+12 files reformatted, 199 files left unchanged.

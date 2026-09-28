@@ -1,0 +1,352 @@
+{
+  "uid": "verity-operations",
+  "title": "Verity operations \u2014 measured signals",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": false,
+  "refresh": "15s",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "API requests / second",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum by (status) (rate(azaeron_api_requests_total[5m]))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "API latency p95 / seconds",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "azaeron:api_latency:p95_5m",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Queue depth",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "azaeron_queue_depth",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Worker failures / 5 min",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum by (task) (increase(azaeron_celery_tasks_total{state=\"FAILURE\"}[5m]))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "Database errors / 5 min",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum(increase(azaeron_db_query_errors_total[5m]))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Storage failures / 5 min",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum(increase(azaeron_storage_operations_total{outcome=\"error\"}[5m]))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "Authorization denials / 5 min",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum by (status) (increase(azaeron_authorization_denials_total[5m]))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "Admission rejections / 5 min",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum(increase(azaeron_rate_limit_events_total[5m]))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "Private inference outcomes / 5 min",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum by (task,outcome) (increase(azaeron_inference_calls_total[5m]))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 32,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 10,
+      "type": "timeseries",
+      "title": "Frontend errors / 5 min",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum by (kind,route) (increase(azaeron_frontend_errors_total[5m]))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 32,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 11,
+      "type": "timeseries",
+      "title": "Required dependencies",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "azaeron_dependency_health",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 40,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 12,
+      "type": "timeseries",
+      "title": "Worker consumers per queue",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "azaeron_worker_health",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 40,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 13,
+      "type": "timeseries",
+      "title": "Database pool",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "{__name__=~\"azaeron_db_pool_checked_out|azaeron_db_pool_size|azaeron_db_pool_overflow\",job=\"azaeron-backend\"}",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 48,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {}
+    }
+  ]
+}

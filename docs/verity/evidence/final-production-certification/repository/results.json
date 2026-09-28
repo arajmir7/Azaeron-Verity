@@ -1,0 +1,243 @@
+{
+  "source_manifest_sha256": "16626a236ab58cb5b20815e2a8d991da45131ec0f2e8d0030604e75c93145a74",
+  "production_certified": false,
+  "results": [
+    {
+      "gate": "backend-format",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/final-compose.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_verity/backend:/app",
+        "verification",
+        "black",
+        "--check",
+        "app",
+        "tests"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 8.15
+    },
+    {
+      "gate": "backend-lint",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/final-compose.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_verity/backend:/app",
+        "verification",
+        "ruff",
+        "check",
+        "app",
+        "tests"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 2.57
+    },
+    {
+      "gate": "backend-typecheck",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/final-compose.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_verity/backend:/app",
+        "verification",
+        "mypy",
+        "app"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 15.04
+    },
+    {
+      "gate": "unit-security-worker-contract",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/final-compose.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_verity/backend:/app",
+        "-e",
+        "CORS_ORIGINS=http://localhost:3000",
+        "verification",
+        "pytest",
+        "tests",
+        "--ignore=tests/integration",
+        "-q"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 96.5
+    },
+    {
+      "gate": "postgres-rls",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/final-compose.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_verity/backend:/app",
+        "-e",
+        "POSTGRES_TEST_DATABASE_URL",
+        "-e",
+        "RUN_STORAGE_INTEGRATION=1",
+        "-e",
+        "PRIVACY_MINIO_ACCESS_KEY",
+        "-e",
+        "PRIVACY_MINIO_SECRET_KEY",
+        "verification",
+        "pytest",
+        "tests/integration",
+        "-q"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 10.05
+    },
+    {
+      "gate": "frontend-lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 4.73
+    },
+    {
+      "gate": "compose",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/final-compose.json",
+        "config",
+        "--quiet"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.31
+    },
+    {
+      "gate": "frontend-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 6.92
+    },
+    {
+      "gate": "frontend-typecheck",
+      "command": [
+        "npx",
+        "tsc",
+        "--noEmit"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 1.82
+    },
+    {
+      "gate": "browser",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--workers=1"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "seconds": 215.06
+    },
+    {
+      "gate": "source-stability",
+      "status": "FAIL",
+      "exit_code": 1,
+      "changed_paths": [
+        "backend/alembic/env.py",
+        "backend/alembic/versions/20260826_0001_initial_schema.py",
+        "backend/alembic/versions/20260826_0002_runtime_db_role.py",
+        "backend/alembic/versions/20260910_0003_tenant_integrity_guards.py",
+        "backend/alembic/versions/20260912_0004_intelligence_governance.py",
+        "backend/alembic/versions/20260912_0005_analysis_run_rls.py",
+        "backend/alembic/versions/20260912_0006_analysis_lineage_contract.py",
+        "backend/alembic/versions/20260912_0007_detector_inference_contract.py",
+        "backend/alembic/versions/20260912_0008_ai_generated_verdict.py",
+        "backend/alembic/versions/20260912_0009_evaluation_integrity.py",
+        "backend/alembic/versions/20260912_0010_fix_evaluation_immutability_trigger.py",
+        "backend/alembic/versions/20260912_0011_fix_dataset_delete_trigger.py",
+        "backend/alembic/versions/20260912_0012_require_dataset_provenance.py",
+        "backend/alembic/versions/20260912_0013_similarity_retrieval_engine.py",
+        "backend/alembic/versions/20260912_0014_citation_intelligence.py",
+        "backend/alembic/versions/20260912_0015_authorship_consistency_engine.py",
+        "backend/alembic/versions/20260912_0016_scope_authorship_profiles.py",
+        "backend/alembic/versions/20260912_0017_document_provenance.py",
+        "backend/alembic/versions/20260912_0018_fix_provenance_event_enum.py",
+        "backend/alembic/versions/20260912_0019_evidence_graph.py",
+        "backend/alembic/versions/20260912_0020_aegiswrite_editorial_contract.py",
+        "backend/alembic/versions/20260912_0021_workspace_onboarding.py",
+        "backend/alembic/versions/20260912_0022_account_audit_rls.py",
+        "backend/alembic/versions/20260913_0023_similarity_workflow.py",
+        "backend/alembic/versions/20260913_0024_document_intelligence.py",
+        "backend/alembic/versions/20260913_0025_similarity_engine_v2.py",
+        "backend/alembic/versions/20260920_0028_api_keys.py",
+        "backend/alembic/versions/20260920_0029_identity.py",
+        "backend/alembic/versions/20260921_0030_privacy_erasure.py",
+        "backend/alembic/versions/20260924_0031_storage_lifecycle.py",
+        "backend/alembic/versions/20260924_0035_usage_maintenance.py",
+        "backend/app/modules/auth/identity.py",
+        "backend/app/modules/auth/service.py",
+        "backend/app/modules/evidence/service.py",
+        "backend/app/modules/inference/deployment.py",
+        "backend/app/modules/privacy/service.py",
+        "backend/app/modules/similarity/retrieval.py",
+        "backend/app/workers/entrypoint.py",
+        "backend/migration_snapshots/initial_20260826.py",
+        "backend/scripts/fetch_similarity_model.py",
+        "backend/scripts/prepare_slice0_compose.py",
+        "backend/scripts/scale_gate.py",
+        "backend/scripts/telemetry_drill.py",
+        "scripts/verity_identity_migration_gate.py",
+        "scripts/verity_load_gate.py",
+        "scripts/verity_observability_gate.py",
+        "scripts/verity_privacy_migration_gate.py",
+        "scripts/verity_secret_gate.py",
+        "scripts/verity_usage_migration_gate.py"
+      ]
+    }
+  ]
+}

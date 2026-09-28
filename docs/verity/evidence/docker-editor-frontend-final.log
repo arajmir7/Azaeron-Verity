@@ -1,0 +1,111 @@
+ Image azaeron-verity-cert-frontend:latest Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.67kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 815B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#3 DONE 2.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 96B done
+#4 DONE 0.0s
+
+#5 [builder 1/6] FROM docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#5 resolve docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85 done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 53.41kB 0.0s done
+#6 DONE 0.0s
+
+#7 [builder 2/6] WORKDIR /app
+#7 CACHED
+
+#8 [builder 3/6] COPY package.json package-lock.json ./
+#8 CACHED
+
+#9 [builder 4/6] RUN npm ci
+#9 CACHED
+
+#10 [builder 5/6] COPY . .
+#10 DONE 0.2s
+
+#11 [builder 6/6] RUN npm run build
+#11 0.977 
+#11 0.977 > azaeron-frontend@1.0.0 build
+#11 0.977 > node ./node_modules/next/dist/bin/next build
+#11 0.977 
+#11 1.701 ▲ Next.js 16.3.3 (Turbopack)
+#11 2.359 ✓ Running next.config.ts took 657ms
+#11 2.371 
+#11 2.394   Creating an optimized production build ...
+#11 8.597 ✓ Compiled successfully in 6.0s
+#11 8.630   Running TypeScript ...
+#11 12.16   Finished TypeScript in 3.5s ...
+#11 12.16   Collecting page data using 9 workers ...
+#11 12.78   Generating static pages using 9 workers (0/20) ...
+#11 13.13   Generating static pages using 9 workers (5/20) 
+#11 13.20   Generating static pages using 9 workers (10/20) 
+#11 13.20   Generating static pages using 9 workers (15/20) 
+#11 13.25 ✓ Generating static pages using 9 workers (20/20) in 470ms
+#11 13.26   Finalizing page optimization ...
+#11 13.81 
+#11 13.82 Route (app)
+#11 13.82 ┌ ○ /
+#11 13.82 ├ ○ /_not-found
+#11 13.82 ├ ○ /admin
+#11 13.82 ├ ○ /authorship
+#11 13.82 ├ ○ /check
+#11 13.82 ├ ○ /citations
+#11 13.82 ├ ○ /dashboard
+#11 13.82 ├ ○ /documents
+#11 13.82 ├ ƒ /documents/[id]
+#11 13.82 ├ ○ /evidence-graph
+#11 13.82 ├ ○ /login
+#11 13.82 ├ ○ /onboarding
+#11 13.82 ├ ○ /provenance
+#11 13.82 ├ ○ /register
+#11 13.82 ├ ○ /reports
+#11 13.82 ├ ○ /settings
+#11 13.82 ├ ○ /similarity
+#11 13.82 ├ ○ /sources
+#11 13.82 ├ ○ /upload
+#11 13.82 └ ○ /write
+#11 13.82 
+#11 13.82 
+#11 13.82 ○  (Static)   prerendered as static content
+#11 13.82 ƒ  (Dynamic)  server-rendered on demand
+#11 13.82 
+#11 DONE 14.1s
+
+#7 [builder 2/6] WORKDIR /app
+#7 CACHED
+
+#12 [runner 3/5] COPY --from=builder --chown=node:node /app/.next/standalone ./
+#12 DONE 0.4s
+
+#13 [runner 4/5] COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+#13 DONE 0.1s
+
+#14 [runner 5/5] COPY --from=builder --chown=node:node /app/public ./public
+#14 DONE 0.0s
+
+#15 exporting to image
+#15 exporting layers
+#15 exporting layers 1.0s done
+#15 exporting manifest sha256:8a9c31d45c8dc5ef35e454902857ba01291644f758aa463712995703e8d2881d done
+#15 exporting config sha256:e5b1cde8cab039831c5fff2b1735d58ae3c7b8431fbf307fb1aec92dc4073870 done
+#15 exporting attestation manifest sha256:2b07a4ba8a5b78f064b7882a1b40c56b75e5d1f645a3bad0916593b554b9b91a done
+#15 exporting manifest list sha256:540b72e4a2a446df999181d9520d7aa3732ddb3261e6868c0cd3b95b9dec5505 done
+#15 naming to docker.io/library/azaeron-verity-cert-frontend:latest done
+#15 unpacking to docker.io/library/azaeron-verity-cert-frontend:latest
+#15 unpacking to docker.io/library/azaeron-verity-cert-frontend:latest 0.3s done
+#15 DONE 1.3s
+
+#16 resolving provenance for metadata file
+#16 DONE 0.0s
+ Image azaeron-verity-cert-frontend:latest Built 

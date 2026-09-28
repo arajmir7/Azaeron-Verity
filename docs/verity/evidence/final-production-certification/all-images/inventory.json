@@ -1,0 +1,17 @@
+{
+  "backend": "verity-final-20260925-backend",
+  "celery-beat": "verity-final-20260925-celery-beat",
+  "celery-worker": "verity-final-20260925-celery-worker",
+  "frontend": "verity-final-20260925-frontend",
+  "grafana": "grafana/grafana:latest@sha256:3fd54ae1214669f8355f065ec9f6445d5279a3d77095ab048ca045685272429b",
+  "jaeger": "jaegertracing/all-in-one:1.62.0@sha256:836e9b69c88afbedf7683ea7162e179de63b1f981662e83f5ebb68badadc710f",
+  "mailpit": "axllent/mailpit:v1.31.2@sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d",
+  "migrate": "verity-final-20260925-migrate",
+  "minio": "minio/minio:latest@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e",
+  "minio-init": "minio/mc:latest@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727",
+  "otel-collector": "otel/opentelemetry-collector-contrib:0.111.0@sha256:a2a52e43c1a80aa94120ad78c2db68780eb90e6d11c8db5b3ce2f6a0cc6b5029",
+  "postgres": "pgvector/pgvector:pg16@sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b",
+  "prometheus": "prom/prometheus:latest@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+  "redis": "redis:7.4-alpine@sha256:ff02b58f971e7d7d156a1267e283fcbbeee91773b6aa36c49dac28ecfe28eadf",
+  "verification": "verity-final-20260925-verification"
+}

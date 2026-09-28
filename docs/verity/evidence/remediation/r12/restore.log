@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 739, in <module>
+    {
+    ~
+    ...<4 lines>...
+        "replay": replay,
+        ~~~~~~~~~~~~~~~~~
+    }[phase]()
+    ~~~~~~~~^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 385, in restore
+    db.execute(
+    ~~~~~~~~~~^
+        sql.SQL("CREATE ROLE azaeron_app LOGIN PASSWORD {}").format(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        )
+        ^
+    )
+    ^
+  File "/opt/anaconda3/lib/python3.13/site-packages/psycopg/connection.py", line 300, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.DuplicateObject: role "azaeron_app" already exists

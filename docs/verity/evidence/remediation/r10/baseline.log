@@ -1,0 +1,21 @@
+ Container azaeron-verity-cert-verification-run-cdf88097fc5d Creating 
+ Container azaeron-verity-cert-verification-run-cdf88097fc5d Created 
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/app/scripts/application_load.py", line 143, in <module>
+    asyncio.run(main(parser.parse_args()))
+  File "/usr/local/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/app/scripts/application_load.py", line 62, in main
+    assert response and response.is_success
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+

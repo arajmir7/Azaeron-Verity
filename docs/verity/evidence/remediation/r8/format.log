@@ -1,0 +1,15 @@
+ Container azaeron-verity-cert-verification-run-bb070d6c32c3 Creating 
+ Container azaeron-verity-cert-verification-run-bb070d6c32c3 Created 
+reformatted app/api/v1/usage.py
+reformatted /app/app/modules/billing/execution.py
+reformatted /app/app/modules/billing/entitlements.py
+reformatted /app/app/modules/billing/models.py
+reformatted alembic/versions/20260924_0034_usage_reservations.py
+reformatted app/api/v1/text.py
+reformatted app/modules/jobs/service.py
+reformatted /app/app/modules/billing/usage.py
+reformatted app/workers/tasks.py
+reformatted app/api/v1/documents.py
+
+All done! ✨ 🍰 ✨
+10 files reformatted, 4 files left unchanged.

@@ -1,0 +1,59 @@
+ Container azaeron-verity-cert-verification-run-9ef952b60bda Creating 
+ Container azaeron-verity-cert-verification-run-9ef952b60bda Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade 20260920_0029 -> 20260920_0028, Identity challenges, encrypted mail outbox and MFA replay state.
+Traceback (most recent call last):
+  File "/usr/local/bin/alembic", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/alembic/config.py", line 636, in main
+    CommandLine(prog=prog).main(argv=argv)
+  File "/usr/local/lib/python3.12/site-packages/alembic/config.py", line 626, in main
+    self.run_cmd(cfg, options)
+  File "/usr/local/lib/python3.12/site-packages/alembic/config.py", line 603, in run_cmd
+    fn(
+  File "/usr/local/lib/python3.12/site-packages/alembic/command.py", line 453, in downgrade
+    script.run_env()
+  File "/usr/local/lib/python3.12/site-packages/alembic/script/base.py", line 586, in run_env
+    util.load_python_file(self.dir, "env.py")
+  File "/usr/local/lib/python3.12/site-packages/alembic/util/pyfiles.py", line 95, in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/alembic/util/pyfiles.py", line 113, in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/app/alembic/env.py", line 63, in <module>
+    run_migrations_online()
+  File "/app/alembic/env.py", line 57, in run_migrations_online
+    asyncio.run(run_async_migrations())
+  File "/usr/local/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/app/alembic/env.py", line 52, in run_async_migrations
+    await connection.run_sync(do_run_migrations)
+  File "/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/engine.py", line 886, in run_sync
+    return await greenlet_spawn(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/alembic/env.py", line 42, in do_run_migrations
+    context.run_migrations()
+  File "<string>", line 8, in run_migrations
+  File "/usr/local/lib/python3.12/site-packages/alembic/runtime/environment.py", line 946, in run_migrations
+    self.get_context().run_migrations(**kw)
+  File "/usr/local/lib/python3.12/site-packages/alembic/runtime/migration.py", line 623, in run_migrations
+    step.migration_fn(**kw)
+  File "/app/alembic/versions/20260920_0029_identity.py", line 28, in downgrade
+    raise RuntimeError("Cannot remove MFA replay/recovery state while MFA is enabled; use a compatible application rollback")
+RuntimeError: Cannot remove MFA replay/recovery state while MFA is enabled; use a compatible application rollback
+

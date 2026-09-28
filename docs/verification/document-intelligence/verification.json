@@ -1,0 +1,106 @@
+{
+  "recorded_at": "2026-09-13T11:53:46.142977+00:00",
+  "VERSION_INTEGRITY_GATE": "PASS",
+  "implementation_files": {
+    "modified": 37,
+    "added": 7,
+    "manifest": "files-changed.json"
+  },
+  "migration": "20260913_0024",
+  "backend": {
+    "passed": 130,
+    "failed": 0,
+    "skipped": 0,
+    "postgres_tests": 14,
+    "warnings": 124
+  },
+  "browser": {
+    "full_suite_passed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "post_upgrade_flow_passed": 1
+  },
+  "gates": {
+    "backend-postgres.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "71b3f139b8fa66d609854b81cedc96b5e5ca61519b77e754df9d881d98fe0b6b"
+    },
+    "backend-lint.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "75e9377e2af14f01d73ac7b7deea29e750c2d6c869ed430bcf7b6453c305ccff"
+    },
+    "backend-typecheck.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "41bd416d2c89b7f9fd349406ff07cbb70b28bbccf72dcc9c904ad74100d66317"
+    },
+    "frontend-typecheck.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "038759581c48ce80d25f478d537fd4e27aea6df9beaea054d61d093e7b1e2615"
+    },
+    "frontend-lint.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "b8a0f213fed65bf415cd8042acec8db8262cb831cec8f9a0cd7896433633787a"
+    },
+    "production-build.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "433539deeb56753a387029aaa96afc7498deb860d7178f1f7562847e152e36cb"
+    },
+    "primary-build.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "6f4a014e9aabaa4cab3c93098adc41c109b589f0ab01b41e576e93ba435d0f03"
+    },
+    "browser-full.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "bce54972bb66ef76f1c3e449f749c4336b88321fa1b1a99409c7844cc9697612"
+    },
+    "browser-primary.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "6670588eeca295c250f33e9348d215d4194d5fa33d1caba43c325cdf71bd7422"
+    },
+    "fresh-migration-final.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "9ec97090782de94b735786af2fb7606834abfb2e2b8d15cfb1f88d3f6c911bd4"
+    },
+    "populated-migration.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "ada6a5cf215463024726b8ea82e25f7b34f2b273a7a0624d841e3ee3d1f1d195"
+    },
+    "primary-upgrade.log": {
+      "status": "PASS",
+      "exit_code": 0,
+      "sha256": "ba824094caca6693670cbd7ac44b30e3bcd404e25fd49d0d3bbfb4c1c94b8b82"
+    }
+  },
+  "historical_migration": {
+    "tables_compared": 12,
+    "processed_documents_preserved": 114,
+    "clone_unchanged": true,
+    "primary_unchanged": true
+  },
+  "runtime": {
+    "primary": "http://localhost:3000",
+    "migration": "20260913_0024",
+    "health_artifact": "docker-health.json",
+    "isolated_project": "stopped; volumes retained",
+    "primary_readiness": "HTTP 200"
+  },
+  "required_gates_remaining": [],
+  "limits": [
+    "Historical source/page geometry unavailable for legacy parses",
+    "Deterministic structural heuristics, not semantic accuracy claims",
+    "PDF extraction has no OCR; DOCX has no physical pagination engine",
+    "Editorial offsets retain their submitted-text coordinate basis"
+  ],
+  "artifact_validation": "source hashes, historical digests and required command exits checked"
+}

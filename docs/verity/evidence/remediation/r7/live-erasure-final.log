@@ -1,0 +1,22 @@
+ Container azaeron-verity-cert-verification-run-ada6237456cf Creating 
+ Container azaeron-verity-cert-verification-run-ada6237456cf Created 
+{"state": "REQUESTED", "seconds": 0.2}
+{"state": "VERIFYING", "seconds": 25.4}
+{"state": "COMPLETED", "seconds": 507.7}
+{
+  "scope": "synthetic live account and object erasure",
+  "checks": {
+    "processed_document": "PASS",
+    "upload_principal_cannot_delete": "PASS",
+    "session_revoked_and_bad_receipt_denied": "PASS",
+    "actual_object_version_absence": "PASS",
+    "real_expiry_grace": "PASS"
+  },
+  "states": [
+    "REQUESTED",
+    "VERIFYING",
+    "COMPLETED"
+  ],
+  "elapsed_seconds": 507.7,
+  "status": "PASS"
+}

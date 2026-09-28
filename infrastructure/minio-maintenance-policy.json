@@ -1,0 +1,60 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:ListBucketVersions"
+      ],
+      "Resource": "arn:aws:s3:::azaeron-documents",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": [
+            "uploads/*",
+            "versions/*",
+            "temporary/*"
+          ]
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:GetLifecycleConfiguration",
+        "s3:PutLifecycleConfiguration"
+      ],
+      "Resource": "arn:aws:s3:::azaeron-documents"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion",
+        "s3:DeleteObject",
+        "s3:DeleteObjectVersion",
+        "s3:AbortMultipartUpload"
+      ],
+      "Resource": [
+        "arn:aws:s3:::azaeron-documents/uploads/*",
+        "arn:aws:s3:::azaeron-documents/versions/*",
+        "arn:aws:s3:::azaeron-documents/temporary/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::azaeron-documents/versions/legacy/*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucketMultipartUploads"
+      ],
+      "Resource": "arn:aws:s3:::azaeron-documents"
+    }
+  ]
+}

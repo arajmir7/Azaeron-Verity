@@ -1,0 +1,9 @@
+ Container azaeron-verity-cert-verification-run-8878708c068a Creating 
+ Container azaeron-verity-cert-verification-run-8878708c068a Created 
+reformatted scripts/detector_calibration.py
+reformatted app/modules/detection/schemas.py
+reformatted tests/test_detector_calibration_protocol.py
+reformatted app/modules/detection/intelligence/evaluation.py
+
+All done! ✨ 🍰 ✨
+4 files reformatted.

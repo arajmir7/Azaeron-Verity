@@ -1,0 +1,26 @@
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[manager]	WARNING	Test in comment: public is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: OAuth is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: scheme is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: credential is not a test name or id, ignoring
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:99
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:100
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:102
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:101
+[manager]	WARNING	Test in comment: retrieval is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: channel is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: names is not a test name or id, ignoring
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:71
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:71
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:71
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:71
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:71
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:71
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:71
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+[json]	INFO	JSON output written to file: docs/verity/evidence/bandit-final.json

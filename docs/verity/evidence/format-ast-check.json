@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "scope": "Application AST equality before/after Black, both parsed in Python 3.12",
+  "files": 134,
+  "semantic_changes": []
+}

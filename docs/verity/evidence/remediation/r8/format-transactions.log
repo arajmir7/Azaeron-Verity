@@ -1,0 +1,9 @@
+ Container azaeron-verity-cert-verification-run-c94e22248707 Creating 
+ Container azaeron-verity-cert-verification-run-c94e22248707 Created 
+reformatted /app/app/api/v1/privacy.py
+reformatted /app/app/api/v1/identity.py
+reformatted /app/app/api/v1/auth.py
+reformatted /app/tests/test_transaction_boundary.py
+
+All done! ✨ 🍰 ✨
+4 files reformatted, 202 files left unchanged.

@@ -1,0 +1,3 @@
+src/components/settings/privacy.tsx(27,100): error TS2345: Argument of type 'DocumentRecord[]' is not assignable to parameter of type 'SetStateAction<{ id: string; title?: string | null | undefined; filename: string; }[]>'.
+  Type 'DocumentRecord[]' is not assignable to type '{ id: string; title?: string | null | undefined; filename: string; }[]'.
+    Property 'filename' is missing in type 'DocumentRecord' but required in type '{ id: string; title?: string | null | undefined; filename: string; }'.

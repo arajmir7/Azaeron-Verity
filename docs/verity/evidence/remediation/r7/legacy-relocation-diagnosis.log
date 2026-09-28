@@ -1,0 +1,4 @@
+ Container azaeron-verity-cert-verification-run-2cf021bc5b6f Creating 
+ Container azaeron-verity-cert-verification-run-2cf021bc5b6f Created 
+InvalidRequestError
+When initializing mapper Mapper[Document(documents)], expression 'Organization' failed to locate a name ('Organization'). If this is a class name, consider adding this relationship() to the <class 'app.modules.documents.models.Document'> class after both dependent classes have been defined.

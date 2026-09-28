@@ -1,0 +1,15 @@
+ Container azaeron-verity-cert-verification-run-8419b121b73c Creating 
+ Container azaeron-verity-cert-verification-run-8419b121b73c Created 
+reformatted /app/app/api/v1/auth.py
+reformatted /app/app/api/v1/identity.py
+reformatted /app/app/api/v1/organizations.py
+reformatted /app/app/core/security.py
+reformatted /app/app/core/dependencies.py
+reformatted /app/app/modules/auth/identity_models.py
+reformatted /app/app/modules/auth/mail.py
+reformatted /app/app/modules/auth/models.py
+reformatted /app/app/modules/auth/identity.py
+reformatted /app/app/modules/auth/service.py
+
+All done! ✨ 🍰 ✨
+10 files reformatted, 179 files left unchanged.

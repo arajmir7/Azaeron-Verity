@@ -1,0 +1,104 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test --workers=1
+
+
+Running 22 tests using 1 worker
+
+(node:73928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/22] [chromium] › tests/accessibility-live.spec.ts:13:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations
+[2/22] [chromium] › tests/api-keys.spec.ts:4:5 › API keys show the secret once, rotate, revoke, and avoid browser storage
+[3/22] [chromium] › tests/editor-live.spec.ts:4:5 › editor: selective acceptance, reload, restore, offline recovery and lost-response retry
+[4/22] [chromium] › tests/identity-live.spec.ts:18:5 › real SMTP verification, MFA recovery login, password reset and device revocation
+[5/22] [chromium] › tests/onboarding.spec.ts:54:5 › an expired access cookie refreshes with a valid request body and restores the workspace
+[6/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives student the server-provided starting workflow
+[7/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives teacher the server-provided starting workflow
+[8/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives professor the server-provided starting workflow
+[9/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives researcher the server-provided starting workflow
+[10/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives reviewer the server-provided starting workflow
+[11/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives institution the server-provided starting workflow
+[12/22] [chromium] › tests/onboarding.spec.ts:76:5 › a document workflow offers workspace creation inline
+[13/22] [chromium] › tests/onboarding.spec.ts:86:5 › revoked recent membership falls back only after server validation
+[14/22] [chromium] › tests/onboarding.spec.ts:95:5 › failed switching hides tenant data and offers a working retry
+[15/22] [chromium] › tests/onboarding.spec.ts:111:5 › cached workspace IDs cannot override the server's active membership
+[16/22] [chromium] › tests/privacy.spec.ts:4:5 › privacy form requires explicit confirmation and keeps its receipt out of persistent storage
+[17/22] [chromium] › tests/usage.spec.ts:4:5 › workspace usage shows authoritative totals and handles unavailable refresh
+  1) [chromium] › tests/usage.spec.ts:4:5 › workspace usage shows authoritative totals and handles unavailable refresh 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected substring: "Usage temporarily unavailable"
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <div role="alert" class="mt-3">…</div> aka getByRole('region', { name: 'Workspace usage' }).getByRole('alert')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for getByRole('alert')
+        2 × locator resolved to <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div>
+          - unexpected value ""
+
+
+      23 |   unavailable = true;
+      24 |   await page.getByRole("button", { name: "Refresh usage" }).click();
+    > 25 |   await expect(page.getByRole("alert")).toContainText("Usage temporarily unavailable");
+         |                                         ^
+      26 | });
+      27 |
+        at /Users/ajmiraribam/Projects/azaeron_verity/frontend/tests/usage.spec.ts:25:41
+
+    Error Context: test-results/usage-workspace-usage-show-3591d-handles-unavailable-refresh-chromium/error-context.md
+
+
+(node:74283) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[18/22] [chromium] › tests/workspace.spec.ts:3:5 › public workspace keeps analysis evidence-based and editorial work authenticated
+[19/22] [chromium] › tests/workspace.spec.ts:13:5 › public navigation remains usable on a narrow viewport
+(node:74315) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[20/22] [chromium] › tests/document-intelligence-live.spec.ts:6:5 › document core: upload, analyze and switch immutable versions across existing views
+[21/22] [chromium] › tests/onboarding-live.spec.ts:5:5 › live signup, personal workspace, upload, refresh and persistent switching
+[22/22] [chromium] › tests/similarity-live.spec.ts:7:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions
+  2) [chromium] › tests/similarity-live.spec.ts:7:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 429
+
+      13 |   expect(register.status()).toBe(201);
+      14 |   const login = await page.request.post("/api/v1/auth/login", { headers, data: { email: `similarity-${unique}@example.com`, password: "SimilarityEvidence123!" } });
+    > 15 |   expect(login.status()).toBe(200);
+         |                          ^
+      16 |   const onboarding = await page.request.post("/api/v1/auth/onboarding", { headers, data: { product_role: "student" } });
+      17 |   expect(onboarding.status()).toBe(200);
+      18 |
+        at /Users/ajmiraribam/Projects/azaeron_verity/frontend/tests/similarity-live.spec.ts:15:26
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  2 failed
+    [chromium] › tests/similarity-live.spec.ts:7:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions 
+    [chromium] › tests/usage.spec.ts:4:5 › workspace usage shows authoritative totals and handles unavailable refresh 
+  20 passed (1.6m)

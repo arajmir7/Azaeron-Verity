@@ -1,0 +1,5 @@
+ Container azaeron-verity-cert-verification-run-312a84a7f610 Creating 
+ Container azaeron-verity-cert-verification-run-312a84a7f610 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0031 -> 20260924_0032, Bounded retention progress and required attribution on newly created content.

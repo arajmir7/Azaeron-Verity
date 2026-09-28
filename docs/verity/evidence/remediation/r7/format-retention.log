@@ -1,0 +1,9 @@
+ Container azaeron-verity-cert-verification-run-db1b5fa57170 Creating 
+ Container azaeron-verity-cert-verification-run-db1b5fa57170 Created 
+reformatted alembic/versions/20260924_0032_privacy_retention_guards.py
+reformatted /app/app/modules/privacy/service.py
+reformatted scripts/privacy_drill.py
+reformatted /app/app/modules/privacy/storage.py
+
+All done! ✨ 🍰 ✨
+4 files reformatted, 5 files left unchanged.

@@ -1,0 +1,107 @@
+groups:
+  - name: azaeron-slo
+    interval: 30s
+    rules:
+      - record: azaeron:api_availability:ratio5m
+        expr: |
+          sum(rate(azaeron_api_requests_total{status!~"5.."}[5m]))
+          /
+          clamp_min(sum(rate(azaeron_api_requests_total[5m])), 1e-9)
+      - record: azaeron:api_latency:p95_5m
+        expr: |
+          histogram_quantile(0.95,
+            sum by (le) (rate(azaeron_api_request_duration_seconds_bucket[5m])))
+      - record: azaeron:api_latency:p99_5m
+        expr: |
+          histogram_quantile(0.99,
+            sum by (le) (rate(azaeron_api_request_duration_seconds_bucket[5m])))
+      - alert: AzaeronApiAvailabilityBurn
+        expr: azaeron:api_availability:ratio5m < 0.995 and sum(rate(azaeron_api_requests_total[5m])) > 0
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: API availability is below the provisional 99.5% alert threshold
+      - alert: AzaeronApiLatencyHigh
+        expr: azaeron:api_latency:p95_5m > 0.75
+        for: 10m
+        labels:
+          severity: ticket
+        annotations:
+          summary: API p95 latency is above the provisional 750 ms alert threshold
+      - alert: AzaeronDependencyNotReady
+        expr: azaeron_redis_health == 0 or azaeron_worker_count == 0 or azaeron_dependency_health == 0
+        for: 5m
+        labels:
+          severity: page
+        annotations:
+          summary: A required runtime dependency is unhealthy
+      - alert: AzaeronQueueBacklog
+        expr: max by (queue) (azaeron_queue_depth) > 1000
+        for: 15m
+        labels:
+          severity: ticket
+        annotations:
+          summary: A processing queue has a sustained backlog
+      - alert: AzaeronDeadLetterGrowth
+        expr: increase(azaeron_dead_lettered_jobs_total[15m]) > 0
+        labels:
+          severity: page
+        annotations:
+          summary: A background job entered the dead-letter queue
+      - alert: AzaeronTelemetryTargetMissing
+        expr: up{job=~"azaeron-backend|azaeron-worker"} == 0
+        for: 1m
+        labels:
+          severity: ticket
+        annotations:
+          summary: Application telemetry scrape failed
+      - alert: AzaeronDatabaseFailures
+        expr: sum(increase(azaeron_db_query_errors_total[5m])) > 0
+        for: 1m
+        labels:
+          severity: ticket
+        annotations:
+          summary: Database query failures observed
+      - alert: AzaeronStorageFailures
+        expr: sum(increase(azaeron_storage_operations_total{outcome="error"}[5m])) > 0
+        for: 1m
+        labels:
+          severity: ticket
+        annotations:
+          summary: Object storage failures observed
+      - alert: AzaeronAuthorizationDenials
+        expr: sum(increase(azaeron_authorization_denials_total[5m])) > 20
+        for: 1m
+        labels:
+          severity: ticket
+        annotations:
+          summary: Authentication or authorization rejections increased
+      - alert: AzaeronRateLimitEvents
+        expr: sum(increase(azaeron_rate_limit_events_total[5m])) > 20
+        for: 1m
+        labels:
+          severity: ticket
+        annotations:
+          summary: Admission rejections increased
+      - alert: AzaeronInferenceErrors
+        expr: sum(increase(azaeron_inference_calls_total{outcome="error"}[5m])) > 0
+        for: 1m
+        labels:
+          severity: ticket
+        annotations:
+          summary: Private inference errors observed
+      - alert: AzaeronWorkerFailures
+        expr: sum(increase(azaeron_celery_tasks_total{state="FAILURE"}[5m])) > 0
+        for: 1m
+        labels:
+          severity: ticket
+        annotations:
+          summary: Document worker failures observed
+      - alert: AzaeronFrontendErrors
+        expr: sum(increase(azaeron_frontend_errors_total[5m])) > 0
+        for: 1m
+        labels:
+          severity: ticket
+        annotations:
+          summary: Browser errors reported

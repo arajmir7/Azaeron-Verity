@@ -1,0 +1,14 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/observability-live.spec.ts tests/error-boundary.spec.ts --workers=1
+
+
+Running 2 tests using 1 worker
+
+(node:78625) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] [chromium] › tests/error-boundary.spec.ts:3:5 › render errors have a focused recovery boundary and send only closed metadata
+[2/2] [chromium] › tests/observability-live.spec.ts:7:5 › browser upload correlates API, database, storage and worker without customer text
+  2 passed (10.3s)

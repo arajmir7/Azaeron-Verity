@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 731, in <module>
+    {
+    ~
+    ...<4 lines>...
+        "replay": replay,
+        ~~~~~~~~~~~~~~~~~
+    }[phase]()
+    ~~~~~~~~^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 149, in fixture
+    "object_key": document["storage_path"],
+                  ~~~~~~~~^^^^^^^^^^^^^^^^
+KeyError: 'storage_path'

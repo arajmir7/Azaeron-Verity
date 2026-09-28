@@ -1,0 +1,22 @@
+[
+  {
+    "image": "azaeron-verity-r1-runtime:latest",
+    "image_id": "sha256:c6ddd302c3276b07330658e949fc159d5bd0694be705a7858a0f103124ee8fc8",
+    "bytes": 116937675,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-verity-r1-runtime:latest",
+    "image_id": "sha256:c6ddd302c3276b07330658e949fc159d5bd0694be705a7858a0f103124ee8fc8",
+    "bytes": 116937675,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

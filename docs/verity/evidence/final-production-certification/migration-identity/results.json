@@ -1,0 +1,28 @@
+{
+  "results": [
+    {
+      "gate": "create-isolated-database",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "fresh-to-identity",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "seed-account",
+      "exit_code": 1,
+      "expected": "zero",
+      "status": "FAIL"
+    },
+    {
+      "gate": "remove-isolated-database",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    }
+  ]
+}

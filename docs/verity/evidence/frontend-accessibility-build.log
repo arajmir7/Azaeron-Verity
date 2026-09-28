@@ -1,0 +1,115 @@
+ Image azaeron-verity-cert-frontend:latest Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.66kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 498B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 96B done
+#4 DONE 0.0s
+
+#5 [dependencies 1/4] FROM docker.io/library/node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32
+#5 resolve docker.io/library/node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 188.02kB 0.0s done
+#6 DONE 0.0s
+
+#7 [dependencies 4/4] RUN npm ci
+#7 CACHED
+
+#8 [dependencies 2/4] WORKDIR /app
+#8 CACHED
+
+#9 [dependencies 3/4] COPY package.json package-lock.json ./
+#9 CACHED
+
+#10 [runner 3/6] COPY --from=dependencies /app/node_modules ./node_modules
+#10 CACHED
+
+#11 [runner 4/6] COPY . .
+#11 DONE 0.0s
+
+#12 [runner 5/6] RUN npm run build
+#12 0.369 
+#12 0.369 > azaeron-frontend@1.0.0 build
+#12 0.369 > node ./node_modules/next/dist/bin/next build
+#12 0.369 
+#12 0.857 ▲ Next.js 16.3.3 (Turbopack)
+#12 0.939 ✓ Running next.config.ts took 82ms
+#12 0.943 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#12 0.943 This information is used to shape Next.js' roadmap and prioritize features.
+#12 0.943 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#12 0.943 https://nextjs.org/telemetry
+#12 0.943 
+#12 0.951 
+#12 0.981   Creating an optimized production build ...
+#12 3.963 ✓ Compiled successfully in 2.4s
+#12 3.970   Running TypeScript ...
+#12 6.393   Finished TypeScript in 2.4s ...
+#12 6.396   Collecting page data using 9 workers ...
+#12 6.800   Generating static pages using 9 workers (0/20) ...
+#12 6.956   Generating static pages using 9 workers (5/20) 
+#12 7.013   Generating static pages using 9 workers (10/20) 
+#12 7.013   Generating static pages using 9 workers (15/20) 
+#12 7.049 ✓ Generating static pages using 9 workers (20/20) in 249ms
+#12 7.052   Finalizing page optimization ...
+#12 7.062 
+#12 7.064 Route (app)
+#12 7.064 ┌ ○ /
+#12 7.064 ├ ○ /_not-found
+#12 7.064 ├ ○ /admin
+#12 7.064 ├ ○ /authorship
+#12 7.064 ├ ○ /check
+#12 7.064 ├ ○ /citations
+#12 7.064 ├ ○ /dashboard
+#12 7.064 ├ ○ /documents
+#12 7.064 ├ ƒ /documents/[id]
+#12 7.064 ├ ○ /evidence-graph
+#12 7.064 ├ ○ /login
+#12 7.064 ├ ○ /onboarding
+#12 7.064 ├ ○ /provenance
+#12 7.064 ├ ○ /register
+#12 7.064 ├ ○ /reports
+#12 7.064 ├ ○ /settings
+#12 7.064 ├ ○ /similarity
+#12 7.064 ├ ○ /sources
+#12 7.064 ├ ○ /upload
+#12 7.064 └ ○ /write
+#12 7.064 
+#12 7.064 
+#12 7.064 ○  (Static)   prerendered as static content
+#12 7.064 ƒ  (Dynamic)  server-rendered on demand
+#12 7.064 
+#12 7.486 npm notice
+#12 7.486 npm notice New major version of npm available! 10.9.8 -> 12.0.2
+#12 7.486 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+#12 7.486 npm notice To update run: npm install -g npm@12.0.2
+#12 7.486 npm notice
+#12 DONE 7.6s
+
+#13 [runner 6/6] RUN chown -R node:node /app/.next
+#13 DONE 0.4s
+
+#14 exporting to image
+#14 exporting layers
+#14 exporting layers 1.1s done
+#14 exporting manifest sha256:37339539732f560833c9594d6eb4564dbfcfe66e5aa2a97ec52edb51fd5fc968 done
+#14 exporting config sha256:57c2b8c37ef8fe9567e9f70947edcec04067d254b91dfdc87da1c59e023d2997 done
+#14 exporting attestation manifest sha256:202d8735afc0df2f46a2f9b729840b97afa1b9eb6c8c902f9cf442aea7f8d961 done
+#14 exporting manifest list sha256:ec4cf21e9649effbd37f498b13c8260d1c189a06c51372d43dbb768f794d15ab done
+#14 naming to docker.io/library/azaeron-verity-cert-frontend:latest done
+#14 unpacking to docker.io/library/azaeron-verity-cert-frontend:latest
+#14 unpacking to docker.io/library/azaeron-verity-cert-frontend:latest 0.6s done
+#14 DONE 1.8s
+
+#15 resolving provenance for metadata file
+#15 DONE 0.0s
+ Image azaeron-verity-cert-frontend:latest Built 

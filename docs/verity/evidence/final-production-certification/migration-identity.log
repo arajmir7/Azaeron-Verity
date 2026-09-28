@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_identity_migration_gate.py", line 153, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_identity_migration_gate.py", line 115, in main
+    run("seed-account", command + ["python", "-c", seed])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_identity_migration_gate.py", line 99, in run
+    raise RuntimeError(label + " did not meet its expected result")
+RuntimeError: seed-account did not meet its expected result

@@ -1,0 +1,8 @@
+ Container azaeron-verity-cert-minio-init-run-59e61d401ac3 Creating 
+ Container azaeron-verity-cert-minio-init-run-59e61d401ac3 Created 
+Added `local` successfully.
+Bucket created successfully `local/azaeron-documents`.
+Created policy `azaeron-app-policy` successfully.
+Added user `azaeronapp` successfully.
+Attached Policies: [azaeron-app-policy]
+To User: azaeronapp

@@ -1,0 +1,42 @@
+[
+  {
+    "image": "azaeron-verity-cert-runtime:latest",
+    "image_id": "sha256:196222ab87540d24008c8138af871dd34d4078d1b57b870325be700d743acec0",
+    "bytes": 144419176,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-verity-cert-runtime:latest",
+    "image_id": "sha256:196222ab87540d24008c8138af871dd34d4078d1b57b870325be700d743acec0",
+    "bytes": 144419176,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-verity-cert-frontend:latest",
+    "image_id": "sha256:233a96dac10881fd617c78319c07c6f0c1e7caa96fdcdce4921bdd58a52e67e1",
+    "bytes": 77372110,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-verity-cert-frontend:latest",
+    "image_id": "sha256:233a96dac10881fd617c78319c07c6f0c1e7caa96fdcdce4921bdd58a52e67e1",
+    "bytes": 77372110,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

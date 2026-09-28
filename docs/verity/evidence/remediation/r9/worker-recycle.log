@@ -1,0 +1,9 @@
+ Container azaeron-verity-cert-verification-run-93e8eeeeefb7 Creating 
+ Container azaeron-verity-cert-verification-run-93e8eeeeefb7 Created 
+{
+  "result": "PASS",
+  "delivered": 120,
+  "exported_success_increase": 120.0,
+  "both_prefork_children_recycled": true,
+  "counter_preserved_across_recycle": true
+}

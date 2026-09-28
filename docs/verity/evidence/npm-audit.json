@@ -1,0 +1,13 @@
+{
+  "message": "503 Service Unavailable - POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk - We are currently performing maintenance. For more info go to https://status.npmjs.org",
+  "method": "POST",
+  "uri": "https://registry.npmjs.org/-/npm/v1/security/advisories/bulk",
+  "statusCode": 503,
+  "body": {
+    "error": "We are currently performing maintenance. For more info go to https://status.npmjs.org"
+  },
+  "error": {
+    "summary": "",
+    "detail": ""
+  }
+}

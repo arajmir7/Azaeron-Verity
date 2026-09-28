@@ -1,0 +1,1022 @@
+ Container azaeron-verity-cert-verification-run-134c01c2305f Creating 
+ Container azaeron-verity-cert-verification-run-134c01c2305f Created 
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: asyncio-1.4.0, Faker-30.0.0, anyio-4.15.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 161 items
+
+tests/security/test_document_mutation_authorization.py .....             [  3%]
+tests/security/test_failure_privacy.py ..                                [  4%]
+tests/security/test_readonly_permissions.py ..                           [  5%]
+tests/security/test_security_gate.py ...                                 [  7%]
+tests/security/test_session_boundary.py ...........                      [ 14%]
+tests/security/test_tenant_authorization.py ..                           [ 15%]
+tests/security/test_upload_validation.py ...                             [ 17%]
+tests/security/test_zero_external_ai.py .........                        [ 22%]
+tests/test_aegiswrite.py .FE..                                           [ 25%]
+tests/test_auth.py .........                                             [ 31%]
+tests/test_authorship_consistency.py ...                                 [ 32%]
+tests/test_capability_contract.py ..                                     [ 34%]
+tests/test_citation_intelligence.py ..                                   [ 35%]
+tests/test_detector_intelligence.py .......                              [ 39%]
+tests/test_document_intelligence.py .....FEFEFEFE                        [ 45%]
+tests/test_evidence_graph.py ..                                          [ 46%]
+tests/test_evidence_report.py ...                                        [ 48%]
+tests/test_failure_gate.py ......                                        [ 52%]
+tests/test_governance.py ...                                             [ 54%]
+tests/test_lineage_contract.py ...................                       [ 65%]
+tests/test_operations.py ....                                            [ 68%]
+tests/test_organization_state_contract.py ..                             [ 69%]
+tests/test_provenance.py FEFE                                            [ 70%]
+tests/test_refine_invariants.py ................                         [ 80%]
+tests/test_similarity_engine.py .....                                    [ 83%]
+tests/test_similarity_workflow.py ...F...                                [ 88%]
+tests/test_storage_urls.py .                                             [ 88%]
+tests/test_validation_gate.py ......                                     [ 92%]
+tests/test_workspace_onboarding.py ............                          [100%]
+
+==================================== ERRORS ====================================
+__ ERROR at teardown of test_editorial_service_persists_lineage_and_decisions __
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:424: in finalizer
+    runner.run(async_finalizer(), context=context)
+/usr/local/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/asyncio/base_events.py:691: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:416: in async_finalizer
+    await gen_obj.__anext__()
+tests/conftest.py:54: in db_session
+    await session.commit()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:1009: in commit
+    await greenlet_spawn(self.sync_session.commit)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2028: in commit
+    trans.commit(_to_root=True)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py:103: in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:973: in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+E   sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('b424b315-fe0c-4f76-87ec-199b9ef5b4db', '0af22da9-24ce-4ed9-acee-0a38d9c24305', 'OWNER', 1, None, None, 'c3f626cb-33c4-429d-b7ed-faad0627e3c1')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+_ ERROR at teardown of test_v1_v2_all_analysis_api_isolation_and_historical_parser_stability _
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:424: in finalizer
+    runner.run(async_finalizer(), context=context)
+/usr/local/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/asyncio/base_events.py:691: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:416: in async_finalizer
+    await gen_obj.__anext__()
+tests/conftest.py:54: in db_session
+    await session.commit()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:1009: in commit
+    await greenlet_spawn(self.sync_session.commit)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2028: in commit
+    trans.commit(_to_root=True)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py:103: in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:973: in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+E   sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('ed3b53e4-08ef-4326-bdc0-66d43c63cf78', '4c474a59-845e-4178-99fe-7f70ca26f2b6', 'OWNER', 1, None, None, '87044bfb-07a5-451f-8d1d-c752c993f304')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+_ ERROR at teardown of test_target_and_job_reject_tenant_version_and_payload_mismatches _
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:424: in finalizer
+    runner.run(async_finalizer(), context=context)
+/usr/local/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/asyncio/base_events.py:691: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:416: in async_finalizer
+    await gen_obj.__anext__()
+tests/conftest.py:54: in db_session
+    await session.commit()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:1009: in commit
+    await greenlet_spawn(self.sync_session.commit)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2028: in commit
+    trans.commit(_to_root=True)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py:103: in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:973: in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+E   sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('870942e7-152e-4a3e-ba68-e5416b54157f', 'dcb0629f-ecad-4d06-a193-68ab212b217e', 'OWNER', 1, None, None, '5b7b8d92-db60-4fd4-9c46-3f49bd58b824')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+_ ERROR at teardown of test_evidence_edges_cannot_connect_two_versions_of_one_document _
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:424: in finalizer
+    runner.run(async_finalizer(), context=context)
+/usr/local/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/asyncio/base_events.py:691: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:416: in async_finalizer
+    await gen_obj.__anext__()
+tests/conftest.py:54: in db_session
+    await session.commit()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:1009: in commit
+    await greenlet_spawn(self.sync_session.commit)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2028: in commit
+    trans.commit(_to_root=True)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py:103: in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:973: in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+E   sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('1ef6d913-3fdf-41f6-8776-f802a796949d', '78711a0b-b7ee-46b1-8719-f041f9db93cb', 'OWNER', 1, None, None, 'b4146cc1-ae92-42cc-8bb3-a51ac009230e')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+_ ERROR at teardown of test_writing_history_defaults_to_latest_version_without_old_edits _
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:424: in finalizer
+    runner.run(async_finalizer(), context=context)
+/usr/local/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/asyncio/base_events.py:691: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:416: in async_finalizer
+    await gen_obj.__anext__()
+tests/conftest.py:54: in db_session
+    await session.commit()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:1009: in commit
+    await greenlet_spawn(self.sync_session.commit)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2028: in commit
+    trans.commit(_to_root=True)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py:103: in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:973: in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+E   sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('94daba01-e506-447a-b08f-af170f7563e1', '78922fec-80b5-4f57-98c5-b77809292f8b', 'OWNER', 1, None, None, '5d9d54df-1ef2-4155-a890-26324ad6e4dd')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+_ ERROR at teardown of test_provenance_timeline_and_export_are_versioned_and_reproducible _
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:424: in finalizer
+    runner.run(async_finalizer(), context=context)
+/usr/local/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/asyncio/base_events.py:691: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:416: in async_finalizer
+    await gen_obj.__anext__()
+tests/conftest.py:54: in db_session
+    await session.commit()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:1009: in commit
+    await greenlet_spawn(self.sync_session.commit)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2028: in commit
+    trans.commit(_to_root=True)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py:103: in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:973: in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+E   sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('43a89201-fb8e-4f91-ab54-021eb38a8b60', '5dbb4fe3-c2b7-4cf6-a3a1-170a02e40a37', 'OWNER', 1, None, None, '13bcd7da-cd22-44e5-9a3e-53c9967bf0e9')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+________ ERROR at teardown of test_archiving_preserves_document_history ________
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:424: in finalizer
+    runner.run(async_finalizer(), context=context)
+/usr/local/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/asyncio/base_events.py:691: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:416: in async_finalizer
+    await gen_obj.__anext__()
+tests/conftest.py:54: in db_session
+    await session.commit()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:1009: in commit
+    await greenlet_spawn(self.sync_session.commit)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2028: in commit
+    trans.commit(_to_root=True)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py:103: in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:973: in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+E   sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('a34d689c-d7b7-407e-a81e-5f61d67235ed', 'ce035a3b-e016-41a1-8b91-a688762b9a3f', 'OWNER', 1, None, None, '27d4cbb8-eeca-45d6-9d4f-8f6cf3641610')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+=================================== FAILURES ===================================
+____________ test_editorial_service_persists_lineage_and_decisions _____________
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.IntegrityError: NOT NULL constraint failed: memberships.joined_at
+
+The above exception was the direct cause of the following exception:
+tests/test_aegiswrite.py:60: in test_editorial_service_persists_lineage_and_decisions
+    organization_id, user_id, document_id, version_id = await _fixture(db_session)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_aegiswrite.py:41: in _fixture
+    await db_session.flush()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:800: in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4352: in flush
+    self._flush(objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4487: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    flush_context.execute()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:1233: in _emit_insert_statements
+    result = connection.execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1418: in execute
+    return meth(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:515: in _execute_on_connection
+    return connection._execute_clauseelement(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1640: in _execute_clauseelement
+    ret = self._execute_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1846: in _execute_context
+    return self._exec_single_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1986: in _exec_single_context
+    self._handle_dbapi_exception(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2355: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('b424b315-fe0c-4f76-87ec-199b9ef5b4db', '0af22da9-24ce-4ed9-acee-0a38d9c24305', 'OWNER', 1, None, None, 'c3f626cb-33c4-429d-b7ed-faad0627e3c1')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+____ test_v1_v2_all_analysis_api_isolation_and_historical_parser_stability _____
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.IntegrityError: NOT NULL constraint failed: memberships.joined_at
+
+The above exception was the direct cause of the following exception:
+tests/test_document_intelligence.py:193: in test_v1_v2_all_analysis_api_isolation_and_historical_parser_stability
+    org, user = await identity(db_session)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_document_intelligence.py:155: in identity
+    await db.flush()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:800: in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4352: in flush
+    self._flush(objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4487: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    flush_context.execute()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:1233: in _emit_insert_statements
+    result = connection.execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1418: in execute
+    return meth(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:515: in _execute_on_connection
+    return connection._execute_clauseelement(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1640: in _execute_clauseelement
+    ret = self._execute_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1846: in _execute_context
+    return self._exec_single_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1986: in _exec_single_context
+    self._handle_dbapi_exception(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2355: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('ed3b53e4-08ef-4326-bdc0-66d43c63cf78', '4c474a59-845e-4178-99fe-7f70ca26f2b6', 'OWNER', 1, None, None, '87044bfb-07a5-451f-8d1d-c752c993f304')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+_______ test_target_and_job_reject_tenant_version_and_payload_mismatches _______
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.IntegrityError: NOT NULL constraint failed: memberships.joined_at
+
+The above exception was the direct cause of the following exception:
+tests/test_document_intelligence.py:258: in test_target_and_job_reject_tenant_version_and_payload_mismatches
+    org, user = await identity(db_session)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_document_intelligence.py:155: in identity
+    await db.flush()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:800: in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4352: in flush
+    self._flush(objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4487: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    flush_context.execute()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:1233: in _emit_insert_statements
+    result = connection.execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1418: in execute
+    return meth(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:515: in _execute_on_connection
+    return connection._execute_clauseelement(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1640: in _execute_clauseelement
+    ret = self._execute_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1846: in _execute_context
+    return self._exec_single_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1986: in _exec_single_context
+    self._handle_dbapi_exception(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2355: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('870942e7-152e-4a3e-ba68-e5416b54157f', 'dcb0629f-ecad-4d06-a193-68ab212b217e', 'OWNER', 1, None, None, '5b7b8d92-db60-4fd4-9c46-3f49bd58b824')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+_______ test_evidence_edges_cannot_connect_two_versions_of_one_document ________
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.IntegrityError: NOT NULL constraint failed: memberships.joined_at
+
+The above exception was the direct cause of the following exception:
+tests/test_document_intelligence.py:280: in test_evidence_edges_cannot_connect_two_versions_of_one_document
+    org, user = await identity(db_session)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_document_intelligence.py:155: in identity
+    await db.flush()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:800: in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4352: in flush
+    self._flush(objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4487: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    flush_context.execute()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:1233: in _emit_insert_statements
+    result = connection.execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1418: in execute
+    return meth(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:515: in _execute_on_connection
+    return connection._execute_clauseelement(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1640: in _execute_clauseelement
+    ret = self._execute_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1846: in _execute_context
+    return self._exec_single_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1986: in _exec_single_context
+    self._handle_dbapi_exception(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2355: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('1ef6d913-3fdf-41f6-8776-f802a796949d', '78711a0b-b7ee-46b1-8719-f041f9db93cb', 'OWNER', 1, None, None, 'b4146cc1-ae92-42cc-8bb3-a51ac009230e')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+______ test_writing_history_defaults_to_latest_version_without_old_edits _______
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.IntegrityError: NOT NULL constraint failed: memberships.joined_at
+
+The above exception was the direct cause of the following exception:
+tests/test_document_intelligence.py:297: in test_writing_history_defaults_to_latest_version_without_old_edits
+    org, user = await identity(db_session)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_document_intelligence.py:155: in identity
+    await db.flush()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:800: in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4352: in flush
+    self._flush(objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4487: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    flush_context.execute()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:1233: in _emit_insert_statements
+    result = connection.execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1418: in execute
+    return meth(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:515: in _execute_on_connection
+    return connection._execute_clauseelement(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1640: in _execute_clauseelement
+    ret = self._execute_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1846: in _execute_context
+    return self._exec_single_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1986: in _exec_single_context
+    self._handle_dbapi_exception(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2355: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('94daba01-e506-447a-b08f-af170f7563e1', '78922fec-80b5-4f57-98c5-b77809292f8b', 'OWNER', 1, None, None, '5d9d54df-1ef2-4155-a890-26324ad6e4dd')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+______ test_provenance_timeline_and_export_are_versioned_and_reproducible ______
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.IntegrityError: NOT NULL constraint failed: memberships.joined_at
+
+The above exception was the direct cause of the following exception:
+tests/test_provenance.py:57: in test_provenance_timeline_and_export_are_versioned_and_reproducible
+    await db_session.flush()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:800: in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4352: in flush
+    self._flush(objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4487: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    flush_context.execute()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:1233: in _emit_insert_statements
+    result = connection.execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1418: in execute
+    return meth(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:515: in _execute_on_connection
+    return connection._execute_clauseelement(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1640: in _execute_clauseelement
+    ret = self._execute_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1846: in _execute_context
+    return self._exec_single_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1986: in _exec_single_context
+    self._handle_dbapi_exception(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2355: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('43a89201-fb8e-4f91-ab54-021eb38a8b60', '5dbb4fe3-c2b7-4cf6-a3a1-170a02e40a37', 'OWNER', 1, None, None, '13bcd7da-cd22-44e5-9a3e-53c9967bf0e9')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+__________________ test_archiving_preserves_document_history ___________________
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.IntegrityError: NOT NULL constraint failed: memberships.joined_at
+
+The above exception was the direct cause of the following exception:
+tests/test_provenance.py:156: in test_archiving_preserves_document_history
+    await db_session.flush()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:800: in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4352: in flush
+    self._flush(objects)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4487: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    flush_context.execute()
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:1233: in _emit_insert_statements
+    result = connection.execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1418: in execute
+    return meth(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:515: in _execute_on_connection
+    return connection._execute_clauseelement(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1640: in _execute_clauseelement
+    ret = self._execute_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1846: in _execute_context
+    return self._exec_single_context(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1986: in _exec_single_context
+    self._handle_dbapi_exception(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2355: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:147: in execute
+    self._adapt_connection._handle_exception(error)
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+/usr/local/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:129: in execute
+    self.await_(_cursor.execute(operation, parameters))
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:48: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+/usr/local/lib/python3.12/site-packages/aiosqlite/cursor.py:40: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:132: in _execute
+    return await future
+           ^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/aiosqlite/core.py:115: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: memberships.joined_at
+E   [SQL: INSERT INTO memberships (user_id, organization_id, role, is_active, joined_at, invited_by_id, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+E   [parameters: ('a34d689c-d7b7-407e-a81e-5f61d67235ed', 'ce035a3b-e016-41a1-8b91-a688762b9a3f', 'OWNER', 1, None, None, '27d4cbb8-eeca-45d6-9d4f-8f6cf3641610')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+____ test_similarity_version_snapshot_provenance_idempotency_and_pagination ____
+tests/test_similarity_workflow.py:140: in test_similarity_version_snapshot_provenance_idempotency_and_pagination
+    assert rerun.status_code == 200
+E   assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+----------------------------- Captured stdout call -----------------------------
+{"document_id": "f9835d4b-b2ad-446b-ae28-bab179c44e7f", "document_version_id": "85abdd94-8951-46ab-a1b9-5b0f3a4835f8", "parser_version": "document-structure-v1", "word_count": 17, "event": "document_processed", "logger": "app.modules.processing.service", "level": "info", "timestamp": "2026-09-20T00:17:23.747883Z"}
+{"document_id": "84d33952-5a6c-4c56-a06e-9f24aea2fdc1", "document_version_id": "49dc03e6-ba7e-4828-9a4c-7b8c7daec72e", "parser_version": "document-structure-v1", "word_count": 31, "event": "document_processed", "logger": "app.modules.processing.service", "level": "info", "timestamp": "2026-09-20T00:17:23.765589Z"}
+HTTP Request: GET http://test/api/v1/similarity/documents/84d33952-5a6c-4c56-a06e-9f24aea2fdc1/analysis?document_version_id=49dc03e6-ba7e-4828-9a4c-7b8c7daec72e&page_size=1 "HTTP/1.1 200 OK"
+HTTP Request: POST http://test/api/v1/similarity/documents/84d33952-5a6c-4c56-a06e-9f24aea2fdc1/analysis?document_version_id=49dc03e6-ba7e-4828-9a4c-7b8c7daec72e "HTTP/1.1 403 Forbidden"
+------------------------------ Captured log call -------------------------------
+INFO     app.modules.processing.service:service.py:70 {"document_id": "f9835d4b-b2ad-446b-ae28-bab179c44e7f", "document_version_id": "85abdd94-8951-46ab-a1b9-5b0f3a4835f8", "parser_version": "document-structure-v1", "word_count": 17, "event": "document_processed", "logger": "app.modules.processing.service", "level": "info", "timestamp": "2026-09-20T00:17:23.747883Z"}
+INFO     app.modules.processing.service:service.py:70 {"document_id": "84d33952-5a6c-4c56-a06e-9f24aea2fdc1", "document_version_id": "49dc03e6-ba7e-4828-9a4c-7b8c7daec72e", "parser_version": "document-structure-v1", "word_count": 31, "event": "document_processed", "logger": "app.modules.processing.service", "level": "info", "timestamp": "2026-09-20T00:17:23.765589Z"}
+INFO     httpx:_client.py:1773 HTTP Request: GET http://test/api/v1/similarity/documents/84d33952-5a6c-4c56-a06e-9f24aea2fdc1/analysis?document_version_id=49dc03e6-ba7e-4828-9a4c-7b8c7daec72e&page_size=1 "HTTP/1.1 200 OK"
+INFO     httpx:_client.py:1773 HTTP Request: POST http://test/api/v1/similarity/documents/84d33952-5a6c-4c56-a06e-9f24aea2fdc1/analysis?document_version_id=49dc03e6-ba7e-4828-9a4c-7b8c7daec72e "HTTP/1.1 403 Forbidden"
+=============================== warnings summary ===============================
+app/modules/auth/schemas.py:43
+  /app/app/modules/auth/schemas.py:43: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    @validator("password")
+
+app/modules/auth/schemas.py:58
+  /app/app/modules/auth/schemas.py:58: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class UserResponse(UserBase):
+
+app/modules/auth/schemas.py:116
+  /app/app/modules/auth/schemas.py:116: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class ApiKeyResponse(BaseModel):
+
+app/modules/audit/schemas.py:21
+  /app/app/modules/audit/schemas.py:21: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class AuditLogResponse(BaseModel):
+
+app/modules/organizations/schemas.py:34
+  /app/app/modules/organizations/schemas.py:34: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class OrganizationMembershipResponse(BaseModel):
+
+app/modules/organizations/schemas.py:78
+  /app/app/modules/organizations/schemas.py:78: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class MemberResponse(BaseModel):
+
+app/modules/documents/schemas.py:23
+  /app/app/modules/documents/schemas.py:23: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class DocumentResponse(DocumentBase):
+
+app/modules/documents/schemas.py:117
+  /app/app/modules/documents/schemas.py:117: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class DocumentVersionResponse(BaseModel):
+
+app/modules/jobs/schemas.py:20
+  /app/app/modules/jobs/schemas.py:20: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class JobResponse(JobBase):
+
+app/modules/evidence/schemas.py:68
+  /app/app/modules/evidence/schemas.py:68: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class IntegrityReportResponse(BaseModel):
+
+app/modules/assignments/schemas.py:19
+  /app/app/modules/assignments/schemas.py:19: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class AssignmentResponse(AssignmentCreate):
+
+app/modules/assignments/schemas.py:36
+  /app/app/modules/assignments/schemas.py:36: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class SubmissionResponse(BaseModel):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_aegiswrite.py::test_editorial_service_persists_lineage_and_decisions
+FAILED tests/test_document_intelligence.py::test_v1_v2_all_analysis_api_isolation_and_historical_parser_stability
+FAILED tests/test_document_intelligence.py::test_target_and_job_reject_tenant_version_and_payload_mismatches
+FAILED tests/test_document_intelligence.py::test_evidence_edges_cannot_connect_two_versions_of_one_document
+FAILED tests/test_document_intelligence.py::test_writing_history_defaults_to_latest_version_without_old_edits
+FAILED tests/test_provenance.py::test_provenance_timeline_and_export_are_versioned_and_reproducible
+FAILED tests/test_provenance.py::test_archiving_preserves_document_history - ...
+FAILED tests/test_similarity_workflow.py::test_similarity_version_snapshot_provenance_idempotency_and_pagination
+ERROR tests/test_aegiswrite.py::test_editorial_service_persists_lineage_and_decisions
+ERROR tests/test_document_intelligence.py::test_v1_v2_all_analysis_api_isolation_and_historical_parser_stability
+ERROR tests/test_document_intelligence.py::test_target_and_job_reject_tenant_version_and_payload_mismatches
+ERROR tests/test_document_intelligence.py::test_evidence_edges_cannot_connect_two_versions_of_one_document
+ERROR tests/test_document_intelligence.py::test_writing_history_defaults_to_latest_version_without_old_edits
+ERROR tests/test_provenance.py::test_provenance_timeline_and_export_are_versioned_and_reproducible
+ERROR tests/test_provenance.py::test_archiving_preserves_document_history - s...
+============ 8 failed, 153 passed, 12 warnings, 7 errors in 47.65s =============
+

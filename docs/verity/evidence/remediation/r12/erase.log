@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 739, in <module>
+    {
+    ~
+    ...<4 lines>...
+        "replay": replay,
+        ~~~~~~~~~~~~~~~~~
+    }[phase]()
+    ~~~~~~~~^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 489, in erase
+    assert status.status_code == 200, status.status_code
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 500

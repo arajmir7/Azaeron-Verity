@@ -1,0 +1,25 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/api-keys.spec.ts --workers=1
+
+Error: Cannot find module '@axe-core/playwright'
+Require stack:
+- /Users/ajmiraribam/Projects/azaeron_humanize/frontend/tests/api-keys.spec.ts
+- /Users/ajmiraribam/Projects/azaeron_humanize/frontend/node_modules/playwright/lib/common/index.js
+- /Users/ajmiraribam/Projects/azaeron_humanize/frontend/node_modules/playwright/lib/program.js
+- /Users/ajmiraribam/Projects/azaeron_humanize/frontend/node_modules/@playwright/test/cli.js
+
+   at api-keys.spec.ts:2
+
+  1 | import { expect, test } from "@playwright/test";
+> 2 | import AxeBuilder from "@axe-core/playwright";
+    | ^
+  3 |
+  4 | test("API keys show the secret once, rotate, revoke, and avoid browser storage", async ({ page }) => {
+  5 |   const organization = { id: "key-workspace", name: "Key workspace", slug: "key-workspace", subscription_tier: "free" };
+    at Object.<anonymous> (/Users/ajmiraribam/Projects/azaeron_humanize/frontend/tests/api-keys.spec.ts:2:1)
+
+Error: No tests found.
+Make sure that arguments are regular expressions matching test files.
+You may need to escape symbols like "$" or "*" and quote the arguments.
+

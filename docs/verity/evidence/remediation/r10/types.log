@@ -1,0 +1,10 @@
+ Container azaeron-verity-cert-verification-run-1a7dac6f6778 Creating 
+ Container azaeron-verity-cert-verification-run-1a7dac6f6778 Created 
+app/modules/audit/service.py:91: error: Argument "total" to "AuditLogListResponse" has incompatible type "int | None"; expected "int"  [arg-type]
+app/modules/evidence/service.py:192: error: Value of type "dict[str, Any] | None" is not indexable  [index]
+app/modules/evidence/service.py:238: error: Value of type "dict[str, Any] | None" is not indexable  [index]
+app/modules/evidence/service.py:239: error: Value of type "dict[str, Any] | None" is not indexable  [index]
+app/modules/evidence/service.py:293: error: Value of type "dict[str, Any] | None" is not indexable  [index]
+app/modules/evidence/service.py:320: error: Value of type "dict[str, Any] | None" is not indexable  [index]
+Found 6 errors in 2 files (checked 165 source files)
+

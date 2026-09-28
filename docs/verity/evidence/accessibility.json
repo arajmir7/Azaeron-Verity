@@ -1,0 +1,112 @@
+{
+  "keyboard_smoke": "PASS",
+  "scope": "Login and deterministic editorial candidate via keyboard; automated WCAG-tagged checks on three workspace pages. No full WCAG certification.",
+  "results": [
+    {
+      "route": "/check",
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6:nth-child(1) > .pb-2.tracking-\\[0\\.18em\\].text-slate-400"
+              ],
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.63 (foreground color: #90a1b9, background color: #ffffff, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".mb-6:nth-child(2) > .pb-2.tracking-\\[0\\.18em\\].text-slate-400"
+              ],
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.63 (foreground color: #90a1b9, background color: #ffffff, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".mt-5.text-slate-400.text-xs"
+              ],
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.54 (foreground color: #90a1b9, background color: #fafbfd, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "label",
+          "impact": "critical",
+          "description": "Ensure every form element has a label",
+          "nodes": [
+            {
+              "target": [
+                "input"
+              ],
+              "summary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ],
+      "incomplete": [
+        "aria-prohibited-attr"
+      ]
+    },
+    {
+      "route": "/documents",
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6:nth-child(1) > .pb-2.text-slate-400.tracking-\\[0\\.18em\\]"
+              ],
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.63 (foreground color: #90a1b9, background color: #ffffff, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".mb-6:nth-child(2) > .pb-2.text-slate-400.tracking-\\[0\\.18em\\]"
+              ],
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.63 (foreground color: #90a1b9, background color: #ffffff, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ],
+      "incomplete": [
+        "aria-prohibited-attr"
+      ]
+    },
+    {
+      "route": "/write?document=1ce9f1ef-f953-497e-9ce8-2af019974663",
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6:nth-child(1) > .pb-2.tracking-\\[0\\.18em\\].text-slate-400"
+              ],
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.63 (foreground color: #90a1b9, background color: #ffffff, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".mb-6:nth-child(2) > .pb-2.tracking-\\[0\\.18em\\].text-slate-400"
+              ],
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.63 (foreground color: #90a1b9, background color: #ffffff, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".whitespace-pre-wrap > .text-slate-400"
+              ],
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.51 (foreground color: #90a1b9, background color: #f8fafc, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ],
+      "incomplete": [
+        "aria-prohibited-attr"
+      ]
+    }
+  ]
+}

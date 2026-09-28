@@ -1,0 +1,17 @@
+{
+  "result": "FAIL_CLOSED",
+  "post_backup_erasure_replayed": true,
+  "erased_account_absent": true,
+  "erased_object_absent": true,
+  "restored_immutable_versions": 354,
+  "missing_referenced_objects": 64,
+  "affected_documents": 32,
+  "missing_prefix_counts": {
+    "tests": 36,
+    "fixture": 14,
+    "versions": 14
+  },
+  "missing_in_original_backup_manifest": true,
+  "api_started": false,
+  "finding": "Original isolated source snapshot contains synthetic document-version rows without corresponding MinIO objects; no bytes exist to reconstruct them."
+}

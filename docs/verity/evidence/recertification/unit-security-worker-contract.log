@@ -1,0 +1,112 @@
+ Container azaeron-verity-cert-backend-run-21140dd64dfb Creating 
+ Container azaeron-verity-cert-backend-run-21140dd64dfb Created 
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:208: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-8.3.0, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: anyio-4.14.2, Faker-30.0.0, asyncio-0.24.0
+asyncio: mode=Mode.AUTO, default_loop_scope=None
+collected 158 items
+
+tests/security/test_document_mutation_authorization.py ..                [  1%]
+tests/security/test_failure_privacy.py ..                                [  2%]
+tests/security/test_readonly_permissions.py ..                           [  3%]
+tests/security/test_security_gate.py ...                                 [  5%]
+tests/security/test_session_boundary.py ...........                      [ 12%]
+tests/security/test_tenant_authorization.py ..                           [ 13%]
+tests/security/test_upload_validation.py ...                             [ 15%]
+tests/security/test_zero_external_ai.py .........                        [ 21%]
+tests/test_aegiswrite.py ....                                            [ 24%]
+tests/test_auth.py .........                                             [ 29%]
+tests/test_authorship_consistency.py ...                                 [ 31%]
+tests/test_capability_contract.py ..                                     [ 32%]
+tests/test_citation_intelligence.py ..                                   [ 34%]
+tests/test_detector_intelligence.py .......                              [ 38%]
+tests/test_document_intelligence.py .........                            [ 44%]
+tests/test_evidence_graph.py ..                                          [ 45%]
+tests/test_evidence_report.py ...                                        [ 47%]
+tests/test_failure_gate.py ......                                        [ 51%]
+tests/test_governance.py ...                                             [ 53%]
+tests/test_lineage_contract.py ...................                       [ 65%]
+tests/test_operations.py ....                                            [ 67%]
+tests/test_organization_state_contract.py ..                             [ 68%]
+tests/test_provenance.py ..                                              [ 70%]
+tests/test_refine_invariants.py ................                         [ 80%]
+tests/test_similarity_engine.py .....                                    [ 83%]
+tests/test_similarity_workflow.py .......                                [ 87%]
+tests/test_storage_urls.py .                                             [ 88%]
+tests/test_validation_gate.py ......                                     [ 92%]
+tests/test_workspace_onboarding.py ............                          [100%]
+
+=============================== warnings summary ===============================
+../usr/local/lib/python3.12/site-packages/starlette/formparsers.py:12
+  /usr/local/lib/python3.12/site-packages/starlette/formparsers.py:12: PendingDeprecationWarning: Please use `import python_multipart` instead.
+    import multipart
+
+app/modules/auth/schemas.py:43
+  /app/app/modules/auth/schemas.py:43: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.9/migration/
+    @validator("password")
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_config.py:291: 11 warnings
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_config.py:291: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.9/migration/
+    warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in DocumentContentResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in SimilarityMatchResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in CitationFindingResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in AuthorshipSignalResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_id" in ProvenanceAnalysisRunResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in ProvenanceAnalysisRunResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+../usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132
+  /usr/local/lib/python3.12/site-packages/pydantic/_internal/_fields.py:132: UserWarning: Field "model_version" in ProvenanceEventResponse has conflict with protected namespace "model_".
+  
+  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+    warnings.warn(
+
+tests/security/test_readonly_permissions.py: 14 warnings
+tests/security/test_security_gate.py: 6 warnings
+tests/security/test_session_boundary.py: 11 warnings
+tests/security/test_tenant_authorization.py: 14 warnings
+tests/test_auth.py: 8 warnings
+tests/test_failure_gate.py: 3 warnings
+tests/test_organization_state_contract.py: 6 warnings
+tests/test_workspace_onboarding.py: 67 warnings
+  /usr/local/lib/python3.12/site-packages/jose/jwt.py:311: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    now = timegm(datetime.utcnow().utctimetuple())
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+====================== 158 passed, 149 warnings in 50.13s ======================

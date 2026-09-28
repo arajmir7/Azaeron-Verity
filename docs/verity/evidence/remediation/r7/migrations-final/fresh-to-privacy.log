@@ -1,0 +1,37 @@
+ Container azaeron-verity-cert-verification-run-f6408b404187 Creating 
+ Container azaeron-verity-cert-verification-run-f6408b404187 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 20260826_0001, Create the initial AZAERON schema and tenant RLS policies.
+INFO  [alembic.runtime.migration] Running upgrade 20260826_0001 -> 20260826_0002, Create a non-superuser database role for runtime services.
+INFO  [alembic.runtime.migration] Running upgrade 20260826_0002 -> 20260910_0003, Close tenant-policy gaps and add database integrity guards.
+INFO  [alembic.runtime.migration] Running upgrade 20260910_0003 -> 20260912_0004, Add intelligence governance, run lineage, and honest abstention metadata.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0004 -> 20260912_0005, Enforce tenant isolation for analysis run lineage.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0005 -> 20260912_0006, Require organization/version/pipeline lineage on every analysis output.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0006 -> 20260912_0007, Add explicit detector inference, calibration, and evidence metadata.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0007 -> 20260912_0008, Add the explicit AI_GENERATED state while preserving historical AI rows.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0008 -> 20260912_0009, Make evaluation dataset versions provenance-aware and immutable when frozen.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0009 -> 20260912_0010, Fix the frozen-dataset trigger to allow the initial freeze transition.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0010 -> 20260912_0011, Allow deletion of unfrozen evaluation versions while protecting frozen ones.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0011 -> 20260912_0012, Require provenance on every evaluation dataset version.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0012 -> 20260912_0013, Add the incremental originality retrieval index and match evidence contract.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0013 -> 20260912_0014, Add auditable claim/reference/source citation intelligence.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0014 -> 20260912_0015, Add auditable authorship consistency and independent AI-signal fields.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0015 -> 20260912_0016, Tenant-scope authorship baseline profiles.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0016 -> 20260912_0017, Make document provenance versioned, append-only, and exportable.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0017 -> 20260912_0018, Add the SQLAlchemy enum member name used for analysis-run events.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0018 -> 20260912_0019, Add canonical evidence graph identity, span text, and endpoint integrity.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0019 -> 20260912_0020, Harden AZAERON WRITE with tenant/version lineage and edit metadata.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0020 -> 20260912_0021, Persist product persona and authorized workspace preferences.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0021 -> 20260912_0022, Isolate account audit events and default new workspaces to the free plan.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0022 -> 20260913_0023, Versioned similarity snapshots and per-version processed text.
+INFO  [alembic.runtime.migration] Running upgrade 20260913_0023 -> 20260913_0024, Immutable parser output and exact organization/document/version lineage.
+INFO  [alembic.runtime.migration] Running upgrade 20260913_0024 -> 20260913_0025, Hybrid retrieval, structured chunk indexes and sealed run snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260913_0025 -> 20260919_0026, Invalidate issued access tokens after logout, password change and replay.
+INFO  [alembic.runtime.migration] Running upgrade 20260919_0026 -> 20260920_0027, Bind retry identities to immutable editor revisions.
+INFO  [alembic.runtime.migration] Running upgrade 20260920_0027 -> 20260920_0028, Versioned, revocable API key credentials; legacy records are never accepted.
+INFO  [alembic.runtime.migration] Running upgrade 20260920_0028 -> 20260920_0029, Identity challenges, encrypted mail outbox and MFA replay state.
+INFO  [alembic.runtime.migration] Running upgrade 20260920_0029 -> 20260921_0030, Authorized erasure, write fencing, durable tombstones and actor redaction.
+INFO  [alembic.runtime.migration] Running upgrade 20260921_0030 -> 20260924_0031, Reference-aware retention and verified legacy-object relocation.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0031 -> 20260924_0032, Bounded retention progress and required attribution on newly created content.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0032 -> 20260924_0033, Do not relocate objects while queued or running jobs still name them.

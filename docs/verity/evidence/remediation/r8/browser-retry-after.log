@@ -1,0 +1,224 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test --workers=1
+
+
+Running 22 tests using 1 worker
+
+(node:74722) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/22] [chromium] › tests/accessibility-live.spec.ts:13:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations
+  1) [chromium] › tests/accessibility-live.spec.ts:13:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /onboarding/
+    Received string:  "http://localhost:4700/login"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="en">…</html>
+           - unexpected value "http://localhost:4700/login"
+
+
+      27 |   await expect(page.getByRole("button", { name: "Sign in" })).toBeFocused();
+      28 |   await page.keyboard.press("Enter");
+    > 29 |   await expect(page).toHaveURL(/onboarding/);
+         |                      ^
+      30 |   expect((await page.request.post("/api/v1/auth/onboarding", { headers, data: { product_role: "researcher" } })).ok()).toBeTruthy();
+      31 |
+      32 |   const source = Buffer.from("In order to explain the finding, the the report uses clear language.");
+        at /Users/ajmiraribam/Projects/azaeron_verity/frontend/tests/accessibility-live.spec.ts:29:22
+
+    Error Context: test-results/accessibility-live-keyboar-14205-utomated-WCAG-AA-violations-chromium/error-context.md
+
+
+(node:74748) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/22] [chromium] › tests/api-keys.spec.ts:4:5 › API keys show the secret once, rotate, revoke, and avoid browser storage
+[3/22] [chromium] › tests/editor-live.spec.ts:5:5 › editor: selective acceptance, reload, restore, offline recovery and lost-response retry
+[4/22] [chromium] › tests/identity-live.spec.ts:18:5 › real SMTP verification, MFA recovery login, password reset and device revocation
+[5/22] [chromium] › tests/onboarding.spec.ts:54:5 › an expired access cookie refreshes with a valid request body and restores the workspace
+[6/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives student the server-provided starting workflow
+[7/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives teacher the server-provided starting workflow
+[8/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives professor the server-provided starting workflow
+[9/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives researcher the server-provided starting workflow
+[10/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives reviewer the server-provided starting workflow
+[11/22] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives institution the server-provided starting workflow
+[12/22] [chromium] › tests/onboarding.spec.ts:76:5 › a document workflow offers workspace creation inline
+[13/22] [chromium] › tests/onboarding.spec.ts:86:5 › revoked recent membership falls back only after server validation
+[14/22] [chromium] › tests/onboarding.spec.ts:95:5 › failed switching hides tenant data and offers a working retry
+[15/22] [chromium] › tests/onboarding.spec.ts:111:5 › cached workspace IDs cannot override the server's active membership
+[16/22] [chromium] › tests/privacy.spec.ts:4:5 › privacy form requires explicit confirmation and keeps its receipt out of persistent storage
+[17/22] [chromium] › tests/usage.spec.ts:4:5 › workspace usage shows authoritative totals and handles unavailable refresh
+[18/22] [chromium] › tests/workspace.spec.ts:3:5 › public workspace keeps analysis evidence-based and editorial work authenticated
+[19/22] [chromium] › tests/workspace.spec.ts:13:5 › public navigation remains usable on a narrow viewport
+(node:74992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[20/22] [chromium] › tests/document-intelligence-live.spec.ts:7:5 › document core: upload, analyze and switch immutable versions across existing views
+  2) [chromium] › tests/document-intelligence-live.spec.ts:7:5 › document core: upload, analyze and switch immutable versions across existing views 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 26
+    + Received  + 26
+
+    @@ -669,28 +669,33 @@
+            Object {
+              "burstiness": null,
+              "confidence": null,
+              "document_id": "68cbc24f-9c6b-4b9a-8f64-86bf69d52111",
+              "document_version_id": "a2259594-9b93-4fde-9cf5-95d4ed91846c",
+    -         "explanation": "Segment-level signal extracted; classification abstained.",
+    +         "explanation": "Document-level signals were extracted; no authorship classification was asserted.",
+              "feature_scores": Object {
+                "burstiness": null,
+                "discourse_marker_score": null,
+                "perplexity": null,
+                "punctuation_pattern_score": null,
+                "repetition_score": null,
+                "semantic_consistency": null,
+                "sentence_length_variance": null,
+    -           "vocabulary_diversity": 1,
+    +           "vocabulary_diversity": null,
+              },
+              "organization_id": "2e898c1f-dfe9-4808-aebb-8003dc307914",
+              "perplexity": null,
+    -         "segment_index": 3,
+    -         "segment_type": "sentence",
+    +         "segment_index": 0,
+    +         "segment_type": "document",
+              "span_end": 168,
+    -         "span_start": 150,
+    -         "text": "Seasonal habitats.",
+    +         "span_start": 0,
+    +         "text": "Introduction
+    +
+    + 🙂 First version: River basins support diverse habitats and require careful seasonal observations [1].
+    +
+    + References
+    + [1] Smith, J. (2020). Seasonal habitats.",
+              "verdict": "insufficient_evidence",
+            },
+            Object {
+              "burstiness": null,
+              "confidence": null,
+    @@ -707,45 +712,40 @@
+                "sentence_length_variance": null,
+                "vocabulary_diversity": 1,
+              },
+              "organization_id": "2e898c1f-dfe9-4808-aebb-8003dc307914",
+              "perplexity": null,
+    -         "segment_index": 2,
+    +         "segment_index": 1,
+              "segment_type": "sentence",
+    -         "span_end": 149,
+    -         "span_start": 128,
+    -         "text": "[1] Smith, J. (2020).",
+    +         "span_end": 115,
+    +         "span_start": 14,
+    +         "text": "🙂 First version: River basins support diverse habitats and require careful seasonal observations [1].",
+              "verdict": "insufficient_evidence",
+            },
+            Object {
+              "burstiness": null,
+              "confidence": null,
+              "document_id": "68cbc24f-9c6b-4b9a-8f64-86bf69d52111",
+              "document_version_id": "a2259594-9b93-4fde-9cf5-95d4ed91846c",
+    -         "explanation": "Document-level signals were extracted; no authorship classification was asserted.",
+    +         "explanation": "Segment-level signal extracted; classification abstained.",
+              "feature_scores": Object {
+                "burstiness": null,
+                "discourse_marker_score": null,
+                "perplexity": null,
+                "punctuation_pattern_score": null,
+                "repetition_score": null,
+                "semantic_consistency": null,
+                "sentence_length_variance": null,
+    -           "vocabulary_diversity": null,
+    +           "vocabulary_diversity": 1,
+              },
+              "organization_id": "2e898c1f-dfe9-4808-aebb-8003dc307914",
+              "perplexity": null,
+    -         "segment_index": 0,
+    -         "segment_type": "document",
+    -         "span_end": 168,
+    -         "span_start": 0,
+    -         "text": "Introduction
+    -
+    - 🙂 First version: River basins support diverse habitats and require careful seasonal observations [1].
+    -
+    - References
+    - [1] Smith, J. (2020). Seasonal habitats.",
+    +         "segment_index": 2,
+    +         "segment_type": "sentence",
+    +         "span_end": 149,
+    +         "span_start": 128,
+    +         "text": "[1] Smith, J. (2020).",
+              "verdict": "insufficient_evidence",
+            },
+            Object {
+              "burstiness": null,
+              "confidence": null,
+    @@ -762,15 +762,15 @@
+                "sentence_length_variance": null,
+                "vocabulary_diversity": 1,
+              },
+              "organization_id": "2e898c1f-dfe9-4808-aebb-8003dc307914",
+              "perplexity": null,
+    -         "segment_index": 1,
+    +         "segment_index": 3,
+              "segment_type": "sentence",
+    -         "span_end": 115,
+    -         "span_start": 14,
+    -         "text": "🙂 First version: River basins support diverse habitats and require careful seasonal observations [1].",
+    +         "span_end": 168,
+    +         "span_start": 150,
+    +         "text": "Seasonal habitats.",
+              "verdict": "insufficient_evidence",
+            },
+          ],
+          "uncertain_probability": null,
+          "uncertainty_method": null,
+
+      112 |   await expect(page.getByLabel("Module document version")).toHaveValue(v1);
+      113 |   await page.screenshot({ path: testInfo.outputPath("02-historical-evidence-graph.png"), fullPage: true });
+    > 114 |   expect(await evidence(v1, text1)).toEqual(originalEvidence);
+          |                                     ^
+      115 |   expect(await evidence(v2, text2)).toEqual(laterEvidence);
+      116 |   expect(await (await page.request.get(`/api/v1/documents/${document.id}/structure?document_version_id=${v1}`)).json()).toEqual(structure1);
+      117 |
+        at /Users/ajmiraribam/Projects/azaeron_verity/frontend/tests/document-intelligence-live.spec.ts:114:37
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/document-intelligence-live-7df75-sions-across-existing-views-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/document-intelligence-live-7df75-sions-across-existing-views-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/document-intelligence-live-7df75-sions-across-existing-views-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/document-intelligence-live-7df75-sions-across-existing-views-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:75019) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[21/22] [chromium] › tests/onboarding-live.spec.ts:6:5 › live signup, personal workspace, upload, refresh and persistent switching
+[22/22] [chromium] › tests/similarity-live.spec.ts:8:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions
+  2 failed
+    [chromium] › tests/accessibility-live.spec.ts:13:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations 
+    [chromium] › tests/document-intelligence-live.spec.ts:7:5 › document core: upload, analyze and switch immutable versions across existing views 
+  20 passed (2.5m)

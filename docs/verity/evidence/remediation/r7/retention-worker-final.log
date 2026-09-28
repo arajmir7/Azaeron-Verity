@@ -1,0 +1,9 @@
+ Container azaeron-verity-cert-verification-run-afad3fa8b4a3 Creating 
+ Container azaeron-verity-cert-verification-run-afad3fa8b4a3 Created 
+{
+  "legacy_migrated": 45,
+  "legacy_rejected": 0,
+  "examined": 139,
+  "removed": 45,
+  "referenced": 49
+}

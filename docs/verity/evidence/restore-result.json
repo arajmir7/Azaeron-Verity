@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "scope": "isolated PostgreSQL only; MinIO objects and disaster RPO are not certified",
+  "seconds": 1.0,
+  "backup_bytes": 448929,
+  "document_version_checksums": [
+    "9fabbf7beeb8652d7f4d70322abc163d",
+    "9fabbf7beeb8652d7f4d70322abc163d"
+  ]
+}

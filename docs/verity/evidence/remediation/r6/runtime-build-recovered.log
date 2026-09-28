@@ -1,0 +1,124 @@
+ Image azaeron-verity-r6-runtime:latest Building 
+ Image azaeron-verity-r6-verification:latest Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.63kB done
+#1 DONE 0.0s
+
+#2 [backend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.49kB done
+#2 DONE 0.0s
+
+#3 [backend internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#3 DONE 1.9s
+
+#4 [backend internal] load .dockerignore
+#4 transferring context: 105B done
+#4 DONE 0.0s
+
+#5 [backend runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#5 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 0.0s done
+#5 DONE 0.0s
+
+#6 [backend internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#6 DONE 1.9s
+
+#7 [backend runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#7 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 0.0s done
+#7 DONE 0.0s
+
+#8 [backend internal] load build context
+#8 transferring context: 240.88kB 0.1s done
+#8 DONE 0.1s
+
+#9 [backend runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#9 CACHED
+
+#10 [backend assemble 1/3] COPY --from=runtime-os / /base/
+#10 CACHED
+
+#11 [backend assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#11 CACHED
+
+#12 [backend assemble 3/3] RUN python /assemble_runtime.py
+#12 CACHED
+
+#13 [backend runtime-base 2/4] WORKDIR /app
+#13 CACHED
+
+#14 [backend runtime-base 3/4] COPY requirements.lock ./
+#14 CACHED
+
+#15 [backend runtime 1/6] WORKDIR /app
+#15 CACHED
+
+#16 [backend runtime 2/6] COPY --from=assemble /runtime-root/ /
+#16 CACHED
+
+#17 [verification internal] load build context
+#17 ...
+
+#18 [backend runtime 3/6] COPY --chown=65532:65532 app ./app
+#18 DONE 0.2s
+
+#19 [backend runtime 4/6] COPY --chown=65532:65532 alembic ./alembic
+#19 DONE 0.1s
+
+#20 [backend runtime 5/6] COPY --chown=65532:65532 migration_snapshots ./migration_snapshots
+#20 DONE 0.0s
+
+#17 [verification internal] load build context
+#17 ...
+
+#21 [backend runtime 6/6] COPY --chown=65532:65532 alembic.ini ./
+#21 DONE 0.0s
+
+#17 [verification internal] load build context
+#17 transferring context: 93.19MB 0.6s done
+#17 DONE 0.6s
+
+#13 [verification runtime-base 2/4] WORKDIR /app
+#13 CACHED
+
+#22 [verification runtime-base 3/4] COPY requirements.lock ./
+#22 CACHED
+
+#23 [verification runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#23 CACHED
+
+#24 [verification verification 1/3] COPY requirements-dev.lock ./
+#24 CACHED
+
+#25 [verification verification 2/3] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements-dev.lock
+#25 CACHED
+
+#26 [backend] exporting to image
+#26 exporting layers 0.1s done
+#26 exporting manifest sha256:65bc0bc209a970e40333418c2d9583c86fee86c623114540cceea9634027f89e done
+#26 exporting config sha256:229020dd9a2ce062223cb6fbe11869936590c14afd5003ffd8df9c8d306521a1 0.0s done
+#26 exporting attestation manifest sha256:f788cfbe2a7006971318e10a84153520d1fd1e25b85d4892d69d618b2b5f1477 done
+#26 exporting manifest list sha256:2da91a1e9891586e3d100993559e34f917be50beee5bd9e8823c54a74dcaf7a4 done
+#26 naming to docker.io/library/azaeron-verity-r6-runtime:latest done
+#26 unpacking to docker.io/library/azaeron-verity-r6-runtime:latest 0.1s done
+#26 DONE 0.3s
+
+#27 [verification verification 3/3] COPY --chown=azaeron:azaeron . .
+#27 DONE 0.2s
+
+#28 [backend] resolving provenance for metadata file
+#28 DONE 0.0s
+
+#29 [verification] exporting to image
+#29 exporting layers 1.5s done
+#29 exporting manifest sha256:ebdaa29c54e12fd801be3ae1886328bf2d27adb02f2234bdaac6b43b24d4dc84 done
+#29 exporting config sha256:b59a35de7e8fe9314ece444ee8f5da6ca0b6adc67731e0e829cdd4224758f8c7 done
+#29 exporting attestation manifest sha256:4cb989117c57e16a73d597293fae88579242c302e1886dea46f974a1f17c0da9 done
+#29 exporting manifest list sha256:96b99672eac78090e8e94f9aa7292ab9df80e101759b246c805521f2fe3792a6 0.0s done
+#29 naming to docker.io/library/azaeron-verity-r6-verification:latest done
+#29 unpacking to docker.io/library/azaeron-verity-r6-verification:latest
+#29 unpacking to docker.io/library/azaeron-verity-r6-verification:latest 0.4s done
+#29 DONE 2.0s
+
+#30 [verification] resolving provenance for metadata file
+#30 DONE 0.0s
+ Image azaeron-verity-r6-runtime:latest Built 
+ Image azaeron-verity-r6-verification:latest Built 

@@ -1,0 +1,8 @@
+ Container azaeron-verity-cert-verification-run-281e1086933a Creating 
+ Container azaeron-verity-cert-verification-run-281e1086933a Created 
+reformatted /app/app/modules/inference/gateway.py
+reformatted /app/app/modules/inference/deployment.py
+reformatted tests/test_private_inference.py
+
+All done! ✨ 🍰 ✨
+3 files reformatted, 4 files left unchanged.

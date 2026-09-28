@@ -1,0 +1,6 @@
+{
+  "recorded_result": "PASS",
+  "certification_assessment": "INSUFFICIENT_SCOPE",
+  "reason": "The snapshot contained only the account later erased, leaving zero surviving immutable versions to verify after replay.",
+  "superseded_by": "../recovery-r15-control/recovery-result.json"
+}

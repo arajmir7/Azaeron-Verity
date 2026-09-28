@@ -1,0 +1,208 @@
+ Image azaeron-verity-r9-frontend:latest Building 
+ Image azaeron-verity-r9-runtime:latest Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.67kB done
+#1 DONE 0.0s
+
+#2 [frontend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.05kB done
+#2 DONE 0.0s
+
+#3 [backend internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.50kB done
+#3 DONE 0.0s
+
+#4 [backend internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#4 DONE 0.0s
+
+#5 [backend internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#5 ...
+
+#6 [frontend internal] load metadata for docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#6 DONE 1.3s
+
+#7 [frontend internal] load .dockerignore
+#7 transferring context: 96B done
+#7 DONE 0.0s
+
+#8 [frontend builder 1/6] FROM docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#8 resolve docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85 done
+#8 DONE 0.0s
+
+#9 [frontend internal] load build context
+#9 transferring context: 183.72kB 0.0s done
+#9 DONE 0.0s
+
+#10 [frontend builder 2/6] WORKDIR /app
+#10 CACHED
+
+#11 [frontend builder 3/6] COPY package.json package-lock.json ./
+#11 CACHED
+
+#12 [frontend builder 4/6] RUN npm ci
+#12 CACHED
+
+#13 [frontend builder 5/6] COPY . .
+#13 DONE 0.2s
+
+#5 [backend internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#5 ...
+
+#14 [frontend builder 6/6] RUN npm run build
+#14 0.215 
+#14 0.215 > azaeron-frontend@1.0.0 build
+#14 0.215 > node ./node_modules/next/dist/bin/next build
+#14 0.215 
+#14 0.572 ▲ Next.js 16.3.3 (Turbopack)
+#14 0.661 ✓ Running next.config.ts took 88ms
+#14 0.671 
+#14 0.688   Creating an optimized production build ...
+#14 4.283 ✓ Compiled successfully in 3.5s
+#14 4.299   Running TypeScript ...
+#14 ...
+
+#5 [backend internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#5 DONE 6.3s
+
+#15 [backend internal] load .dockerignore
+#15 transferring context: 105B done
+#15 DONE 0.0s
+
+#16 [backend internal] load build context
+#16 transferring context: 165.01kB 0.1s done
+#16 DONE 0.1s
+
+#17 [backend runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#17 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#17 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 1.7s done
+#17 DONE 1.7s
+
+#18 [backend runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#18 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#18 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 2.0s done
+#18 DONE 2.0s
+
+#14 [frontend builder 6/6] RUN npm run build
+#14 ...
+
+#19 [backend runtime 1/6] WORKDIR /app
+#19 CACHED
+
+#20 [backend assemble 1/3] COPY --from=runtime-os / /base/
+#20 CACHED
+
+#21 [backend assemble 3/3] RUN python /assemble_runtime.py
+#21 CACHED
+
+#22 [backend runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#22 CACHED
+
+#23 [backend runtime-base 2/4] WORKDIR /app
+#23 CACHED
+
+#24 [backend runtime-base 3/4] COPY requirements.lock ./
+#24 CACHED
+
+#25 [backend assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#25 CACHED
+
+#26 [backend runtime 2/6] COPY --from=assemble /runtime-root/ /
+#26 CACHED
+
+#27 [backend runtime 3/6] COPY --chown=65532:65532 app ./app
+#27 DONE 0.1s
+
+#28 [backend runtime 4/6] COPY --chown=65532:65532 alembic ./alembic
+#28 DONE 0.0s
+
+#29 [backend runtime 5/6] COPY --chown=65532:65532 migration_snapshots ./migration_snapshots
+#29 DONE 0.0s
+
+#30 [backend runtime 6/6] COPY --chown=65532:65532 alembic.ini ./
+#30 DONE 0.0s
+
+#31 [backend] exporting to image
+#31 exporting layers 0.1s done
+#31 exporting manifest sha256:3a74776ebd5eb3dcc83cef07694378889e6a0b3b489d5b2f441d574cb8a8b576 done
+#31 exporting config sha256:f40b17d025b1b930343ff87820f9e0a421c4c45251b3e297d21cf64d537aea25 done
+#31 exporting attestation manifest sha256:53c27053ac0f6369e5b0cdfa7cb0b821cce7223a824a534e7da022c9207c7e7f done
+#31 exporting manifest list sha256:d3eb11a4677f5174bfccbef10b872b0c921185656eb52a452d6622ed98657d27 0.0s done
+#31 naming to docker.io/library/azaeron-verity-r9-runtime:latest done
+#31 unpacking to docker.io/library/azaeron-verity-r9-runtime:latest 0.1s done
+#31 DONE 0.3s
+
+#14 [frontend builder 6/6] RUN npm run build
+#14 ...
+
+#32 [backend] resolving provenance for metadata file
+#32 DONE 0.0s
+
+#14 [frontend builder 6/6] RUN npm run build
+#14 7.834   Finished TypeScript in 3.5s ...
+#14 7.836   Collecting page data using 9 workers ...
+#14 8.807   Generating static pages using 9 workers (0/24) ...
+#14 9.086   Generating static pages using 9 workers (6/24) 
+#14 9.252   Generating static pages using 9 workers (12/24) 
+#14 9.323   Generating static pages using 9 workers (18/24) 
+#14 9.323 ✓ Generating static pages using 9 workers (24/24) in 516ms
+#14 9.332   Finalizing page optimization ...
+#14 9.646 
+#14 9.648 Route (app)
+#14 9.648 ┌ ○ /
+#14 9.648 ├ ○ /_not-found
+#14 9.648 ├ ○ /admin
+#14 9.648 ├ ○ /authorship
+#14 9.648 ├ ○ /check
+#14 9.648 ├ ○ /citations
+#14 9.648 ├ ○ /dashboard
+#14 9.648 ├ ○ /documents
+#14 9.648 ├ ƒ /documents/[id]
+#14 9.648 ├ ○ /erasure-status
+#14 9.648 ├ ○ /evidence-graph
+#14 9.648 ├ ○ /forgot-password
+#14 9.648 ├ ○ /login
+#14 9.648 ├ ○ /onboarding
+#14 9.648 ├ ○ /provenance
+#14 9.648 ├ ○ /register
+#14 9.648 ├ ○ /reports
+#14 9.648 ├ ○ /reset-password
+#14 9.648 ├ ○ /settings
+#14 9.648 ├ ○ /similarity
+#14 9.648 ├ ○ /sources
+#14 9.648 ├ ○ /upload
+#14 9.648 ├ ○ /verify-email
+#14 9.648 └ ○ /write
+#14 9.648 
+#14 9.648 
+#14 9.648 ○  (Static)   prerendered as static content
+#14 9.648 ƒ  (Dynamic)  server-rendered on demand
+#14 9.648 
+#14 DONE 9.9s
+
+#33 [frontend runner 3/6] RUN rm -rf /usr/local/lib/node_modules/npm /opt/yarn-*     && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/yarn /usr/local/bin/yarnpkg
+#33 CACHED
+
+#34 [frontend runner 4/6] COPY --from=builder --chown=node:node /app/.next/standalone ./
+#34 DONE 0.3s
+
+#35 [frontend runner 5/6] COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+#35 DONE 0.0s
+
+#36 [frontend runner 6/6] COPY --from=builder --chown=node:node /app/public ./public
+#36 DONE 0.0s
+
+#37 [frontend] exporting to image
+#37 exporting layers 1.0s done
+#37 exporting manifest sha256:4d68540f72eaeb66d5f86066ddd77e384e12a00ccf518993c16287c08ca9fca4 done
+#37 exporting config sha256:8f588ef13dfbbdec41d1c50c94c58560faa16afae7498170c0825b8d38fcb364 done
+#37 exporting attestation manifest sha256:1fe0193cfb9675844eb410d98f9b7a98a254e1f834040720556afaf29565c92a done
+#37 exporting manifest list sha256:0105cfa9bca12751105641ba0cf518733a632c3f1fc679eb2ded0366f9ba05ea done
+#37 naming to docker.io/library/azaeron-verity-r9-frontend:latest done
+#37 unpacking to docker.io/library/azaeron-verity-r9-frontend:latest
+#37 unpacking to docker.io/library/azaeron-verity-r9-frontend:latest 0.3s done
+#37 DONE 1.3s
+
+#38 [frontend] resolving provenance for metadata file
+#38 DONE 0.0s
+ Image azaeron-verity-r9-runtime:latest Built 
+ Image azaeron-verity-r9-frontend:latest Built 

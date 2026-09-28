@@ -1,0 +1,137 @@
+ Container azaeron-verity-cert-verification-run-51509cad312b Creating 
+ Container azaeron-verity-cert-verification-run-51509cad312b Created 
+['_abort_multipart_upload', '_complete_multipart_upload', '_create_multipart_upload', '_list_multipart_uploads']
+(self, bucket_name: 'str', delimiter: 'str | None' = None, encoding_type: 'str | None' = None, key_marker: 'str | None' = None, max_uploads: 'int | None' = None, prefix: 'str | None' = None, upload_id_marker: 'str | None' = None, extra_headers: 'DictType | None' = None, extra_query_params: 'DictType | None' = None) -> 'ListMultipartUploadsResult'
+    def _list_multipart_uploads(
+            self,
+            bucket_name: str,
+            delimiter: str | None = None,
+            encoding_type: str | None = None,
+            key_marker: str | None = None,
+            max_uploads: int | None = None,
+            prefix: str | None = None,
+            upload_id_marker: str | None = None,
+            extra_headers: DictType | None = None,
+            extra_query_params: DictType | None = None,
+    ) -> ListMultipartUploadsResult:
+        """
+        Execute ListMultipartUploads S3 API.
+
+        :param bucket_name: Name of the bucket.
+        :param delimiter: (Optional) Delimiter on listing.
+        :param encoding_type: (Optional) Encoding type.
+        :param key_marker: (Optional) Key marker.
+        :param max_uploads: (Optional) Maximum upload information to fetch.
+        :param prefix: (Optional) Prefix on listing.
+        :param upload_id_marker: (Optional) Upload ID marker.
+        :param extra_headers: (Optional) Extra headers for advanced usage.
+        :param extra_query_params: (Optional) Extra query parameters for
+            advanced usage.
+        :return:
+            :class:`ListMultipartUploadsResult <ListMultipartUploadsResult>`
+                object
+        """
+
+        query_params = extra_query_params or {}
+        query_params.update(
+            {
+                "uploads": "",
+                "delimiter": delimiter or "",
+                "max-uploads": str(max_uploads or 1000),
+                "prefix": prefix or "",
+                "encoding-type": "url",
+            },
+        )
+        if encoding_type:
+            query_params["encoding-type"] = encoding_type
+        if key_marker:
+            query_params["key-marker"] = key_marker
+        if upload_id_marker:
+            query_params["upload-id-marker"] = upload_id_marker
+
+        response = self._execute(
+            "GET",
+            bucket_name,
+            query_params=cast(DictType, query_params),
+            headers=cast(Union[DictType, None], extra_headers),
+        )
+        return ListMultipartUploadsResult(response)
+
+(self, bucket_name: 'str', object_name: 'str', upload_id: 'str')
+class ListMultipartUploadsResult:
+    """ListMultipartUploads API result."""
+
+    def __init__(self, response: BaseHTTPResponse):
+        element = ET.fromstring(response.data.decode())
+        self._encoding_type = findtext(element, "EncodingType")
+        self._bucket_name = findtext(element, "Bucket")
+        self._key_marker = findtext(element, "KeyMarker")
+        if self._key_marker:
+            self._key_marker = (
+                unquote_plus(self._key_marker) if self._encoding_type == "url"
+                else self._key_marker
+            )
+        self._upload_id_marker = findtext(element, "UploadIdMarker")
+        self._next_key_marker = findtext(element, "NextKeyMarker")
+        if self._next_key_marker:
+            self._next_key_marker = (
+                unquote_plus(self._next_key_marker)
+                if self._encoding_type == "url" else self._next_key_marker
+            )
+        self._next_upload_id_marker = findtext(element, "NextUploadIdMarker")
+        max_uploads = findtext(element, "MaxUploads")
+        self._max_uploads = int(max_uploads) if max_uploads else None
+        is_truncated = findtext(element, "IsTruncated")
+        self._is_truncated = (
+            is_truncated is not None and is_truncated.lower() == "true"
+        )
+        self._uploads = [
+            Upload(tag, self._encoding_type)
+            for tag in findall(element, "Upload")
+        ]
+
+    @property
+    def bucket_name(self) -> str | None:
+        """Get bucket name."""
+        return self._bucket_name
+
+    @property
+    def key_marker(self) -> str | None:
+        """Get key marker."""
+        return self._key_marker
+
+    @property
+    def upload_id_marker(self) -> str | None:
+        """Get upload ID marker."""
+        return self._upload_id_marker
+
+    @property
+    def next_key_marker(self) -> str | None:
+        """Get next key marker."""
+        return self._next_key_marker
+
+    @property
+    def next_upload_id_marker(self) -> str | None:
+        """Get next upload ID marker."""
+        return self._next_upload_id_marker
+
+    @property
+    def max_uploads(self) -> int | None:
+        """Get max uploads."""
+        return self._max_uploads
+
+    @property
+    def is_truncated(self) -> bool:
+        """Get is-truncated flag."""
+        return self._is_truncated
+
+    @property
+    def encoding_type(self) -> str | None:
+        """Get encoding type."""
+        return self._encoding_type
+
+    @property
+    def uploads(self) -> list[Upload]:
+        """Get uploads."""
+        return self._uploads
+

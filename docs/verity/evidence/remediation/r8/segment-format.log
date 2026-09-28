@@ -1,0 +1,7 @@
+ Container azaeron-verity-cert-verification-run-b7e50106be5d Creating 
+ Container azaeron-verity-cert-verification-run-b7e50106be5d Created 
+reformatted app/modules/detection/models.py
+reformatted tests/test_document_intelligence.py
+
+All done! ✨ 🍰 ✨
+2 files reformatted.

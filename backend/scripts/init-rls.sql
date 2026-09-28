@@ -1,0 +1,2 @@
+-- RLS is intentionally initialized by Alembic *after* tables exist.
+-- This file remains as a compatibility no-op for existing volume mounts.

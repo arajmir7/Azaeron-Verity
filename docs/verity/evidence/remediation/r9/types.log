@@ -1,0 +1,5 @@
+ Container azaeron-verity-cert-verification-run-f1a3abf49cd2 Creating 
+ Container azaeron-verity-cert-verification-run-f1a3abf49cd2 Created 
+app/core/health.py:141: error: Argument 1 to "loads" has incompatible type "Awaitable[Any] | Any"; expected "str | bytes | bytearray"  [arg-type]
+Found 1 error in 1 file (checked 165 source files)
+

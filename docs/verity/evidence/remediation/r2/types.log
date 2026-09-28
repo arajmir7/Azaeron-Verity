@@ -1,0 +1,5 @@
+ Container azaeron-verity-cert-verification-run-21dc4e14d9ba Creating 
+ Container azaeron-verity-cert-verification-run-21dc4e14d9ba Created 
+app/modules/inference/deployment.py:282: error: Cannot call function of unknown type  [operator]
+Found 1 error in 1 file (checked 140 source files)
+

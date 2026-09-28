@@ -1,0 +1,33 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/identity-live.spec.ts --workers=1
+
+
+Running 1 test using 1 worker
+
+(node:4831) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [chromium] › tests/identity-live.spec.ts:18:5 › real SMTP verification, MFA recovery login, password reset and device revocation
+  1) [chromium] › tests/identity-live.spec.ts:18:5 › real SMTP verification, MFA recovery login, password reset and device revocation 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 429
+
+       99 |   const second = await browser.newContext({ baseURL });
+      100 |   try {
+    > 101 |     expect((await second.request.post("/api/v1/auth/login", { headers, data: { email: credentials.email, password: newPassword, mfa_code: recovery[2] } })).status()).toBe(200);
+          |                                                                                                                                                                       ^
+      102 |     await page.goto("/settings?tab=security");
+      103 |     await page.getByRole("button", { name: /Revoke session from/ }).click();
+      104 |     await expect(page.getByRole("status").first()).toContainText("Session revoked.");
+        at /Users/ajmiraribam/Projects/azaeron_humanize/frontend/tests/identity-live.spec.ts:101:167
+
+    Error Context: test-results/identity-live-real-SMTP-ve-47583-reset-and-device-revocation-chromium/error-context.md
+
+
+  1 failed
+    [chromium] › tests/identity-live.spec.ts:18:5 › real SMTP verification, MFA recovery login, password reset and device revocation 

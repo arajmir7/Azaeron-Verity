@@ -1,0 +1,7 @@
+ Container azaeron-verity-cert-verification-run-427e47b6b7d2 Creating 
+ Container azaeron-verity-cert-verification-run-427e47b6b7d2 Created 
+reformatted alembic/versions/20260920_0027_editor_revisions.py
+reformatted tests/test_editor_revisions.py
+
+All done! ✨ 🍰 ✨
+2 files reformatted, 2 files left unchanged.

@@ -1,0 +1,6 @@
+ Container azaeron-verity-cert-verification-run-031af8d96378 Creating 
+ Container azaeron-verity-cert-verification-run-031af8d96378 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade 20260924_0035 -> 20260924_0034, Bounded worker enumeration for expired usage leases and text receipts.
+INFO  [alembic.runtime.migration] Running downgrade 20260924_0034 -> 20260924_0033, Durable quota accounting survives retries and individual privacy erasure.

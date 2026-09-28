@@ -1,0 +1,11 @@
+-r requirements.txt
+-c requirements.lock
+
+pytest==9.1.1
+pytest-asyncio==1.4.0
+aiosqlite==0.20.0
+factory-boy==3.3.0
+faker==30.0.0
+black==26.5.1
+ruff==0.6.0
+mypy==1.11.0

@@ -1,0 +1,63 @@
+name: Verity repository and security gates
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: verity-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  repository:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - run: npm ci --prefix frontend
+      - run: npx --prefix frontend playwright install --with-deps chromium
+      - name: Prepare an isolated runtime
+        run: python backend/scripts/prepare_slice0_compose.py --project verity-ci --identity-mail --port-offset 1700 --output /tmp/verity-ci.json
+      - name: Build runtime and verification images
+        run: docker compose -f /tmp/verity-ci.json --profile verification build backend celery-worker celery-beat migrate frontend verification
+      - name: Migrate and wait for dependencies
+        run: docker compose -f /tmp/verity-ci.json up -d --wait --wait-timeout 180 backend celery-worker frontend
+      - name: Execute repository gate including live browser and PostgreSQL tests
+        run: python scripts/verity_gate.py --compose /tmp/verity-ci.json --browser-url http://localhost:4700 --output docs/verity/evidence/ci
+      - name: Install security scanners
+        run: python -m pip install pip-audit==2.10.1 bandit==1.9.4 detect-secrets==1.5.0
+      - name: Dependency audits
+        run: |
+          python -m pip_audit -r backend/requirements-dev.lock --no-deps --disable-pip
+          npm audit --prefix frontend
+      - name: SAST and source secret gate
+        run: |
+          python -m bandit -r backend/app
+          python scripts/verity_secret_gate.py
+      - name: Export frontend SBOM
+        run: npm --prefix frontend sbom --sbom-format cyclonedx > docs/verity/evidence/ci/frontend.cdx.json
+      - name: Pull pinned infrastructure images for security coverage
+        run: docker compose -f /tmp/verity-ci.json --profile '*' pull --ignore-buildable
+      - name: Scan every Compose image and generate SBOMs
+        run: python scripts/verity_image_gate.py --compose /tmp/verity-ci.json --output docs/verity/evidence/ci/images
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: verity-gate-evidence
+          path: |
+            docs/verity/evidence/ci
+            docs/verity/evidence/secret-gate.json
+            frontend/test-results
+          retention-days: 7
+      - name: Stop isolated runtime
+        if: always()
+        run: docker compose -f /tmp/verity-ci.json down --volumes

@@ -1,0 +1,6 @@
+ Container azaeron-verity-cert-verification-run-418dbaf922a9 Creating 
+ Container azaeron-verity-cert-verification-run-418dbaf922a9 Created 
+app/modules/auth/api_keys.py:35: error: "<typing special form>" has no attribute "__args__"  [attr-defined]
+app/main.py:313: error: Cannot assign to a method  [method-assign]
+Found 2 errors in 2 files (checked 146 source files)
+

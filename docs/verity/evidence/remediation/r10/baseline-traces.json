@@ -1,0 +1,38 @@
+{
+  "upload_timeout": {
+    "trace_id": "c973928f34cb81aca2a19bd62afb896c",
+    "operations": {
+      "db.SELECT": 22,
+      "storage.GET": 1,
+      "storage.HEAD": 1,
+      "POST /api/v1/documents/upload-confirm": 1
+    },
+    "server_spans": [
+      {
+        "operation": "POST /api/v1/documents/upload-confirm",
+        "duration_ms": 30037.188,
+        "status": 500
+      }
+    ]
+  },
+  "worker_query_amplification": {
+    "trace_id": "84227e4567f99670b6be72c8fea5dc4a",
+    "operations": {
+      "db.SELECT": 53433,
+      "db.INSERT": 4211,
+      "db.UPDATE": 613,
+      "storage.HEAD": 1,
+      "storage.GET": 2,
+      "celery.process_document": 2,
+      "POST /api/v1/documents/upload-confirm": 1,
+      "storage.PUT": 1
+    },
+    "server_spans": [
+      {
+        "operation": "POST /api/v1/documents/upload-confirm",
+        "duration_ms": 2993.972,
+        "status": 200
+      }
+    ]
+  }
+}

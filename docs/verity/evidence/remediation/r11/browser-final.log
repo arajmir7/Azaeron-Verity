@@ -1,0 +1,16 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/accessibility-review.spec.ts tests/accessibility-live.spec.ts tests/editor-live.spec.ts tests/api-keys.spec.ts --workers=1
+
+
+Running 4 tests using 1 worker
+
+(node:44967) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/4] [chromium] › tests/accessibility-live.spec.ts:14:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations
+[2/4] [chromium] › tests/accessibility-review.spec.ts:5:5 › critical navigation stays operable at narrow widths and restores focus
+[3/4] [chromium] › tests/api-keys.spec.ts:4:5 › API keys show the secret once, rotate, revoke, and avoid browser storage
+[4/4] [chromium] › tests/editor-live.spec.ts:5:5 › editor: selective acceptance, reload, restore, offline recovery and lost-response retry
+  4 passed (13.1s)

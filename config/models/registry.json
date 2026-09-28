@@ -1,0 +1,18 @@
+{
+  "schema_version": 2,
+  "promotion_requirements": [
+    "exact_model_and_tokenizer_revisions",
+    "artifact_sha256_manifest",
+    "license_and_commercial_use_review",
+    "attribution_and_redistribution_review",
+    "training_data_disclosures_and_known_limitations",
+    "supported_languages_and_context_window",
+    "owned_hardware_runtime_cuda_and_quantization",
+    "versioned_licensed_evaluation_datasets",
+    "quality_latency_memory_concurrency_and_cost_results",
+    "independent_release_approval"
+  ],
+  "status": "BLOCKED_NO_APPROVED_MODELS",
+  "models": [],
+  "routes": {}
+}

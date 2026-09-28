@@ -1,0 +1,323 @@
+{
+  "contract_version": "1.0",
+  "product": "Azaeron Verity",
+  "as_of": "2026-09-13",
+  "scope": "Current implementation audit; documentation only. This contract supersedes the earlier prompt pack's feature priorities, not its integrity constraints.",
+  "reference_basis": {
+    "available_uploads": "The two referenced pasted-text attachments contain the Azaeron prompt pack. No separate benchmark report or independently verified accuracy dataset was available in those references.",
+    "workflow_sources": ["backend/docs/evidence-first-report.md", "backend/docs/evidence-graph.md", "backend/docs/citation-intelligence.md", "backend/docs/azaeron-write.md"],
+    "interpretation": "Preserve the implemented report pattern: document identity, independent dimensions, exact evidence, source context, limitations, provenance, review and revision. Do not adopt numerical benchmark or competitor claims from the prompt pack."
+  },
+  "classification_rules": {
+    "EXISTING_AND_WORKING": "Implemented and supported by the stated tests or runtime observations, within the explicitly limited scope; not a production-readiness or accuracy certification.",
+    "EXISTING_BUT_BROKEN": "An implemented behavior conflicts with its contract, established by source inspection, a read-only probe or the live schema.",
+    "EXISTING_BUT_EXPERIMENTAL": "Executable analysis with tested mechanics but no demonstrated general accuracy or calibrated interpretation for the intended users.",
+    "MISSING_AND_REQUIRED": "Necessary to finish the requested journey; extend existing components where possible.",
+    "OPTIONAL_LATER": "Not a prerequisite for this journey; requires a concrete user need before implementation.",
+    "REMOVE_OR_AVOID": "Excluded behavior or misleading presentation; this audit does not delete code or data."
+  },
+  "personas": {
+    "student": "Check a draft, understand evidence, accept responsible edits, re-check and share the report.",
+    "teacher": "Open a submission, inspect findings and sources, use human judgment and give feedback.",
+    "professor": "Review claims and integrity evidence with explicit uncertainty and preserved versions.",
+    "researcher": "Inspect claims, references and retrieved support, revise with attribution and re-check."
+  },
+  "simplicity_contract": [
+    "Use one document review workflow for all four personas; persona changes the starting route, not the meaning of a result.",
+    "Keep Check and Write as primary actions. Open reports, sources and graph evidence in the context of the selected document and version.",
+    "Show plain-language findings and next actions first; expose model identifiers and graph internals on demand.",
+    "Allow users to continue when a dimension is untested, abstained or unavailable. Never require an authorship baseline or institution setup to check a document."
+  ],
+  "journey": [
+    {"step": "CHECK", "capabilities": ["workspace_access", "file_check", "check_text_input", "text_structure", "check_status"]},
+    {"step": "SIMILARITY_EVIDENCE", "capabilities": ["similarity_analysis", "versioned_analysis"]},
+    {"step": "CITATION_SOURCE_EVIDENCE", "capabilities": ["citation_analysis", "text_structure", "evidence_traversal"]},
+    {"step": "AI_WRITING_SIGNAL_STATE", "capabilities": ["ai_signals", "report_state_fidelity"]},
+    {"step": "AUTHORSHIP_CONSISTENCY", "capabilities": ["authorship_analysis", "baseline_setup", "report_state_fidelity"]},
+    {"step": "INTEGRITY_FLAGS", "capabilities": ["report_structure", "integrity_review_flags"]},
+    {"step": "EVIDENCE_GRAPH", "capabilities": ["graph_storage", "evidence_traversal"]},
+    {"step": "RESPONSIBLE_WRITING_ASSISTANCE", "capabilities": ["editorial_rules", "write_decisions"]},
+    {"step": "RE_CHECK", "capabilities": ["accepted_revision_recheck", "versioned_analysis", "provenance", "portable_report"]}
+  ],
+  "result_contract": {
+    "independent_dimensions": ["originality", "similarity", "ai_writing_signals", "authorship_consistency", "citation_integrity", "source_quality", "provenance"],
+    "required_fields": ["document_id", "document_version_id", "state", "explanation", "evidence_ids", "evidence_count", "limitations", "pipeline_version", "model_version_if_applicable", "timestamp"],
+    "states": ["PRODUCTION", "EXPERIMENTAL", "INSUFFICIENT_EVIDENCE", "DEGRADED"],
+    "state_rules": "Preserve the underlying abstention, missing-baseline and provider-failure reasons. Separate operational failure from absent evidence and from experimental maturity. A completed job or complete graph does not validate an analytical conclusion.",
+    "confidence_rule": "Show a probability only with applicable calibration evidence. Keep lexical scores and baseline-data adequacy as named measurements, not calibrated confidence. Unknown confidence is null; zero matches is not proof of originality.",
+    "span_rule": "Offsets must refer to the exact displayed text of the analyzed version. Preserve original bytes and explain any normalization; never reconstruct missing evidence.",
+    "source_rule": "Show actual source identity, retrieved timestamp, payload/content hash and supporting excerpt where available. Metadata alone cannot establish support; unavailable content remains UNVERIFIABLE.",
+    "decision_rule": "Similarity is overlap evidence; AI signals and style deviation do not establish plagiarism, authorship or misconduct. The human reviewer decides."
+  },
+  "api_base": "/api/v1",
+  "owner_resolution": "Owner IDs below identify implementation components, not people. Required changes assign the same owners; proposed changes are not claims that an API already exists.",
+  "backend_owners": {
+    "auth": ["backend/app/api/v1/auth.py", "backend/app/modules/auth/service.py", "backend/app/core/dependencies.py"],
+    "workspace": ["backend/app/api/v1/organizations.py", "backend/app/modules/organizations/service.py", "backend/app/modules/billing/entitlements.py", "backend/app/core/database.py"],
+    "documents": ["backend/app/api/v1/documents.py", "backend/app/modules/documents/service.py", "backend/app/modules/documents/models.py", "backend/app/modules/uploads/service.py"],
+    "processing": ["backend/app/modules/processing/service.py", "backend/app/modules/processing/models.py"],
+    "worker": ["backend/app/workers/tasks.py", "backend/app/api/v1/jobs.py", "backend/app/modules/jobs/service.py"],
+    "similarity": ["backend/app/api/v1/similarity.py", "backend/app/modules/similarity/service.py", "backend/app/modules/similarity/intelligence/verification.py"],
+    "citations": ["backend/app/api/v1/citations.py", "backend/app/modules/citations/service.py", "backend/app/modules/citations/resolver.py"],
+    "detection": ["backend/app/api/v1/detection.py", "backend/app/modules/detection/service.py", "backend/app/modules/detection/intelligence/ensemble.py"],
+    "governance": ["backend/app/modules/governance/models.py", "backend/app/modules/governance/evaluation.py"],
+    "authorship": ["backend/app/api/v1/authorship.py", "backend/app/modules/authorship/service.py", "backend/app/modules/authorship/intelligence.py"],
+    "evidence": ["backend/app/api/v1/evidence.py", "backend/app/modules/evidence/service.py", "backend/app/modules/evidence/models.py"],
+    "report": ["backend/app/api/v1/reports.py", "backend/app/modules/evidence/report_service.py", "backend/app/modules/evidence/schemas.py"],
+    "write": ["backend/app/api/v1/aegiswrite.py", "backend/app/modules/aegiswrite/service.py", "backend/app/modules/aegiswrite/engine.py", "backend/app/modules/aegiswrite/models.py"],
+    "provenance": ["backend/app/api/v1/provenance.py", "backend/app/modules/provenance/service.py", "backend/app/modules/provenance/models.py"]
+  },
+  "frontend_owners": {
+    "session": ["frontend/src/app/(auth)/onboarding/page.tsx", "frontend/src/app/(dashboard)/layout.tsx", "frontend/src/lib/store.ts", "frontend/src/lib/api.ts", "frontend/src/components/design-system.tsx"],
+    "check": ["frontend/src/app/(dashboard)/check/page.tsx", "frontend/src/app/(dashboard)/upload/page.tsx"],
+    "documents": ["frontend/src/app/(dashboard)/documents/page.tsx", "frontend/src/app/(dashboard)/documents/[id]/page.tsx"],
+    "modules": ["frontend/src/components/module-page.tsx", "frontend/src/lib/api.ts"],
+    "reports": ["frontend/src/app/(dashboard)/reports/page.tsx", "frontend/src/components/module-page.tsx"],
+    "graph": ["frontend/src/app/(dashboard)/evidence-graph/page.tsx", "frontend/src/components/module-page.tsx"],
+    "citations": ["frontend/src/app/(dashboard)/citations/page.tsx", "frontend/src/app/(dashboard)/sources/page.tsx", "frontend/src/components/module-page.tsx"],
+    "authorship": ["frontend/src/app/(dashboard)/authorship/page.tsx", "frontend/src/components/module-page.tsx"],
+    "write": ["frontend/src/app/(dashboard)/write/page.tsx", "frontend/src/lib/api.ts"],
+    "provenance": ["frontend/src/app/(dashboard)/provenance/page.tsx", "frontend/src/components/module-page.tsx", "frontend/src/lib/api.ts"]
+  },
+  "inspection": {
+    "artifact": "docs/verification/product-contract/inspection.json",
+    "observed": "Local API readiness passed; 52 OpenAPI operations; schema at 20260912_0022; 38 public tables including alembic_version; 30 tables have forced RLS. Both registered models are EXPERIMENTAL.",
+    "prior_verification": "111 backend tests and 14 browser tests passed in retained logs. All 212 files in their source manifest still match. Suites were not rerun for this documentation audit.",
+    "verification_limits": "Module fixtures and mocked browser tests do not prove extraction-to-citation correctness, multi-version processing, graph traversal, safe editing or the full re-check journey. No human usability sign-off or measured detector accuracy is established.",
+    "current_pipeline": "Presign -> object upload -> validate/fingerprint -> Document + DocumentVersion -> Job/Celery -> extraction/normalization -> ProcessedDocument -> AnalysisRun/detection -> similarity -> citations -> authorship without a supplied profile -> provenance -> graph -> completed job. Report GET builds a view over the graph.",
+    "schema_groups": {
+      "access": ["User", "RefreshToken", "ApiKey", "Organization", "Membership", "AuditLog"],
+      "documents": ["Document", "DocumentVersion", "Job", "ProcessedDocument", "DocumentChunk", "SimilarityIndexEntry"],
+      "analysis": ["SimilarityMatch", "Citation", "Claim", "Reference", "Source", "CitationFinding", "DetectionResult", "DetectionSegment", "AuthorshipProfile", "AuthorshipSignal"],
+      "evidence_and_revision": ["EvidenceNode", "EvidenceEdge", "IntegrityReport", "ProvenanceEvent", "ProvenanceReport", "ProvenanceExport", "AegisEdit"],
+      "governance_and_adjacent": ["ModelRegistry", "EvaluationDataset", "EvaluationExample", "AnalysisRun", "Assignment", "Submission", "ComplianceReport", "BillingEvent"]
+    },
+    "route_inventory": {
+      "public_and_access": ["/", "/login", "/register", "/onboarding"],
+      "journey": ["/check", "/upload", "/documents", "/documents/[id]", "/reports", "/citations", "/sources", "/authorship", "/evidence-graph", "/write", "/provenance"],
+      "adjacent": ["/dashboard", "/settings", "/admin"]
+    }
+  },
+  "EXISTING_AND_WORKING": [
+    {
+      "id": "workspace_access", "required": true,
+      "current": "Authentication, persona onboarding, personal workspace creation, validated workspace switching, tenant authorization and server upload/Write limits work within the tested foundation scope.",
+      "backend_owner": ["auth", "workspace"], "frontend_owner": ["session"],
+      "data_model": ["User", "RefreshToken", "Organization", "Membership", "AuditLog"],
+      "api": {"existing": ["POST /auth/register", "POST /auth/login", "POST /auth/refresh", "POST /auth/onboarding", "GET /organizations", "POST /organizations/{org_id}/select", "GET /organizations/{org_id}/entitlements"]},
+      "verification_requirement": "Retain real PostgreSQL cross-tenant/RLS tests and live onboarding/upload/refresh/switch coverage for all shared journey surfaces.",
+      "verification_evidence": ["backend/tests/integration/test_postgres_rls.py", "backend/tests/test_workspace_onboarding.py", "frontend/tests/onboarding.spec.ts", "frontend/tests/onboarding-live.spec.ts"]
+    },
+    {
+      "id": "file_check", "required": true,
+      "current": "/check aliases file upload. Presigned storage, content validation, fingerprinting, initial version creation and asynchronous first-document analysis exist; a TXT upload completed in the live browser test. PDF/DOCX/MD/HTML handlers exist, without an end-to-end correctness claim for every format.",
+      "backend_owner": ["documents", "processing", "worker"], "frontend_owner": ["check", "documents"],
+      "data_model": ["Document", "DocumentVersion", "ProcessedDocument", "Job", "AnalysisRun"],
+      "api": {"existing": ["POST /documents/upload-request", "POST /documents/upload-confirm", "GET /documents/{doc_id}", "GET /documents/{doc_id}/content", "GET /jobs/{job_id}"]},
+      "verification_requirement": "Preserve upload validation and tenant isolation; verify supported formats through the real extraction path, clear extraction failures and completed version-specific results.",
+      "verification_evidence": ["backend/tests/security/test_upload_validation.py", "backend/tests/test_storage_urls.py", "frontend/tests/onboarding-live.spec.ts"]
+    },
+    {
+      "id": "report_structure", "required": true,
+      "current": "The report API returns seven independent dimensions and exact-span highlights; document review renders normalized text, findings, explanations and filters. The live response is assembled from the graph, not the legacy IntegrityReport score columns. State correctness has a separate defect below.",
+      "backend_owner": ["report", "evidence"], "frontend_owner": ["documents", "reports"],
+      "data_model": ["EvidenceNode", "EvidenceEdge", "EvidenceFirstReportResponse (derived DTO)", "ReportDimension (derived DTO)"],
+      "api": {"existing": ["GET /reports/documents/{doc_id}", "GET /documents/{doc_id}/content"]},
+      "verification_requirement": "Retain seven independent dimensions, exact recorded spans and no aggregate accusation score; add real upload-to-report coverage rather than only hand-built graph fixtures.",
+      "verification_evidence": ["backend/tests/test_evidence_report.py", "frontend/src/app/(dashboard)/documents/[id]/page.tsx"]
+    },
+    {
+      "id": "graph_storage", "required": true,
+      "current": "Tenant-scoped canonical nodes and edges, idempotent materialization and orphan-finding validation exist. Graph/report GETs can materialize records; they are not strictly read-only database operations. Graph completeness describes relationships, not analytical truth.",
+      "backend_owner": ["evidence"], "frontend_owner": ["graph", "documents"],
+      "data_model": ["EvidenceNode", "EvidenceEdge", "DocumentVersion"],
+      "api": {"existing": ["GET /evidence/documents/{doc_id}/graph"]},
+      "verification_requirement": "Retain orphan and cross-tenant rejection; verify repeated materialization, stable identities and exact source/version relationships on realistic multi-version evidence.",
+      "verification_evidence": ["backend/tests/test_evidence_graph.py", "backend/tests/test_lineage_contract.py"]
+    },
+    {
+      "id": "provenance", "required": true,
+      "current": "Version fingerprints, parent links, analysis events and authenticated JSON timeline export exist. The browser downloads that JSON. The export is a provenance snapshot, not a full integrity report or accepted revision export.",
+      "backend_owner": ["documents", "provenance"], "frontend_owner": ["provenance"],
+      "data_model": ["DocumentVersion", "ProvenanceEvent", "ProvenanceReport", "ProvenanceExport", "AnalysisRun"],
+      "api": {"existing": ["GET /provenance/documents/{doc_id}/timeline", "POST /provenance/documents/{doc_id}/export"]},
+      "verification_requirement": "Retain reproducible export hashes, tenant authorization and append-only historical evidence; verify the export reflects the selected analyzed version and accepted changes when the re-check loop is connected.",
+      "verification_evidence": ["backend/tests/test_provenance.py", "frontend/src/lib/api.ts"]
+    }
+  ],
+  "EXISTING_BUT_BROKEN": [
+    {
+      "id": "text_structure", "required": true, "priority": "P0",
+      "current": "_clean_text collapses all whitespace before paragraph segmentation and citation analysis. The read-only probe turns three paragraphs into one and makes an otherwise valid References header unrecognizable. Citation tests inject multiline cleaned_text and bypass this real pipeline defect.",
+      "backend_owner": ["processing", "citations", "detection", "similarity"], "frontend_owner": ["documents", "citations"],
+      "data_model": ["ProcessedDocument", "DocumentChunk", "Citation", "Reference", "Claim", "EvidenceNode"],
+      "api": {"existing": ["POST /documents/upload-confirm", "GET /documents/{doc_id}/content", "GET /citations/documents/{doc_id}/analysis"], "required_change": "Preserve meaningful paragraph/reference boundaries and stable offsets through extraction and analysis."},
+      "verification_requirement": "Process a real multiline document with in-text citations and a bibliography through the worker; assert paragraph boundaries, reference linkage, exact displayed spans and unchanged original bytes.",
+      "verification_evidence": ["docs/verification/product-contract/inspection.json", "backend/app/modules/processing/service.py", "backend/tests/test_citation_intelligence.py"]
+    },
+    {
+      "id": "versioned_analysis", "required": true, "priority": "P0",
+      "current": "POST versions appends and queues, but processing always inserts a ProcessedDocument while the live database enforces UNIQUE(document_id), blocking a second processed version. Detection reads scalar_one_or_none without a version filter; similarity/citation APIs combine document-wide rows; graph accepts no version parameter. The frontend independently fetches latest/unpinned results. The worker also records the document fingerprint rather than the requested version fingerprint.",
+      "backend_owner": ["processing", "documents", "worker", "detection", "similarity", "citations", "authorship", "evidence", "report"], "frontend_owner": ["documents", "modules", "write"],
+      "data_model": ["DocumentVersion", "ProcessedDocument", "AnalysisRun", "DetectionResult", "SimilarityMatch", "CitationFinding", "AuthorshipSignal", "EvidenceNode"],
+      "api": {"existing": ["POST /documents/{doc_id}/versions", "GET /documents/{doc_id}/content", "GET /detection/documents/{doc_id}", "GET /similarity/documents/{doc_id}/matches", "GET /citations/documents/{doc_id}/analysis", "GET /authorship/documents/{doc_id}/analysis", "GET /evidence/documents/{doc_id}/graph", "GET /reports/documents/{doc_id}"], "required_change": "Permit immutable per-version processed results, pin every read and inference fingerprint to one version, and preserve historical evidence."},
+      "verification_requirement": "Real PostgreSQL plus worker test: process v1 and v2 of one document, retry deliveries safely, read both versions independently, reject foreign version IDs and prove each source span/hash/report belongs to its requested version.",
+      "verification_evidence": ["docs/verification/product-contract/inspection.json", "backend/app/modules/processing/models.py", "backend/app/workers/tasks.py", "backend/app/api/v1/detection.py", "backend/tests/test_lineage_contract.py"]
+    },
+    {
+      "id": "report_state_fidelity", "required": true, "priority": "P0",
+      "current": "Report _status treats any AI/authorship nodes as EXPERIMENTAL even when their metadata says abstained or missing baseline; both are reproduced in the audit probe. The report averages positive evidence confidence values without calibration. The frontend's >=70% filter treats those values as high confidence. Detail requests catch module failures as null, and DegradedBanner only detects browser offline state.",
+      "backend_owner": ["report", "detection", "authorship", "evidence"], "frontend_owner": ["documents", "reports", "modules"],
+      "data_model": ["DetectionResult", "AuthorshipSignal", "EvidenceNode", "ReportDimension (derived DTO)"],
+      "api": {"existing": ["GET /reports/documents/{doc_id}", "GET /detection/documents/{doc_id}", "GET /authorship/documents/{doc_id}/analysis"], "required_change": "Propagate underlying result and failure states; separate calibration-backed confidence from heuristic measurements."},
+      "verification_requirement": "Cover absent results, actual abstention nodes, missing baseline, empty corpus, resolver outage and API failure in report/API/browser tests. Uncalibrated measurements must not become confidence percentages or satisfy a calibrated-confidence filter.",
+      "verification_evidence": ["docs/verification/product-contract/inspection.json", "backend/app/modules/evidence/report_service.py", "backend/tests/test_evidence_report.py", "frontend/src/app/(dashboard)/documents/[id]/page.tsx"]
+    },
+    {
+      "id": "write_decisions", "required": true, "priority": "P1",
+      "current": "Write accepts arbitrary pasted text while labeling suggestions with a selected immutable version; it stores a submitted-text hash without checking it against that version. /apply changes an applied boolean only. The preview always includes all proposed edits; Reject is disabled for pending edits and rejected decisions display as Pending review.",
+      "backend_owner": ["write", "documents", "provenance"], "frontend_owner": ["write"],
+      "data_model": ["AegisEdit", "DocumentVersion", "AuditLog"],
+      "api": {"existing": ["POST /aegiswrite/refine", "POST /aegiswrite/suggest", "POST /aegiswrite/apply", "GET /aegiswrite/history/{document_id}"], "required_change": "Bind the editorial source to a recorded version; distinguish pending, accepted and rejected decisions and compute the accepted revision separately from the all-suggestions preview."},
+      "verification_requirement": "Load the selected version into Write, reject a pending edit, accept a subset, reload the ledger and verify the resulting text. Detect stale/mismatched source text, overlapping edits and document-switch races before accepting a revision.",
+      "verification_evidence": ["backend/app/modules/aegiswrite/service.py", "frontend/src/app/(dashboard)/write/page.tsx", "backend/tests/test_aegiswrite.py"]
+    },
+    {
+      "id": "check_status", "required": true, "priority": "P1",
+      "current": "The upload UI advertises 100 MB while current server entitlements allow 10 MiB free or 50 MiB paid. Its 20/60/85/100 percentages are fixed upload milestones, not measured progress. It discards the confirmation result and routes to the document list; list/detail do not poll job completion.",
+      "backend_owner": ["workspace", "worker", "documents"], "frontend_owner": ["check", "documents", "session"],
+      "data_model": ["Job", "Document", "Organization", "WorkspaceEntitlements (derived DTO)"],
+      "api": {"existing": ["GET /organizations/{org_id}/entitlements", "POST /documents/upload-confirm", "GET /jobs/{job_id}", "GET /documents/{doc_id}"], "required_change": "Use server limits and the returned document/job context; show measured progress when available or truthful named stages otherwise."},
+      "verification_requirement": "Browser checks for quota rejection, upload/queue distinction, worker failure and completion without manual refresh; completion must open the correct document rather than imply that upload completion is analysis completion.",
+      "verification_evidence": ["frontend/src/app/(dashboard)/upload/page.tsx", "backend/app/modules/billing/entitlements.py", "backend/app/workers/tasks.py"]
+    }
+  ],
+  "EXISTING_BUT_EXPERIMENTAL": [
+    {
+      "id": "similarity_analysis", "required": true,
+      "current": "Tenant-local incremental lexical/ngram retrieval and deterministic span verification emit EXACT, NEAR_DUPLICATE, LEXICAL and STRUCTURAL matches, with exclusions and score components. Candidate and verification work is bounded. No web-wide corpus, active semantic/paraphrase model or demonstrated representative retrieval accuracy exists.",
+      "backend_owner": ["similarity", "evidence"], "frontend_owner": ["documents", "reports"],
+      "data_model": ["DocumentChunk", "SimilarityIndexEntry", "SimilarityMatch", "EvidenceNode"],
+      "api": {"existing": ["GET /similarity/documents/{doc_id}/matches", "GET /reports/documents/{doc_id}"]},
+      "verification_requirement": "Use a permissioned seeded corpus to verify source/target spans, exclusions, retrieval bounds and tenant/version isolation. Label corpus coverage and heuristic scores explicitly; publish recall or performance claims only from reproducible representative measurements.",
+      "verification_evidence": ["backend/tests/test_similarity_engine.py", "backend/docs/similarity-retrieval.md"]
+    },
+    {
+      "id": "citation_analysis", "required": true,
+      "current": "Claim/citation/reference/source/finding records and Crossref DOI retrieval exist. Retrieved payloads are hashed; absent source content remains UNVERIFIABLE. Support assessment uses abstract lexical overlap, not full-text entailment. The module fixture passes, while real extraction loses bibliography structure as recorded above.",
+      "backend_owner": ["citations", "evidence"], "frontend_owner": ["citations", "documents", "reports"],
+      "data_model": ["Claim", "Citation", "Reference", "Source", "CitationFinding", "EvidenceNode"],
+      "api": {"existing": ["GET /citations/documents/{doc_id}/analysis"]},
+      "verification_requirement": "Verify the real ingestion chain, DOI failure/timeout/no-abstract cases, metadata mismatches and exact retrieved excerpts. No metadata-only support claim or fabricated source-quality score; preserve UNVERIFIABLE separately from NOT_SUPPORTED.",
+      "verification_evidence": ["backend/tests/test_citation_intelligence.py", "backend/docs/citation-intelligence.md"]
+    },
+    {
+      "id": "ai_signals", "required": true,
+      "current": "Versioned linguistic/style/syntax and segment/document signal extraction, calibration interfaces and abstention are implemented. The default orchestrator has no classifiers and returns INSUFFICIENT_EVIDENCE with null confidence. The live model registry contains only experimental entries; production model accuracy is not established.",
+      "backend_owner": ["detection", "governance"], "frontend_owner": ["documents", "reports"],
+      "data_model": ["DetectionResult", "DetectionSegment", "AnalysisRun", "ModelRegistry", "EvaluationDataset", "EvaluationExample"],
+      "api": {"existing": ["GET /detection/documents/{doc_id}", "GET /detection/documents/{doc_id}/explain"]},
+      "verification_requirement": "Retain no-model/uncalibrated/provider-failure abstention tests and verify the same state in the report. Any future calibrated classification requires frozen held-out data, leakage checks, subgroup/error analysis and reproducible promotion evidence; a new classifier is not required to complete this journey honestly.",
+      "verification_evidence": ["backend/tests/test_detector_intelligence.py", "backend/tests/test_validation_gate.py", "docs/verification/product-contract/inspection.json"]
+    },
+    {
+      "id": "authorship_analysis", "required": true,
+      "current": "Baseline-relative style statistics and data-adequacy gates exist: at least three qualifying baseline documents, 500 total words, 80 words per sample and target. Missing baseline produces INSUFFICIENT_DATA; AI use is NOT_TESTED. The normal worker supplies no profile, so automatic processing does not perform a baseline comparison.",
+      "backend_owner": ["authorship"], "frontend_owner": ["authorship", "documents", "reports"],
+      "data_model": ["AuthorshipProfile", "AuthorshipSignal", "ProcessedDocument", "EvidenceNode"],
+      "api": {"existing": ["POST /authorship/profiles", "POST /authorship/documents/{doc_id}/analysis", "GET /authorship/documents/{doc_id}/analysis"]},
+      "verification_requirement": "Retain insufficient-baseline and owned-document checks; exclude the target from its own baseline, pin baseline versions and label data adequacy separately from authorship probability. No identity conclusion or AI conclusion may be inferred from stylistic distance.",
+      "verification_evidence": ["backend/tests/test_authorship_consistency.py", "backend/docs/authorship-consistency.md"]
+    },
+    {
+      "id": "editorial_rules", "required": true,
+      "current": "Deterministic spacing, duplicate-word, phrase and contraction rules produce exact original/revision/reason records and a persisted ledger. There is no semantic preservation gate or learned voice model. A preserve_voice boolean and a Voice preserved label do not establish meaning or voice preservation; rules can also operate inside quotations.",
+      "backend_owner": ["write"], "frontend_owner": ["write"],
+      "data_model": ["AegisEdit", "DocumentVersion", "AuditLog"],
+      "api": {"existing": ["POST /aegiswrite/suggest", "POST /aegiswrite/refine", "GET /aegiswrite/history/{document_id}"]},
+      "verification_requirement": "Evaluate protected quotations, citations, numbers/dates, negation, qualifiers, technical terms and legitimate repetition. Flag uncertain changes for review and avoid unconditional preservation claims. Detector scores must never be the editing objective.",
+      "verification_evidence": ["backend/app/modules/aegiswrite/engine.py", "backend/tests/test_aegiswrite.py", "backend/docs/azaeron-write.md"]
+    }
+  ],
+  "MISSING_AND_REQUIRED": [
+    {
+      "id": "check_text_input", "required": true, "priority": "P1",
+      "current": "Check supports file input only. Paste/direct typing is present in Write but cannot initiate Check.",
+      "backend_owner": ["documents", "worker"], "frontend_owner": ["check"],
+      "data_model": ["Document", "DocumentVersion", "Job"],
+      "api": {"existing": ["POST /documents/upload-request", "POST /documents/upload-confirm"], "required_change": "Route pasted/typed text through the same authenticated immutable intake, using a text artifact where practical; no separate analysis engine is required."},
+      "verification_requirement": "Paste/type -> stored first version -> worker -> correct report, including empty input, quota errors and identical text/hash behavior to TXT upload."
+    },
+    {
+      "id": "integrity_review_flags", "required": true, "priority": "P1",
+      "current": "Citation findings, overlap evidence, abstention, missing baselines and graph integrity are distributed across modules. There is no unified review-status contract that includes document-level/unspanned issues; report highlights only include findings with span_text.",
+      "backend_owner": ["report", "evidence", "citations", "detection", "authorship"], "frontend_owner": ["documents", "reports"],
+      "data_model": ["EvidenceNode", "CitationFinding", "DetectionResult", "AuthorshipSignal", "ReportDimension (derived DTO)"],
+      "api": {"existing": ["GET /reports/documents/{doc_id}"], "required_change": "Derive an inspectable review list from existing evidence and operational states, with reason, evidence IDs, version, action and explicit missing spans. No new misconduct classifier or combined risk score."},
+      "verification_requirement": "Every review flag resolves to recorded evidence or an explicit operational reason. Unspanned issues remain visible; zero flags is not a clean-bill-of-integrity claim. No unsupported hidden-text/obfuscation detection claim."
+    },
+    {
+      "id": "evidence_traversal", "required": true, "priority": "P1",
+      "current": "Graph UI lists up to 100 nodes and edge counts but offers no relationship traversal. Finding links open document-level module pages; sources/citations show IDs without a complete linked inspection flow. Module pages search only the first document page and may silently select another document when the requested ID is absent.",
+      "backend_owner": ["evidence", "report", "citations", "similarity"], "frontend_owner": ["graph", "modules", "documents", "citations"],
+      "data_model": ["EvidenceNode", "EvidenceEdge", "SimilarityMatch", "Claim", "Citation", "Reference", "Source"],
+      "api": {"existing": ["GET /evidence/documents/{doc_id}/graph", "GET /reports/documents/{doc_id}", "GET /citations/documents/{doc_id}/analysis", "GET /documents/{doc_id}"], "required_change": "Use the existing graph payload for finding -> span -> source/citation/provenance inspection; retain document/version/finding context, expose truncation and fetch requested documents directly."},
+      "verification_requirement": "Browser test and four-persona usability review: reach the supporting evidence within three simple actions, including a document beyond the first list page. No silent context substitution, dangling links or cross-tenant source access."
+    },
+    {
+      "id": "baseline_setup", "required": true, "priority": "P2",
+      "current": "The authorship page only displays results; it cannot create/select a baseline or invoke the existing comparison API.",
+      "backend_owner": ["authorship", "documents"], "frontend_owner": ["authorship", "modules"],
+      "data_model": ["AuthorshipProfile", "AuthorshipSignal", "DocumentVersion", "ProcessedDocument"],
+      "api": {"existing": ["POST /authorship/profiles", "POST /authorship/documents/{doc_id}/analysis"], "required_change": "Offer optional, explicit baseline setup from owned processed samples; add only the profile retrieval/removal seams needed to manage that baseline. Keep an understandable untested state when skipped."},
+      "verification_requirement": "Browser/API coverage for opting in, skipping, inadequate samples, self-baseline exclusion, authorized profile selection and removal. Check remains usable without a baseline."
+    },
+    {
+      "id": "accepted_revision_recheck", "required": true, "priority": "P1",
+      "depends_on": ["text_structure", "versioned_analysis", "write_decisions", "editorial_rules", "report_state_fidelity"],
+      "current": "There is no connected action that saves accepted edits as a child version, reprocesses it and compares its evidence with the parent. The version-upload endpoint is an existing seam, not a working Write-to-recheck loop.",
+      "backend_owner": ["write", "documents", "processing", "worker", "provenance", "report"], "frontend_owner": ["write", "documents", "reports", "provenance"],
+      "data_model": ["AegisEdit", "DocumentVersion", "Job", "ProcessedDocument", "AnalysisRun", "ProvenanceEvent"],
+      "api": {"existing": ["POST /aegiswrite/apply", "POST /documents/{doc_id}/versions", "GET /jobs/{job_id}", "GET /reports/documents/{doc_id}"], "required_change": "Persist only reviewed accepted changes as a fingerprinted child version with parent and edit IDs, queue analysis idempotently and open version-pinned before/after evidence."},
+      "verification_requirement": "Real E2E: upload -> inspect evidence -> Write -> reject/accept subset -> review a preservation-risk case -> save child -> worker completion -> re-check -> retrieve both reports and change lineage. Retries create no duplicate revision; the parent remains unchanged."
+    },
+    {
+      "id": "portable_report", "required": true, "priority": "P2",
+      "current": "Full integrity-report export is absent. Document Download returns the original object; Export history downloads provenance JSON only.",
+      "backend_owner": ["report", "evidence", "provenance", "write"], "frontend_owner": ["reports", "documents", "provenance"],
+      "data_model": ["DocumentVersion", "EvidenceNode", "EvidenceEdge", "AegisEdit", "ProvenanceExport (existing snapshot pattern)"],
+      "api": {"existing": ["GET /reports/documents/{doc_id}", "POST /provenance/documents/{doc_id}/export"], "required_change": "Export the selected integrity report with evidence/source appendix, states, limitations, version/hash/model metadata and accepted-change lineage. Reuse the current report and export patterns; rendering format is an implementation choice."},
+      "verification_requirement": "Compare exported contents against the selected report/version; include missing-evidence states and source timestamps/hashes. Verify tenant access and a readable downloadable artifact without unsupported detection claims."
+    }
+  ],
+  "OPTIONAL_LATER": [
+    {"id": "validated_classifier", "current": "Evaluation, calibration and registry foundations exist.", "boundary": "Train/promote only after representative reproducible evidence and explicit review; an honest abstention state satisfies the current AI-signal journey."},
+    {"id": "expanded_retrieval", "current": "Lexical tenant-local retrieval exists.", "boundary": "BM25/vector/semantic providers or licensed external corpora require demonstrated corpus needs and evaluation; do not add them for competitor parity."},
+    {"id": "document_format_expansion", "current": "Text extraction handlers exist; language is assigned en and there is no OCR pipeline.", "boundary": "Scanned-document OCR, multilingual claims and original-page overlays require real user demand and extraction/offset verification."},
+    {"id": "institutional_workflows", "current": "Assignment/submission APIs and schema exist; admin/settings routes are adjacent to the main journey.", "boundary": "Bulk grading, LMS/SSO, seats, advanced administration and organizational dashboards are not prerequisites for individual teachers/professors."},
+    {"id": "commercial_integrations", "current": "Server entitlement stub and billing-related schema exist.", "boundary": "Payments, broad usage metering, webhooks and add-ons follow a demonstrated need after the document journey works."},
+    {"id": "advanced_editorial_and_export", "current": "Conservative rules and JSON provenance export exist.", "boundary": "Learned voice models, elaborate report styling and specialized export formats require usefulness and preservation evidence; start with a simple readable report."}
+  ],
+  "REMOVE_OR_AVOID": [
+    {"id": "detector_evasion", "rule": "No bypass/stealth rewriting, detector-targeted optimization, watermark removal, Unicode/whitespace obfuscation or undetectable/0%-AI modes. Preserve the existing editorial API exclusions."},
+    {"id": "unsupported_accuracy", "rule": "No fabricated benchmark numbers, 100% detection promises or competitor superiority claims. Passing software tests is not measured classifier accuracy."},
+    {"id": "misleading_scores", "rule": "Do not collapse similarity, AI signals, authorship, citation quality or provenance into one accusation score. Do not expose legacy score fields as validated outcomes or style adequacy as identity probability."},
+    {"id": "misleading_states_and_copy", "rule": "Correct fixed percentage progress, the 100 MB entitlement mismatch, unconditional Voice preserved language and production-looking labels for untested results. Preserve clear missing/degraded states."},
+    {"id": "automatic_accusations", "rule": "No automatic misconduct, plagiarism or identity determination; show evidence and uncertainty for human review."},
+    {"id": "enterprise_decoration", "rule": "No decorative admin analytics, invented metrics, forced institution setup or extra persona dashboards unrelated to this journey."},
+    {"id": "false_deletion_claims", "rule": "Current document DELETE archives and preserves history; do not represent it as irreversible storage/index/database erasure. Full purge is not verified by the archive test."}
+  ],
+  "completion_gate": {
+    "required": "All required capabilities meet their scoped verification requirements, including the real full-journey E2E and simple review by student, teacher, professor and researcher. Experimental modules may remain experimental; uncertainty must survive every view and export.",
+    "current": "NOT_MET",
+    "implementation_authorized_by_this_contract": false
+  },
+  "PRODUCT_CONTRACT_STATUS": "RECORDED_WITH_VERIFIED_GAPS; TARGET_JOURNEY_INCOMPLETE",
+  "HIGHEST_PRIORITY_NEXT_IMPLEMENTATION": {
+    "id": "repair_version_scoped_document_processing",
+    "capabilities": ["text_structure", "versioned_analysis"],
+    "outcome": "Preserve paragraph/reference structure and allow immutable processing of successive versions before connecting Write to re-check.",
+    "first_acceptance": "Process v1 and v2 of one real cited document through PostgreSQL/Celery; both complete, keep distinct text/hash/evidence, resolve bibliography references and return their own version-pinned content and reports.",
+    "reason": "The current pipeline loses citation structure on the first check and cannot store processed text for the second version. Later UI work would inherit both defects."
+  }
+}

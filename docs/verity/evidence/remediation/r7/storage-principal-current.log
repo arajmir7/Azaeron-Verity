@@ -1,0 +1,13 @@
+ Container azaeron-verity-cert-minio-init-1 Recreate 
+ Container azaeron-verity-cert-minio-init-1 Recreated 
+Attaching to minio-init-1
+ Container azaeron-verity-cert-minio-init-1 Starting 
+ Container azaeron-verity-cert-minio-init-1 Started 
+minio-init-1  | Added `local` successfully.
+minio-init-1  | Bucket created successfully `local/azaeron-documents`.
+minio-init-1  | Created policy `azaeron-app-policy` successfully.
+minio-init-1  | Added user `azaeronapp` successfully.
+minio-init-1  | Attached Policies: [azaeron-app-policy]
+minio-init-1  | To User: azaeronapp
+minio-init-1  | mc: <ERROR> Unable to create new policy: unsupported condition keys '[s3:prefix]' used for action 's3:ListBucketMultipartUploads'.
+[Kminio-init-1 exited with code 1

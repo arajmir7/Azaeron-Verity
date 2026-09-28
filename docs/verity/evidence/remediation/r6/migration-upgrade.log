@@ -1,0 +1,5 @@
+ Container azaeron-verity-cert-verification-run-cf55e707b79e Creating 
+ Container azaeron-verity-cert-verification-run-cf55e707b79e Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260920_0028 -> 20260920_0029, Identity challenges, encrypted mail outbox and MFA replay state.

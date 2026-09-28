@@ -1,0 +1,103 @@
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[manager]	WARNING	Test in comment: public is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: OAuth is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: scheme is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: credential is not a test name or id, ignoring
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:145
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:146
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:148
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:147
+[manager]	WARNING	Test in comment: network is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: policy is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: limits is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: this is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: pod is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: to is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: API is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: worker is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: ingress is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: confined is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: emptyDir is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: scratch is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: confined is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: emptyDir is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: scratch is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: private is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: tmpfs is not a test name or id, ignoring
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:28
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:29
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:30
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:32
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:34
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:35
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:36
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:38
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:39
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:40
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:41
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:42
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:43
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:44
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:45
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:46
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:47
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:48
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:49
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:50
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:51
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:52
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:53
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:61
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:62
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:63
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:64
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:65
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:66
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:67
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:61
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:62
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:63
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:64
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:65
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:66
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:114
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:115
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:116
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:122
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:123
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:142
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:170
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:144
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:145
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:146
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:147
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:148
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:149
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:150
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:154
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:155
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:162
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:167
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:144
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:227
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:273
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:240
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:241
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:242
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:243
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:244
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:245
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:246
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:247
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:250
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:254
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:257
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:258
+[tester]	WARNING	nosec encountered (B108), but no failed test on file backend/app/modules/inference/deployment.py:242
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+[json]	INFO	JSON output written to file: docs/verity/evidence/final-production-certification/bandit-after.json

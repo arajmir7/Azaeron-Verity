@@ -1,0 +1,16 @@
+ Container azaeron-verity-cert-verification-run-d09fd95d2e7b Creating 
+ Container azaeron-verity-cert-verification-run-d09fd95d2e7b Created 
+app/modules/detection/intelligence/evaluation.py:111:9: E731 Do not assign a `lambda` expression, use a `def`
+    |
+109 |     output = {}
+110 |     for target, threshold in artifact["thresholds"].items():
+111 |         hit = lambda row: threshold is not None and row.score >= threshold
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E731
+112 |         output[target] = {
+113 |             "threshold": threshold,
+    |
+    = help: Rewrite `hit` as a `def`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+

@@ -1,0 +1,8 @@
+{
+  "phase": "initial restore attempt",
+  "result": "FAIL",
+  "cause": "The generated recovery Compose configuration inherited explicit source volume and network names. Recovery PostgreSQL briefly mounted the source PostgreSQL volume and the source database process stopped.",
+  "containment": "Recovery PostgreSQL, Redis, and MinIO containers were stopped and removed before pg_restore or object import. The source PostgreSQL container was restarted. Its schema remained 20260924_0035, readiness returned 200, and pg_amcheck completed with exit 0.",
+  "fix": "Recovery volumes and network now use azaeron-verity-dr names. The gate asserts actual Docker mounts before it connects to recovery PostgreSQL.",
+  "retest": "restore-isolated.log and restore-pre-replay.json show a separate database and 363 copied objects; post-erasure replay and final readiness remain separately gated."
+}

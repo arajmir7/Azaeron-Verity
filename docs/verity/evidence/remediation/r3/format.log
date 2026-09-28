@@ -1,0 +1,12 @@
+ Container azaeron-verity-cert-verification-run-02a41322db1c Creating 
+ Container azaeron-verity-cert-verification-run-02a41322db1c Created 
+error: cannot format tests/test_semantic_verification.py: Cannot parse: 28:2
+    ]):
+     ^
+ParseError: bad input
+reformatted app/api/v1/text.py
+reformatted /app/app/modules/verification/service.py
+
+Oh no! 💥 💔 💥
+2 files reformatted, 3 files left unchanged, 1 file failed to reformat.
+

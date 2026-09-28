@@ -1,0 +1,100 @@
+ Container azaeron-verity-cert-verification-run-5646a74eefc0 Creating 
+ Container azaeron-verity-cert-verification-run-5646a74eefc0 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: asyncio-1.4.0, Faker-30.0.0, anyio-4.15.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 238 items
+
+tests/security/test_document_mutation_authorization.py .....             [  2%]
+tests/security/test_failure_privacy.py ..                                [  2%]
+tests/security/test_readonly_permissions.py ..                           [  3%]
+tests/security/test_security_gate.py ...                                 [  5%]
+tests/security/test_session_boundary.py ...........                      [  9%]
+tests/security/test_tenant_authorization.py ..                           [ 10%]
+tests/security/test_upload_validation.py ....                            [ 12%]
+tests/security/test_zero_external_ai.py .........                        [ 15%]
+tests/test_aegiswrite.py ....                                            [ 17%]
+tests/test_api_keys.py ......                                            [ 20%]
+tests/test_auth.py .........                                             [ 23%]
+tests/test_authorship_consistency.py ...                                 [ 25%]
+tests/test_capability_contract.py ..                                     [ 26%]
+tests/test_citation_intelligence.py ..                                   [ 26%]
+tests/test_detector_calibration_protocol.py ....                         [ 28%]
+tests/test_detector_intelligence.py .......                              [ 31%]
+tests/test_document_intelligence.py .........                            [ 35%]
+tests/test_editor_revisions.py ....                                      [ 36%]
+tests/test_evidence_graph.py ..                                          [ 37%]
+tests/test_evidence_report.py ...                                        [ 39%]
+tests/test_failure_gate.py ......                                        [ 41%]
+tests/test_governance.py ...                                             [ 42%]
+tests/test_identity.py .......                                           [ 45%]
+tests/test_lineage_contract.py ...................                       [ 53%]
+tests/test_operations.py ....                                            [ 55%]
+tests/test_organization_state_contract.py ..                             [ 56%]
+tests/test_privacy.py .........                                          [ 60%]
+tests/test_private_inference.py .......................                  [ 69%]
+tests/test_provenance.py ..                                              [ 70%]
+tests/test_refine_invariants.py ................                         [ 77%]
+tests/test_semantic_verification.py .................                    [ 84%]
+tests/test_similarity_engine.py .....                                    [ 86%]
+tests/test_similarity_workflow.py .......                                [ 89%]
+tests/test_storage_urls.py .                                             [ 89%]
+tests/test_usage.py ....                                                 [ 91%]
+tests/test_validation_gate.py ......                                     [ 94%]
+tests/test_worker_redelivery.py ..                                       [ 94%]
+tests/test_workspace_onboarding.py ............                          [100%]
+
+=============================== warnings summary ===============================
+app/modules/auth/schemas.py:45
+  /app/app/modules/auth/schemas.py:45: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    @validator("password")
+
+app/modules/auth/schemas.py:62
+  /app/app/modules/auth/schemas.py:62: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class UserResponse(UserBase):
+
+app/modules/auth/schemas.py:122
+  /app/app/modules/auth/schemas.py:122: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class ApiKeyResponse(BaseModel):
+
+app/modules/audit/schemas.py:22
+  /app/app/modules/audit/schemas.py:22: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class AuditLogResponse(BaseModel):
+
+app/modules/organizations/schemas.py:36
+  /app/app/modules/organizations/schemas.py:36: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class OrganizationMembershipResponse(BaseModel):
+
+app/modules/organizations/schemas.py:80
+  /app/app/modules/organizations/schemas.py:80: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class MemberResponse(BaseModel):
+
+app/modules/documents/schemas.py:25
+  /app/app/modules/documents/schemas.py:25: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class DocumentResponse(DocumentBase):
+
+app/modules/documents/schemas.py:139
+  /app/app/modules/documents/schemas.py:139: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class DocumentVersionResponse(BaseModel):
+
+app/modules/jobs/schemas.py:21
+  /app/app/modules/jobs/schemas.py:21: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class JobResponse(JobBase):
+
+app/modules/evidence/schemas.py:70
+  /app/app/modules/evidence/schemas.py:70: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class IntegrityReportResponse(BaseModel):
+
+app/modules/assignments/schemas.py:20
+  /app/app/modules/assignments/schemas.py:20: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class AssignmentResponse(AssignmentCreate):
+
+app/modules/assignments/schemas.py:37
+  /app/app/modules/assignments/schemas.py:37: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class SubmissionResponse(BaseModel):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================= 238 passed, 12 warnings in 72.66s (0:01:12) ==================

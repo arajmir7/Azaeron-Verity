@@ -1,0 +1,12 @@
+v1.31.2: Pulling from axllent/mailpit
+1882d4394c59: Pulling fs layer
+8733dd02d5a7: Pulling fs layer
+44136fa355b3: Already exists
+1882d4394c59: Download complete
+62baac7f973a: Download complete
+8733dd02d5a7: Download complete
+1882d4394c59: Pull complete
+8733dd02d5a7: Pull complete
+Digest: sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d
+Status: Downloaded newer image for axllent/mailpit:v1.31.2
+docker.io/axllent/mailpit:v1.31.2

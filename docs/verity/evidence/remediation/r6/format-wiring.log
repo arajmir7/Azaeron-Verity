@@ -1,0 +1,7 @@
+ Container azaeron-verity-cert-verification-run-14692ea3cf50 Creating 
+ Container azaeron-verity-cert-verification-run-14692ea3cf50 Created 
+reformatted /app/app/api/v1/auth.py
+reformatted /app/app/workers/celery_app.py
+
+All done! ✨ 🍰 ✨
+2 files reformatted, 187 files left unchanged.

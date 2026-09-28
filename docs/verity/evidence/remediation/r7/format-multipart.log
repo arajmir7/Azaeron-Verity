@@ -1,0 +1,9 @@
+ Container azaeron-verity-cert-verification-run-977aff6a8175 Creating 
+ Container azaeron-verity-cert-verification-run-977aff6a8175 Created 
+reformatted /app/app/modules/privacy/multipart.py
+reformatted tests/test_privacy.py
+reformatted /app/app/modules/privacy/storage.py
+reformatted tests/integration/test_postgres_rls.py
+
+All done! ✨ 🍰 ✨
+4 files reformatted, 3 files left unchanged.

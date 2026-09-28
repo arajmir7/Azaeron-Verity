@@ -1,0 +1,242 @@
+[
+  {
+    "image": "azaeron-verity-r10-runtime:latest",
+    "image_id": "sha256:e90e30cdc150d2aa9962048bec40558c2d0e234f9014ff93bfe86c6eace4f88a",
+    "bytes": 520578933,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-verity-r10-runtime:latest",
+    "image_id": "sha256:e90e30cdc150d2aa9962048bec40558c2d0e234f9014ff93bfe86c6eace4f88a",
+    "bytes": 520578933,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-verity-r9-frontend:latest",
+    "image_id": "sha256:a2afede748988525c08b06dcc64a658efd08535b64c209f8b881da579d435b84",
+    "bytes": 305429759,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-verity-r9-frontend:latest",
+    "image_id": "sha256:a2afede748988525c08b06dcc64a658efd08535b64c209f8b881da579d435b84",
+    "bytes": 305429759,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-verity-r6-verification:latest",
+    "image_id": "sha256:2ea98bbef4cbdefafec200f23f1f1115fa76fcb56a42872e96426aa345e7c723",
+    "bytes": 927342685,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-2-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-verity-r6-verification:latest",
+    "image_id": "sha256:2ea98bbef4cbdefafec200f23f1f1115fa76fcb56a42872e96426aa345e7c723",
+    "bytes": 927342685,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-2-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "pgvector/pgvector:pg16",
+    "image_id": "sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b",
+    "bytes": 639846191,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-3-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "pgvector/pgvector:pg16",
+    "image_id": "sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b",
+    "bytes": 639846191,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-3-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "redis:7-alpine",
+    "image_id": "sha256:8b81dd37ff027bec4e516d41acfbe9fe2460070dc6d4a4570a2ac5b9d59df065",
+    "bytes": 61448329,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-4-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "redis:7-alpine",
+    "image_id": "sha256:8b81dd37ff027bec4e516d41acfbe9fe2460070dc6d4a4570a2ac5b9d59df065",
+    "bytes": 61448329,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-4-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "minio/minio:latest",
+    "image_id": "sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e",
+    "bytes": 227691600,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-5-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "minio/minio:latest",
+    "image_id": "sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e",
+    "bytes": 227691600,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-5-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "minio/mc:latest",
+    "image_id": "sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727",
+    "bytes": 112153819,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-6-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "minio/mc:latest",
+    "image_id": "sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727",
+    "bytes": 112153819,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-6-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "prom/prometheus:latest",
+    "image_id": "sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+    "bytes": 348550829,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-7-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "prom/prometheus:latest",
+    "image_id": "sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+    "bytes": 348550829,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-7-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "grafana/grafana:latest",
+    "image_id": "sha256:3fd54ae1214669f8355f065ec9f6445d5279a3d77095ab048ca045685272429b",
+    "bytes": 1786129590,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-8-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "grafana/grafana:latest",
+    "image_id": "sha256:3fd54ae1214669f8355f065ec9f6445d5279a3d77095ab048ca045685272429b",
+    "bytes": 1786129590,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-8-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "jaegertracing/all-in-one:1.62.0",
+    "image_id": "sha256:836e9b69c88afbedf7683ea7162e179de63b1f981662e83f5ebb68badadc710f",
+    "bytes": 112725848,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-9-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "jaegertracing/all-in-one:1.62.0",
+    "image_id": "sha256:836e9b69c88afbedf7683ea7162e179de63b1f981662e83f5ebb68badadc710f",
+    "bytes": 112725848,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-9-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "otel/opentelemetry-collector-contrib:0.111.0",
+    "image_id": "sha256:a2a52e43c1a80aa94120ad78c2db68780eb90e6d11c8db5b3ce2f6a0cc6b5029",
+    "bytes": 331494123,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-10-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "otel/opentelemetry-collector-contrib:0.111.0",
+    "image_id": "sha256:a2a52e43c1a80aa94120ad78c2db68780eb90e6d11c8db5b3ce2f6a0cc6b5029",
+    "bytes": 331494123,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-10-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "axllent/mailpit:v1.31.2",
+    "image_id": "sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d",
+    "bytes": 49108708,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-11-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "axllent/mailpit:v1.31.2",
+    "image_id": "sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d",
+    "bytes": 49108708,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-11-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

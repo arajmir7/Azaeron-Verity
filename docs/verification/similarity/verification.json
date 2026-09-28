@@ -1,0 +1,112 @@
+{
+  "status": "IMPLEMENTED_AND_VERIFIED",
+  "scope": "SIMILARITY_ONLY",
+  "verified_at": "2026-09-13T06:28:52.395613+00:00",
+  "runtime": {
+    "local_url": "http://localhost:3000",
+    "migration_head": "20260913_0023",
+    "application_source_matches_running_backend": true,
+    "isolated_test_project": "azaeron-similarity-gate",
+    "isolated_test_volumes_retained": true
+  },
+  "backend_owner": [
+    "backend/app/api/v1/similarity.py",
+    "backend/app/modules/similarity/service.py",
+    "backend/app/modules/similarity/report.py",
+    "backend/app/modules/similarity/review.py"
+  ],
+  "frontend_owner": [
+    "frontend/src/app/(dashboard)/similarity/page.tsx",
+    "frontend/src/lib/api.ts"
+  ],
+  "data_models": [
+    "SimilarityAnalysis",
+    "SimilarityMatch",
+    "DocumentChunk",
+    "SimilarityIndexEntry",
+    "DocumentVersion",
+    "ProcessedDocument",
+    "EvidenceNode"
+  ],
+  "api": [
+    "GET /api/v1/similarity/documents/{doc_id}/analysis",
+    "POST /api/v1/similarity/documents/{doc_id}/analysis",
+    "GET /api/v1/similarity/documents/{doc_id}/matches",
+    "GET /api/v1/similarity/documents/{doc_id}/matches/{match_id}"
+  ],
+  "implemented": [
+    "overlap-aware unique-word summary",
+    "four quotation/citation match groups",
+    "exact Unicode character spans",
+    "ranked private workspace source versions",
+    "explicit corpus categories and availability",
+    "side-by-side source and target evidence",
+    "quotation/citation review flags",
+    "reproducible exclusions and fingerprints",
+    "incremental tenant-scoped inverted index",
+    "deterministic versioned match identifiers",
+    "immutable analysis and source provenance",
+    "match and source pagination",
+    "human-readable interpretation and limitations"
+  ],
+  "verification": {
+    "backend": {
+      "passed": 119,
+      "failed": 0,
+      "skipped": 0,
+      "postgres_rls_tests": 12,
+      "new_similarity_workflow_tests": 7,
+      "log": "backend-tests.log"
+    },
+    "browser": {
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "new_live_similarity_flow": 1,
+      "log": "frontend-tests.log",
+      "screenshots_visually_inspected": true
+    },
+    "static_checks": {
+      "ruff": "PASS",
+      "mypy": "PASS",
+      "typescript": "PASS",
+      "eslint": "PASS"
+    },
+    "production_images": "PASS",
+    "runtime_health": "PASS",
+    "source_manifest": "source-manifest.json"
+  },
+  "experimental": [
+    "quotation boundary recognition",
+    "nearby citation marker recognition; attribution to matched source is not verified"
+  ],
+  "unavailable": [
+    "external authorized full-text corpus",
+    "full-text comparison through public bibliographic metadata",
+    "semantic paraphrase verification",
+    "calibrated accuracy or recall estimates"
+  ],
+  "work_limits": {
+    "retrieved_candidates_per_window": 200,
+    "verified_candidates_per_window": 25,
+    "target_windows_analyzed": 400,
+    "stored_matches": 2000,
+    "workflow_page_size_max": 100,
+    "minimum_evidence_words": 5
+  },
+  "known_limitations": [
+    "Similarity is not a plagiarism, intent, authorship or AI-use determination.",
+    "Reaching a work limit returns BOUNDED with lower-bound evidence coverage.",
+    "No sources and no eligible target words return null percentage, not zero.",
+    "Older extracted text may lack line boundaries; existing text is preserved.",
+    "A completed version snapshot does not incorporate subsequently added sources.",
+    "No standalone benchmark reports were available in the referenced attachments; behavior follows the user specification and existing evidence workflow."
+  ],
+  "resolved_browser_attempts": {
+    "1": "Test fixture omitted login after registration.",
+    "2": "Controlled checkbox reset while the request loaded; immediate query state now fixes the interaction.",
+    "3": "Test was launched before API restart completed; final tests ran after compose health gates."
+  },
+  "current_failed_gates": [],
+  "next": "Review real drafts through the local Similarity workflow; validate experimental citation/quotation coverage before expanding supported formats."
+}

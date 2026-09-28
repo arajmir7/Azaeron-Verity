@@ -1,0 +1,44 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test --workers=1
+
+
+Running 25 tests using 1 worker
+
+(node:34092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/25] [chromium] › tests/accessibility-live.spec.ts:14:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations
+[2/25] [chromium] › tests/accessibility-review.spec.ts:15:5 › critical navigation stays operable at narrow widths and restores focus
+[3/25] [chromium] › tests/api-keys.spec.ts:4:5 › API keys show the secret once, rotate, revoke, and avoid browser storage
+[4/25] [chromium] › tests/editor-live.spec.ts:5:5 › editor: selective acceptance, reload, restore, offline recovery and lost-response retry
+[5/25] [chromium] › tests/error-boundary.spec.ts:3:5 › render errors have a focused recovery boundary and send only closed metadata
+[6/25] [chromium] › tests/identity-live.spec.ts:18:5 › real SMTP verification, MFA recovery login, password reset and device revocation
+[7/25] [chromium] › tests/observability-live.spec.ts:7:5 › browser upload correlates API, database, storage and worker without customer text
+[8/25] [chromium] › tests/onboarding.spec.ts:54:5 › an expired access cookie refreshes with a valid request body and restores the workspace
+[9/25] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives student the server-provided starting workflow
+[10/25] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives teacher the server-provided starting workflow
+[11/25] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives professor the server-provided starting workflow
+[12/25] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives researcher the server-provided starting workflow
+[13/25] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives reviewer the server-provided starting workflow
+[14/25] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives institution the server-provided starting workflow
+[15/25] [chromium] › tests/onboarding.spec.ts:76:5 › a document workflow offers workspace creation inline
+[16/25] [chromium] › tests/onboarding.spec.ts:86:5 › revoked recent membership falls back only after server validation
+[17/25] [chromium] › tests/onboarding.spec.ts:95:5 › failed switching hides tenant data and offers a working retry
+[18/25] [chromium] › tests/onboarding.spec.ts:111:5 › cached workspace IDs cannot override the server's active membership
+[19/25] [chromium] › tests/privacy.spec.ts:4:5 › privacy form requires explicit confirmation and keeps its receipt out of persistent storage
+[20/25] [chromium] › tests/usage.spec.ts:4:5 › workspace usage shows authoritative totals and handles unavailable refresh
+[21/25] [chromium] › tests/workspace.spec.ts:3:5 › public workspace keeps analysis evidence-based and editorial work authenticated
+[22/25] [chromium] › tests/workspace.spec.ts:13:5 › public navigation remains usable on a narrow viewport
+(node:34260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[23/25] [chromium] › tests/document-intelligence-live.spec.ts:7:5 › document core: upload, analyze and switch immutable versions across existing views
+[chromium] › tests/document-intelligence-live.spec.ts:7:5 › document core: upload, analyze and switch immutable versions across existing views
+Live authentication respected Retry-After: 60s
+
+[24/25] [chromium] › tests/onboarding-live.spec.ts:5:5 › live signup, personal workspace, upload, refresh and persistent switching
+[25/25] [chromium] › tests/similarity-live.spec.ts:8:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions
+  25 passed (3.6m)

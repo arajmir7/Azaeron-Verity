@@ -1,0 +1,9 @@
+2026-09-28T06:23:54Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-09-28T06:23:56Z	INFO	Detected OS	family="alpine" version="3.20.5"
+2026-09-28T06:23:56Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.20" repository="3.20" pkg_num=29
+2026-09-28T06:23:56Z	INFO	Number of language-specific files	num=4
+2026-09-28T06:23:56Z	INFO	[gobinary] Detecting vulnerabilities...
+2026-09-28T06:23:56Z	INFO	[node-pkg] Detecting vulnerabilities...
+2026-09-28T06:23:56Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.74/guide/scanner/vulnerability#severity-selection for details.
+2026-09-28T06:23:56Z	WARN	This OS version is no longer supported by the distribution	family="alpine" version="3.20.5"
+2026-09-28T06:23:56Z	WARN	The vulnerability detection may be insufficient because security updates are not provided

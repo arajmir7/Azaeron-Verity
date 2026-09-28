@@ -1,0 +1,5 @@
+ Container azaeron-verity-cert-verification-run-4189998b7323 Creating 
+ Container azaeron-verity-cert-verification-run-4189998b7323 Created 
+app/modules/detection/schemas.py:86: error: Decorators on top of @property are not supported  [prop-decorator]
+Found 1 error in 1 file (checked 144 source files)
+

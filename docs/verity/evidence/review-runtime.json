@@ -1,0 +1,49 @@
+{
+  "scope": "Isolated development review runtime",
+  "http": [
+    {
+      "url": "http://localhost:4700/login",
+      "http_status": 200
+    },
+    {
+      "url": "http://localhost:9700/health/ready",
+      "http_status": 200
+    },
+    {
+      "url": "http://localhost:9700/api/v1/capabilities",
+      "http_status": 200
+    }
+  ],
+  "services": [
+    {
+      "service": "backend",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "celery-worker",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "frontend",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "minio",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "postgres",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "redis",
+      "state": "running",
+      "health": "healthy"
+    }
+  ]
+}

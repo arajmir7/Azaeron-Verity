@@ -1,0 +1,15 @@
+ Container verity-final-20260925-redis-1 Stopping 
+ Container verity-final-20260925-redis-1 Stopped 
+ Container verity-final-20260925-redis-1 Starting 
+ Container verity-final-20260925-redis-1 Started 
+redis: PASS (503 → 200)
+ Container verity-final-20260925-minio-1 Stopping 
+ Container verity-final-20260925-minio-1 Stopped 
+ Container verity-final-20260925-minio-1 Starting 
+ Container verity-final-20260925-minio-1 Started 
+minio: PASS (503 → 200)
+ Container verity-final-20260925-postgres-1 Stopping 
+ Container verity-final-20260925-postgres-1 Stopped 
+ Container verity-final-20260925-postgres-1 Starting 
+ Container verity-final-20260925-postgres-1 Started 
+postgres: PASS (503 → 200)

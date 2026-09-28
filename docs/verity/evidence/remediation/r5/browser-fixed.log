@@ -1,0 +1,13 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/api-keys.spec.ts --workers=1
+
+
+Running 1 test using 1 worker
+
+(node:92567) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [chromium] › tests/api-keys.spec.ts:4:5 › API keys show the secret once, rotate, revoke, and avoid browser storage
+  1 passed (3.1s)

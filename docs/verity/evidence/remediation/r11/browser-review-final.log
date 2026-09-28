@@ -1,0 +1,40 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/accessibility-review.spec.ts --workers=1
+
+
+Running 1 test using 1 worker
+
+(node:44551) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [chromium] › tests/accessibility-review.spec.ts:5:5 › critical navigation stays operable at narrow widths and restores focus
+  1) [chromium] › tests/accessibility-review.spec.ts:5:5 › critical navigation stays operable at narrow widths and restores focus 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Workspace API keys' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for getByRole('heading', { name: 'Workspace API keys' })
+
+
+      32 |       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      33 |       if (route.includes("api-keys")) {
+    > 34 |         await expect(page.getByRole("heading", { name: "Workspace API keys" })).toBeVisible();
+         |                                                                                 ^
+      35 |         await expect(page.getByRole("textbox", { name: "Key name" })).toBeVisible();
+      36 |       }
+      37 |       const dimensions = await page.evaluate(() => ({
+        at /Users/ajmiraribam/Projects/azaeron_verity/frontend/tests/accessibility-review.spec.ts:34:81
+
+    Error Context: test-results/accessibility-review-criti-e2b75-w-widths-and-restores-focus-chromium/error-context.md
+
+
+  1 failed
+    [chromium] › tests/accessibility-review.spec.ts:5:5 › critical navigation stays operable at narrow widths and restores focus 

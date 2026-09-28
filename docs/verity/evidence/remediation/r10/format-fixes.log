@@ -1,0 +1,7 @@
+ Container azaeron-verity-cert-verification-run-7ed74177fea2 Creating 
+ Container azaeron-verity-cert-verification-run-7ed74177fea2 Created 
+reformatted /app/tests/integration/test_usage_concurrency.py
+reformatted /app/tests/test_evidence_graph.py
+
+All done! ✨ 🍰 ✨
+2 files reformatted, 209 files left unchanged.

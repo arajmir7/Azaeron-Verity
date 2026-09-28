@@ -1,0 +1,6 @@
+# Optional experimental local embeddings; not part of the production image.
+-r requirements.txt
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.10.0+cpu
+sentence-transformers==6.1.0
+transformers==5.17.0

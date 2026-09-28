@@ -1,0 +1,50 @@
+[
+  {
+    "gate": "minio-init-idempotency",
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 0.57
+  },
+  {
+    "gate": "previous-version-db-create",
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 0.2
+  },
+  {
+    "gate": "migrate-empty-to-previous",
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 1.22
+  },
+  {
+    "gate": "migration-seed-previous",
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 0.12
+  },
+  {
+    "gate": "migrate-previous-to-latest",
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 0.76
+  },
+  {
+    "gate": "migration-preserves-account",
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 0.11
+  },
+  {
+    "gate": "migration-rollback",
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 0.76
+  },
+  {
+    "gate": "migration-reapply",
+    "status": "PASS",
+    "exit_code": 0,
+    "seconds": 0.77
+  }
+]

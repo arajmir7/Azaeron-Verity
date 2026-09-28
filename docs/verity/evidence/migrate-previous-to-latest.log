@@ -1,0 +1,5 @@
+ Container azaeron-verity-cert-migrate-run-fb957763ced2 Creating 
+ Container azaeron-verity-cert-migrate-run-fb957763ced2 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260913_0025 -> 20260919_0026, Invalidate issued access tokens after logout, password change and replay.

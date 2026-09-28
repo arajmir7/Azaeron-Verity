@@ -1,0 +1,314 @@
+ Container azaeron-verity-cert-verification-run-033a049f578c Creating 
+ Container azaeron-verity-cert-verification-run-033a049f578c Created 
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: asyncio-1.4.0, Faker-30.0.0, anyio-4.15.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 44 items
+
+tests/test_observability.py ....                                         [  9%]
+tests/test_operations.py ....                                            [ 18%]
+tests/test_private_inference.py .......................                  [ 70%]
+tests/test_worker_redelivery.py ....                                     [ 79%]
+tests/test_failure_gate.py ......                                        [ 93%]
+tests/security/test_security_gate.py ...                                 [100%]
+
+=============================== warnings summary ===============================
+app/modules/auth/schemas.py:45
+  /app/app/modules/auth/schemas.py:45: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    @validator("password")
+
+app/modules/auth/schemas.py:62
+  /app/app/modules/auth/schemas.py:62: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class UserResponse(UserBase):
+
+app/modules/auth/schemas.py:122
+  /app/app/modules/auth/schemas.py:122: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class ApiKeyResponse(BaseModel):
+
+app/modules/audit/schemas.py:22
+  /app/app/modules/audit/schemas.py:22: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class AuditLogResponse(BaseModel):
+
+app/modules/organizations/schemas.py:36
+  /app/app/modules/organizations/schemas.py:36: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class OrganizationMembershipResponse(BaseModel):
+
+app/modules/organizations/schemas.py:80
+  /app/app/modules/organizations/schemas.py:80: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class MemberResponse(BaseModel):
+
+app/modules/documents/schemas.py:25
+  /app/app/modules/documents/schemas.py:25: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class DocumentResponse(DocumentBase):
+
+app/modules/documents/schemas.py:139
+  /app/app/modules/documents/schemas.py:139: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class DocumentVersionResponse(BaseModel):
+
+app/modules/jobs/schemas.py:21
+  /app/app/modules/jobs/schemas.py:21: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class JobResponse(JobBase):
+
+app/modules/evidence/schemas.py:70
+  /app/app/modules/evidence/schemas.py:70: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class IntegrityReportResponse(BaseModel):
+
+app/modules/assignments/schemas.py:20
+  /app/app/modules/assignments/schemas.py:20: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class AssignmentResponse(AssignmentCreate):
+
+app/modules/assignments/schemas.py:37
+  /app/app/modules/assignments/schemas.py:37: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class SubmissionResponse(BaseModel):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 44 passed, 12 warnings in 4.90s ========================
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 299, in _export
+    self._client.Export(
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 1168, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.DEADLINE_EXCEEDED
+	details = "Deadline Exceeded"
+	debug_error_string = "DEADLINE_EXCEEDED:Deadline Exceeded"
+>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1163, in emit
+    stream.write(msg + self.terminator)
+ValueError: I/O operation on closed file.
+Call stack:
+  File "/usr/local/lib/python3.12/threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/local/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.12/threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 284, in worker
+    self._drain_queue()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 377, in _drain_queue
+    self._export_batch()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 360, in _export_batch
+    self.span_exporter.export(self.spans_list[:idx])  # type: ignore
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/trace_exporter/__init__.py", line 143, in export
+    return self._export(spans)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 328, in _export
+    logger.warning(
+Message: 'Transient error %s encountered while exporting %s to %s, retrying in %ss.'
+Arguments: (<StatusCode.DEADLINE_EXCEEDED: (4, 'deadline exceeded')>, 'traces', 'otel-collector:4317', 1)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 299, in _export
+    self._client.Export(
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 1168, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "errors resolving otel-collector:4317: [field:hostname lookup error:address lookup failed for otel-collector:4317: DNS server returned general failure]"
+	debug_error_string = "UNAVAILABLE:errors resolving otel-collector:4317: [field:hostname lookup error:address lookup failed for otel-collector:4317: DNS server returned general failure]"
+>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1163, in emit
+    stream.write(msg + self.terminator)
+ValueError: I/O operation on closed file.
+Call stack:
+  File "/usr/local/lib/python3.12/threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/local/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.12/threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 284, in worker
+    self._drain_queue()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 377, in _drain_queue
+    self._export_batch()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 360, in _export_batch
+    self.span_exporter.export(self.spans_list[:idx])  # type: ignore
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/trace_exporter/__init__.py", line 143, in export
+    return self._export(spans)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 328, in _export
+    logger.warning(
+Message: 'Transient error %s encountered while exporting %s to %s, retrying in %ss.'
+Arguments: (<StatusCode.UNAVAILABLE: (14, 'unavailable')>, 'traces', 'otel-collector:4317', 2)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 299, in _export
+    self._client.Export(
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 1168, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "errors resolving otel-collector:4317: [field:hostname lookup error:address lookup failed for otel-collector:4317: DNS server returned general failure]"
+	debug_error_string = "UNAVAILABLE:errors resolving otel-collector:4317: [field:hostname lookup error:address lookup failed for otel-collector:4317: DNS server returned general failure]"
+>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1163, in emit
+    stream.write(msg + self.terminator)
+ValueError: I/O operation on closed file.
+Call stack:
+  File "/usr/local/lib/python3.12/threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/local/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.12/threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 284, in worker
+    self._drain_queue()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 377, in _drain_queue
+    self._export_batch()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 360, in _export_batch
+    self.span_exporter.export(self.spans_list[:idx])  # type: ignore
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/trace_exporter/__init__.py", line 143, in export
+    return self._export(spans)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 328, in _export
+    logger.warning(
+Message: 'Transient error %s encountered while exporting %s to %s, retrying in %ss.'
+Arguments: (<StatusCode.UNAVAILABLE: (14, 'unavailable')>, 'traces', 'otel-collector:4317', 4)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 299, in _export
+    self._client.Export(
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 1168, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "errors resolving otel-collector:4317: [field:hostname lookup error:address lookup failed for otel-collector:4317: DNS server returned general failure]"
+	debug_error_string = "UNAVAILABLE:errors resolving otel-collector:4317: [field:hostname lookup error:address lookup failed for otel-collector:4317: DNS server returned general failure]"
+>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1163, in emit
+    stream.write(msg + self.terminator)
+ValueError: I/O operation on closed file.
+Call stack:
+  File "/usr/local/lib/python3.12/threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/local/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.12/threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 284, in worker
+    self._drain_queue()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 377, in _drain_queue
+    self._export_batch()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 360, in _export_batch
+    self.span_exporter.export(self.spans_list[:idx])  # type: ignore
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/trace_exporter/__init__.py", line 143, in export
+    return self._export(spans)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 328, in _export
+    logger.warning(
+Message: 'Transient error %s encountered while exporting %s to %s, retrying in %ss.'
+Arguments: (<StatusCode.UNAVAILABLE: (14, 'unavailable')>, 'traces', 'otel-collector:4317', 8)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 299, in _export
+    self._client.Export(
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 1168, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "errors resolving otel-collector:4317: [field:hostname lookup error:address lookup failed for otel-collector:4317: DNS server returned general failure]"
+	debug_error_string = "UNAVAILABLE:errors resolving otel-collector:4317: [field:hostname lookup error:address lookup failed for otel-collector:4317: DNS server returned general failure]"
+>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1163, in emit
+    stream.write(msg + self.terminator)
+ValueError: I/O operation on closed file.
+Call stack:
+  File "/usr/local/lib/python3.12/threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/local/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.12/threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 284, in worker
+    self._drain_queue()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 377, in _drain_queue
+    self._export_batch()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 360, in _export_batch
+    self.span_exporter.export(self.spans_list[:idx])  # type: ignore
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/trace_exporter/__init__.py", line 143, in export
+    return self._export(spans)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 328, in _export
+    logger.warning(
+Message: 'Transient error %s encountered while exporting %s to %s, retrying in %ss.'
+Arguments: (<StatusCode.UNAVAILABLE: (14, 'unavailable')>, 'traces', 'otel-collector:4317', 16)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 299, in _export
+    self._client.Export(
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 1168, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "errors resolving otel-collector:4317: [field:hostname lookup error:address lookup failed for otel-collector:4317: DNS server returned general failure]"
+	debug_error_string = "UNAVAILABLE:errors resolving otel-collector:4317: [field:hostname lookup error:address lookup failed for otel-collector:4317: DNS server returned general failure]"
+>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1163, in emit
+    stream.write(msg + self.terminator)
+ValueError: I/O operation on closed file.
+Call stack:
+  File "/usr/local/lib/python3.12/threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/local/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.12/threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 284, in worker
+    self._drain_queue()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 377, in _drain_queue
+    self._export_batch()
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/sdk/trace/export/__init__.py", line 360, in _export_batch
+    self.span_exporter.export(self.spans_list[:idx])  # type: ignore
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/trace_exporter/__init__.py", line 143, in export
+    return self._export(spans)
+  File "/usr/local/lib/python3.12/site-packages/opentelemetry/exporter/otlp/proto/grpc/exporter.py", line 328, in _export
+    logger.warning(
+Message: 'Transient error %s encountered while exporting %s to %s, retrying in %ss.'
+Arguments: (<StatusCode.UNAVAILABLE: (14, 'unavailable')>, 'traces', 'otel-collector:4317', 32)

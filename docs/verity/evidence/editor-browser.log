@@ -1,0 +1,58 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/editor-live.spec.ts tests/accessibility-live.spec.ts --workers=1
+
+
+Running 2 tests using 1 worker
+
+(node:41736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] [chromium] › tests/accessibility-live.spec.ts:13:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations
+  1) [chromium] › tests/accessibility-live.spec.ts:13:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+      16 |   const headers = { Origin: baseURL! };
+      17 |   const credentials = { email: `accessibility-${Date.now()}@example.com`, password: "AccessibleDraft123!" };
+    > 18 |   expect((await page.request.post("/api/v1/auth/register", { headers, data: credentials })).status()).toBe(201);
+         |                                                                                                       ^
+      19 |
+      20 |   await page.goto("/login");
+      21 |   await tabTo(page, 'input[type="email"]');
+        at /Users/ajmiraribam/Projects/azaeron_humanize/frontend/tests/accessibility-live.spec.ts:18:103
+
+    Error Context: test-results/accessibility-live-keyboar-14205-utomated-WCAG-AA-violations-chromium/error-context.md
+
+
+(node:41743) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] [chromium] › tests/editor-live.spec.ts:4:5 › editor: selective acceptance, reload, restore, offline recovery and lost-response retry
+  2) [chromium] › tests/editor-live.spec.ts:4:5 › editor: selective acceptance, reload, restore, offline recovery and lost-response retry 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+       7 |   const headers = { Origin: baseURL! };
+       8 |   const credentials = { email: `editor-${Date.now()}@example.com`, password: "EditorWorkflow123!" };
+    >  9 |   expect((await page.request.post("/api/v1/auth/register", { headers, data: credentials })).status()).toBe(201);
+         |                                                                                                       ^
+      10 |   expect((await page.request.post("/api/v1/auth/login", { headers, data: credentials })).ok()).toBeTruthy();
+      11 |   expect((await page.request.post("/api/v1/auth/onboarding", { headers, data: { product_role: "researcher" } })).ok()).toBeTruthy();
+      12 |   const original = "In order to explain the finding, the the report uses clear language.";
+        at /Users/ajmiraribam/Projects/azaeron_humanize/frontend/tests/editor-live.spec.ts:9:103
+
+    Error Context: test-results/editor-live-editor-selecti-af9d9-ery-and-lost-response-retry-chromium/error-context.md
+
+
+  2 failed
+    [chromium] › tests/accessibility-live.spec.ts:13:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations 
+    [chromium] › tests/editor-live.spec.ts:4:5 › editor: selective acceptance, reload, restore, offline recovery and lost-response retry 

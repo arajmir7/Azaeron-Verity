@@ -1,0 +1,59 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test tests/accessibility-review.spec.ts --workers=1
+
+
+Running 1 test using 1 worker
+
+(node:45109) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [chromium] › tests/accessibility-review.spec.ts:15:5 › critical navigation stays operable at narrow widths and restores focus
+  1) [chromium] › tests/accessibility-review.spec.ts:15:5 › critical navigation stays operable at narrow widths and restores focus 
+
+    Error: /dashboard
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 22
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "id": "color-contrast",
+    +     "targets": Array [
+    +       Array [
+    +         ".hover\\:-translate-y-0\\.5.hover\\:shadow-\\[0_22px_60px_-36px_rgba\\(13\\,148\\,136\\,0\\.32\\)\\].focus\\:outline-none:nth-child(1) > .items-start.gap-4.justify-between > .text-slate-400.tracking-\\[0\\.16em\\].text-\\[10px\\]",
+    +       ],
+    +       Array [
+    +         ".hover\\:-translate-y-0\\.5.hover\\:shadow-\\[0_22px_60px_-36px_rgba\\(13\\,148\\,136\\,0\\.32\\)\\].focus\\:outline-none:nth-child(2) > .items-start.gap-4.justify-between > .text-slate-400.tracking-\\[0\\.16em\\].text-\\[10px\\]",
+    +       ],
+    +       Array [
+    +         ".hover\\:-translate-y-0\\.5.hover\\:shadow-\\[0_22px_60px_-36px_rgba\\(13\\,148\\,136\\,0\\.32\\)\\].focus\\:outline-none:nth-child(3) > .items-start.gap-4.justify-between > .text-slate-400.tracking-\\[0\\.16em\\].text-\\[10px\\]",
+    +       ],
+    +       Array [
+    +         ".hover\\:-translate-y-0\\.5.hover\\:shadow-\\[0_22px_60px_-36px_rgba\\(13\\,148\\,136\\,0\\.32\\)\\][href$=\"citations\"] > .items-start.gap-4.justify-between > .text-slate-400.tracking-\\[0\\.16em\\].text-\\[10px\\]",
+    +       ],
+    +       Array [
+    +         ".tracking-\\[0\\.12em\\]",
+    +       ],
+    +     ],
+    +   },
+    + ]
+
+      56 |         const scan = await wcagViolations(page);
+      57 |         review.push({ width, route, accessibility: scan });
+    > 58 |         expect(scan.violations, route).toEqual([]);
+         |                                        ^
+      59 |       }
+      60 |     }
+      61 |   }
+        at /Users/ajmiraribam/Projects/azaeron_verity/frontend/tests/accessibility-review.spec.ts:58:40
+
+    Error Context: test-results/accessibility-review-criti-e2b75-w-widths-and-restores-focus-chromium/error-context.md
+
+
+  1 failed
+    [chromium] › tests/accessibility-review.spec.ts:15:5 › critical navigation stays operable at narrow widths and restores focus 

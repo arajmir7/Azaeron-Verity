@@ -1,0 +1,12 @@
+ Container azaeron-verity-cert-verification-run-d3d13e21559f Creating 
+ Container azaeron-verity-cert-verification-run-d3d13e21559f Created 
+reformatted /app/app/modules/audit/service.py
+reformatted /app/app/modules/billing/entitlements.py
+reformatted /app/app/modules/billing/usage.py
+reformatted /app/app/modules/documents/service.py
+reformatted /app/app/modules/provenance/service.py
+reformatted /app/app/modules/evidence/service.py
+reformatted scripts/application_load.py
+
+All done! ✨ 🍰 ✨
+7 files reformatted, 205 files left unchanged.

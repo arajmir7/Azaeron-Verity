@@ -1,0 +1,52 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.06kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 105B done
+#3 DONE 0.0s
+
+#4 [runtime-base 1/4] FROM docker.io/library/python:3.12-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e
+#4 resolve docker.io/library/python:3.12-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e 0.1s done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 92.91MB 1.4s done
+#5 DONE 1.4s
+
+#6 [runtime-base 2/4] WORKDIR /app
+#6 CACHED
+
+#7 [runtime-base 3/4] COPY requirements.lock ./
+#7 CACHED
+
+#8 [runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#8 CACHED
+
+#9 [verification 1/3] COPY requirements-dev.lock ./
+#9 CACHED
+
+#10 [verification 2/3] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements-dev.lock
+#10 CACHED
+
+#11 [verification 3/3] COPY --chown=azaeron:azaeron . .
+#11 DONE 0.6s
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers 2.5s done
+#12 exporting manifest sha256:04a88c011b2a46e7f8dc5bf0aeedb9664adb55fd0583af0dd19da7f5a941f1d9 done
+#12 exporting config sha256:3103de431732fc5b39c28df9f7075871946a8ef0fb39e1d5c8cdca490c8ec24b done
+#12 exporting attestation manifest sha256:aba9cc7098e342d7f65e292951727401d7ce1fc3048185474a648c82fdde04b9 done
+#12 exporting manifest list sha256:3a1ed0969575b73cb4f1a975886320bca9ad7dee38ab4e08a6341bf80aa15cce done
+#12 naming to docker.io/library/azaeron-verity-cert-verification:latest done
+#12 unpacking to docker.io/library/azaeron-verity-cert-verification:latest
+#12 unpacking to docker.io/library/azaeron-verity-cert-verification:latest 0.5s done
+#12 DONE 3.0s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/xxuh5jpaxhnlqhipici5b1xjd

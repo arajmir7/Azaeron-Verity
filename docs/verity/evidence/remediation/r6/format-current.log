@@ -1,0 +1,8 @@
+ Container azaeron-verity-cert-verification-run-87e5444c0fd9 Creating 
+ Container azaeron-verity-cert-verification-run-87e5444c0fd9 Created 
+reformatted /app/app/modules/auth/service.py
+reformatted /app/tests/test_capability_contract.py
+reformatted /app/tests/test_identity.py
+
+All done! ✨ 🍰 ✨
+3 files reformatted, 187 files left unchanged.

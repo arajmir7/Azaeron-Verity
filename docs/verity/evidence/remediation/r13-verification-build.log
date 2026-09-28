@@ -1,0 +1,57 @@
+ Image azaeron-verity-r6-verification:latest Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 637B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.50kB 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#3 DONE 15.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 105B done
+#4 DONE 0.0s
+
+#5 [runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#5 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 93.09MB 1.1s done
+#6 DONE 1.1s
+
+#7 [runtime-base 3/4] COPY requirements.lock ./
+#7 CACHED
+
+#8 [runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#8 CACHED
+
+#9 [verification 1/3] COPY requirements-dev.lock ./
+#9 CACHED
+
+#10 [runtime-base 2/4] WORKDIR /app
+#10 CACHED
+
+#11 [verification 2/3] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements-dev.lock
+#11 CACHED
+
+#12 [verification 3/3] COPY --chown=azaeron:azaeron . .
+#12 DONE 0.8s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 1.8s done
+#13 exporting manifest sha256:494d78c9df55700ae901cf4d9e01a543d8189108baa1e0a6f868ec6b2498643f done
+#13 exporting config sha256:7b2aa16f93b211b374d8e0daae6fea21cec29e08c08fd82c4a57a66fd7f7e39b done
+#13 exporting attestation manifest sha256:8753996902e8c8044fc34661d67e03870d4edd52f73fa8d88cc9db72e301d345 done
+#13 exporting manifest list sha256:2ea98bbef4cbdefafec200f23f1f1115fa76fcb56a42872e96426aa345e7c723 done
+#13 naming to docker.io/library/azaeron-verity-r6-verification:latest done
+#13 unpacking to docker.io/library/azaeron-verity-r6-verification:latest
+#13 unpacking to docker.io/library/azaeron-verity-r6-verification:latest 0.5s done
+#13 DONE 2.4s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+ Image azaeron-verity-r6-verification:latest Built 

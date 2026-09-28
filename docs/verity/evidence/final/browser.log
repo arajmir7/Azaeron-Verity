@@ -1,0 +1,32 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test --workers=1
+
+
+Running 16 tests using 1 worker
+
+(node:34217) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/16] [chromium] › tests/document-intelligence-live.spec.ts:6:5 › document core: upload, analyze and switch immutable versions across existing views
+[2/16] [chromium] › tests/onboarding-live.spec.ts:5:5 › live signup, personal workspace, upload, refresh and persistent switching
+[3/16] [chromium] › tests/similarity-live.spec.ts:7:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions
+(node:34245) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[4/16] [chromium] › tests/onboarding.spec.ts:54:5 › an expired access cookie refreshes with a valid request body and restores the workspace
+[5/16] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives student the server-provided starting workflow
+[6/16] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives teacher the server-provided starting workflow
+[7/16] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives professor the server-provided starting workflow
+[8/16] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives researcher the server-provided starting workflow
+[9/16] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives reviewer the server-provided starting workflow
+[10/16] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives institution the server-provided starting workflow
+[11/16] [chromium] › tests/onboarding.spec.ts:76:5 › a document workflow offers workspace creation inline
+[12/16] [chromium] › tests/onboarding.spec.ts:86:5 › revoked recent membership falls back only after server validation
+[13/16] [chromium] › tests/onboarding.spec.ts:95:5 › failed switching hides tenant data and offers a working retry
+[14/16] [chromium] › tests/onboarding.spec.ts:111:5 › cached workspace IDs cannot override the server's active membership
+[15/16] [chromium] › tests/workspace.spec.ts:3:5 › public workspace keeps analysis evidence-based and editorial work authenticated
+[16/16] [chromium] › tests/workspace.spec.ts:13:5 › public navigation remains usable on a narrow viewport
+  16 passed (21.9s)

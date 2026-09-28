@@ -1,0 +1,53 @@
+ Container azaeron-verity-cert-verification-run-cebee30bb285 Creating 
+ Container azaeron-verity-cert-verification-run-cebee30bb285 Created 
+{
+  "scope": "synthetic isolated HTTP and actual worker usage",
+  "checks": {
+    "discarded_response_replay": "PASS",
+    "changed_payload_rejected": "PASS",
+    "actual_worker_commit_and_upload_retry": "PASS",
+    "unavailable_inference_released": "PASS",
+    "no_fabricated_tokens_or_billing": "PASS",
+    "editorial_artifacts_replay_once": "PASS"
+  },
+  "counters": {
+    "document_upload": {
+      "task": "document_upload",
+      "limit": 20,
+      "reserved": 0,
+      "committed": 1
+    },
+    "document_processing": {
+      "task": "document_processing",
+      "limit": 200,
+      "reserved": 0,
+      "committed": 1
+    },
+    "text_analyze": {
+      "task": "text_analyze",
+      "limit": 200,
+      "reserved": 0,
+      "committed": 1
+    },
+    "text_verify": {
+      "task": "text_verify",
+      "limit": 200,
+      "reserved": 0,
+      "committed": 0
+    },
+    "text_refine": {
+      "task": "text_refine",
+      "limit": 200,
+      "reserved": 0,
+      "committed": 0
+    },
+    "editorial": {
+      "task": "editorial",
+      "limit": 200,
+      "reserved": 0,
+      "committed": 0
+    }
+  },
+  "fixture_cleanup": "Account erasure queued; the normal eight-minute object grace applies.",
+  "status": "PASS"
+}

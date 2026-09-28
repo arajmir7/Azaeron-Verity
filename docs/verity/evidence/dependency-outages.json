@@ -1,0 +1,23 @@
+{
+  "scope": "Isolated development runtime readiness, not production chaos/load certification",
+  "results": [
+    {
+      "service": "redis",
+      "unavailable_status": 503,
+      "recovered_status": 200,
+      "status": "PASS"
+    },
+    {
+      "service": "minio",
+      "unavailable_status": 503,
+      "recovered_status": 200,
+      "status": "PASS"
+    },
+    {
+      "service": "postgres",
+      "unavailable_status": 503,
+      "recovered_status": 200,
+      "status": "PASS"
+    }
+  ]
+}

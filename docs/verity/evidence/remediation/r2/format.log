@@ -1,0 +1,11 @@
+ Container azaeron-verity-cert-verification-run-1e4b77f0c2be Creating 
+ Container azaeron-verity-cert-verification-run-1e4b77f0c2be Created 
+reformatted /app/app/modules/inference/service.py
+reformatted app/api/v1/models.py
+reformatted /app/app/modules/inference/registry.py
+reformatted tests/test_private_inference.py
+reformatted /app/app/modules/inference/gateway.py
+reformatted /app/app/modules/inference/deployment.py
+
+All done! ✨ 🍰 ✨
+6 files reformatted, 5 files left unchanged.

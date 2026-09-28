@@ -1,0 +1,156 @@
+{
+  "source_manifest_sha256": "de235a6d491129cb75703b38a0e3c16222a3a4b426e75c26febb7cbaf2b07f46",
+  "production_certified": false,
+  "results": [
+    {
+      "gate": "backend-lint",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/azaeron-verity-cert.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_humanize/backend:/app",
+        "backend",
+        "ruff",
+        "check",
+        "app",
+        "tests"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.54
+    },
+    {
+      "gate": "backend-typecheck",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/azaeron-verity-cert.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_humanize/backend:/app",
+        "backend",
+        "mypy",
+        "app"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 10.99
+    },
+    {
+      "gate": "unit-security-worker-contract",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/azaeron-verity-cert.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_humanize/backend:/app",
+        "backend",
+        "pytest",
+        "tests",
+        "--ignore=tests/integration",
+        "-q"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "seconds": 36.88
+    },
+    {
+      "gate": "postgres-rls",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/azaeron-verity-cert.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_humanize/backend:/app",
+        "-e",
+        "POSTGRES_TEST_DATABASE_URL",
+        "backend",
+        "pytest",
+        "tests/integration",
+        "-q"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 9.29
+    },
+    {
+      "gate": "frontend-lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 2.79
+    },
+    {
+      "gate": "compose",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/azaeron-verity-cert.json",
+        "config",
+        "--quiet"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.12
+    },
+    {
+      "gate": "frontend-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 4.28
+    },
+    {
+      "gate": "frontend-typecheck",
+      "command": [
+        "npx",
+        "tsc",
+        "--noEmit"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 1.49
+    },
+    {
+      "gate": "browser",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--workers=1"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 22.25
+    }
+  ]
+}

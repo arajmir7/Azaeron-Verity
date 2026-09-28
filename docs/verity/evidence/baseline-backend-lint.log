@@ -1,0 +1,193 @@
+ Container azaeron_humanize-backend-run-8029c782ef3a Creating 
+ Container azaeron_humanize-backend-run-8029c782ef3a Created 
+app/modules/similarity/service.py:208:35: E702 Multiple statements on one line (semicolon)
+    |
+206 |                 status=JobStatus.RUNNING,started_at=datetime.now(timezone.utc),
+207 |                 input_data={'document_version_id':version_id,'storage_key':target.version.storage_path})
+208 |             self.db.add(owned_job);await self.db.flush()
+    |                                   ^ E702
+209 |             run=AnalysisRun(id=str(uuid.uuid5(uuid.NAMESPACE_URL,identifier+':run')),organization_id=org,
+210 |                 document_id=document_id,document_version_id=version_id,job_id=str(owned_job.id),
+    |
+
+app/modules/similarity/service.py:214:29: E702 Multiple statements on one line (semicolon)
+    |
+212 |                 status=AnalysisRunStatus.STARTED,input_fingerprint=target.version.sha256_fingerprint,
+213 |                 started_at=datetime.now(timezone.utc))
+214 |             self.db.add(run);await self.db.flush()
+    |                             ^ E702
+215 |         text=processed.cleaned_text or ''
+216 |         chunks=await self._store_chunks(document_id,text,processed)
+    |
+
+app/modules/similarity/service.py:217:42: E702 Multiple statements on one line (semicolon)
+    |
+215 |         text=processed.cleaned_text or ''
+216 |         chunks=await self._store_chunks(document_id,text,processed)
+217 |         cutoff=datetime.now(timezone.utc);self.retriever.cutoff=cutoff
+    |                                          ^ E702
+218 |         scope=(DocumentChunk.organization_id==org,Document.organization_id==org,DocumentChunk.document_id!=document_id,
+219 |                DocumentChunk.index_version==INDEX_VERSION,DocumentChunk.index_status=='ACTIVE',DocumentChunk.indexed_at<=cutoff,
+    |
+
+app/modules/similarity/service.py:230:30: E702 Multiple statements on one line (semicolon)
+    |
+228 |             corpus_version_count=corpus_count,index_version=INDEX_VERSION,completed_at=cutoff,sealed=False,
+229 |             truncated=len(chunks)>MAX_TARGET_CHUNKS,metadata_json={})
+230 |         self.db.add(analysis);await self.db.flush()
+    |                              ^ E702
+231 |         records={};candidates_seen=set()
+232 |         target_vectors=self.provider.encode([c.text for c in chunks[:MAX_TARGET_CHUNKS]]) if self.provider.available else []
+    |
+
+app/modules/similarity/service.py:231:19: E702 Multiple statements on one line (semicolon)
+    |
+229 |             truncated=len(chunks)>MAX_TARGET_CHUNKS,metadata_json={})
+230 |         self.db.add(analysis);await self.db.flush()
+231 |         records={};candidates_seen=set()
+    |                   ^ E702
+232 |         target_vectors=self.provider.encode([c.text for c in chunks[:MAX_TARGET_CHUNKS]]) if self.provider.available else []
+233 |         for i,chunk in enumerate(chunks[:MAX_TARGET_CHUNKS]):
+    |
+
+app/modules/similarity/service.py:249:40: E702 Multiple statements on one line (semicolon)
+    |
+247 |                     records.setdefault(key,(candidate,finding,coverage))
+248 |             if len(records)>=MAX_MATCHES*3:
+249 |                 analysis.truncated=True;break
+    |                                        ^ E702
+250 |         # A component groups overlapping target passages across all sources.
+251 |         # Exact records remain individually addressable for source-side traceability.
+    |
+
+app/modules/similarity/service.py:257:64: E702 Multiple statements on one line (semicolon)
+    |
+255 |         for key,record in selected:
+256 |             if groups and key[1]<groups[-1]['end']:
+257 |                 groups[-1]['end']=max(groups[-1]['end'],key[2]);groups[-1]['records'].append((key,record))
+    |                                                                ^ E702
+258 |             else:
+259 |                 groups.append({'start':key[1],'end':key[2],'records':[(key,record)]})
+    |
+
+app/modules/similarity/service.py:260:19: E702 Multiple statements on one line (semicolon)
+    |
+258 |             else:
+259 |                 groups.append({'start':key[1],'end':key[2],'records':[(key,record)]})
+260 |         sources={};matches=[];group_records=[]
+    |                   ^ E702
+261 |         annotations=TextAnnotations(text,structure=processed.structure_json)
+262 |         for group in groups:
+    |
+
+app/modules/similarity/service.py:260:30: E702 Multiple statements on one line (semicolon)
+    |
+258 |             else:
+259 |                 groups.append({'start':key[1],'end':key[2],'records':[(key,record)]})
+260 |         sources={};matches=[];group_records=[]
+    |                              ^ E702
+261 |         annotations=TextAnnotations(text,structure=processed.structure_json)
+262 |         for group in groups:
+    |
+
+app/modules/similarity/service.py:313:35: E702 Multiple statements on one line (semicolon)
+    |
+311 |                         'review':review,'review_rules_version':RULES_VERSION,'limitations':list(finding.limitations),
+312 |                         'embedding_model':self.provider.model_id if finding.match_type==SimilarityType.SEMANTIC else None})
+313 |                 self.db.add(match);matches.append(match);member_ids.append(mid)
+    |                                   ^ E702
+314 |             group_records.append({'id':group_id,'target_span':[group['start'],group['end']],'match_ids':member_ids})
+315 |         await self.db.flush()
+    |
+
+app/modules/similarity/service.py:313:57: E702 Multiple statements on one line (semicolon)
+    |
+311 |                         'review':review,'review_rules_version':RULES_VERSION,'limitations':list(finding.limitations),
+312 |                         'embedding_model':self.provider.model_id if finding.match_type==SimilarityType.SEMANTIC else None})
+313 |                 self.db.add(match);matches.append(match);member_ids.append(mid)
+    |                                                         ^ E702
+314 |             group_records.append({'id':group_id,'target_span':[group['start'],group['end']],'match_ids':member_ids})
+315 |         await self.db.flush()
+    |
+
+app/modules/similarity/service.py:331:54: E702 Multiple statements on one line (semicolon)
+    |
+329 |                 'target_span':[m.document_span_start,m.document_span_end],'source_span':[m.source_span_start,m.source_span_end],
+330 |                 'scores':m.metadata_json['score_components'],'evidence_id':m.evidence_id} for m in matches]}
+331 |         analysis.snapshot_fingerprint=digest(payload);analysis.metadata_json=payload
+    |                                                      ^ E702
+332 |         analysis.completed_at=datetime.now(timezone.utc);analysis.sealed=True
+333 |         if owned_job:
+    |
+
+app/modules/similarity/service.py:332:57: E702 Multiple statements on one line (semicolon)
+    |
+330 |                 'scores':m.metadata_json['score_components'],'evidence_id':m.evidence_id} for m in matches]}
+331 |         analysis.snapshot_fingerprint=digest(payload);analysis.metadata_json=payload
+332 |         analysis.completed_at=datetime.now(timezone.utc);analysis.sealed=True
+    |                                                         ^ E702
+333 |         if owned_job:
+334 |             owned_job.status=JobStatus.COMPLETED;owned_job.completed_at=analysis.completed_at;owned_job.progress_percent=100
+    |
+
+app/modules/similarity/service.py:334:49: E702 Multiple statements on one line (semicolon)
+    |
+332 |         analysis.completed_at=datetime.now(timezone.utc);analysis.sealed=True
+333 |         if owned_job:
+334 |             owned_job.status=JobStatus.COMPLETED;owned_job.completed_at=analysis.completed_at;owned_job.progress_percent=100
+    |                                                 ^ E702
+335 |             owned_job.result_data={'analysis_id':identifier,'document_version_id':version_id,'snapshot_fingerprint':analysis.snapshot_fingerprint}
+336 |             run.status=AnalysisRunStatus.COMPLETED;run.completed_at=analysis.completed_at
+    |
+
+app/modules/similarity/service.py:334:94: E702 Multiple statements on one line (semicolon)
+    |
+332 |         analysis.completed_at=datetime.now(timezone.utc);analysis.sealed=True
+333 |         if owned_job:
+334 |             owned_job.status=JobStatus.COMPLETED;owned_job.completed_at=analysis.completed_at;owned_job.progress_percent=100
+    |                                                                                              ^ E702
+335 |             owned_job.result_data={'analysis_id':identifier,'document_version_id':version_id,'snapshot_fingerprint':analysis.snapshot_fingerprint}
+336 |             run.status=AnalysisRunStatus.COMPLETED;run.completed_at=analysis.completed_at
+    |
+
+app/modules/similarity/service.py:336:51: E702 Multiple statements on one line (semicolon)
+    |
+334 |             owned_job.status=JobStatus.COMPLETED;owned_job.completed_at=analysis.completed_at;owned_job.progress_percent=100
+335 |             owned_job.result_data={'analysis_id':identifier,'document_version_id':version_id,'snapshot_fingerprint':analysis.snapshot_fingerprint}
+336 |             run.status=AnalysisRunStatus.COMPLETED;run.completed_at=analysis.completed_at
+    |                                                   ^ E702
+337 |             run.metadata_json={'similarity_analysis_id':identifier,'snapshot_fingerprint':analysis.snapshot_fingerprint,
+338 |                 'parser_version':processed.parser_version,'structure_fingerprint':processed.structure_fingerprint}
+    |
+
+app/modules/similarity/service.py:379:30: E702 Multiple statements on one line (semicolon)
+    |
+377 |                 embedding_vector=vectors[data.chunk_index] if vectors else None,embedding_model=self.provider.model_id if vectors else None)
+378 |             rows.append(row)
+379 |         self.db.add_all(rows);await self.db.flush()
+    |                              ^ E702
+380 |         entries=[]
+381 |         for row,data in zip(rows,chunks):
+    |
+
+app/modules/similarity/service.py:384:37: E701 Multiple statements on one line (colon)
+    |
+382 |             for kind,terms in [('token',data.tokens),('ngram',data.ngrams),('fingerprint',fingerprint_bands(data.tokens))]:
+383 |                 for term,count in Counter(terms).items():
+384 |                     if len(term)>300:continue
+    |                                     ^ E701
+385 |                     entries.append(SimilarityIndexEntry(organization_id=org,document_id=document_id,document_version_id=version_id,
+386 |                         pipeline_version=PIPELINE_VERSION,model_version=INDEX_VERSION,chunk_id=str(row.id),index_version=INDEX_VERSION,
+    |
+
+app/modules/similarity/service.py:388:33: E702 Multiple statements on one line (semicolon)
+    |
+386 |                         pipeline_version=PIPELINE_VERSION,model_version=INDEX_VERSION,chunk_id=str(row.id),index_version=INDEX_VERSION,
+387 |                         term_type=kind,term=term,term_frequency=count/max(1,len(terms))))
+388 |         self.db.add_all(entries);await self.db.flush()
+    |                                 ^ E702
+389 |         return chunks
+    |
+
+Found 19 errors.
+

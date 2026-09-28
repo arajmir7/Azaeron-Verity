@@ -216,3 +216,35 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Azaeron local state and generated build artifacts
+.env
+.env.*
+!.env.example
+!**/.env.example
+**/node_modules/
+**/.next/
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.venv/
+**/*.py[cod]
+**/*.tsbuildinfo
+**/test-results/
+**/playwright-report/
+.DS_Store
+# Model weights are fetched and hash-verified separately, never Git artifacts.
+backend/model_assets/
+*.tar
+*.dump
+*.sqlite
+*.sqlite3
+*.db
+# Preserve application source and reviewable verification logs.
+!frontend/src/lib/
+!frontend/src/lib/**
+!docs/verity/evidence/**/*.log
+
+# Local resolved configuration and credentials
+/.verity-local/

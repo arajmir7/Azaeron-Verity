@@ -1,0 +1,10 @@
+ Container azaeron-verity-cert-verification-run-7cab8fbb4ae4 Creating 
+ Container azaeron-verity-cert-verification-run-7cab8fbb4ae4 Created 
+error: cannot format tests/test_semantic_verification.py: Cannot parse: 28:2
+    ]):
+     ^
+ParseError: bad input
+
+Oh no! 💥 💔 💥
+1 file failed to reformat.
+

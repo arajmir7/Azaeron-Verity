@@ -1,0 +1,18 @@
+{
+  "active_restore_and_replay_seconds": 7.602,
+  "api_and_frontend_ready": true,
+  "completed_at": "2026-09-28T06:31:33.546838+00:00",
+  "data_loss_window_seconds_represented": 517.227,
+  "erased_account_login_rejected": true,
+  "last_erasure_completed_at": "2026-09-28T06:31:19.973478+00:00",
+  "latest_tombstones": 1,
+  "objects_removed_after_replay": 2,
+  "post_backup_tombstones_replayed": 1,
+  "replay_to_readiness_seconds": 4.223,
+  "result": "PASS",
+  "rpo_rto": "measured local exercise only; production targets unproven",
+  "runtime_rls_without_tenant": "PASS",
+  "schema": "20260924_0035",
+  "source_snapshot_at": "2026-09-28T06:22:42.746677+00:00",
+  "verified_immutable_versions": 0
+}

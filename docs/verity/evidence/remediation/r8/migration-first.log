@@ -1,0 +1,5 @@
+ Container azaeron-verity-cert-verification-run-20abbb035b92 Creating 
+ Container azaeron-verity-cert-verification-run-20abbb035b92 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0033 -> 20260924_0034, Durable quota accounting survives retries and individual privacy erasure.

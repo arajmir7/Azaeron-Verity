@@ -1,0 +1,7 @@
+ Container azaeron-verity-cert-verification-run-7d26b03cf126 Creating 
+ Container azaeron-verity-cert-verification-run-7d26b03cf126 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+/app/alembic/versions/20260924_0031_storage_lifecycle.py:61: SyntaxWarning: invalid escape sequence '\.'
+  expected := 'versions/legacy/'||d.organization_id||'/'||d.id||'/'||v.id||'/'||v.content_hash||'.'||lower(substring(p_old from '\.([^.]+)$'));
+INFO  [alembic.runtime.migration] Running upgrade 20260921_0030 -> 20260924_0031, Reference-aware retention and verified legacy-object relocation.

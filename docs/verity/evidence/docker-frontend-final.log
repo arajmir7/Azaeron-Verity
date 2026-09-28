@@ -1,0 +1,111 @@
+ Image azaeron-verity-cert-frontend:latest Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.67kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.05kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 96B done
+#4 DONE 0.0s
+
+#5 [builder 1/6] FROM docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#5 resolve docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85 done
+#5 DONE 0.0s
+
+#6 [builder 2/6] WORKDIR /app
+#6 CACHED
+
+#7 [internal] load build context
+#7 transferring context: 4.93kB 0.0s done
+#7 DONE 0.0s
+
+#8 [builder 3/6] COPY package.json package-lock.json ./
+#8 CACHED
+
+#9 [builder 4/6] RUN npm ci
+#9 CACHED
+
+#10 [builder 5/6] COPY . .
+#10 DONE 0.1s
+
+#11 [runner 3/6] RUN rm -rf /usr/local/lib/node_modules/npm /opt/yarn-*     && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/yarn /usr/local/bin/yarnpkg
+#11 DONE 0.4s
+
+#12 [builder 6/6] RUN npm run build
+#12 0.218 
+#12 0.218 > azaeron-frontend@1.0.0 build
+#12 0.218 > node ./node_modules/next/dist/bin/next build
+#12 0.218 
+#12 0.544 ▲ Next.js 16.3.3 (Turbopack)
+#12 0.634 ✓ Running next.config.ts took 90ms
+#12 0.640 
+#12 0.660   Creating an optimized production build ...
+#12 5.143 ✓ Compiled successfully in 4.3s
+#12 5.163   Running TypeScript ...
+#12 8.423   Finished TypeScript in 3.3s ...
+#12 8.425   Collecting page data using 9 workers ...
+#12 8.978   Generating static pages using 9 workers (0/20) ...
+#12 9.139   Generating static pages using 9 workers (5/20) 
+#12 9.193   Generating static pages using 9 workers (10/20) 
+#12 9.193   Generating static pages using 9 workers (15/20) 
+#12 9.229 ✓ Generating static pages using 9 workers (20/20) in 251ms
+#12 9.233   Finalizing page optimization ...
+#12 9.456 
+#12 9.458 Route (app)
+#12 9.458 ┌ ○ /
+#12 9.458 ├ ○ /_not-found
+#12 9.458 ├ ○ /admin
+#12 9.458 ├ ○ /authorship
+#12 9.458 ├ ○ /check
+#12 9.458 ├ ○ /citations
+#12 9.458 ├ ○ /dashboard
+#12 9.458 ├ ○ /documents
+#12 9.458 ├ ƒ /documents/[id]
+#12 9.458 ├ ○ /evidence-graph
+#12 9.458 ├ ○ /login
+#12 9.458 ├ ○ /onboarding
+#12 9.458 ├ ○ /provenance
+#12 9.458 ├ ○ /register
+#12 9.458 ├ ○ /reports
+#12 9.458 ├ ○ /settings
+#12 9.458 ├ ○ /similarity
+#12 9.458 ├ ○ /sources
+#12 9.458 ├ ○ /upload
+#12 9.458 └ ○ /write
+#12 9.458 
+#12 9.458 
+#12 9.458 ○  (Static)   prerendered as static content
+#12 9.458 ƒ  (Dynamic)  server-rendered on demand
+#12 9.458 
+#12 DONE 9.6s
+
+#13 [runner 4/6] COPY --from=builder --chown=node:node /app/.next/standalone ./
+#13 DONE 0.3s
+
+#14 [runner 5/6] COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+#14 DONE 0.0s
+
+#15 [runner 6/6] COPY --from=builder --chown=node:node /app/public ./public
+#15 DONE 0.0s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 0.9s done
+#16 exporting manifest sha256:2be1e92696b8592ab4a355fff1b950caf2e7cf23481d0017fbb9468c0a096688 done
+#16 exporting config sha256:f4523b17408491e32c6794c55ac31892018bee719a5a54f20436e30ecffc1337 done
+#16 exporting attestation manifest sha256:3369049d10365cbbebdae910764b157460a27f54c9f99c7f0d3d3c99b307eb18 done
+#16 exporting manifest list sha256:233a96dac10881fd617c78319c07c6f0c1e7caa96fdcdce4921bdd58a52e67e1 done
+#16 naming to docker.io/library/azaeron-verity-cert-frontend:latest done
+#16 unpacking to docker.io/library/azaeron-verity-cert-frontend:latest
+#16 unpacking to docker.io/library/azaeron-verity-cert-frontend:latest 0.3s done
+#16 DONE 1.2s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.0s
+ Image azaeron-verity-cert-frontend:latest Built 

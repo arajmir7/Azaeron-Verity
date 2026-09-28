@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:1a2d7ff7-c9ec-45b6-821e-9c7017c59c3f",
+  "serialNumber": "urn:uuid:21b3b822-870b-432b-a19e-897a1cf2290c",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T07:22:38+00:00",
+    "timestamp": "2026-09-28T08:09:41+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "d9aad264-cb36-477f-b95d-2738c1414776",
+      "bom-ref": "6f73c940-b9d1-4f00-ac98-bd2022b2a865",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -77,7 +77,7 @@
   },
   "components": [
     {
-      "bom-ref": "3599a0b1-8fed-442e-a54f-51b7cc8e0a80",
+      "bom-ref": "e9afc858-f5e2-4552-af7f-96d74d7d0fae",
       "type": "application",
       "name": "otelcol-contrib",
       "properties": [
@@ -20718,15 +20718,15 @@
   ],
   "dependencies": [
     {
-      "ref": "3599a0b1-8fed-442e-a54f-51b7cc8e0a80",
+      "ref": "6f73c940-b9d1-4f00-ac98-bd2022b2a865",
       "dependsOn": [
-        "pkg:golang/github.com/open-telemetry/opentelemetry-collector-releases/contrib"
+        "e9afc858-f5e2-4552-af7f-96d74d7d0fae"
       ]
     },
     {
-      "ref": "d9aad264-cb36-477f-b95d-2738c1414776",
+      "ref": "e9afc858-f5e2-4552-af7f-96d74d7d0fae",
       "dependsOn": [
-        "3599a0b1-8fed-442e-a54f-51b7cc8e0a80"
+        "pkg:golang/github.com/open-telemetry/opentelemetry-collector-releases/contrib"
       ]
     },
     {

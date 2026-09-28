@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:6052fae1-02b9-4842-af76-8259ff4f491b",
+  "serialNumber": "urn:uuid:264baba3-80b3-461c-b8d7-1e418390ffb7",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T07:22:32+00:00",
+    "timestamp": "2026-09-28T08:09:35+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "26e31226-f7b8-4a17-bc0e-c5b8d436cfd7",
+      "bom-ref": "ab355747-0f25-4d44-b355-1d7ccedbeefd",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -153,7 +153,7 @@
   },
   "components": [
     {
-      "bom-ref": "025bc116-f499-4c0b-a84c-672705fd5873",
+      "bom-ref": "5c24e19b-33ee-441e-b7ce-6fec9b7f98b7",
       "type": "operating-system",
       "name": "debian",
       "version": "13.7",
@@ -4466,7 +4466,7 @@
   ],
   "dependencies": [
     {
-      "ref": "025bc116-f499-4c0b-a84c-672705fd5873",
+      "ref": "5c24e19b-33ee-441e-b7ce-6fec9b7f98b7",
       "dependsOn": [
         "pkg:deb/debian/base-files@13.8%2Bdeb13u7?arch=arm64&distro=debian-13.7",
         "pkg:deb/debian/ca-certificates@20250419?arch=all&distro=debian-13.7",
@@ -4487,9 +4487,9 @@
       ]
     },
     {
-      "ref": "26e31226-f7b8-4a17-bc0e-c5b8d436cfd7",
+      "ref": "ab355747-0f25-4d44-b355-1d7ccedbeefd",
       "dependsOn": [
-        "025bc116-f499-4c0b-a84c-672705fd5873",
+        "5c24e19b-33ee-441e-b7ce-6fec9b7f98b7",
         "pkg:pypi/alembic@1.14.0",
         "pkg:pypi/amqp@5.4.0",
         "pkg:pypi/annotated-doc@0.0.5",

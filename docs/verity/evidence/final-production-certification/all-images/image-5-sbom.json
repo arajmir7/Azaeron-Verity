@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:69cf64fd-56fc-45f6-91d9-9b319203f41b",
+  "serialNumber": "urn:uuid:4731af0c-5563-4221-b059-0005a2a5c7ea",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T07:22:29+00:00",
+    "timestamp": "2026-09-28T08:09:31+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "d927af39-b1b3-488f-a1d8-7adad7108444",
+      "bom-ref": "6e2a1256-767a-46a2-b0e4-3261341b09a4",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -61,22 +61,7 @@
   },
   "components": [
     {
-      "bom-ref": "a1cdd325-b20e-4cb4-a46c-08d541229d7d",
-      "type": "application",
-      "name": "go/bin/all-in-one-linux",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
-        }
-      ]
-    },
-    {
-      "bom-ref": "f570bb2f-ddd7-4f73-9c0a-9a187b8808a4",
+      "bom-ref": "6923398a-4a6a-4209-89bd-5fe280999478",
       "type": "operating-system",
       "name": "alpine",
       "version": "3.20.3",
@@ -88,6 +73,21 @@
         {
           "name": "aquasecurity:trivy:Type",
           "value": "alpine"
+        }
+      ]
+    },
+    {
+      "bom-ref": "f6c5eb96-65cd-4153-8d47-3a53ead07ca3",
+      "type": "application",
+      "name": "go/bin/all-in-one-linux",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
         }
       ]
     },
@@ -4444,26 +4444,26 @@
   ],
   "dependencies": [
     {
-      "ref": "a1cdd325-b20e-4cb4-a46c-08d541229d7d",
-      "dependsOn": [
-        "pkg:golang/github.com/jaegertracing/jaeger"
-      ]
-    },
-    {
-      "ref": "d927af39-b1b3-488f-a1d8-7adad7108444",
-      "dependsOn": [
-        "a1cdd325-b20e-4cb4-a46c-08d541229d7d",
-        "f570bb2f-ddd7-4f73-9c0a-9a187b8808a4"
-      ]
-    },
-    {
-      "ref": "f570bb2f-ddd7-4f73-9c0a-9a187b8808a4",
+      "ref": "6923398a-4a6a-4209-89bd-5fe280999478",
       "dependsOn": [
         "pkg:apk/alpine/alpine-baselayout@3.6.5-r0?arch=aarch64&distro=3.20.3",
         "pkg:apk/alpine/alpine-keys@2.4-r1?arch=aarch64&distro=3.20.3",
         "pkg:apk/alpine/apk-tools@2.14.4-r0?arch=aarch64&distro=3.20.3",
         "pkg:apk/alpine/musl-utils@1.2.5-r0?arch=aarch64&distro=3.20.3",
         "pkg:apk/alpine/ssl_client@1.36.1-r29?arch=aarch64&distro=3.20.3"
+      ]
+    },
+    {
+      "ref": "6e2a1256-767a-46a2-b0e4-3261341b09a4",
+      "dependsOn": [
+        "6923398a-4a6a-4209-89bd-5fe280999478",
+        "f6c5eb96-65cd-4153-8d47-3a53ead07ca3"
+      ]
+    },
+    {
+      "ref": "f6c5eb96-65cd-4153-8d47-3a53ead07ca3",
+      "dependsOn": [
+        "pkg:golang/github.com/jaegertracing/jaeger"
       ]
     },
     {

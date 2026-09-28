@@ -4,6 +4,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
+RUN mkdir -p public
 ARG API_URL=http://backend:8000
 ARG NEXT_PUBLIC_API_URL=
 ENV API_URL=$API_URL NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL

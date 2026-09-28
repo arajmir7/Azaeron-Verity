@@ -1,5 +1,5 @@
- Container verity-final-20260925-verification-run-caf3893d4b46 Creating 
- Container verity-final-20260925-verification-run-caf3893d4b46 Created 
+ Container verity-final-20260925-verification-run-bf0a86c95544 Creating 
+ Container verity-final-20260925-verification-run-bf0a86c95544 Created 
 ============================= test session starts ==============================
 platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
 rootdir: /app
@@ -49,4 +49,4 @@ tests/test_validation_gate.py ......                                     [ 93%]
 tests/test_worker_redelivery.py ....                                     [ 95%]
 tests/test_workspace_onboarding.py ............                          [100%]
 
-======================== 250 passed in 83.28s (0:01:23) ========================
+======================== 250 passed in 75.43s (0:01:15) ========================

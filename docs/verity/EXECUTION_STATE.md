@@ -1,8 +1,11 @@
 # Execution ledger
 
 Updated 2026-09-28. The verified application schema is `20260924_0035`. The
-verified remediation snapshot is committed locally as `fa1b96f`; GitHub
-publication is pending. The repository remains **NOT PRODUCTION READY**. See the
+initial remediation snapshot was published to `origin/main` as `fa1b96f`,
+followed by documentation commit `58ab9e7`. A clean-checkout frontend image
+build issue was then fixed locally and verified by rebuilding the image and
+passing all 11 repository gates; publication of that correction is pending. The
+repository remains **NOT PRODUCTION READY**. See the
 [release certification](RELEASE_CERTIFICATION.md)
 and [remediation ledger](REMEDIATION_STATE.md).
 
@@ -12,7 +15,7 @@ and [remediation ledger](REMEDIATION_STATE.md).
   250 unit/security/worker/contract tests, actual PostgreSQL RLS integration,
   frontend lint/build/types, 25 browser tests and source-stability checks. Its
   source-manifest digest is
-  `c07012081cb3d4e22519637f93f02cf4037fde5245ff9a967c863e840e207ffc`.
+  `f8dbf37871cf4530b23694e4458b3ca815bfee60bdbfeebade36801fb6b44836`.
 - Dependency audits report no known Python or npm findings. Bandit reports no
   application findings; the reviewed-secret gate reports zero unreviewed
   findings and 48 exact reviewed fingerprints.

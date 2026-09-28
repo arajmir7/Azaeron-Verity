@@ -2,7 +2,7 @@
 
 Date: **2026-09-28**  
 Source snapshot: SHA-256 release manifest
-`c07012081cb3d4e22519637f93f02cf4037fde5245ff9a967c863e840e207ffc` ([manifest](evidence/final-production-certification/repository-final/source.json), [gate results](evidence/final-production-certification/repository-final/results.json)).  
+`f8dbf37871cf4530b23694e4458b3ca815bfee60bdbfeebade36801fb6b44836` ([manifest](evidence/final-production-certification/repository-final/source.json), [gate results](evidence/final-production-certification/repository-final/results.json)).
 Previous snapshot: `82b4cb963ad32836bdb346c79ff8ed7af2fe4c7a17d63893f685645f7f882bd8`.
 
 **Certification scope:** the named local Linux ARM64/Node test snapshot and the
@@ -33,7 +33,7 @@ general security clearance.
 | Observability | Isolated telemetry gate passes authenticated metrics, API/worker scrape targets, 13 alert rules, dashboard provisioning, trace persistence after Jaeger restart, queue health and content/secret-free logs. Production SLOs and retention are not established. |
 | Performance | The local profile completed 284 requests and 56 jobs with no unexpected HTTP responses. It FAILS the proposed budget: save p95 6.712 s and revision-conflict p95 1.560 s at concurrency 4. This is not a production load/soak result. [Profile](evidence/final-production-certification/load-final/profile.json). |
 | Disaster recovery | Clean same-host synthetic restore/replay PASS: one erasure tombstone replayed, two target objects removed, one surviving version hash-verified, RLS/readiness/login-rejection checks passed. Pre-replay restore 3.212 s; active restore plus replay 7.687 s; readiness followed replay by 4.475 s. The represented snapshot-to-erasure window was 2,481.723 s. These timings do not establish production RPO/RTO, offsite recovery, key escrow or geographic resilience. [Result](evidence/final-production-certification/recovery-r15-control/recovery-result.json). |
-| Deployment | Local isolated development services are healthy. Hosted GitHub Actions, AMD64/other architecture execution, production secrets/SMTP, production load and a deployment runbook exercise have not been certified. |
+| Deployment | Local isolated development services are healthy. The first hosted run found a clean-checkout frontend image build failure because the empty `public` directory was not present in Git; the Dockerfile now creates it explicitly. The corrected image builds locally and all 11 repository gates pass. Hosted rerun, AMD64/other architecture execution, production secrets/SMTP, production load and a deployment runbook exercise have not been certified. |
 
 The Redis service was moved to a locally scanned 7.4.11 Alpine digest, reducing
 its findings from 65 HIGH/6 CRITICAL to 2 HIGH/0 CRITICAL. The full image gate

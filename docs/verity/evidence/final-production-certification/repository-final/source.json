@@ -271,7 +271,7 @@
   "backend/tests/test_workspace_onboarding.py": "79020a9cd08c6794e940f9fcb743ad8f9542be8a36070a88d713982886ece9a0",
   "config/models/registry.json": "09ab735893091e98e40c54350bbba9dae11a17860b8548aebd57d5cb77c8d83c",
   "docker-compose.yml": "d60a5fae53a1a7d889381f24bb1f593ada59dcb6c645047a95b5f84a545d8347",
-  "frontend/Dockerfile": "9f8d0ea10807978e76a21fba847cac62575325588017fe58f53fc0f830a0b602",
+  "frontend/Dockerfile": "c61e95c4d0255773eb88b363faa3c2337f300677c7aa42db684125a281d0c266",
   "frontend/next.config.ts": "d2e597b41a6c9a932504fae3291ce3d7740d1941b8bb7269d5c9759a16f31b7e",
   "frontend/package-lock.json": "1a6327d6c4988aa2bc7e9a8e058ad4594bc82e3b82975afe1d37e48eba7a5231",
   "frontend/package.json": "47732631dda65734a102458f9f5ff66120e41fd92f22c18ca378fba7c3d0a9fa",

@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:e9be4206-e3a2-4e53-9d69-c2e02dbfc305",
+  "serialNumber": "urn:uuid:b71e9979-769c-4b90-b5bc-7ad9b327c8ff",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T07:22:51+00:00",
+    "timestamp": "2026-09-28T08:09:55+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "57be25b5-afad-4d7b-8604-c82bad57cefb",
+      "bom-ref": "46f55fb8-8ddf-48b5-bcec-de344f41fddb",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -101,7 +101,7 @@
   },
   "components": [
     {
-      "bom-ref": "c58b935b-7177-4675-bb90-04378e69ff7f",
+      "bom-ref": "d3aed6b9-994f-4cac-b160-2e297dbf6ee4",
       "type": "operating-system",
       "name": "debian",
       "version": "13.7",
@@ -10774,9 +10774,9 @@
   ],
   "dependencies": [
     {
-      "ref": "57be25b5-afad-4d7b-8604-c82bad57cefb",
+      "ref": "46f55fb8-8ddf-48b5-bcec-de344f41fddb",
       "dependsOn": [
-        "c58b935b-7177-4675-bb90-04378e69ff7f",
+        "d3aed6b9-994f-4cac-b160-2e297dbf6ee4",
         "pkg:pypi/aiosqlite@0.20.0",
         "pkg:pypi/alembic@1.14.0",
         "pkg:pypi/amqp@5.4.0",
@@ -10901,7 +10901,7 @@
       ]
     },
     {
-      "ref": "c58b935b-7177-4675-bb90-04378e69ff7f",
+      "ref": "d3aed6b9-994f-4cac-b160-2e297dbf6ee4",
       "dependsOn": [
         "pkg:deb/debian/apt@3.0.3?arch=arm64&distro=debian-13.7",
         "pkg:deb/debian/bash@5.2.37-2%2Bb10?arch=arm64&distro=debian-13.7",

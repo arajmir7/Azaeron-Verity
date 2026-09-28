@@ -82,8 +82,8 @@
     "aliases": [
       "verity-final-20260925-frontend"
     ],
-    "image_id": "sha256:f4b4743cbf09cd34147887e918581bef670a846e4d466c65fd54da14090bf68a",
-    "bytes": 305429761,
+    "image_id": "sha256:402eaae6b9d066667902796b92410facb1984bfc6e9e8a33a4f2622e65e1fc84",
+    "bytes": 305429708,
     "gate": "vulnerabilities",
     "status": "PASS",
     "exit_code": 0,
@@ -95,8 +95,8 @@
     "aliases": [
       "verity-final-20260925-frontend"
     ],
-    "image_id": "sha256:f4b4743cbf09cd34147887e918581bef670a846e4d466c65fd54da14090bf68a",
-    "bytes": 305429761,
+    "image_id": "sha256:402eaae6b9d066667902796b92410facb1984bfc6e9e8a33a4f2622e65e1fc84",
+    "bytes": 305429708,
     "gate": "sbom",
     "status": "PASS",
     "exit_code": 0,

@@ -5,7 +5,7 @@
 
 Running 25 tests using 1 worker
 
-(node:41071) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:43145) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
 
 
@@ -31,7 +31,7 @@ Running 25 tests using 1 worker
 [20/25] [chromium] › tests/usage.spec.ts:4:5 › workspace usage shows authoritative totals and handles unavailable refresh
 [21/25] [chromium] › tests/workspace.spec.ts:3:5 › public workspace keeps analysis evidence-based and editorial work authenticated
 [22/25] [chromium] › tests/workspace.spec.ts:13:5 › public navigation remains usable on a narrow viewport
-(node:41226) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:43318) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
 
 
@@ -41,4 +41,4 @@ Live authentication respected Retry-After: 60s
 
 [24/25] [chromium] › tests/onboarding-live.spec.ts:5:5 › live signup, personal workspace, upload, refresh and persistent switching
 [25/25] [chromium] › tests/similarity-live.spec.ts:8:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions
-  25 passed (3.5m)
+  25 passed (3.7m)

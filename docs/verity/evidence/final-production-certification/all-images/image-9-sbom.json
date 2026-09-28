@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:42340cd7-2b91-43dd-80ba-2c8f05bfd9d3",
+  "serialNumber": "urn:uuid:6c89cc4a-7296-400d-95a1-3cb410762224",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-28T07:22:36+00:00",
+    "timestamp": "2026-09-28T08:09:39+00:00",
     "tools": {
       "components": [
         {
@@ -20,7 +20,7 @@
       ]
     },
     "component": {
-      "bom-ref": "f5cc3411-e984-4864-b209-908257377b2d",
+      "bom-ref": "0c4035f4-33e8-4b64-9c40-b94aa3e791e3",
       "type": "container",
       "name": "/scan/image.tar",
       "properties": [
@@ -137,22 +137,7 @@
   },
   "components": [
     {
-      "bom-ref": "5104d1d1-b063-4600-89ee-4149f28aaf95",
-      "type": "application",
-      "name": "usr/bin/mc",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
-        }
-      ]
-    },
-    {
-      "bom-ref": "62f7f516-4eb9-411d-a9d8-13f68dfb3f3a",
+      "bom-ref": "09e10c91-fbbf-4987-907b-255a1f53d518",
       "type": "operating-system",
       "name": "redhat",
       "version": "9.6",
@@ -164,6 +149,21 @@
         {
           "name": "aquasecurity:trivy:Type",
           "value": "redhat"
+        }
+      ]
+    },
+    {
+      "bom-ref": "a7f47e52-c019-4d83-b853-651ddcbcd4f6",
+      "type": "application",
+      "name": "usr/bin/mc",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
         }
       ]
     },
@@ -4496,13 +4496,7 @@
   ],
   "dependencies": [
     {
-      "ref": "5104d1d1-b063-4600-89ee-4149f28aaf95",
-      "dependsOn": [
-        "pkg:golang/github.com/minio/mc@v0.0.0-20250813083541-7394ce0dd2a8%2Bdirty"
-      ]
-    },
-    {
-      "ref": "62f7f516-4eb9-411d-a9d8-13f68dfb3f3a",
+      "ref": "09e10c91-fbbf-4987-907b-255a1f53d518",
       "dependsOn": [
         "pkg:rpm/redhat/coreutils-single@8.32-39.el9?arch=aarch64&distro=redhat-9.6",
         "pkg:rpm/redhat/gpg-pubkey@5a6340b3-6229229e?arch=None&distro=redhat-9.6",
@@ -4510,10 +4504,16 @@
       ]
     },
     {
-      "ref": "f5cc3411-e984-4864-b209-908257377b2d",
+      "ref": "0c4035f4-33e8-4b64-9c40-b94aa3e791e3",
       "dependsOn": [
-        "5104d1d1-b063-4600-89ee-4149f28aaf95",
-        "62f7f516-4eb9-411d-a9d8-13f68dfb3f3a"
+        "09e10c91-fbbf-4987-907b-255a1f53d518",
+        "a7f47e52-c019-4d83-b853-651ddcbcd4f6"
+      ]
+    },
+    {
+      "ref": "a7f47e52-c019-4d83-b853-651ddcbcd4f6",
+      "dependsOn": [
+        "pkg:golang/github.com/minio/mc@v0.0.0-20250813083541-7394ce0dd2a8%2Bdirty"
       ]
     },
     {

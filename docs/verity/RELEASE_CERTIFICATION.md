@@ -1,13 +1,34 @@
 # AZAERON VERITY — FINAL RELEASE CERTIFICATION
 
 Date: **2026-09-28**  
-Source snapshot: SHA-256 release manifest
+Baseline source snapshot: SHA-256 release manifest
 `0948910e3f24a9363cafa72b3c3ef9763e11d1face6449e83aa241c0e341d157` ([manifest](evidence/final-production-certification/repository-final/source.json), [gate results](evidence/final-production-certification/repository-final/results.json)).
 Previous snapshot: `82b4cb963ad32836bdb346c79ff8ed7af2fe4c7a17d63893f685645f7f882bd8`.
+Latest verified local source snapshot after the text-intake change:
+`932902a21a164efbac4575a06e2fd6146ca422989ef23f303d3db3d7a563a538`
+([manifest](evidence/product-intake-20260928/source.json), [gate results](evidence/product-intake-20260928/results.json)).
 
 **Certification scope:** the named local Linux ARM64/Node test snapshot and the
 isolated development Compose stack. This is not a production deployment or
 general security clearance.
+
+## 2026-09-28 product-intake update
+
+**Check** now accepts a titled pasted or typed draft. It creates a TXT file in
+the browser, then uses the existing server-authorized presigned upload, SHA-256
+confirmation, verified private snapshot and immutable-version pipeline. The
+uploaded-file path remains available. The live onboarding test submitted a
+pasted draft, waited for processing, and compared the stored content with the
+original text before exercising the existing file-upload path.
+
+The [current local repository gate](evidence/product-intake-20260928/results.json)
+passes 11/11 checks: 250 backend tests, 30 PostgreSQL integration tests, 25
+browser tests, lint, type checks, production frontend build, Compose validation
+and source stability. The rebuilt [frontend image scan and SBOM](evidence/product-intake-20260928/frontend-image/results.json)
+both pass. This update does not certify a production writing model, detector,
+external plagiarism corpus, accessibility conformance, or deployment. The
+[product benchmark](PRODUCT_BENCHMARK.md) records the bounded source review
+behind the workflow decision.
 
 ## Product and platform status
 
@@ -33,7 +54,7 @@ general security clearance.
 | Observability | Isolated telemetry gate passes authenticated metrics, API/worker scrape targets, 13 alert rules, dashboard provisioning, trace persistence after Jaeger restart, queue health and content/secret-free logs. Production SLOs and retention are not established. |
 | Performance | The local profile completed 284 requests and 56 jobs with no unexpected HTTP responses. It FAILS the proposed budget: save p95 6.712 s and revision-conflict p95 1.560 s at concurrency 4. This is not a production load/soak result. [Profile](evidence/final-production-certification/load-final/profile.json). |
 | Disaster recovery | Clean same-host synthetic restore/replay PASS: one erasure tombstone replayed, two target objects removed, one surviving version hash-verified, RLS/readiness/login-rejection checks passed. Pre-replay restore 3.212 s; active restore plus replay 7.687 s; readiness followed replay by 4.475 s. The represented snapshot-to-erasure window was 2,481.723 s. These timings do not establish production RPO/RTO, offsite recovery, key escrow or geographic resilience. [Result](evidence/final-production-certification/recovery-r15-control/recovery-result.json). |
-| Deployment | Local isolated development services are healthy. Hosted attempts found a clean-checkout frontend image build failure, then Docker Hub denied MinIO `mc`, and the Quay retry returned `unauthorized` before migration or tests. The Dockerfile now creates the empty `public` directory; MinIO uses upstream Quay names with the same pinned content digests. The workflow accepts read-only Quay credentials through repository secrets, but none are configured in this workspace. The clean-context frontend build, all 11 repository gates, and the refreshed local image/SBOM scan pass. Hosted verification, AMD64/other architecture execution, production secrets/SMTP, production load and a deployment runbook exercise remain uncertified. |
+| Deployment | Local isolated development services are healthy. Hosted attempts found a clean-checkout frontend image build failure, then Docker Hub denied MinIO `mc`. The [authenticated Quay rerun](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36400101044/attempts/2) logged in successfully but still received `unauthorized` for the pinned MinIO image before migration or tests. Both repository secret names are configured; registry authentication does not establish repository authorization. The Dockerfile creates the empty `public` directory and MinIO uses upstream Quay names with pinned content digests. The clean-context frontend build, all 11 local repository gates, and the refreshed local image/SBOM scan pass. Hosted verification, AMD64/other architecture execution, production secrets/SMTP, production load and a deployment runbook exercise remain uncertified. |
 
 The Redis service was moved to a locally scanned 7.4.11 Alpine digest, reducing
 its findings from 65 HIGH/6 CRITICAL to 2 HIGH/0 CRITICAL. The full image gate
@@ -83,9 +104,10 @@ the final backend test suite. Other unmeasured quality attributes are listed as
 gaps above rather than treated as passed.
 
 **External blockers:** approved/licensed model artifacts and evaluation data,
-private serving hardware, and upstream fixes for the remaining scanned image
-findings. Internal product and certification gaps remain, so the outcome is not
-solely dependent on external inputs.
+private serving hardware, authorized access to the pinned upstream MinIO images
+or a validated replacement distribution, and upstream fixes for the remaining
+scanned image findings. Internal product and certification gaps remain, so the
+outcome is not solely dependent on external inputs.
 
 Evidence root: [`evidence/final-production-certification/`](evidence/final-production-certification/)
 plus the linked historical remediation evidence.

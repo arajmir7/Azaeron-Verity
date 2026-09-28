@@ -1,25 +1,25 @@
 # Execution ledger
 
 Updated 2026-09-28. The verified application schema is `20260924_0035`. The
-initial remediation snapshot was published to `origin/main` as `fa1b96f`,
-followed by documentation commit `58ab9e7` and clean-checkout frontend fix
-`d6309b8` and Quay registry correction `728b250`; the remote ref was verified
-against `728b250`. Hosted CI could not pull MinIO through Docker Hub, then
-received `unauthorized` from Quay before tests. The workflow now supports
-read-only Quay credentials through repository secrets; those credentials are
-not configured. The registry correction passed all 11 local repository gates
-and the refreshed image/SBOM scan. The repository remains
+baseline remediation and registry work reached `origin/main` at `15c8adf`.
+The current local product-intake snapshot passes all 11 repository gates and
+the rebuilt frontend image scan/SBOM. Both read-only Quay secret names are
+configured in GitHub Actions; [the authenticated hosted rerun](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36400101044/attempts/2)
+logged in successfully but still received `unauthorized` for the pinned MinIO
+image before migrations and tests. Repository access or a validated image
+distribution remains necessary. The repository remains
 **NOT PRODUCTION READY**. See the
 [release certification](RELEASE_CERTIFICATION.md)
 and [remediation ledger](REMEDIATION_STATE.md).
 
 ## Current evidence
 
-- The final source-stable repository gate passed backend formatting, lint, typing,
-  250 unit/security/worker/contract tests, actual PostgreSQL RLS integration,
-  frontend lint/build/types, 25 browser tests and source-stability checks. Its
-  source-manifest digest is
-  `0948910e3f24a9363cafa72b3c3ef9763e11d1face6449e83aa241c0e341d157`.
+- The latest source-stable repository gate passed backend formatting, lint,
+  typing, 250 unit/security/worker/contract tests, 30 PostgreSQL integration
+  tests, frontend lint/build/types, 25 browser tests and source stability. The
+  live browser test verifies that pasted text survives the private intake path
+  as exact processed content. Its source-manifest digest is
+  `932902a21a164efbac4575a06e2fd6146ca422989ef23f303d3db3d7a563a538`.
 - Dependency audits report no known Python or npm findings. Bandit reports no
   application findings; the reviewed-secret gate reports zero unreviewed
   findings and 48 exact reviewed fingerprints.

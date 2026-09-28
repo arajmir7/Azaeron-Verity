@@ -21,7 +21,7 @@ verified source snapshot, executed gates, and release blockers.
 
 | Capability | What is implemented | Current boundary |
 | --- | --- | --- |
-| Document intake | Presigned uploads, bounded validation, verified private snapshots, asynchronous processing | Legacy relocation, multipart cleanup and real object-erasure drills pass; full backup recovery remains a separate gate |
+| Document intake | Paste or type a draft, or upload a file; both paths use presigned intake, bounded validation, verified private snapshots and asynchronous processing | Legacy relocation, multipart cleanup and real object-erasure drills pass; full backup recovery remains a separate gate |
 | Versioned editing | Deterministic suggestions, selective acceptance, immutable revisions, history, restore as a new version | Generative refinement requires an approved private model |
 | Reliable saves | Stale-parent conflicts, operation identities, retry safety after lost responses, recovery of unsaved working text | Recovery is browser-session scoped; it is not a backup service |
 | Similarity review | Version-scoped comparison within the authorized workspace, matched spans, exclusions, source evidence | Similarity alone does not establish plagiarism; external corpus coverage is not claimed |
@@ -40,6 +40,10 @@ as unavailable; it never silently substitutes a hosted model. The empty
 commercial-use approval, evaluation evidence, and suitable private serving
 infrastructure must be supplied before model-backed capabilities can be enabled.
 Voice profiles are not currently available.
+
+The [academic writing product benchmark](docs/verity/PRODUCT_BENCHMARK.md)
+records the bounded comparison behind the input-first workflow and explains why
+the product does not promise to defeat Turnitin or other AI detectors.
 
 ## Architecture
 
@@ -93,6 +97,8 @@ See the [architecture map](ARCHITECTURE.md),
 - The Compose file pins MinIO images from Quay. If anonymous pulls are denied,
   authenticate locally with `docker login quay.io`. Hosted CI can use read-only
   `MINIO_REGISTRY_USERNAME` and `MINIO_REGISTRY_PASSWORD` repository secrets.
+  A successful registry login alone does not grant access to an upstream image;
+  the registry account must also be allowed to pull both pinned repositories.
 
 The documented verification environment has exercised Linux ARM64 on an Apple Silicon
 host. AMD64 execution and optional ML dependencies have not yet been certified.
@@ -131,9 +137,11 @@ configuration and must not be committed. It does not start a model runtime.
 | MinIO object endpoint | <http://localhost:10800> |
 | MinIO administration console | <http://localhost:10801> |
 
-Create an account, sign in, complete onboarding, and select a workspace. Upload a
-supported document to review its version-scoped findings. Use the writing workspace
-to review deterministic suggestions, accept selected changes, and inspect history.
+Create an account, sign in, complete onboarding, and select a workspace. In
+**Check**, paste or type a draft with a title, or upload a supported file. Open
+the resulting document to review version-scoped findings and source coverage.
+Use **Write** to review deterministic suggestions, accept selected changes, and
+inspect history.
 
 The migration service runs before the API and worker. Database schema changes are
 managed through Alembic; application startup does not create or rewrite the schema.

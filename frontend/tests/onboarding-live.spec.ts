@@ -59,6 +59,22 @@ test("live signup, personal workspace, upload, refresh and persistent switching"
   const retries = await Promise.all([1, 2].map(() => page.request.post("/api/v1/auth/onboarding", { headers, data: { product_role: "student" } })));
   for (const response of retries) { expect(response.status()).toBe(200); expect((await response.json()).active_organization_id).toBe(personalId); }
   expect((await (await page.request.get("/api/v1/organizations")).json())).toHaveLength(1);
+  const pastedTitle = `Pasted field notes ${Date.now()}`;
+  const pastedText = "The field notes describe twelve seedlings observed in April. I recorded the planting date, counted surviving plants each week, and compared growth under two watering schedules. These observations are limited to one small garden and require replication before broader conclusions.";
+  await page.getByRole("textbox", { name: "Document title" }).fill(pastedTitle);
+  await page.getByRole("textbox", { name: "Your text" }).fill(pastedText);
+  await expect(page.getByText("40 words", { exact: false })).toBeVisible();
+  const pastedConfirmation = page.waitForResponse((response) => response.url().endsWith("/api/v1/documents/upload-confirm") && response.request().method() === "POST");
+  await page.getByRole("button", { name: "Create document" }).click();
+  const pastedResponse = await pastedConfirmation;
+  expect(pastedResponse.status()).toBe(200);
+  const pastedDocument = await pastedResponse.json();
+  await expect(page).toHaveURL(new RegExp(`/documents/${pastedDocument.id}$`));
+  await expect.poll(async () => (await (await page.request.get(`/api/v1/documents/${pastedDocument.id}`)).json()).status, { timeout: 60_000 }).toBe("completed");
+  const pastedContent = await (await page.request.get(`/api/v1/documents/${pastedDocument.id}/content`)).json();
+  expect(pastedContent.content).toBe(pastedText);
+  await page.goto("/check");
+  await page.getByRole("button", { name: "Upload file" }).click();
   const documentName = `first-paper-${Date.now()}.txt`;
   const confirmed = page.waitForResponse((response) => response.url().endsWith("/api/v1/documents/upload-confirm") && response.request().method() === "POST");
   await page.locator('input[type="file"]').setInputFiles({

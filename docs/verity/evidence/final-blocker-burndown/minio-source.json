@@ -1,0 +1,28 @@
+{
+  "gate": "B1 MinIO distribution and local smoke test",
+  "date": "2026-09-28",
+  "upstream": {
+    "server": {
+      "repository": "https://github.com/minio/minio",
+      "tag": "RELEASE.2025-09-06T17-38-46Z",
+      "commit": "5aebb3970e132ca231508152c0333cb223c83d70",
+      "source_archive_sha256": "09ffb1ddfa9636348f8d029f9680bb086840dccf9d34370e8462151d28e95f97"
+    },
+    "client": {
+      "repository": "https://github.com/minio/mc",
+      "tag": "RELEASE.2025-08-13T08-35-41Z",
+      "commit": "d6541ea280b73a834b64d4097e21f2be77676104",
+      "source_archive_sha256": "4cea8ed209c8f96e59ea1a5cc4901019b54c2be6d6f5f16c6749ea8bdcf4172e"
+    }
+  },
+  "trigger": "Pinned quay.io/minio/minio and quay.io/minio/mc manifests returned HTTP 401 to an anonymous clean pull; the previous hosted run also received unauthorized after Quay login.",
+  "build": "BuildKit checksum-verifies the immutable Git archives; Go verifies go.sum dependencies. Builder and runtime bases are pinned by digest. Runtime images use UID 10001.",
+  "local_validation": {
+    "docker_compose_config": "PASS",
+    "server_build_linux_arm64": "PASS",
+    "client_build_linux_arm64": "PASS",
+    "isolated_server_health": "PASS",
+    "isolated_client_bucket_and_policy_initialization": "PASS"
+  },
+  "remaining": "Hosted AMD64 build, repository tests and image vulnerability scans are not yet verified. The archived upstream release requires a separate vulnerability review."
+}

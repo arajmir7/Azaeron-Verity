@@ -28,17 +28,7 @@ jobs:
       - name: Prepare an isolated runtime
         run: python backend/scripts/prepare_slice0_compose.py --project verity-ci --identity-mail --port-offset 1700 --output /tmp/verity-ci.json
       - name: Build runtime and verification images
-        run: docker compose -f /tmp/verity-ci.json --profile verification build backend celery-worker celery-beat migrate frontend verification
-      - name: Authenticate for upstream MinIO images when credentials are configured
-        env:
-          QUAY_USERNAME: ${{ secrets.MINIO_REGISTRY_USERNAME }}
-          QUAY_PASSWORD: ${{ secrets.MINIO_REGISTRY_PASSWORD }}
-        run: |
-          if [ -n "$QUAY_USERNAME" ] && [ -n "$QUAY_PASSWORD" ]; then
-            printf '%s' "$QUAY_PASSWORD" | docker login quay.io --username "$QUAY_USERNAME" --password-stdin
-          else
-            echo "::notice::MinIO registry credentials are unset; trying anonymous Quay pulls."
-          fi
+        run: docker compose -f /tmp/verity-ci.json --profile verification build backend celery-worker celery-beat migrate frontend verification minio minio-init
       - name: Migrate and wait for dependencies
         run: docker compose -f /tmp/verity-ci.json up -d --wait --wait-timeout 180 backend celery-worker frontend
       - name: Execute repository gate including live browser and PostgreSQL tests

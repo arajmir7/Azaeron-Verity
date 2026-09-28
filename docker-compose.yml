@@ -34,7 +34,9 @@ services:
       - azaeron-network
 
   minio:
-    image: quay.io/minio/minio:latest@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e
+    build:
+      context: ./infrastructure/minio-source
+      target: server
     container_name: azaeron-minio
     environment:
       MINIO_API_STALE_UPLOADS_EXPIRY: 24h
@@ -48,7 +50,7 @@ services:
       - minio_data:/data
     command: server /data --console-address ":9001"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:9000/minio/health/live"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -56,7 +58,9 @@ services:
       - azaeron-network
 
   minio-init:
-    image: quay.io/minio/mc:latest@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727
+    build:
+      context: ./infrastructure/minio-source
+      target: client
     entrypoint:
       - /bin/sh
       - -c

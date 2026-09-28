@@ -1,5 +1,18 @@
 # Execution ledger
 
+## 2026-09-28 final blocker burn-down: B1 in progress
+
+The pinned upstream Quay MinIO server and client manifests return HTTP 401 to
+anonymous pulls, and the authenticated hosted run failed before tests. Both
+images now build from checksum-verified archives of immutable upstream Git
+commits using digest-pinned builder/runtime bases. Local Linux ARM64 builds,
+Compose validation, isolated server health, and client bucket/policy setup
+pass. [Source and smoke-test evidence](evidence/final-blocker-burndown/minio-source.json).
+Hosted AMD64 build and actual repository-test execution remain pending; B1 is
+not yet certified. The community MinIO source is archived, so its production
+vulnerability exposure remains a B2 release question. Release verdict remains
+**NOT PRODUCTION READY**.
+
 Updated 2026-09-28. The verified application schema is `20260924_0035`. The
 baseline remediation, registry, and first product-intake work reached
 `origin/main` at `3c7fc43`.

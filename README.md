@@ -22,7 +22,7 @@ verified source snapshot, executed gates, and release blockers.
 | Capability | What is implemented | Current boundary |
 | --- | --- | --- |
 | Document intake | Paste or type a draft, or upload a file; both paths use presigned intake, bounded validation, verified private snapshots and asynchronous processing | Legacy relocation, multipart cleanup and real object-erasure drills pass; full backup recovery remains a separate gate |
-| Versioned editing | Deterministic suggestions, selective acceptance, immutable revisions, history, restore as a new version | Generative refinement requires an approved private model |
+| Versioned editing | Focused deterministic suggestions for grammar, clarity, brevity or academic tone; selective acceptance, immutable revisions, history, restore as a new version | Generative refinement requires an approved private model |
 | Reliable saves | Stale-parent conflicts, operation identities, retry safety after lost responses, recovery of unsaved working text | Recovery is browser-session scoped; it is not a backup service |
 | Similarity review | Version-scoped comparison within the authorized workspace, matched spans, exclusions, source evidence | Similarity alone does not establish plagiarism; external corpus coverage is not claimed |
 | Citation and authorship review | Structured findings, provenance, and explicit limitations | A signal does not independently prove authorship or intent |
@@ -140,8 +140,8 @@ configuration and must not be committed. It does not start a model runtime.
 Create an account, sign in, complete onboarding, and select a workspace. In
 **Check**, paste or type a draft with a title, or upload a supported file. Open
 the resulting document to review version-scoped findings and source coverage.
-Use **Write** to review deterministic suggestions, accept selected changes, and
-inspect history.
+Use **Write** to choose an editorial focus, review deterministic suggestions,
+accept selected changes, and inspect history.
 
 The migration service runs before the API and worker. Database schema changes are
 managed through Alembic; application startup does not create or rewrite the schema.

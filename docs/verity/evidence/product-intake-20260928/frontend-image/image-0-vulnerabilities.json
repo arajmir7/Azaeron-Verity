@@ -3,18 +3,18 @@
   "Trivy": {
     "Version": "0.74.0"
   },
-  "ReportID": "01a0e7ba-8af3-7b77-9557-a51e72165000",
-  "CreatedAt": "2026-09-28T11:15:57.299754418Z",
-  "ArtifactID": "sha256:f3f084414fab360c0d050adaf03f8a07a9b6cf9c26ab5c3913082306481c2f21",
+  "ReportID": "01a0e7c6-51ca-7a50-a837-d42a47624116",
+  "CreatedAt": "2026-09-28T11:28:49.098678095Z",
+  "ArtifactID": "sha256:6fd6f88e826cc1135fb9dd3ead27a2f113f4371fa62d562dffb8f3c6ee84749a",
   "ArtifactName": "/scan/image.tar",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 216557568,
+    "Size": 216560640,
     "OS": {
       "Family": "alpine",
       "Name": "3.24.2"
     },
-    "ImageID": "sha256:1ef46a7818839351199a8c5e98b5894123451cadc6bef48e79b442f877d9858d",
+    "ImageID": "sha256:4b997cbc54642e0674fda51e4634540c8622888a3f1905d990b198f33a6e42fe",
     "DiffIDs": [
       "sha256:1b349a3334531b575b01d409540dd8aca14ef29abddacd50f36643d7c949db4b",
       "sha256:75779f0bd2348ccc630312ab6ab389bfcfc4fb1b2b0c2482353257343983a3e4",
@@ -22,9 +22,9 @@
       "sha256:f9f608a9965820b16aec4809c39b815138a44e07c0ad8d61ac9b71898979d225",
       "sha256:d30a04b0258856e76651bd8422be60460b7259bf6b300f362a8690659f18fead",
       "sha256:bb75e8260011677326291ec74dc85b0053a902a55ec9edc265f6f5e790ca1fb2",
-      "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b",
-      "sha256:0c861b99116197715256db2e208fe5904aa8643fc79e8488b55f17b3bceee598",
-      "sha256:3c538a284ff5e44a2c5f77d0cc4ea5e86638c1baf730981b8e22628b106a640a"
+      "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e",
+      "sha256:d4d274893e7790570bb6405a2709b78e681075db8cb886bcdd0048dfae7abc2d",
+      "sha256:258ebf80b1e78509f6bfa54aeee0069ff4d15fc828be8294d176acda29a3a512"
     ],
     "RepoTags": [
       "verity-final-20260925-frontend:latest"
@@ -32,7 +32,7 @@
     "Reference": "verity-final-20260925-frontend:latest",
     "ImageConfig": {
       "architecture": "arm64",
-      "created": "2026-09-28T11:15:03.117536379Z",
+      "created": "2026-09-28T11:28:22.24167193Z",
       "history": [
         {
           "created": "2026-09-17T20:37:05.258369293Z",
@@ -95,40 +95,40 @@
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-09-28T11:15:03.059999087Z",
+          "created": "2026-09-28T11:28:21.944238638Z",
           "created_by": "ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 HOSTNAME=0.0.0.0 PORT=3000",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-09-28T11:15:03.059999087Z",
+          "created": "2026-09-28T11:28:21.944238638Z",
           "created_by": "COPY --chown=node:node /app/.next/standalone ./ # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-09-28T11:15:03.098690171Z",
+          "created": "2026-09-28T11:28:22.218451513Z",
           "created_by": "COPY --chown=node:node /app/.next/static ./.next/static # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-09-28T11:15:03.117536379Z",
+          "created": "2026-09-28T11:28:22.24167193Z",
           "created_by": "COPY --chown=node:node /app/public ./public # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-09-28T11:15:03.117536379Z",
+          "created": "2026-09-28T11:28:22.24167193Z",
           "created_by": "USER node",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-09-28T11:15:03.117536379Z",
+          "created": "2026-09-28T11:28:22.24167193Z",
           "created_by": "EXPOSE [3000/tcp]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-09-28T11:15:03.117536379Z",
+          "created": "2026-09-28T11:28:22.24167193Z",
           "created_by": "CMD [\"node\" \"server.js\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -144,9 +144,9 @@
           "sha256:f9f608a9965820b16aec4809c39b815138a44e07c0ad8d61ac9b71898979d225",
           "sha256:d30a04b0258856e76651bd8422be60460b7259bf6b300f362a8690659f18fead",
           "sha256:bb75e8260011677326291ec74dc85b0053a902a55ec9edc265f6f5e790ca1fb2",
-          "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b",
-          "sha256:0c861b99116197715256db2e208fe5904aa8643fc79e8488b55f17b3bceee598",
-          "sha256:3c538a284ff5e44a2c5f77d0cc4ea5e86638c1baf730981b8e22628b106a640a"
+          "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e",
+          "sha256:d4d274893e7790570bb6405a2709b78e681075db8cb886bcdd0048dfae7abc2d",
+          "sha256:258ebf80b1e78509f6bfa54aeee0069ff4d15fc828be8294d176acda29a3a512"
         ]
       },
       "config": {
@@ -211,19 +211,19 @@
         "DiffID": "sha256:bb75e8260011677326291ec74dc85b0053a902a55ec9edc265f6f5e790ca1fb2"
       },
       {
-        "Size": 49095680,
-        "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-        "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+        "Size": 49097216,
+        "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+        "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
       },
       {
-        "Size": 973824,
-        "Digest": "sha256:92eb0b9c612f85abdf8dafba07edbb5f5634847bf20beb81a5d9166cc7931c40",
-        "DiffID": "sha256:0c861b99116197715256db2e208fe5904aa8643fc79e8488b55f17b3bceee598"
+        "Size": 975360,
+        "Digest": "sha256:6b6471eff436b3b71001a000cfb645fc9d8a300442452f737b9782a0922bce2c",
+        "DiffID": "sha256:d4d274893e7790570bb6405a2709b78e681075db8cb886bcdd0048dfae7abc2d"
       },
       {
         "Size": 2048,
-        "Digest": "sha256:fca139b7655842e292da61bd34ee8615057629bd277ae23b8c3ae84728fcc6e4",
-        "DiffID": "sha256:3c538a284ff5e44a2c5f77d0cc4ea5e86638c1baf730981b8e22628b106a640a"
+        "Digest": "sha256:a6f798ede8d08731240a7a3b037ddc5adaba7212b144423545156d4ec72becd6",
+        "DiffID": "sha256:258ebf80b1e78509f6bfa54aeee0069ff4d15fc828be8294d176acda29a3a512"
       }
     ]
   },
@@ -856,8 +856,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/next/dist/compiled/@edge-runtime/cookies/package.json",
           "AnalyzedBy": "node-pkg"
@@ -874,8 +874,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/next/dist/compiled/@edge-runtime/ponyfill/package.json",
           "AnalyzedBy": "node-pkg"
@@ -892,8 +892,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/next/dist/compiled/@edge-runtime/primitives/package.json",
           "AnalyzedBy": "node-pkg"
@@ -910,8 +910,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/@emnapi/runtime/package.json",
           "AnalyzedBy": "node-pkg"
@@ -928,8 +928,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/@img/colour/package.json",
           "AnalyzedBy": "node-pkg"
@@ -946,8 +946,8 @@
             "LGPL-3.0-or-later"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/@img/sharp-libvips-linuxmusl-arm64/package.json",
           "AnalyzedBy": "node-pkg"
@@ -964,8 +964,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/@img/sharp-linuxmusl-arm64/package.json",
           "AnalyzedBy": "node-pkg"
@@ -982,8 +982,8 @@
             "Apache-2.0 AND LGPL-3.0-or-later AND MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/@img/sharp-wasm32/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1000,8 +1000,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/@next/env/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1018,8 +1018,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/@swc/helpers/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1033,8 +1033,8 @@
           },
           "Version": "1.0.0",
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1051,8 +1051,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/client-only/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1087,8 +1087,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/detect-libc/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1105,8 +1105,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/next/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1123,8 +1123,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/react/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1141,8 +1141,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/react-dom/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1159,8 +1159,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/next/dist/compiled/react-is/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1177,8 +1177,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/next/dist/compiled/regenerator-runtime/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1195,8 +1195,8 @@
             "ISC"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/semver/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1213,8 +1213,8 @@
             "ISC"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/sharp/node_modules/semver/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1231,8 +1231,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/sharp/package.json",
           "AnalyzedBy": "node-pkg"
@@ -1249,8 +1249,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:40bf4047c0644bedbc06dd44bcfb7413564c8f3447018b3e114682c81f30aef3",
-            "DiffID": "sha256:5f3b0b36954a6a61759409dcf723b28b38745718f595c22ec78fc96453bb9a6b"
+            "Digest": "sha256:a7351b2ff0a849d26c429e29e5278897386a4e978444f7460139cbbd82237ece",
+            "DiffID": "sha256:401101265fbabc9733984ee2f78700d0e8a2f7c767819324c36bd25f81cfcd5e"
           },
           "FilePath": "app/node_modules/styled-jsx/package.json",
           "AnalyzedBy": "node-pkg"

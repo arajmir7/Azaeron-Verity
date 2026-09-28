@@ -10,7 +10,7 @@ test("editor: selective acceptance, reload, restore, offline recovery and lost-r
   expect((await postWithRetryAfter(page.request, "/api/v1/auth/register", { headers, data: credentials })).status()).toBe(201);
   expect((await postWithRetryAfter(page.request, "/api/v1/auth/login", { headers, data: credentials })).ok()).toBeTruthy();
   expect((await page.request.post("/api/v1/auth/onboarding", { headers, data: { product_role: "researcher" } })).ok()).toBeTruthy();
-  const original = "In order to explain the finding, the the report uses clear language.";
+  const original = "In order to explain the finding, the the report  uses clear language.";
   const bytes = Buffer.from(original);
   const upload = await page.request.post("/api/v1/documents/upload-request", { headers, data: { filename: "editor.txt", content_type: "text/plain", file_size: bytes.length } });
   expect(upload.ok()).toBeTruthy();
@@ -36,8 +36,10 @@ test("editor: selective acceptance, reload, restore, offline recovery and lost-r
   await page.goto(`/write?document=${doc.id}`);
   const draft = page.getByLabel("Draft text");
   await expect(draft).toHaveValue(original);
+  await page.getByLabel("Editorial focus").selectOption("correctness");
   const refinements: string[] = [];
   await page.route("**/api/v1/aegiswrite/refine", async (route) => {
+    expect(route.request().postDataJSON().edit_types).toEqual(["grammar", "structure"]);
     refinements.push(route.request().postDataJSON().operation_id);
     const committed = await route.fetch();
     expect(committed.ok()).toBeTruthy();

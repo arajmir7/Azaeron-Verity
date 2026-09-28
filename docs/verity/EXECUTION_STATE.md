@@ -1,7 +1,8 @@
 # Execution ledger
 
 Updated 2026-09-28. The verified application schema is `20260924_0035`. The
-baseline remediation and registry work reached `origin/main` at `15c8adf`.
+baseline remediation, registry, and first product-intake work reached
+`origin/main` at `3c7fc43`.
 The current local product-intake snapshot passes all 11 repository gates and
 the rebuilt frontend image scan/SBOM. Both read-only Quay secret names are
 configured in GitHub Actions; [the authenticated hosted rerun](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36400101044/attempts/2)
@@ -17,9 +18,10 @@ and [remediation ledger](REMEDIATION_STATE.md).
 - The latest source-stable repository gate passed backend formatting, lint,
   typing, 250 unit/security/worker/contract tests, 30 PostgreSQL integration
   tests, frontend lint/build/types, 25 browser tests and source stability. The
-  live browser test verifies that pasted text survives the private intake path
-  as exact processed content. Its source-manifest digest is
-  `932902a21a164efbac4575a06e2fd6146ca422989ef23f303d3db3d7a563a538`.
+  live browser tests verify that pasted text survives the private intake path
+  as exact processed content and that a selected editorial focus reaches the
+  refinement API. Its source-manifest digest is
+  `934a1d4f375e516a44e9604368dba124cef215fc26ffb6f4e2825bd6f921c3ff`.
 - Dependency audits report no known Python or npm findings. Bandit reports no
   application findings; the reviewed-secret gate reports zero unreviewed
   findings and 48 exact reviewed fingerprints.

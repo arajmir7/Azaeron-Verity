@@ -5,7 +5,7 @@ Baseline source snapshot: SHA-256 release manifest
 `0948910e3f24a9363cafa72b3c3ef9763e11d1face6449e83aa241c0e341d157` ([manifest](evidence/final-production-certification/repository-final/source.json), [gate results](evidence/final-production-certification/repository-final/results.json)).
 Previous snapshot: `82b4cb963ad32836bdb346c79ff8ed7af2fe4c7a17d63893f685645f7f882bd8`.
 Latest verified local source snapshot after the text-intake change:
-`932902a21a164efbac4575a06e2fd6146ca422989ef23f303d3db3d7a563a538`
+`934a1d4f375e516a44e9604368dba124cef215fc26ffb6f4e2825bd6f921c3ff`
 ([manifest](evidence/product-intake-20260928/source.json), [gate results](evidence/product-intake-20260928/results.json)).
 
 **Certification scope:** the named local Linux ARM64/Node test snapshot and the
@@ -19,7 +19,11 @@ the browser, then uses the existing server-authorized presigned upload, SHA-256
 confirmation, verified private snapshot and immutable-version pipeline. The
 uploaded-file path remains available. The live onboarding test submitted a
 pasted draft, waited for processing, and compared the stored content with the
-original text before exercising the existing file-upload path.
+original text before exercising the existing file-upload path. **Write** now
+lets the author choose among the available deterministic editorial rule groups:
+all supported edits, grammar and spacing, clarity and brevity, or academic tone.
+Changing focus clears the prior candidate; the editor retains selective
+acceptance, immutable history, and retry safety.
 
 The [current local repository gate](evidence/product-intake-20260928/results.json)
 passes 11/11 checks: 250 backend tests, 30 PostgreSQL integration tests, 25

@@ -7,7 +7,12 @@ import { api, ApiError, type AegisRefineResult, type DocumentRecord, type Proven
 import { useStore } from "@/lib/store";
 import { ErrorState, LoadingState, PageHeader, Panel } from "@/components/design-system";
 
-const EDIT_TYPES = ["grammar", "clarity", "concision", "tone", "structure", "coherence"];
+const EDITORIAL_FOCUSES = [
+  { id: "full", label: "All supported edits", description: "Review every available rule for grammar, phrasing, tone, and spacing.", editTypes: ["grammar", "clarity", "concision", "tone", "structure"] },
+  { id: "correctness", label: "Grammar & spacing", description: "Find repeated words, punctuation, and spacing issues.", editTypes: ["grammar", "structure"] },
+  { id: "clarity", label: "Clarity & brevity", description: "Find supported wordy phrases and padded openings.", editTypes: ["clarity", "concision"] },
+  { id: "tone", label: "Academic tone", description: "Expand supported informal contractions while preserving your voice.", editTypes: ["tone"] },
+] as const;
 const button = "rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:text-slate-200";
 const primary = `${button} border-transparent bg-indigo-700 text-white hover:bg-indigo-800 dark:text-white`;
 type Draft = { base: string; text: string; updated: number };
@@ -25,6 +30,7 @@ export default function WritePage() {
   const [savedText, setSavedText] = useState("");
   const [result, setResult] = useState<AegisRefineResult | null>(null);
   const [selected, setSelected] = useState<string[]>([]);
+  const [focus, setFocus] = useState<(typeof EDITORIAL_FOCUSES)[number]["id"]>("full");
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState("");
   const [status, setStatus] = useState("");
@@ -35,6 +41,7 @@ export default function WritePage() {
   const operation = useRef<{ key: string; id: string } | null>(null);
   const dirty = text !== savedText;
   const latest = versions.at(-1);
+  const selectedFocus = EDITORIAL_FOCUSES.find((item) => item.id === focus) || EDITORIAL_FOCUSES[0];
   const draftKey = useCallback((doc: string) => `verity:draft:v1:${user?.id}:${currentOrg?.id}:${doc}`, [user?.id, currentOrg?.id]);
 
   const loadVersion = useCallback(async (doc: string, chosen = "", recover = true) => {
@@ -114,11 +121,11 @@ export default function WritePage() {
 
   const refine = async () => {
     const current = generation.current;
-    const key = JSON.stringify({ documentId, versionId, text });
+    const key = JSON.stringify({ documentId, versionId, text, focus });
     if (refineOperation.current?.key !== key) refineOperation.current = { key, id: crypto.randomUUID() };
     setBusy("Reviewing"); setError("");
     try {
-      const response = await api.refineDraft({ operation_id: refineOperation.current.id, document_id: documentId, document_version_id: versionId, text, preserve_voice: true, edit_types: EDIT_TYPES });
+      const response = await api.refineDraft({ operation_id: refineOperation.current.id, document_id: documentId, document_version_id: versionId, text, preserve_voice: true, edit_types: [...selectedFocus.editTypes] });
       if (current !== generation.current) return;
       refineOperation.current = null;
       setResult(response); setSelected(response.changes.map((change) => change.id)); setStatus("Candidate ready for review");
@@ -164,6 +171,10 @@ export default function WritePage() {
           <label className="text-sm font-medium text-slate-700 dark:text-slate-200">Document<select disabled={!!busy} value={documentId} onChange={(event) => { setDocumentId(event.target.value); void loadVersion(event.target.value); }} className="mt-2 w-full min-w-0 rounded-lg border border-slate-300 bg-white p-2 dark:border-slate-600 dark:bg-slate-950">{documents.map((item) => <option key={item.id} value={item.id}>{item.title || item.original_filename}</option>)}</select></label>
           <label className="text-sm font-medium text-slate-700 dark:text-slate-200">Version history<select aria-label="Editor version history" disabled={!!busy} value={versionId} onChange={(event) => void loadVersion(documentId, event.target.value, false)} className="mt-2 w-full min-w-0 rounded-lg border border-slate-300 bg-white p-2 dark:border-slate-600 dark:bg-slate-950">{versions.map((version) => <option key={version.id} value={version.id}>Version {version.version_number} · {version.change_summary || version.edit_type}</option>)}</select></label>
         </div>
+        <label className="mt-4 block max-w-sm text-sm font-medium text-slate-700 dark:text-slate-200">Editorial focus
+          <select disabled={!!busy} value={focus} onChange={(event) => { setFocus(event.target.value as typeof focus); setResult(null); setSelected([]); refineOperation.current = null; setStatus("Focus changed · review again for new suggestions"); }} className="mt-2 w-full rounded-lg border border-slate-300 bg-white p-2 dark:border-slate-600 dark:bg-slate-950">{EDITORIAL_FOCUSES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select>
+        </label>
+        <p className="mt-2 text-xs text-slate-500">{selectedFocus.description} Suggestions come from limited editorial rules, not a generative writing model.</p>
         <div className="mt-4 flex flex-wrap items-center gap-3"><p role="status" aria-label="Editor status" className="text-sm text-slate-700 dark:text-slate-200">{!online ? "Offline · your draft remains in this tab" : busy || status}</p>{versionId && latest && versionId !== latest.id && <button className={button} disabled={!!busy || !online} onClick={() => void save(false, true)}>Restore this version</button>}<button className={button} disabled={!!busy} onClick={() => void loadVersion(documentId, latest?.id || "", false)}>Review latest version</button></div>
       </Panel>
       <div className="grid gap-5 lg:grid-cols-2">

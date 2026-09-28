@@ -90,6 +90,9 @@ See the [architecture map](ARCHITECTURE.md),
 - For frontend development and browser gates: the Node version in [.nvmrc](.nvmrc),
   npm, and the Playwright Chromium browser.
 - For backend development outside containers: Python 3.12 and the locked dependencies.
+- The Compose file pins MinIO images from Quay. If anonymous pulls are denied,
+  authenticate locally with `docker login quay.io`. Hosted CI can use read-only
+  `MINIO_REGISTRY_USERNAME` and `MINIO_REGISTRY_PASSWORD` repository secrets.
 
 The documented verification environment has exercised Linux ARM64 on an Apple Silicon
 host. AMD64 execution and optional ML dependencies have not yet been certified.

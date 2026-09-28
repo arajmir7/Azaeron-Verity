@@ -52,8 +52,9 @@ same content digests. The upstream release build publishes the corresponding
 MinIO image tags to both registries from the same multi-platform build
 ([client build](https://github.com/minio/mc/blob/master/docker-buildx.sh),
 [server build](https://github.com/minio/minio/pull/21560/files)). Hosted pulls
-must still succeed on the corrected workflow before this change is considered
-CI-verified.
+from Quay returned `unauthorized` in [hosted run 36398442953](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36398442953), before migration or tests. The workflow accepts optional
+read-only `MINIO_REGISTRY_USERNAME` and `MINIO_REGISTRY_PASSWORD` repository
+secrets; without configured credentials, hosted image pulls remain unverified.
 
 An inference router and generative/semantic model runtimes have no approved
 model, build, or deployed image. They are explicitly **BLOCKED** in the

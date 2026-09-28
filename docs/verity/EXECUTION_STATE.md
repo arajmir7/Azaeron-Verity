@@ -3,10 +3,12 @@
 Updated 2026-09-28. The verified application schema is `20260924_0035`. The
 initial remediation snapshot was published to `origin/main` as `fa1b96f`,
 followed by documentation commit `58ab9e7` and clean-checkout frontend fix
-`d6309b8`. Hosted runs exposed the unavailable Docker Hub MinIO client image;
-the Compose references now use upstream Quay names with matching pinned
-digests. The registry correction passed all 11 local repository gates and the
-refreshed image/SBOM scan, and awaits publication. The repository remains
+`d6309b8` and Quay registry correction `728b250`; the remote ref was verified
+against `728b250`. Hosted CI could not pull MinIO through Docker Hub, then
+received `unauthorized` from Quay before tests. The workflow now supports
+read-only Quay credentials through repository secrets; those credentials are
+not configured. The registry correction passed all 11 local repository gates
+and the refreshed image/SBOM scan. The repository remains
 **NOT PRODUCTION READY**. See the
 [release certification](RELEASE_CERTIFICATION.md)
 and [remediation ledger](REMEDIATION_STATE.md).
@@ -17,7 +19,7 @@ and [remediation ledger](REMEDIATION_STATE.md).
   250 unit/security/worker/contract tests, actual PostgreSQL RLS integration,
   frontend lint/build/types, 25 browser tests and source-stability checks. Its
   source-manifest digest is
-  `47734a873f02a4a66f2f9b07b029f165277231bea8e179cae90979e20248f753`.
+  `0948910e3f24a9363cafa72b3c3ef9763e11d1face6449e83aa241c0e341d157`.
 - Dependency audits report no known Python or npm findings. Bandit reports no
   application findings; the reviewed-secret gate reports zero unreviewed
   findings and 48 exact reviewed fingerprints.

@@ -4,8 +4,10 @@
   "initial_remote_commit": "492e12ec6566cffc09bd9c9d2cc166567bfb591a",
   "implementation_commit": "fa1b96f",
   "remote": "https://github.com/arajmir7/Azaeron-Verity.git",
-  "remote_ref_verified": "58ab9e73c146e305804c22885b2adbdc058fa381",
-  "status_commit": "58ab9e7",
+  "dockerfile_fix_commit": "d6309b8",
+  "registry_commit": "728b250",
+  "remote_ref_verified": "728b25084dfc47949a523f667ee91015ea236365",
+  "status_commit": "728b250",
   "verification": "git ls-remote origin refs/heads/main matched git rev-parse HEAD",
   "verified": true
 }

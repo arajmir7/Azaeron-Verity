@@ -1,9 +1,9 @@
 # Execution ledger
 
 Updated 2026-09-28. The verified application schema is `20260924_0035`. The
-current remediation source is not yet committed; local `main` remains at the
-repository's existing initial commit until the verified changes are published.
-**NOT PRODUCTION READY.** See the [release certification](RELEASE_CERTIFICATION.md)
+verified remediation snapshot is committed locally as `fa1b96f`; GitHub
+publication is pending. The repository remains **NOT PRODUCTION READY**. See the
+[release certification](RELEASE_CERTIFICATION.md)
 and [remediation ledger](REMEDIATION_STATE.md).
 
 ## Current evidence

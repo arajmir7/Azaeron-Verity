@@ -16,13 +16,17 @@
     }
   },
   "trigger": "Pinned quay.io/minio/minio and quay.io/minio/mc manifests returned HTTP 401 to an anonymous clean pull; the previous hosted run also received unauthorized after Quay login.",
-  "build": "BuildKit checksum-verifies the immutable Git archives; Go verifies go.sum dependencies. Builder and runtime bases are pinned by digest. Runtime images use UID 10001.",
+  "build": "BuildKit checksum-verifies the immutable Git archives; Go verifies go.sum dependencies. Go 1.26.8 builder and Alpine runtime bases are pinned by digest. Scanner-identified Go modules are upgraded to explicit fixed versions, with resolved transitive modules verified by Go. Runtime images use UID 10001.",
   "local_validation": {
     "docker_compose_config": "PASS",
     "server_build_linux_arm64": "PASS",
     "client_build_linux_arm64": "PASS",
     "isolated_server_health": "PASS",
-    "isolated_client_bucket_and_policy_initialization": "PASS"
+    "isolated_client_bucket_and_policy_initialization": "PASS",
+    "updated_server_vulnerability_scan": "PASS, zero HIGH or CRITICAL",
+    "updated_client_vulnerability_scan": "PASS, zero HIGH or CRITICAL",
+    "updated_server_and_client_sboms": "PASS",
+    "browser_api_storage_worker_trace_workflow": "PASS, isolated stack"
   },
-  "remaining": "Hosted AMD64 build, repository tests and image vulnerability scans are not yet verified. The archived upstream release requires a separate vulnerability review."
+  "remaining": "Hosted AMD64 rerun for the patched dependency build remains pending. The archived upstream release needs a separate application-level security review beyond dependency scanning."
 }

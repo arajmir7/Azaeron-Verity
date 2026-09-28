@@ -1,0 +1,12 @@
+{
+  "run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/36428511437",
+  "commit": "e1c4184198c9924a4cc7509760d80769a4368b89",
+  "result": "FAIL",
+  "finding": "The pinned-source MinIO server and client built on GitHub-hosted AMD64, migrations completed, and the actual repository tests executed.",
+  "passed": ["backend format", "backend typecheck", "250 backend unit/security/worker/contract tests", "30 live PostgreSQL/RLS tests", "frontend lint", "frontend production build", "frontend typecheck", "Compose validation", "source stability", "25 of 26 browser tests"],
+  "failed": [
+    "Ruff could not write its cache in the bind-mounted /app path on GitHub Actions.",
+    "The observability browser test could not connect to Jaeger because the CI startup command had not started the telemetry services."
+  ],
+  "remediation_pending_hosted_rerun": "Verification containers now put the Ruff cache under /tmp; CI starts Jaeger, OpenTelemetry Collector and Prometheus before the live browser suite."
+}

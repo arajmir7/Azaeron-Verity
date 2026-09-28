@@ -88,6 +88,7 @@ def main() -> None:
     verification = deepcopy(config["services"]["backend"])
     verification["image"] = f"{args.project}-verification"
     verification["build"]["target"] = "verification"
+    verification["environment"]["RUFF_CACHE_DIR"] = "/tmp/ruff-cache"
     verification["profiles"] = ["verification"]
     for field in ("ports", "healthcheck", "depends_on"):
         verification.pop(field, None)

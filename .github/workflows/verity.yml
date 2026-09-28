@@ -30,7 +30,7 @@ jobs:
       - name: Build runtime and verification images
         run: docker compose -f /tmp/verity-ci.json --profile verification build backend celery-worker celery-beat migrate frontend verification minio minio-init
       - name: Migrate and wait for dependencies
-        run: docker compose -f /tmp/verity-ci.json up -d --wait --wait-timeout 180 backend celery-worker frontend
+        run: docker compose -f /tmp/verity-ci.json up -d --wait --wait-timeout 180 backend celery-worker frontend jaeger otel-collector prometheus
       - name: Execute repository gate including live browser and PostgreSQL tests
         run: python scripts/verity_gate.py --compose /tmp/verity-ci.json --browser-url http://localhost:4700 --output docs/verity/evidence/ci
       - name: Install security scanners

@@ -1,6 +1,6 @@
 # Execution ledger
 
-## 2026-09-28 final blocker burn-down: B1 in progress
+## 2026-09-28 final blocker burn-down: B1 and B2 in progress
 
 The pinned upstream Quay MinIO server and client manifests return HTTP 401 to
 anonymous pulls, and the authenticated hosted run failed before tests. Both
@@ -8,10 +8,18 @@ images now build from checksum-verified archives of immutable upstream Git
 commits using digest-pinned builder/runtime bases. Local Linux ARM64 builds,
 Compose validation, isolated server health, and client bucket/policy setup
 pass. [Source and smoke-test evidence](evidence/final-blocker-burndown/minio-source.json).
-Hosted AMD64 build and actual repository-test execution remain pending; B1 is
-not yet certified. The community MinIO source is archived, so its production
-vulnerability exposure remains a B2 release question. Release verdict remains
-**NOT PRODUCTION READY**.
+The [first hosted run](evidence/final-blocker-burndown/hosted-b1.json) built
+these images, migrated the database, and executed the real suite: 250 backend
+and 30 live PostgreSQL tests passed; 25/26 browser tests passed. Ruff could not
+write its cache to a bind-mounted directory, and the browser telemetry test
+found that CI had not started Jaeger. Verification now places Ruff's cache in
+`/tmp`; CI starts Jaeger, the collector and Prometheus. The exact hosted rerun
+remains pending. The archived community MinIO source is now compiled with a
+patched, digest-pinned Go builder and explicit fixed module versions; server
+and client vulnerability scans/SBOMs pass locally. New digest-pinned Redis,
+Prometheus and OpenTelemetry Collector candidates also pass their scans;
+Grafana, PostgreSQL, Jaeger and the verification image remain unresolved.
+Release verdict remains **NOT PRODUCTION READY**.
 
 Updated 2026-09-28. The verified application schema is `20260924_0035`. The
 baseline remediation, registry, and first product-intake work reached

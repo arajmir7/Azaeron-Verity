@@ -1,0 +1,54 @@
+[
+  {
+    "image": "verity-burndown-minio",
+    "aliases": [
+      "verity-burndown-minio"
+    ],
+    "image_id": "sha256:756996fec6c7b98d07b05863fb662b7e96573eeeb352408824dfb4cdcb913c3e",
+    "bytes": 155867854,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-burndown-minio",
+    "aliases": [
+      "verity-burndown-minio"
+    ],
+    "image_id": "sha256:756996fec6c7b98d07b05863fb662b7e96573eeeb352408824dfb4cdcb913c3e",
+    "bytes": 155867854,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-burndown-minio-init",
+    "aliases": [
+      "verity-burndown-minio-init"
+    ],
+    "image_id": "sha256:c7bb3d30595834ed36fa95a2618eb241fa018a50463012e2f03526f95ffe7c99",
+    "bytes": 53908772,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-1-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-burndown-minio-init",
+    "aliases": [
+      "verity-burndown-minio-init"
+    ],
+    "image_id": "sha256:c7bb3d30595834ed36fa95a2618eb241fa018a50463012e2f03526f95ffe7c99",
+    "bytes": 53908772,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

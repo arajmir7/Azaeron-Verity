@@ -20,7 +20,7 @@ services:
       - azaeron-network
 
   redis:
-    image: redis:7.4-alpine@sha256:ff02b58f971e7d7d156a1267e283fcbbeee91773b6aa36c49dac28ecfe28eadf
+    image: redis:7.4-alpine@sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499
     container_name: azaeron-redis
     volumes:
       - redis_data:/data
@@ -307,7 +307,7 @@ services:
       - azaeron-network
 
   prometheus:
-    image: prom/prometheus:latest@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0
+    image: prom/prometheus:v3.15.0@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e
     container_name: azaeron-prometheus
     ports:
       - "127.0.0.1:9090:9090"
@@ -336,7 +336,7 @@ services:
       - azaeron-network
 
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.111.0@sha256:a2a52e43c1a80aa94120ad78c2db68780eb90e6d11c8db5b3ce2f6a0cc6b5029
+    image: otel/opentelemetry-collector-contrib:0.161.0@sha256:fd328de2552466ad78385e1b1289c3f2402b1c45f265b252aab1955b42845ac1
     container_name: azaeron-otel-collector
     command: ["--config=/etc/otelcol/config.yaml"]
     volumes:

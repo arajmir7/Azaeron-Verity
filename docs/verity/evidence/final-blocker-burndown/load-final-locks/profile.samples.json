@@ -1,0 +1,2558 @@
+[
+  {
+    "workload": "job_creation",
+    "concurrency": 1,
+    "latency_ms": 337.3272079916205,
+    "status": 200,
+    "expected": true,
+    "bytes": 598,
+    "trace_id": "ea5635184ccfab1f86528de938d6540e"
+  },
+  {
+    "workload": "job_creation",
+    "concurrency": 1,
+    "latency_ms": 44.514625013107434,
+    "status": 200,
+    "expected": true,
+    "bytes": 598,
+    "trace_id": "32ce692131425a4dc0807e8428e054b8"
+  },
+  {
+    "workload": "job_creation",
+    "concurrency": 1,
+    "latency_ms": 48.933333018794656,
+    "status": 200,
+    "expected": true,
+    "bytes": 598,
+    "trace_id": "a12f9444afb1fb9814831305da24eaab"
+  },
+  {
+    "workload": "job_creation",
+    "concurrency": 1,
+    "latency_ms": 57.322333013871685,
+    "status": 200,
+    "expected": true,
+    "bytes": 598,
+    "trace_id": "175b895bec219c4bb551318811b34c0a"
+  },
+  {
+    "workload": "job_creation",
+    "concurrency": 1,
+    "latency_ms": 98.30287500517443,
+    "status": 200,
+    "expected": true,
+    "bytes": 598,
+    "trace_id": "f1589035725a6b14e2bc6c5e927cac04"
+  },
+  {
+    "workload": "job_creation",
+    "concurrency": 1,
+    "latency_ms": 67.0571250084322,
+    "status": 200,
+    "expected": true,
+    "bytes": 598,
+    "trace_id": "35a03628af81c6dee1b8fc6ce9d9841e"
+  },
+  {
+    "workload": "job_creation",
+    "concurrency": 1,
+    "latency_ms": 70.5303750000894,
+    "status": 200,
+    "expected": true,
+    "bytes": 599,
+    "trace_id": "ad2b8add55bff7334c2c9aacc5917c24"
+  },
+  {
+    "workload": "job_creation",
+    "concurrency": 1,
+    "latency_ms": 50.668208015849814,
+    "status": 200,
+    "expected": true,
+    "bytes": 599,
+    "trace_id": "33263935c9cb164140bba11d1a99f4a5"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 7.897125004092231,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "41551d0b94a9db967dbcc4565c80580b"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 8.040249987971038,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "1897feb47514504cf1e2db41ed940fe8"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 6.189499981701374,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "17bd146ee6f9be9221d848601b374d04"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 8.697417011717334,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "7237e26dd23c0a5b47a0d59c89874311"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 5.210125003941357,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "4bb8810f351777549140e9b758d41a54"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 4.846750001888722,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "4952c317e41809293ee71278bf8aedb8"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 5.586124985711649,
+    "status": 200,
+    "expected": true,
+    "bytes": 626,
+    "trace_id": "04f45e311ec105775dea0523858c6681"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 8.299582987092435,
+    "status": 200,
+    "expected": true,
+    "bytes": 626,
+    "trace_id": "c08324f880a77c289ca58219c814ae58"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 6.236874993192032,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "2bca42f91a6e66c9d6271a38e8d108f6"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 4.955083015374839,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "ecb782b38cbd437c55854f3f2e155001"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 4.178250004770234,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "011767f82f477da1897e66129cef9d3d"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 1,
+    "latency_ms": 5.02849998883903,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "36ae42c6c1052111d1be0826c47cff2e"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 10.70433299173601,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "9fc01c2edc925c994d17916721c39bb0"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 6.89175000297837,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "1bf249fd183fe8eafee529152aec1468"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 5.954833992291242,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "174362b6bbafcf526922cc9a740c626c"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 9.636917005991563,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "78d944ab8fd5a095dd3f91d08f4c4e09"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 7.264500018209219,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "72e1b5fb0162858c580f438b59eeb517"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 7.628083025338128,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "f040e43f813775477d43f2dd1ef38ded"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 6.723041995428503,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "8022db731026e258812deaccea9f70fa"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 5.51095898845233,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "b4282f68115aa7eb2b79623f5df3c9d5"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 6.773375003831461,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "591b381ada327ccda782c2cd7e33238b"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 5.589500011410564,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "07aa09366ddf179283ccd99873c57d16"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 5.895040987525135,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "58f42982ddf9a603ec6fc2ae2f4f9663"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 1,
+    "latency_ms": 5.926167010329664,
+    "status": 200,
+    "expected": true,
+    "bytes": 3173,
+    "trace_id": "6505f45c235d6e39ff95fdcc38f12eca"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 14.474625000730157,
+    "status": 200,
+    "expected": true,
+    "bytes": 4846,
+    "trace_id": "dcdfdfcac30f6334b3fff3766ca6e9e9"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 8.132249990012497,
+    "status": 200,
+    "expected": true,
+    "bytes": 4846,
+    "trace_id": "c2a69485eae580b67dcc7caaac7145a9"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 8.2085830217693,
+    "status": 200,
+    "expected": true,
+    "bytes": 4847,
+    "trace_id": "7eb9ad0f8d977130a07f0304252e938e"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 6.889792013680562,
+    "status": 200,
+    "expected": true,
+    "bytes": 4847,
+    "trace_id": "bac5cde1e0e66b751e15abef794d5a06"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 8.09083299827762,
+    "status": 200,
+    "expected": true,
+    "bytes": 4847,
+    "trace_id": "ae4f7d3198a9c8f6d46fa6a281d35c13"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 6.956125027500093,
+    "status": 200,
+    "expected": true,
+    "bytes": 4847,
+    "trace_id": "602668821792d5866f24262042cc7fc0"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 6.807208992540836,
+    "status": 200,
+    "expected": true,
+    "bytes": 4848,
+    "trace_id": "69a73f8cf40ef3a1fa492b307982cad2"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 6.141874997410923,
+    "status": 200,
+    "expected": true,
+    "bytes": 4848,
+    "trace_id": "5a7a9c0104fcf703885a12f172615f25"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 7.931582978926599,
+    "status": 200,
+    "expected": true,
+    "bytes": 4846,
+    "trace_id": "073db2846ee345a0ff05687166c776b6"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 6.6842910018749535,
+    "status": 200,
+    "expected": true,
+    "bytes": 4846,
+    "trace_id": "844916934cb09d11f2218dd26ac427b1"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 6.627999973716214,
+    "status": 200,
+    "expected": true,
+    "bytes": 4847,
+    "trace_id": "c695984a5d5179fec54d65b4df391661"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 1,
+    "latency_ms": 7.474291982362047,
+    "status": 200,
+    "expected": true,
+    "bytes": 4847,
+    "trace_id": "b170c52609bcc2181c578dd0d82c9218"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 28.993582993280143,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "9f6a99c0de09966d24b3089e89f0d71d"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 13.709291990380734,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "2ce4557189a735448cb44113d67710f8"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 11.438124987762421,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "b70e9e9e7bf48cdc281a7aa9d719bd4b"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 10.897083004238084,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "46e1c62eabc87d9382524dbd3b6c6273"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 8.035458013182506,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "ed62a6da35db959090c41521d32d10eb"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 7.856749987695366,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "dd84259c01d0497fe974793bf109941d"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 9.352583001600578,
+    "status": 200,
+    "expected": true,
+    "bytes": 626,
+    "trace_id": "4783c1be79a271089d02d8f60f9a1ab8"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 10.697833000449464,
+    "status": 200,
+    "expected": true,
+    "bytes": 626,
+    "trace_id": "16b636e97efd521d3b26a00e8475e77b"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 6.888834002893418,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "9909f2ccf76698a9f508d467f1adbb08"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 8.594582992373034,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "235a8fa8851f2ff4e49f150971724f85"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 8.432542002992705,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "ef97832a61f85b772e3c2ff7c66c5ad5"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 1,
+    "latency_ms": 7.309250009711832,
+    "status": 200,
+    "expected": true,
+    "bytes": 624,
+    "trace_id": "ded34c8e29a085b40481dd0027343a00"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 26.745167007902637,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "5bedc695db1e1d2b0f2da47a6ed11f50"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 22.28758399724029,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "5fd568f4f4821db28c6f3ab08b0b1e8e"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 12.847584002884105,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "39327e8b9c431595f5e088424c4387be"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 21.82937500765547,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "ca3ab7bf23c45457a17d6d0cd576902f"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 14.999707986135036,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "e6651439d395ef9c04db96e53c0092a0"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 14.899999980116263,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "1a36e3e64a073571b811bc9bc1390de0"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 108.4874999942258,
+    "status": 200,
+    "expected": true,
+    "bytes": 364,
+    "trace_id": "0b230e7a74f639464b91b2f5bef12d6b"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 33.084458991652355,
+    "status": 200,
+    "expected": true,
+    "bytes": 364,
+    "trace_id": "031868b334f79477ad3de5fc90c969cc"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 23.402207996696234,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "8d0964b09b3c8b3897a420a57e7143d6"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 15.877249999903142,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "b74cf91dac66388cc12b6e4409c495b9"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 24.13529099430889,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "0e8f94463cd6a0b4049452b3715264b4"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 1,
+    "latency_ms": 37.05516702029854,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "434c3a0be297012de240b02c004f307d"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 77.68541600671597,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "b8cb9cf6dec1d1a099a95cb195873d2f"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 61.83537500328384,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "3ec93370d1e66ae915bb26002c0cc80b"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 67.14358399040066,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "ef7dd92e4063168034a4d8681be0f6f4"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 70.5022499896586,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "4a63772d0eb4146fd26e026b60ba2825"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 60.51650000154041,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "36230c0ef988f43b5b8d516e0a533fb7"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 63.649540999904275,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "9e10e158461144e5965966a4a9692c2d"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 49.0538340236526,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "ddb0a09829141cae5905cef6ccfd71d0"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 82.21079199574888,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "548a24413850bbd5f8d182e16ab52ebc"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 55.83916700561531,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "e4e263b92c307e924aef75dc34013458"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 177.99779202323407,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "c4c3ecc6ed4cc399bf5a05eec128a664"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 281.67879200191237,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "ced73a01a9f00d1220d6c93f7f0dc437"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 1,
+    "latency_ms": 101.51862498605624,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "b8b6eb4c8bdca3ebdf3304743940e20e"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 1,
+    "latency_ms": 111.98637500638142,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "2d3d6108d70ed1c1feb259d0d63f27df"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 1,
+    "latency_ms": 123.49879101384431,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "51f6d373c3972d03bc54c5cde9de4e76"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 1,
+    "latency_ms": 66.03754201205447,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "7fa19fd38d13b145867a0ff1501f3e9c"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 1,
+    "latency_ms": 72.84912501927465,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "c08baab756f8f4f5c1ad6c67dab6a115"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 1,
+    "latency_ms": 76.58666599309072,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "c45e648eb8ef55a8dcad7bc8f598669a"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 1,
+    "latency_ms": 80.04929102025926,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "5ece865747a184ab7aa791337f38ba39"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 1,
+    "latency_ms": 54.68220799230039,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "8a7e4d7feb1e5ca0ab1f09809b1dd53c"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 1,
+    "latency_ms": 57.302666013129056,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "9b8be5acd4a3ec16b16421e8e3391b12"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 17.541499983053654,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "ac1ec7dbbbc2a46b694180bf4e7b6516"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 14.934459002688527,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "5848ead123776b50cc27da3481385fc7"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 8.130125002935529,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "c9b5fc164f3c0a3f9c14e5f5531f524d"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 9.45549999596551,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "2b15c53e29cd747e83046d6e7da2da95"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 6.824874988524243,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "ecc5324695ac6231ae2cb24f995640b0"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 10.29091700911522,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "15cd10ba8ad83680d642560844233089"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 12.265541008673608,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "784a596490560c423b0ba9f7e7b351aa"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 21.10712497960776,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "0ab30c9f661aa815242a70de7d2c404c"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 174.12945799878798,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "ebef2e80f67f4a1cd808e73fbb3d8c77"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 15.598166006384417,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "b7d6709efec0c2fe4541f9c2c8f1389f"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 7.542834006017074,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "50c1d1b7d3d662588491ee5e2ed81255"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 1,
+    "latency_ms": 10.18170898896642,
+    "status": 200,
+    "expected": true,
+    "bytes": 16532,
+    "trace_id": "a00fa644a7d8be6c5753e39693b6606d"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 49.28624999593012,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "f9f34e5a7815ba2d47cb3397c2709e49"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 51.307624991750345,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "fa70535712ee1908ce10ceb9ba29df0a"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 17.35612499760464,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "0e0947c5872f99179ee4cf0e84530413"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 17.738833994371817,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "26b3e5a95a368ea37390b58d088a0598"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 93.90487501514144,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "b2616b5e85bf11115297653b5fa0e727"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 96.65687501546927,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "c95c12e70bf147edf2befb33a8c78890"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 26.727332995506003,
+    "status": 200,
+    "expected": true,
+    "bytes": 623,
+    "trace_id": "c002062b6c07ff0e7c5f8866ac3951c2"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 33.16845800145529,
+    "status": 200,
+    "expected": true,
+    "bytes": 623,
+    "trace_id": "e342ccf00b54b635e2c93124cf87f2f8"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 32.42083400255069,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "3c4fde7defd0bf257afac5920f6370c8"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 26.38545900117606,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "15d459bfdee0ebc71a9748791d11ce11"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 28.64924998721108,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "bbc7de7b0f6f0299cfa0747dadd5f56d"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 4,
+    "latency_ms": 38.5657079750672,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "ac07e5235c0e421d80eb38a5d2bb9c36"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 29.725041997153312,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "1d0f9fd50cc25de32d45aacdf34e03d5"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 33.681291999528185,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "823b29dae738e58d7dff3aeb41318e3e"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 34.38724999432452,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "726ce4a27be41e9b2cb4105804a7da9d"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 35.1005420088768,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "a3269884f3482e54001ae5ef0bac39d4"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 25.192542001605034,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "3e5c0724e70d5dde144fe7ed876166dd"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 23.536666994914412,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "e36d1db6bff1943013c60610d966167f"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 28.77170901047066,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "42c4bb62fd1f2cba38a025bf863a0026"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 29.620874993270263,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "1f2359c38a1e4dcae3c032fe89a453a0"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 21.046499983640388,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "7876d902491a17fb2d7d366ae6fdeec6"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 25.506709003821015,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "f6b4b0acd9a2b825e052d5c6575a8437"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 18.2480409857817,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "afb001da0c44799f624f37739a469a48"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 4,
+    "latency_ms": 19.573750003473833,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "8d53817ae6a0e43e12a70f74a0705183"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 57.72899999283254,
+    "status": 200,
+    "expected": true,
+    "bytes": 9194,
+    "trace_id": "c8814d3f78f9069f5e1e91a4f0ed4fae"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 83.84300000034273,
+    "status": 200,
+    "expected": true,
+    "bytes": 9194,
+    "trace_id": "c98ed50bbd61c7a6f3b24c2a33e276b2"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 95.83949999068864,
+    "status": 200,
+    "expected": true,
+    "bytes": 9195,
+    "trace_id": "3fd52fa483bf63eecd65570c252eb740"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 104.6812080021482,
+    "status": 200,
+    "expected": true,
+    "bytes": 9195,
+    "trace_id": "385f24d97379c2183ade8c952870b789"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 66.664124984527,
+    "status": 200,
+    "expected": true,
+    "bytes": 6289,
+    "trace_id": "05514abf8bd8ab0d887e1b1ea6137366"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 48.336915991967544,
+    "status": 200,
+    "expected": true,
+    "bytes": 6289,
+    "trace_id": "69cd40b104c77f7fb399c10c765f0ab1"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 40.896791993873194,
+    "status": 200,
+    "expected": true,
+    "bytes": 6290,
+    "trace_id": "c59732633ddcc842c30961cc72030775"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 40.237167006125674,
+    "status": 200,
+    "expected": true,
+    "bytes": 6290,
+    "trace_id": "01cfc0664dd4f638972168ef9d70407d"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 50.84562499541789,
+    "status": 200,
+    "expected": true,
+    "bytes": 9194,
+    "trace_id": "f8d20bf7b8255229f27c0594ba5b3792"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 52.22358400351368,
+    "status": 200,
+    "expected": true,
+    "bytes": 9194,
+    "trace_id": "ab99350029722922011f2e56dc656aca"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 52.10062497644685,
+    "status": 200,
+    "expected": true,
+    "bytes": 9195,
+    "trace_id": "6cd7b804138c8b52e023102a64656384"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 4,
+    "latency_ms": 46.07183299958706,
+    "status": 200,
+    "expected": true,
+    "bytes": 9195,
+    "trace_id": "97a29ffd5be6c103d24dcda40d9fc923"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 26.79812500718981,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "ab6c8433f84978ee31bbddeab5e70c7c"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 34.60962499957532,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "73c53a3a13b96efad9f6d6b6911fb544"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 41.48916600388475,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "73ff0a5920a3f5f64dc0b5b2b11c5961"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 43.57300000265241,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "28eec886315b09d9897fdedbffb2217b"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 92.48108399333432,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "e8d152fd3645988f7b6175ddcb2d502d"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 106.28375099622644,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "cac25064fc6d53fd743bb79fd72aac39"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 107.24445900996216,
+    "status": 200,
+    "expected": true,
+    "bytes": 623,
+    "trace_id": "cf6631724c4a5aeff8e56a2cf3cd30ef"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 161.1901250144001,
+    "status": 200,
+    "expected": true,
+    "bytes": 623,
+    "trace_id": "480f68b54a4b0e9d7ba2d55e790959d0"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 157.91591600282118,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "2739c3911f4a33a422acdb9f0a107b2e"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 143.9141250157263,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "269099557d6352c4bf7324585bf7a5f2"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 107.82258299877867,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "9892e1c9cb72d34d8705408d08aed0f0"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 4,
+    "latency_ms": 143.06504098931327,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "32a48ed7f723fb6a9dd5575e02b057e6"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 142.39670798997395,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "9ccbe8a7a9ec4dc4a8cfc7f95b00be7b"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 152.36566599924117,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "d931bd652e41ac3d5b0d5a489b4dcb83"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 187.57658297545277,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "977de58399cffab5dad73f6a9c880891"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 204.7451669932343,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "41ff76a514162fd0ca14bdf8537500f6"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 115.99920899607241,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "9305f7b6969025b96294e334e327aad5"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 148.2472080097068,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "7a93c340789d3f72f16676eaa91742f1"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 136.4271659986116,
+    "status": 200,
+    "expected": true,
+    "bytes": 364,
+    "trace_id": "cde4aa47da1ec20fb75444364f489ee7"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 127.96408298891038,
+    "status": 200,
+    "expected": true,
+    "bytes": 364,
+    "trace_id": "caf1e48c8fccd91fb2d28e7c250e3455"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 106.74454100080766,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "7046054c23079db59de06c31b5c2f137"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 81.36904099956155,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "193731b9a3dc0fd2a53a6d92e9940a83"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 79.1509159898851,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "654f4737f9797b786ca4bcd7a5fc705b"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 4,
+    "latency_ms": 77.878582989797,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "538bece889bb648085405d5e967f4c2f"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 99.72837500390597,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "7dd404119feedfb2273470d114d56303"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 182.47450000490062,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "6482b196d5053752f0a6ae2e370d0e52"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 263.44833298935555,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "2af68004b716636ea9419626f5a1ba69"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 322.5480830005836,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "1fa541234d46d4b59f2824f5ee005ce6"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 283.4320830006618,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "1eee55116793b6a6c62ce15b2d209201"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 255.16758300364017,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "d74bf1215e988f6428d56b2e9e357abd"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 248.130708001554,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "1414465b2f9c6739ef1adff13b7b00d6"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 273.9567919925321,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "ba4865336b4765e6a3e4a48a7073e5a8"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 277.2443750000093,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "e2726a3a9042c54fde64493f0c90f7f6"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 357.8413760114927,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "d6c739afeb498cae74a282dd2422903d"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 404.1489169758279,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "1599301783e701609f07bd1ea96c5ead"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 4,
+    "latency_ms": 361.4152089867275,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "f285e00c7768f15c647d4fecea9de76c"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 4,
+    "latency_ms": 273.9005830080714,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "61092502cef703e9a711cc532cbfacd9"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 4,
+    "latency_ms": 321.0460420232266,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "5134a99f730ae0cc5492994be414f843"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 4,
+    "latency_ms": 361.62462501670234,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "1d62a6717671c265f07bb846cd5caaa7"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 4,
+    "latency_ms": 364.9527080124244,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "b8263ea9afc3fa3dd84383cee518e4cd"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 4,
+    "latency_ms": 463.4949159808457,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "7499ac0151712738ad5460c932d74f1d"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 4,
+    "latency_ms": 470.113916991977,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "52af937331125005a3a647e5addbbd55"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 4,
+    "latency_ms": 479.2976249882486,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "b9c36108c75dd57feb052cd2640c8b19"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 4,
+    "latency_ms": 486.06887500500306,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "4ae1cac02d70592623c386c7251c01b0"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 26.95512500940822,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "a40a20942588a4b0d9e8cf01e0d97f67"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 36.321666004369035,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "eea37a87eb305a1a9d4fc0a9c737145f"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 37.822874990524724,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "72af95dd240ae746013cf946acdf01df"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 38.529541983734816,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "40f58d19400bcf8d7b6e85a0e43624b1"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 54.36554201878607,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "a9ffd88e3971ae1e560c4e9637736e60"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 56.59304198343307,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "e19a191c61b0d8bb757cce6d46a1b20d"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 67.44945800164714,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "9bb8f1b291bbc304fd9c331143ff916f"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 58.97983300383203,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "aa44c5d6bedc6842c77a0f61eec2c794"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 26.01566701196134,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "1a25017ddf272006f534200bd58d86f5"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 23.00029099569656,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "7e5ad373e32c7a42ee3c75ad5a678fc7"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 24.44354200270027,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "b4aaf99156deb4a562ede38b3efd63b2"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 4,
+    "latency_ms": 27.580458001466468,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "bf07fb57befd011da33f818fcd57bdf3"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 46.4499999943655,
+    "status": 200,
+    "expected": true,
+    "bytes": 623,
+    "trace_id": "1cd872740f1f83b0f18e3da1cbe26c81"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 49.918250006157905,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "f848f2f766eb27c99bc2cdd2273c2a3b"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 51.82079202495515,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "597332704f67e5d4849477e1bb01e484"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 52.64633399201557,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "d63d02c6963c8cb0ca0e90dbe597bae2"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 53.54541601263918,
+    "status": 200,
+    "expected": true,
+    "bytes": 623,
+    "trace_id": "d2a32c27c2c686a57d8a76bc3529b4cb"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 56.43304099794477,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "5ce88dc75f286ea24599d5e008500b15"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 55.93120798585005,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "2ade0bd6830f711912049a05067efc0a"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 58.03641601232812,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "526df07cab491bc8fd991a42c9805fb1"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 27.63033300288953,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "2344ad4fd827e5e5187452cdecbb3bfd"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 29.279917012900114,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "3a078119d95fabab0e74825faa5e92a3"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 31.449666974367574,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "3ea369f58ae62741a869d9ff5352df7f"
+  },
+  {
+    "workload": "document_read",
+    "concurrency": 8,
+    "latency_ms": 31.675584003096446,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "478c3e2fa431b2255f6efdbc64cf21db"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 191.44525000592694,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "a48d2b578735f75102c623398e365d50"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 193.4506660036277,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "121d183df8c84873169dd879f25bcf46"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 193.53925000177696,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "b9f3e00dd5cca389e3355f53aa806b1f"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 194.28870800766163,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "157dcb20423e1b5d8fe70a2a1469278b"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 195.64541699946858,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "36d6870972a12f40bb39accab814a5a1"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 197.26070799515583,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "7998fc4018a2d0be6194d402fa1057fc"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 198.0641249974724,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "2033d9a9fb030f81b9232a66cb416d11"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 198.83649999974295,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "60080ec7141ef926c5358dedc4857b40"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 34.832707984605804,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "1fde69e955945d2919b62f35a04a7bd5"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 37.30479098157957,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "cf384a22e43d90b8f6bd207a5a7b1357"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 46.7373330029659,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "f7a29a4f9546e669edb570143b1625a9"
+  },
+  {
+    "workload": "document_list",
+    "concurrency": 8,
+    "latency_ms": 39.84187499736436,
+    "status": 200,
+    "expected": true,
+    "bytes": 3158,
+    "trace_id": "4a549be8a1728051646df8d0997ca62f"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 89.65695899678394,
+    "status": 200,
+    "expected": true,
+    "bytes": 13554,
+    "trace_id": "afba4640f24dd0e15a3f6e6820166485"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 91.55954100424424,
+    "status": 200,
+    "expected": true,
+    "bytes": 7743,
+    "trace_id": "c95608fe8822bc351635fee8959cad16"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 95.73695898870938,
+    "status": 200,
+    "expected": true,
+    "bytes": 7742,
+    "trace_id": "c13c328d8af04eefdbf0bebd52224bfa"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 98.9518330025021,
+    "status": 200,
+    "expected": true,
+    "bytes": 16206,
+    "trace_id": "5579c9eb37ee17675ab4f71dbc101bf4"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 99.63679098291323,
+    "status": 200,
+    "expected": true,
+    "bytes": 7742,
+    "trace_id": "918ac2a019b88f8c2725443c2a8e7831"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 101.667750015622,
+    "status": 200,
+    "expected": true,
+    "bytes": 7743,
+    "trace_id": "0d22ec350a2d1390e03431d35cc29008"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 105.60258300392888,
+    "status": 200,
+    "expected": true,
+    "bytes": 16206,
+    "trace_id": "ab7bb13a0cc19060c2a84dd2e499dc21"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 106.74683397519402,
+    "status": 200,
+    "expected": true,
+    "bytes": 13554,
+    "trace_id": "4e2738f9c9ebd32f22443341881e5420"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 25.852708000456914,
+    "status": 200,
+    "expected": true,
+    "bytes": 16206,
+    "trace_id": "d99044aab93bcc506cdc743f5cd3ce3e"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 33.80541698425077,
+    "status": 200,
+    "expected": true,
+    "bytes": 16206,
+    "trace_id": "45096e2e7670064f7feb5f0447a81368"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 30.613207985879853,
+    "status": 200,
+    "expected": true,
+    "bytes": 13554,
+    "trace_id": "8279ed23825fa597e78473a1bb38ee0a"
+  },
+  {
+    "workload": "version_history",
+    "concurrency": 8,
+    "latency_ms": 32.09275001427159,
+    "status": 200,
+    "expected": true,
+    "bytes": 13554,
+    "trace_id": "d64d8af99427aa42e03e88a91bc68df7"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 48.65625000093132,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "0314b71f29b096f6c394e9a7c699243c"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 56.17033300222829,
+    "status": 200,
+    "expected": true,
+    "bytes": 623,
+    "trace_id": "03c5438e128ef9a3267aa5bdd34bac2a"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 59.65862498851493,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "3089b18c67fc0f729c1bb1b131897f2c"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 61.88045899034478,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "93bf2277e63b2abd1a1dfd4be51e5966"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 66.10566601739265,
+    "status": 200,
+    "expected": true,
+    "bytes": 623,
+    "trace_id": "24de6a35f92afdda308e6b2390479282"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 68.29466600902379,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "b3eb80455a3ab13eb628dde9ff94e8dc"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 70.12712501455098,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "ebc90e7d5bc4ddda881bbf3f41d615f4"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 72.02008398598991,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "2d789b4e51e080dcd4f6bda112017e96"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 28.112958010751754,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "3744ec364f9f86cc942c94e52a6e92e0"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 35.86216698749922,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "15b419b4fd036e123f3d3264cf46b851"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 33.294959022896364,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "e053e354059c498c08e0a3ee460047ed"
+  },
+  {
+    "workload": "api_key_read",
+    "concurrency": 8,
+    "latency_ms": 34.23658400424756,
+    "status": 200,
+    "expected": true,
+    "bytes": 621,
+    "trace_id": "d727debf7fdaea641f8cafaa9083b539"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 79.87237500492483,
+    "status": 429,
+    "expected": true,
+    "bytes": 62,
+    "trace_id": "0be0ae658f042a4cedde8745b2b755b1"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 83.41708400985226,
+    "status": 429,
+    "expected": true,
+    "bytes": 62,
+    "trace_id": "13ba46698493ab04554be03a8ac29f1c"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 87.17895799782127,
+    "status": 429,
+    "expected": true,
+    "bytes": 62,
+    "trace_id": "9e0efc0e3365d24601b624b0c28f51e5"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 95.74004201567732,
+    "status": 429,
+    "expected": true,
+    "bytes": 62,
+    "trace_id": "fe4d495403030ba987175a679fabf62d"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 105.75258298194967,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "adef9abe31ec6bf659083287ce08da0d"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 117.07179201766849,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "23ee2dd0808d32b459e719b9c2037794"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 122.23254100535996,
+    "status": 200,
+    "expected": true,
+    "bytes": 364,
+    "trace_id": "7b9a93958d39591b0448122f17a48f07"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 139.01729200733826,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "fc1366c18fb5c1c5256b2f0720b1fe0c"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 75.02158399438486,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "8f2d4e77567b4698317acbef61549e9b"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 84.65804200386629,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "3d4fcda138df7e2e15b275f36257bb5a"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 75.13629100867547,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "9ce92857c4ed7041a3623cb1a790876f"
+  },
+  {
+    "workload": "analysis",
+    "concurrency": 8,
+    "latency_ms": 86.72204200411215,
+    "status": 200,
+    "expected": true,
+    "bytes": 362,
+    "trace_id": "ae4157ad993c51dc21cb9854679a417b"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 71.94579200586304,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "394186f686ae55b26f385c98525715f1"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 113.96937500103377,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "2b2cb186e00bec1e3798aba663fc2245"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 157.01662498759106,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "8a4728b9c0057337db1dae251487ff17"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 226.37074999511242,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "1185a9a4234c3aa10f01794b8a34ac7f"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 314.23108401941136,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "cdde10a0bce7bc73a72a1ceb6fcd2d0f"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 356.02862501400523,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "7279a79109b4c04e13ef6d39328db482"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 402.88762500858866,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "82005bf72d6c89d8184498ff7d0a5e34"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 442.6311250135768,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "65664bee6797dfa4154b9e94412af180"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 353.9248330052942,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "b14bc35bbb919c934fdb68eaa6a5a855"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 341.048459027661,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "b85d23dc328f9e6eaad4ada0967937b8"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 208.01854200544767,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "61bc6e3a179a934dae8eb09eaf6d934a"
+  },
+  {
+    "workload": "document_save",
+    "concurrency": 8,
+    "latency_ms": 140.05187500151806,
+    "status": 200,
+    "expected": true,
+    "bytes": 845,
+    "trace_id": "77b1ebf4addb205f2edeec009f6e99f7"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 8,
+    "latency_ms": 124.41920797573403,
+    "status": 200,
+    "expected": true,
+    "bytes": 846,
+    "trace_id": "026f683f271c980a849b0908cfdf67c3"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 8,
+    "latency_ms": 126.58679101150483,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "03c3bd845cbc1084b9f023ba2d20e178"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 8,
+    "latency_ms": 153.84354200796224,
+    "status": 200,
+    "expected": true,
+    "bytes": 846,
+    "trace_id": "a8fad385337d9cb9ccbf1e3e46ac365e"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 8,
+    "latency_ms": 181.21550002251752,
+    "status": 200,
+    "expected": true,
+    "bytes": 846,
+    "trace_id": "ece1ef148640e2cc53ac85bbb898cd8f"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 8,
+    "latency_ms": 185.36637499346398,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "18e6b91e439b7dd6528f7bc914808d46"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 8,
+    "latency_ms": 224.97645899420604,
+    "status": 200,
+    "expected": true,
+    "bytes": 846,
+    "trace_id": "f6fd108859d8f0bae8134d536680c1c9"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 8,
+    "latency_ms": 225.773250014754,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "4ccff81d8311ddd0d6b7fe12031d31f5"
+  },
+  {
+    "workload": "revision_conflict",
+    "concurrency": 8,
+    "latency_ms": 230.16141701373272,
+    "status": 409,
+    "expected": true,
+    "bytes": 97,
+    "trace_id": "d4800e27343d66ed434259e19c6ddd8c"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 49.247165996348485,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "7715bcd65a1dd9ed7ba98f2e4badbaa7"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 56.99137499323115,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "7cfea0b048450e0e839582a8ff9a70a6"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 64.42445798893459,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "bf14b5aed9078958c00e424ce694c189"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 65.77200000174344,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "210994b662a789f7d55481248c3971f4"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 71.22954199439846,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "9eaeedf45a2e54f7e917b957e87d4171"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 73.92841699765995,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "fdf95e17ec719ffe82006cf777e5245d"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 76.181667012861,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "81c9af8d275ef2598f937cb864d79a71"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 79.75112498388626,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "deebb6df5f81275c280250ae2d76e938"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 32.50049997586757,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "58a567e6f039669b320c6ab89df3d117"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 34.921832993859425,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "9a4a374e38ed67a6774bb28546ba3553"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 37.725834001321346,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "957097b2b4848a758a6f9489618b9c17"
+  },
+  {
+    "workload": "job_poll",
+    "concurrency": 8,
+    "latency_ms": 40.790375001961365,
+    "status": 200,
+    "expected": true,
+    "bytes": 15566,
+    "trace_id": "1b458ee073b91cf0f0dded5a8aa9597c"
+  }
+]

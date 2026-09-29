@@ -483,6 +483,9 @@ export class ApiClient {
   async getDocument(docId: string) {
     return this.request<DocumentRecord>(`/api/v1/documents/${docId}`);
   }
+  async renameDocument(docId: string, title: string, expectedTitle: string | null) {
+    return this.request<DocumentRecord>(`/api/v1/documents/${docId}`, { method: "PATCH", body: JSON.stringify({ title, expected_title: expectedTitle }) });
+  }
   async getDocumentDownload(docId: string, documentVersionId?: string) {
     const query = documentVersionId ? `?document_version_id=${encodeURIComponent(documentVersionId)}` : "";
     return this.request<{ download_url: string; expires_at: string }>(`/api/v1/documents/${docId}/download${query}`);

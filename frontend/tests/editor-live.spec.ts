@@ -90,6 +90,8 @@ test("editor: selective acceptance, reload, restore, offline recovery and lost-r
   await page.getByRole("button", { name: "Save draft", exact: true }).click();
   await expect(page.getByRole("status", { name: "Editor status" })).toContainText("Save failed");
   await expect(draft).toHaveValue(offlineDraft);
+  await page.reload();
+  await expect(draft).toHaveValue(offlineDraft);
   page.on("request", (request) => {
     if (request.url().endsWith(`/documents/${doc.id}/revisions`)) operations.push(request.postDataJSON().operation_id);
   });
@@ -111,4 +113,67 @@ test("editor: selective acceptance, reload, restore, offline recovery and lost-r
   await page.reload();
   await expect(draft).toHaveValue("My local draft must survive a conflict.");
   expect((await (await page.request.get(`/api/v1/documents/${doc.id}/content`)).json()).content).toBe("A concurrent accepted version.");
+});
+
+test("editor: undo, redo, debounced autosave, rename and archive", async ({ page, baseURL }) => {
+  test.skip(process.env.RUN_LIVE_E2E !== "1", "Requires the isolated database, storage and worker stack");
+  test.setTimeout(120_000);
+  const headers = { Origin: baseURL! };
+  const credentials = { email: `editor-autosave-${Date.now()}@example.com`, password: "EditorWorkflow123!" };
+  expect((await postWithRetryAfter(page.request, "/api/v1/auth/register", { headers, data: credentials })).status()).toBe(201);
+  expect((await postWithRetryAfter(page.request, "/api/v1/auth/login", { headers, data: credentials })).ok()).toBeTruthy();
+  expect((await page.request.post("/api/v1/auth/onboarding", { headers, data: { product_role: "researcher" } })).ok()).toBeTruthy();
+  const original = "🙂 In order to explain the finding, we use data. In order to discuss it, we compare methods.";
+  const bytes = Buffer.from(original);
+  const upload = await page.request.post("/api/v1/documents/upload-request", { headers, data: { filename: "autosave.txt", content_type: "text/plain", file_size: bytes.length } });
+  expect(upload.ok()).toBeTruthy();
+  const slot = await upload.json();
+  expect((await page.request.put(slot.upload_url, { data: bytes, headers: { "Content-Type": "text/plain" } })).ok()).toBeTruthy();
+  const confirmed = await page.request.post("/api/v1/documents/upload-confirm", { headers, data: {
+    upload_id: slot.upload_id, storage_key: slot.storage_key, original_filename: "autosave.txt",
+    sha256_fingerprint: createHash("sha256").update(bytes).digest("hex"),
+  } });
+  expect(confirmed.ok()).toBeTruthy();
+  const doc = await confirmed.json();
+  await expect.poll(async () => (await page.request.get(`/api/v1/documents/${doc.id}/content`)).status(), { timeout: 60_000 }).toBe(200);
+  await page.goto(`/write?document=${doc.id}`);
+  const draft = page.getByLabel("Draft text");
+  await expect(draft).toHaveValue(original);
+  const revised = `${original} A second observation.`;
+  await draft.fill(revised);
+  await page.getByRole("button", { name: "Undo", exact: true }).click();
+  await expect(draft).toHaveValue(original);
+  await page.getByRole("button", { name: "Redo", exact: true }).click();
+  await expect(draft).toHaveValue(revised);
+  await expect(page.getByRole("status", { name: "Editor status" })).toHaveText("Autosaved version 2", { timeout: 20_000 });
+  const timeline = await (await page.request.get(`/api/v1/provenance/documents/${doc.id}/timeline`)).json();
+  expect(timeline.versions).toHaveLength(2);
+  await page.waitForTimeout(2200);
+  expect((await (await page.request.get(`/api/v1/provenance/documents/${doc.id}/timeline`)).json()).versions).toHaveLength(2);
+  // Autosave must not erase the user's undo history.
+  await page.getByRole("button", { name: "Undo", exact: true }).click();
+  await expect(draft).toHaveValue(original);
+  await page.getByRole("button", { name: "Redo", exact: true }).click();
+  await expect(draft).toHaveValue(revised);
+  await page.getByLabel("Document title").fill("Renamed research draft");
+  await page.getByRole("button", { name: "Rename" }).click();
+  await expect(page.getByRole("status", { name: "Editor status" })).toHaveText("Document renamed");
+  await page.reload();
+  await expect(draft).toHaveValue(revised);
+  await expect(page.getByLabel("Document title")).toHaveValue("Renamed research draft");
+  // Textarea offsets are UTF-16; the API expects Unicode code points.
+  await draft.evaluate((element: HTMLTextAreaElement) => { element.focus(); element.setSelectionRange(3, 13); });
+  await draft.press("Shift+ArrowRight");
+  await page.getByRole("button", { name: "Shorten", exact: true }).click();
+  await expect(page.getByRole("status", { name: "Editor status" })).toHaveText("Selection ready for review");
+  await expect(page.getByLabel("Candidate text")).toHaveText(revised.replace("In order to", "To"));
+  await expect(page.getByLabel("Candidate text")).toContainText("In order to discuss");
+  await page.getByRole("button", { name: "Reject candidate" }).click();
+  await expect(draft).toHaveValue(revised);
+  page.once("dialog", (dialog) => void dialog.accept());
+  await page.getByRole("button", { name: "Archive document" }).click();
+  await expect(page.getByText("Start with a document")).toBeVisible();
+  expect((await (await page.request.get(`/api/v1/documents/${doc.id}`)).json()).status).toBe("archived");
+  await page.reload();
+  await expect(page.getByText("Start with a document")).toBeVisible();
 });

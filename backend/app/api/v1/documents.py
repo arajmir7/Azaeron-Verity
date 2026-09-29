@@ -13,6 +13,7 @@ from app.core.permissions import Permission, require_permission
 from app.modules.auth.models import User
 from app.modules.documents.schemas import (
     DocumentResponse,
+    DocumentRenameRequest,
     DocumentListResponse,
     DocumentUploadRequest,
     DocumentUploadResponse,
@@ -300,6 +301,22 @@ async def get_document(
             status_code=status.HTTP_404_NOT_FOUND, detail="Document not found"
         )
     return doc
+
+
+@router.patch("/{doc_id}", response_model=DocumentResponse)
+async def rename_document(
+    doc_id: str,
+    data: DocumentRenameRequest,
+    current_user: User = Depends(get_current_active_user),
+    db: AsyncSession = Depends(get_db, scope="function"),
+):
+    require_permission(current_user, Permission.DOCUMENT_WRITE)
+    organization_id = current_user.current_organization_id
+    if not organization_id:
+        raise HTTPException(status_code=400, detail="No active organization selected")
+    return await DocumentService(db).rename_document(
+        doc_id, organization_id, str(current_user.id), data.title, data.expected_title
+    )
 
 
 @router.get("/{doc_id}/content", response_model=DocumentContentResponse)

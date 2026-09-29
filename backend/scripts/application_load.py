@@ -175,25 +175,25 @@ async def main(args):
                         "time": time.time(),
                         "queue": await redis.llen("document_processing"),
                     }
-                    metric = (
-                        await client.get(
-                            "/metrics",
-                            headers={
-                                "Authorization": "Bearer "
-                                + str(settings.METRICS_TOKEN or "")
-                            },
-                        )
-                    ).text
-                    for line in metric.splitlines():
-                        if line.startswith(
-                            (
-                                "azaeron_db_pool_checked_out ",
-                                "azaeron_db_pool_overflow ",
-                                "azaeron_db_pool_size ",
+                    if settings.METRICS_TOKEN:
+                        metric = (
+                            await client.get(
+                                "/metrics",
+                                headers={
+                                    "Authorization": "Bearer " + settings.METRICS_TOKEN
+                                },
                             )
-                        ):
-                            key, value = line.split()
-                            row[key] = float(value)
+                        ).text
+                        for line in metric.splitlines():
+                            if line.startswith(
+                                (
+                                    "azaeron_db_pool_checked_out ",
+                                    "azaeron_db_pool_overflow ",
+                                    "azaeron_db_pool_size ",
+                                )
+                            ):
+                                key, value = line.split()
+                                row[key] = float(value)
                     observations.append(row)
                     try:
                         await asyncio.wait_for(stop.wait(), timeout=0.5)

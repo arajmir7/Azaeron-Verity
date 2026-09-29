@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "scope": "Full surviving provenance row identities and payloads match source and restored snapshot",
+  "source": {
+    "events": 2,
+    "sha256": "341647e69e60dd5ad180411a104f81e70b56376113e19eebcb5d38d9e27b862a"
+  },
+  "restored": {
+    "events": 2,
+    "sha256": "341647e69e60dd5ad180411a104f81e70b56376113e19eebcb5d38d9e27b862a"
+  }
+}

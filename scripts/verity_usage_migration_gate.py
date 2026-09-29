@@ -135,6 +135,9 @@ async def main():
         await UsageService(db).settle(str(row.id), str(org.id), success=True, outcome='completed')
 asyncio.run(main())
 """
+        run("upgrade-document-locks", command + ["alembic", "upgrade", "head"])
+        run("downgrade-document-locks", command + ["alembic", "downgrade", "20260924_0035"])
+        run("reupgrade-document-locks", command + ["alembic", "upgrade", "head"])
         run("account-preserved-and-create-usage", command + ["python", "-c", check])
         run(
             "usage-downgrade-rejected",

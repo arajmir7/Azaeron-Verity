@@ -1,0 +1,8 @@
+{
+  "api_exposed": false,
+  "pre_replay_deleted_account_present": true,
+  "restore_seconds": 12.076,
+  "restored_object_count": 4,
+  "result": "PASS",
+  "schema": "20260928_0036"
+}

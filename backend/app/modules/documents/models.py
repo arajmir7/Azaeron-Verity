@@ -5,6 +5,8 @@ from typing import Optional, List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import (
     CheckConstraint,
+    Index,
+    text,
     String,
     Boolean,
     ForeignKey,
@@ -56,7 +58,12 @@ class Document(Base):
         CheckConstraint(
             "length(sha256_fingerprint) = 64", name="ck_documents_sha256_length"
         ),
-        UniqueConstraint("storage_path", name="uq_documents_storage_path"),
+        Index(
+            "uq_documents_storage_path",
+            "storage_path",
+            unique=True,
+            postgresql_where=text("storage_path IS NOT NULL"),
+        ),
     )
 
     erasure_pending: Mapped[bool] = mapped_column(

@@ -116,6 +116,49 @@ class DocumentService:
         )
         return result.scalar_one_or_none()
 
+    async def rename_document(
+        self,
+        doc_id: str,
+        org_id: str,
+        user_id: str,
+        title: str,
+        expected_title: str | None,
+    ) -> Document:
+        document = (
+            await self.db.execute(
+                select(Document)
+                .options(lazyload("*"))
+                .where(Document.id == doc_id, Document.organization_id == org_id)
+                .with_for_update(of=Document)
+            )
+        ).scalar_one_or_none()
+        if document is None:
+            raise HTTPException(status_code=404, detail="Document not found")
+        await self._require_mutation_access(document, user_id)
+        if document.status == DocumentStatus.ARCHIVED:
+            raise HTTPException(
+                status_code=409, detail="An archived document cannot be renamed"
+            )
+        if document.title == title:
+            return document
+        if document.title != expected_title:
+            raise HTTPException(
+                status_code=409, detail="Document title changed; reload it"
+            )
+        document.title = title
+        await self.db.flush()
+        from app.modules.provenance.service import ProvenanceService
+
+        await ProvenanceService(self.db).record_event(
+            doc_id,
+            ProvenanceEventType.EDITED,
+            user_id=user_id,
+            description="Document title renamed",
+            sha256_after=document.sha256_fingerprint,
+            metadata={"operation": "rename"},
+        )
+        return document
+
     async def get_document_by_storage_path(
         self, storage_path: str, org_id: str
     ) -> Optional[Document]:

@@ -1,0 +1,5 @@
+ Container verity-burndown-verification-run-f7589fa67071 Creating 
+ Container verity-burndown-verification-run-f7589fa67071 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade 20260928_0036 -> 20260924_0035, Allow immutable analysis to coexist with saves without weakening erasure.

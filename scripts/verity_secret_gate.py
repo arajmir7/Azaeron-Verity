@@ -6,7 +6,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-EXCLUDED = r"(\.verity-local|\.venv|node_modules|model_assets|__pycache__|\.next|\.mypy_cache|\.pytest_cache|\.ruff_cache|docs/verification|docs/verity/evidence|test-results|package-lock|tsbuildinfo|docs/verity/secret-review.json)"
+EXCLUDED = r"(^\.git/|\.verity-local|\.venv|node_modules|model_assets|__pycache__|\.next|\.mypy_cache|\.pytest_cache|\.ruff_cache|docs/verification|docs/verity/evidence|test-results|package-lock|tsbuildinfo|docs/verity/secret-review.json)"
 
 
 def main() -> int:

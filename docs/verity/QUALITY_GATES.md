@@ -24,7 +24,7 @@ The helper retains real PostgreSQL RLS tests and all live browser tests, and
 fails on backend application/test formatting drift. The
 verification image carries test tools; production API/worker images do not.
 Python 3.12 Linux arm64 and Node 22.23.2 container builds are locally executed;
-host frontend checks also use Node 24.17.0. AMD64 CI execution is not yet evidence.
+host frontend checks also use Node 24.17.0. An earlier hosted AMD64 run executed all 11 repository gates but failed the secret gate afterward; the final source still requires its own hosted result.
 
 `python scripts/verity_secret_gate.py` uses exact reviewed fingerprints in
 `secret-review.json`; new findings fail. Review scope and limitations are in
@@ -45,6 +45,6 @@ generated evidence are outside this hash and are reviewed separately.
 The GitHub Actions workflow builds every Azaeron image, pulls pinned
 infrastructure images and invokes the same all-image gate. The workflow
 definition is not proof of a hosted run; hosted results must be inspected
-after push. Current executed results are indexed in
+after push. The current local results are indexed in
 [RELEASE_CERTIFICATION.md](RELEASE_CERTIFICATION.md); September 20 evidence
 is retained as history and is not current certification.

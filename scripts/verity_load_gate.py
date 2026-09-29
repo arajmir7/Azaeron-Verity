@@ -67,7 +67,7 @@ def main():
                     "{{.Id}}",
                 ]
             )
-            for name in ["backend", "frontend"]
+            for name in ["backend", "frontend", "celery-worker"]
         },
     }
     (args.output / "environment.json").write_text(json.dumps(metadata, indent=2) + "\n")
@@ -86,6 +86,8 @@ def main():
                 "run",
                 "--rm",
                 "--no-deps",
+                "-v",
+                str(Path("backend").resolve()) + ":/app",
                 "-e",
                 "METRICS_TOKEN",
                 "-v",

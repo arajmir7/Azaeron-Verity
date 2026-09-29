@@ -1,5 +1,73 @@
 # Execution ledger
 
+## 2026-09-29: editor, save latency, stale review build and recertification
+
+**Source manifest:** `e80a7a22e6774a912e5f9e537e28290aba0d40ce23f9756bf6aa85f433743404`.
+The [final local repository gate](evidence/final-blocker-burndown/repository-final/results.json)
+passes all 11 checks: 251 backend tests, 30 real PostgreSQL/RLS tests, 27 browser
+tests, formatting, lint, types, production build, Compose and source stability.
+Schema head is `20260928_0036`.
+
+- **Screenshot fixed:** port 4900 was serving the previous four-workflow frontend.
+  It now serves the existing five-product UI and current editor/backend. A private
+  database backup preceded migration; all 11 accounts, 11 documents and 19 versions
+  were preserved. [Runtime evidence](evidence/final-blocker-burndown/runtime-update.json),
+  [visual capture](evidence/final-blocker-burndown/dashboard-4900.png) (synthetic API fixtures).
+- **B1:** hosted run [36431472782](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36431472782)
+  executed and passed all 11 repository gates at `33f1205`; it then failed when
+  the source secret scan treated Git's `FETCH_HEAD` SHA as a secret. `.git/` is
+  now excluded from the source scan; source files remain scanned and the local
+  result is zero unreviewed findings. The new source still requires its own hosted
+  run; the prior run is not certification of this manifest.
+- **B2:** all 15 image identities scanned and all SBOMs generated. Eleven pass;
+  Grafana, Jaeger, PostgreSQL and verification retain 411 HIGH / 20 CRITICAL
+  findings. [Inventory and results](evidence/final-blocker-burndown/all-images/results.json),
+  [per-finding classification](evidence/final-blocker-burndown/all-images/classification.json).
+  Reachability is unresolved; no finding is suppressed or waived.
+- **B3:** debounced server saves, explicit save status, rename with stale-title
+  rejection, undo/redo across saves, Unicode-correct selection suggestions and
+  archive are implemented. Ordinary save retries survive a lost response and tab
+  reload. Create/open, selective acceptance, version history, restore, download,
+  offline recovery and conflict preservation pass live tests. Generative Humanise
+  and Expand remain unavailable. Archive preserves history; permanent erasure is
+  the separate privacy workflow.
+- **B4:** privacy document fences now take KEY SHARE, while authorized erasure
+  retains explicit FOR UPDATE. A partial unique index preserves storage-path
+  uniqueness without treating the mutable path as a referenced key. Worker status
+  writes no longer hold a document write lock across analysis; save and settlement
+  use consistent usage-before-document ordering. Source similarity queries avoid
+  eager loading unrelated document histories. Concurrency, uniqueness, erasure
+  exclusion and migration upgrade/downgrade tests pass. The final profile completes
+  284 requests and 56 jobs. Concurrency-8 p95 save **483.636 ms**, conflict **195.784 ms**;
+  all unchanged proposed HTTP budgets pass. [Profile](evidence/final-blocker-burndown/load-final/profile.json),
+  [budgets](evidence/final-blocker-burndown/load-final/budgets.json). Production
+  capacity, isolated RLS cost and connection-pool wait remain unmeasured.
+- **B5–B7:** the private registry/gateway and deterministic protected-text controls
+  remain in place; no approved model/runtime or licensed calibration corpus exists.
+  Inference-dependent tests remain blocked. Chat persistence/streaming/product
+  lifecycle are still internal gaps. No external AI API or fake response was added.
+- **B8:** 27 viewport checks and nine route-level axe checks pass, covering the five
+  product paths, home, history and settings; keyboard navigation/focus restoration
+  and reduced motion pass. Actual screen-reader speech and browser zoom remain
+  unverified. [Structured result](evidence/final-blocker-burndown/accessibility/structured-review.json).
+- **B9:** fresh recovery restores PostgreSQL and four MinIO objects, replays one
+  post-backup erasure, removes two target objects, verifies one surviving immutable
+  version and its provenance, and reaches readiness while rejecting erased login.
+  Active restore/replay took **18.718 seconds** on this host. One Docker CLI polling
+  timeout was retried with the same erasure identity; the grace period was retained.
+  [Recovery result](evidence/final-blocker-burndown/recovery/recovery-result.json),
+  [provenance comparison](evidence/final-blocker-burndown/recovery/provenance.json).
+  Offsite recovery, versioned buckets and production RPO/RTO remain unverified.
+
+**Next boundary:** require the pushed source's hosted result, remediate the four
+remaining image families, finish core private-chat infrastructure and deployment
+validation, obtain approved model/hardware/calibration assets, and complete human
+accessibility and production recovery/load reviews. Internal blockers remain.
+**Verdict: NOT PRODUCTION READY.**
+
+Earlier evidence and failed experiments remain below and in the evidence directory;
+they are not substituted for the final source-stable local gate.
+
 ## 2026-09-28 final blocker burn-down: B1 and B2 in progress
 
 The pinned upstream Quay MinIO server and client manifests return HTTP 401 to

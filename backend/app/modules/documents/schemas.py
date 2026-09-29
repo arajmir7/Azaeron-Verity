@@ -3,13 +3,28 @@
 from datetime import datetime
 from uuid import UUID
 from typing import Any, Optional
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from app.modules.documents.models import DocumentStatus, DocumentVersionLifecycle
 
 
 class DocumentBase(BaseModel):
     title: Optional[str] = None
+
+
+class DocumentRenameRequest(BaseModel):
+    title: str = Field(min_length=1, max_length=500)
+    expected_title: str | None
+
+    @field_validator("title")
+    @classmethod
+    def clean_title(cls, value: str) -> str:
+        title = value.strip()
+        if not title or any(ord(character) < 32 for character in title):
+            raise ValueError(
+                "Title must be non-empty and contain no control characters"
+            )
+        return title
 
 
 class DocumentCreate(DocumentBase):

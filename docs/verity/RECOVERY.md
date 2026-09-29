@@ -1,3 +1,11 @@
+# Current clean recovery exercise — 2026-09-29
+
+A fresh source fixture and distinct restore project with private volumes passed [restore and replay](evidence/final-blocker-burndown/recovery/recovery-result.json) at schema `20260928_0036`. Four MinIO objects were restored. A separately retained tombstone for one account erased after the database snapshot was replayed before serving; two target objects were removed and the erased login returned 401. One surviving immutable version's bytes and SHA-256 matched; [both surviving provenance event identities and payloads](evidence/final-blocker-burndown/recovery/provenance.json) matched the source. Non-owner RLS with no tenant context passed; API and frontend reached readiness after replay. Active restore plus replay took **18.718 seconds** on this local host. The represented snapshot-to-erasure interval was 651.041 seconds and is not a production RPO measurement.
+
+An initial phase required a source-PostgreSQL access correction; one Docker CLI polling timeout was retried with the same erasure identity and original grace period. Failed attempts remain as evidence. This small same-host fixture does not certify offsite backups, versioned buckets and delete markers, restoration of every object at production scale, or production RPO/RTO. The source fixture did not retain a survivor's login credentials, so survivor login was not exercised; surviving version, object, provenance and readiness were checked independently.
+
+## Procedure and historical exercises
+
 # PostgreSQL and MinIO recovery procedure
 
 The recoverable product state is the **database, every referenced customer

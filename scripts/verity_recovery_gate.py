@@ -11,6 +11,7 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import io
+import ipaddress
 import json
 import os
 from pathlib import Path
@@ -293,6 +294,11 @@ def snapshot():
                 stdout=handle,
                 timeout=300,
             )
+        state["schema"] = compose(
+            SOURCE_CONFIG, "exec", "-T", "postgres", "psql", "-U", "azaeron",
+            "-d", "azaeron", "-Atc", "SELECT version_num FROM alembic_version",
+            stdout=subprocess.PIPE,
+        ).stdout.decode().strip()
         store = storage(SOURCE_CONFIG, source_port("minio", 9000))
         assert store.bucket_exists(BUCKET)
         # MinIO releases and SDKs report disabled versioning as either an
@@ -401,6 +407,14 @@ def target_config():
         value["name"] = f"{TARGET}_{name}"
     for name, value in config["networks"].items():
         value["name"] = f"{TARGET}_{name}"
+        # A host with exhausted automatic pools can assign an explicit private
+        # subnet; Docker still rejects overlap with any existing network.
+        subnet = os.environ.get("VERITY_RECOVERY_SUBNET")
+        if subnet:
+            network = ipaddress.ip_network(subnet)
+            if not network.is_private:
+                raise ValueError("Recovery subnet must be private")
+            value["ipam"] = {"config": [{"subnet": str(network)}]}
     source = load(PRIVATE / "backup/compose.json")
     assert all(
         value["name"] not in {item["name"] for item in source["volumes"].values()}
@@ -561,7 +575,7 @@ def restore():
     with pg_conn(config, 15432) as db:
         assert (
             db.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "20260924_0035"
+            == state["schema"]
         )
         assert (
             db.execute(
@@ -595,7 +609,7 @@ def restore():
         {
             "restore_seconds": state["restore_pre_replay_seconds"],
             "restored_object_count": len(objects),
-            "schema": "20260924_0035",
+            "schema": state["schema"],
             "pre_replay_deleted_account_present": True,
             "api_exposed": False,
             "result": "PASS",
@@ -830,7 +844,7 @@ def replay():
                 response.close()
                 response.release_conn()
         schema = db.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-        assert schema == "20260924_0035"
+        assert schema == state["schema"]
         assert db.execute("SELECT count(*) FROM privacy_erasures").fetchone()[0] == len(
             ledger
         )

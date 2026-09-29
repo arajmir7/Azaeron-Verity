@@ -1,0 +1,6 @@
+ Container verity-burndown-verification-run-83edbbdcf820 Creating 
+ Container verity-burndown-verification-run-83edbbdcf820 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0033 -> 20260924_0034, Durable quota accounting survives retries and individual privacy erasure.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0034 -> 20260924_0035, Bounded worker enumeration for expired usage leases and text receipts.

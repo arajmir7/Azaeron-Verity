@@ -38,6 +38,11 @@ class EditorRevisionService:
         operation_id: str,
         fingerprint: str,
     ):
+        from app.modules.billing.usage import UsageService
+
+        # Match upload admission and worker settlement: tenant usage before the
+        # document write lock. The reverse order can deadlock with a finishing job.
+        await UsageService(self.db).lock(organization_id)
         document = (
             await self.db.execute(
                 select(Document)

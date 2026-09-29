@@ -362,8 +362,55 @@ async def test_concurrent_analysis_targets_allow_reciprocal_similarity_foreign_k
                     )
                 )
                 await db.flush()
+                # A real child write has taken privacy_write_fence, in addition
+                # to AnalysisTarget's locks. Saves must still proceed immediately.
+                await barrier.wait()
+                if index == 0:
+                    from app.modules.documents.service import DocumentService
+                    from sqlalchemy.exc import DBAPIError
+
+                    async with sessions.begin() as writer:
+                        await apply_tenant_context(writer, org, user)
+                        await writer.execute(text("SET LOCAL lock_timeout='500ms'"))
+                        saved = await DocumentService(writer).create_version(
+                            doc,
+                            org,
+                            user,
+                            f"versions/{org}/{doc}/second.txt",
+                            "c" * 64,
+                            "Save during immutable analysis",
+                        )
+                        assert saved.version_number == 2
+                    # Erasure must wait for the still-open analysis, rather than
+                    # permitting an artifact to commit after a completed fence.
+                    async with sessions.begin() as eraser:
+                        await apply_tenant_context(eraser, org, user)
+                        await eraser.execute(text("SET LOCAL lock_timeout='100ms'"))
+                        with pytest.raises(DBAPIError):
+                            await eraser.execute(
+                                text(
+                                    "SELECT app.privacy_request(:id,'document',:target,:digest)"
+                                ),
+                                {"id": str(uuid4()), "target": doc, "digest": "d" * 64},
+                            )
+                        await eraser.rollback()
+                await barrier.wait()
 
         await asyncio.wait_for(asyncio.gather(link(0), link(1)), timeout=10)
+        # The partial index must retain the original storage-path uniqueness.
+        from sqlalchemy.exc import IntegrityError
+
+        async with sessions.begin() as db:
+            await apply_tenant_context(db, org, user)
+            with pytest.raises(IntegrityError):
+                async with db.begin_nested():
+                    await db.execute(
+                        text("UPDATE documents SET storage_path=:path WHERE id=:id"),
+                        {
+                            "id": documents[1][0],
+                            "path": f"versions/{org}/{documents[0][0]}/second.txt",
+                        },
+                    )
     finally:
         # Immutable committed fixtures are removed through the authorized privacy
         # database routine, retaining the tombstone just like other integration fixtures.

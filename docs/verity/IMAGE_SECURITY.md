@@ -1,3 +1,19 @@
+# Current all-image security review — 2026-09-29
+
+[Results](evidence/final-blocker-burndown/all-images/results.json) cover all 15 distinct images in the local Compose graph, with 15 CycloneDX SBOMs. Eleven image identities pass the unchanged HIGH/CRITICAL policy. Four fail:
+
+| Image family | HIGH | CRITICAL | Status |
+| --- | ---: | ---: | --- |
+| Grafana | 198 | 0 | FAIL |
+| Jaeger all-in-one | 67 | 4 | FAIL |
+| pgvector/PostgreSQL 16 | 102 | 16 | FAIL |
+| Verification image | 44 | 0 | FAIL |
+| **Total** | **411** | **20** | **FAIL** |
+
+The current backend, worker, beat, migrate, frontend, MinIO server/client, Mailpit, Redis, Prometheus and OpenTelemetry Collector images scan clean at these severity thresholds. Verification is a CI image; it is included because the gate scans every Compose profile. [Per-finding classification](evidence/final-blocker-burndown/all-images/classification.json) records package, installed version, CVE, available fix, runtime category, remediation and remaining exposure. Reachability is **UNDETERMINED** without deployment-specific proof. No finding is waived or asserted non-applicable. The image gate blocks release. The empty model registry supplies no inference image to certify. Hosted image scanning still requires the exact final commit.
+
+## Historical image reviews
+
 # Release image inventory and security gate
 
 The R13 scan covers the images in the isolated review deployment on Linux
@@ -28,7 +44,7 @@ images, not assertions that each advisory is exploitable in this deployment.
 Many findings have fixed versions listed in the report; there is no risk
 acceptance or silent suppression. The full-stack image gate **fails**.
 
-The final certification scan covers 15 distinct local Compose images and
+The historical R15 certification scan covered 15 distinct local Compose images and
 exports an SBOM for each. Its [results](evidence/final-production-certification/all-images/results.json)
 show zero HIGH/CRITICAL findings for the backend, worker, beat, migration,
 frontend, and Mailpit images. Verification and eight infrastructure images
@@ -46,7 +62,7 @@ application Dockerfiles pin their base images; the application build and its
 SBOM must be regenerated for a new source snapshot. The same backend artifact
 serves the API, worker, beat, and migration commands in this deployment.
 
-The hosted runner could not pull MinIO's `mc` image through Docker Hub. The
+Historically, the hosted runner could not pull MinIO's `mc` image through Docker Hub. The
 MinIO server and client references now use the upstream Quay.io names with the
 same content digests. The upstream release build publishes the corresponding
 MinIO image tags to both registries from the same multi-platform build

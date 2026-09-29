@@ -18,6 +18,7 @@ import uuid
 
 from sqlalchemy import delete, func, or_, select, true
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import lazyload
 
 from app.core.logging import get_logger
 from app.modules.documents.models import Document, DocumentVersion, DocumentStatus
@@ -445,6 +446,9 @@ class SimilarityService:
                     row = (
                         await self.db.execute(
                             select(Document, DocumentVersion, ProcessedDocument)
+                            # Source evidence needs these three rows only, not
+                            # every historical analysis linked to the document.
+                            .options(lazyload("*"))
                             .join(
                                 DocumentVersion,
                                 DocumentVersion.document_id == Document.id,

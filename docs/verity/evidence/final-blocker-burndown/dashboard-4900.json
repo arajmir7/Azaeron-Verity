@@ -1,0 +1,14 @@
+{
+  "url": "http://localhost:4900/dashboard",
+  "status": "PASS",
+  "navigation": [
+    "Home",
+    "Azaeron AI",
+    "AI Humaniser",
+    "AI Detector",
+    "Plagiarism Checker",
+    "Documents",
+    "History"
+  ],
+  "scope": "Actual frontend image served on port 4900; mocked API fixtures used only for visual capture. Real database preservation and readiness verified separately in runtime-update.json."
+}

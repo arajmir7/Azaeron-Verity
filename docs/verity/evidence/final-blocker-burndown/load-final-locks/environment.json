@@ -1,0 +1,15 @@
+{
+  "started_at": "2026-09-28T16:16:11.485880+00:00",
+  "cpu": "Apple M4",
+  "host_memory_bytes": 17179869184,
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0\nBuildVersion:\t\t26A428",
+  "docker": "29.8.0 linux aarch64 10 8319504384",
+  "application_source_digest": "85ef91ce28a4e77b13bfe282cf1cf925f78d006fe336734987b61ddf16f71c7b",
+  "images": {
+    "backend": "sha256:bce7c1dff2f88f2b3134bcfa399aae63492c5f224f2ae70bbe309b4a61a1cb17",
+    "frontend": "sha256:3ffb17738e4cead1b108064f944c021701ed8cd194b231e049141a055671a9ba",
+    "celery-worker": "sha256:701b8c1f440ed3a68288bc4ee15057a545bc274290c3ae806ce98890b346e91e"
+  },
+  "completed_at": "2026-09-28T16:19:59.736439+00:00",
+  "exit_code": 1
+}

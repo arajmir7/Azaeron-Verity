@@ -7,9 +7,9 @@ authorship signals, and responsible editing into a tenant-scoped workspace. Find
 remain attached to the document version that produced them. People review proposed
 changes; accepted edits and restores create new revisions with preserved history.
 
-**Release status: NOT PRODUCTION READY.** The in-repository R1–R15 remediation
-and local certification runs are recorded; unresolved product, infrastructure,
-performance, and deployment gaps remain. The [remediation ledger](docs/verity/REMEDIATION_STATE.md)
+**Release status: NOT PRODUCTION READY.** The release ledger records tested remediation and its evidence. Approved private
+models, detector calibration, container security, and production certification
+remain release blockers. The [remediation ledger](docs/verity/REMEDIATION_STATE.md)
 and [release certification](docs/verity/RELEASE_CERTIFICATION.md) name the
 verified source snapshot, executed gates, and release blockers.
 
@@ -22,8 +22,8 @@ verified source snapshot, executed gates, and release blockers.
 | Capability | What is implemented | Current boundary |
 | --- | --- | --- |
 | Document intake | Paste or type a draft, or upload a file; both paths use presigned intake, bounded validation, verified private snapshots and asynchronous processing | Legacy relocation, multipart cleanup and real object-erasure drills pass; full backup recovery remains a separate gate |
-| Versioned editing | Focused deterministic suggestions for grammar, clarity, brevity or academic tone; selective acceptance, immutable revisions, history, restore as a new version | Generative refinement requires an approved private model |
-| Reliable saves | Stale-parent conflicts, operation identities, retry safety after lost responses, recovery of unsaved working text | Recovery is browser-session scoped; it is not a backup service |
+| Document Editor | Create/import, open, rename, undo/redo, debounced autosave, explicit save status, history, restore, download and archive; review supported whole-draft or selected-passage edits | Humanise and Expand require an approved private model; permanent erasure uses the privacy workflow |
+| Reliable saves | Server-backed immutable autosave, stale-parent conflicts, stable draft-save retry identities across tab reloads, and recovery of unsaved working text | Pending drafts are retained for up to 24 hours in this browser tab; completed versions are persisted on the server |
 | Similarity review | Version-scoped comparison within the authorized workspace, matched spans, exclusions, source evidence | Similarity alone does not establish plagiarism; external corpus coverage is not claimed |
 | Citation and authorship review | Structured findings, provenance, and explicit limitations | A signal does not independently prove authorship or intent |
 | Detection | Observable signals, abstention, calibration/evaluation tooling, probability withholding | No calibrated production detector or measured accuracy guarantee |
@@ -94,14 +94,14 @@ See the [architecture map](ARCHITECTURE.md),
 - For frontend development and browser gates: the Node version in [.nvmrc](.nvmrc),
   npm, and the Playwright Chromium browser.
 - For backend development outside containers: Python 3.12 and the locked dependencies.
-- The Compose file pins MinIO images from Quay. If anonymous pulls are denied,
-  authenticate locally with `docker login quay.io`. Hosted CI can use read-only
-  `MINIO_REGISTRY_USERNAME` and `MINIO_REGISTRY_PASSWORD` repository secrets.
-  A successful registry login alone does not grant access to an upstream image;
-  the registry account must also be allowed to pull both pinned repositories.
+- The Compose file builds MinIO server and client images from checksum-verified,
+  pinned upstream source using digest-pinned build and runtime bases. Registry
+  credentials are not needed to pull the former Quay image references.
 
 The documented verification environment has exercised Linux ARM64 on an Apple Silicon
-host. AMD64 execution and optional ML dependencies have not yet been certified.
+host. A prior hosted Linux AMD64 run executed the repository suite, but failed
+later in the secret gate; the final source still needs its own hosted run. Optional
+ML dependencies have not been certified.
 Docker needs enough allocated memory for PostgreSQL, object storage, API, and workers;
 private model serving has a separate, model-specific hardware requirement.
 
@@ -322,10 +322,14 @@ integration test establish different things.
 
 | Evidence | Recorded result and scope |
 | --- | --- |
-| [R15 final repository gate](docs/verity/evidence/final-production-certification/repository-final/results.json) | All 11 source-stable gates passed: 250 backend tests, PostgreSQL integration, frontend checks, and 25 browser tests at its recorded source manifest |
-| [R15 all-image scan](docs/verity/evidence/final-production-certification/all-images/results.json) | 15 distinct images and 15 SBOMs; application images and Mailpit pass; verification and eight infrastructure images still fail HIGH/CRITICAL policy |
-| [R15 recovery replay](docs/verity/evidence/final-production-certification/recovery-r15-control/recovery-result.json) | Post-snapshot erasure replay passed; deleted account rejected, two objects removed, and one unrelated immutable version verified |
-| [R15 measured load](docs/verity/evidence/final-production-certification/load-final/profile.json) | 284 measured requests and 56 completed jobs; no unexpected HTTP responses, but the proposed save/conflict latency budget fails |
+| [Current repository gate](docs/verity/evidence/final-blocker-burndown/repository-final/results.json) | All 11 source-stable gates passed: 251 backend tests, 30 real PostgreSQL/RLS tests and 27 browser tests at the recorded manifest |
+| [Current image gate](docs/verity/evidence/final-blocker-burndown/all-images/results.json) | Fifteen image scans and SBOMs; four image families fail with 411 HIGH and 20 CRITICAL findings |
+| [Current local performance profile](docs/verity/evidence/final-blocker-burndown/load-final/budgets.json) | 284 requests and 56 completed jobs; unchanged proposed local HTTP budgets pass |
+| [Current recovery drill](docs/verity/evidence/final-blocker-burndown/recovery/recovery-result.json) | Fresh PostgreSQL/MinIO restore and post-backup privacy-erasure replay pass |
+| [R15 historical repository gate](docs/verity/evidence/final-production-certification/repository-final/results.json) | All 11 source-stable gates passed: 250 backend tests, PostgreSQL integration, frontend checks, and 25 browser tests at its earlier source manifest |
+| [Historical R15 all-image scan](docs/verity/evidence/final-production-certification/all-images/results.json) | 15 distinct images and 15 SBOMs; application images and Mailpit pass; verification and eight infrastructure images still fail HIGH/CRITICAL policy |
+| [Historical R15 recovery replay](docs/verity/evidence/final-production-certification/recovery-r15-control/recovery-result.json) | Post-snapshot erasure replay passed; deleted account rejected, two objects removed, and one unrelated immutable version verified |
+| [Historical R15 measured load](docs/verity/evidence/final-production-certification/load-final/profile.json) | 284 measured requests and 56 completed jobs; no unexpected HTTP responses, but the proposed save/conflict latency budget fails |
 | [Historical repository gate](docs/verity/evidence/release-formatted/results.json) | Formatting, lint, types, frontend build, Compose, 166 backend tests, 15 PostgreSQL tests, and 18 browser tests at its named snapshot |
 | [R1 repository regression](docs/verity/evidence/remediation/r1/regression/results.json) | Existing repository gates passed after runtime-image remediation |
 | [R1 image gate](docs/verity/evidence/remediation/r1/images-final/results.json) | The scanned R1 backend artifact had 0 HIGH and 0 CRITICAL findings; SBOM produced |
@@ -334,7 +338,7 @@ integration test establish different things.
 | [API-key database race](docs/verity/evidence/remediation/r5/postgres-concurrency-first.log) | Actual PostgreSQL authentication, tenant isolation, concurrent use, and single-winner rotation |
 | [API-key browser test](docs/verity/evidence/remediation/r5/browser-fixed.log) | Display-once, rotation/revocation, browser-storage checks, narrow layout, and automated axe checks against mocked API responses |
 
-The R15 evidence applies to its named manifest and pinned images. Hosted CI
+The historical R15 evidence applies to its named manifest and pinned images. Hosted CI
 execution, production soak/SLOs, complete manual accessibility, model quality,
 and deployment-scale/offsite disaster recovery still require their own runs.
 

@@ -1,0 +1,10 @@
+[
+  {
+    "phase": "erase",
+    "exit_code": 0
+  },
+  {
+    "phase": "replay",
+    "exit_code": 0
+  }
+]

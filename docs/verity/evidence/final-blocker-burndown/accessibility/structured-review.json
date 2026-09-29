@@ -1,0 +1,266 @@
+[
+  {
+    "width": 1280,
+    "route": "/dashboard",
+    "viewport": 1280,
+    "document": 1280,
+    "main": 994
+  },
+  {
+    "width": 1280,
+    "route": "/ai",
+    "viewport": 1280,
+    "document": 1280,
+    "main": 994
+  },
+  {
+    "width": 1280,
+    "route": "/humaniser",
+    "viewport": 1280,
+    "document": 1280,
+    "main": 994
+  },
+  {
+    "width": 1280,
+    "route": "/detector",
+    "viewport": 1280,
+    "document": 1280,
+    "main": 994
+  },
+  {
+    "width": 1280,
+    "route": "/plagiarism",
+    "viewport": 1280,
+    "document": 1280,
+    "main": 994
+  },
+  {
+    "width": 1280,
+    "route": "/write",
+    "viewport": 1280,
+    "document": 1280,
+    "main": 994
+  },
+  {
+    "width": 1280,
+    "route": "/history",
+    "viewport": 1280,
+    "document": 1280,
+    "main": 994
+  },
+  {
+    "width": 1280,
+    "route": "/settings?tab=security",
+    "viewport": 1280,
+    "document": 1280,
+    "main": 994
+  },
+  {
+    "width": 1280,
+    "route": "/documents",
+    "viewport": 1280,
+    "document": 1280,
+    "main": 994
+  },
+  {
+    "width": 640,
+    "route": "/dashboard",
+    "viewport": 640,
+    "document": 640,
+    "main": 640
+  },
+  {
+    "width": 640,
+    "route": "/ai",
+    "viewport": 640,
+    "document": 640,
+    "main": 640
+  },
+  {
+    "width": 640,
+    "route": "/humaniser",
+    "viewport": 640,
+    "document": 640,
+    "main": 640
+  },
+  {
+    "width": 640,
+    "route": "/detector",
+    "viewport": 640,
+    "document": 640,
+    "main": 640
+  },
+  {
+    "width": 640,
+    "route": "/plagiarism",
+    "viewport": 640,
+    "document": 640,
+    "main": 640
+  },
+  {
+    "width": 640,
+    "route": "/write",
+    "viewport": 640,
+    "document": 640,
+    "main": 640
+  },
+  {
+    "width": 640,
+    "route": "/history",
+    "viewport": 640,
+    "document": 640,
+    "main": 640
+  },
+  {
+    "width": 640,
+    "route": "/settings?tab=security",
+    "viewport": 640,
+    "document": 640,
+    "main": 640
+  },
+  {
+    "width": 640,
+    "route": "/documents",
+    "viewport": 640,
+    "document": 640,
+    "main": 640
+  },
+  {
+    "width": 320,
+    "route": "/dashboard",
+    "viewport": 320,
+    "document": 320,
+    "main": 320
+  },
+  {
+    "width": 320,
+    "route": "/dashboard",
+    "accessibility": {
+      "violations": [],
+      "incomplete": []
+    }
+  },
+  {
+    "width": 320,
+    "route": "/ai",
+    "viewport": 320,
+    "document": 320,
+    "main": 320
+  },
+  {
+    "width": 320,
+    "route": "/ai",
+    "accessibility": {
+      "violations": [],
+      "incomplete": []
+    }
+  },
+  {
+    "width": 320,
+    "route": "/humaniser",
+    "viewport": 320,
+    "document": 320,
+    "main": 320
+  },
+  {
+    "width": 320,
+    "route": "/humaniser",
+    "accessibility": {
+      "violations": [],
+      "incomplete": []
+    }
+  },
+  {
+    "width": 320,
+    "route": "/detector",
+    "viewport": 320,
+    "document": 320,
+    "main": 320
+  },
+  {
+    "width": 320,
+    "route": "/detector",
+    "accessibility": {
+      "violations": [],
+      "incomplete": []
+    }
+  },
+  {
+    "width": 320,
+    "route": "/plagiarism",
+    "viewport": 320,
+    "document": 320,
+    "main": 320
+  },
+  {
+    "width": 320,
+    "route": "/plagiarism",
+    "accessibility": {
+      "violations": [],
+      "incomplete": []
+    }
+  },
+  {
+    "width": 320,
+    "route": "/write",
+    "viewport": 320,
+    "document": 320,
+    "main": 320
+  },
+  {
+    "width": 320,
+    "route": "/write",
+    "accessibility": {
+      "violations": [],
+      "incomplete": []
+    }
+  },
+  {
+    "width": 320,
+    "route": "/history",
+    "viewport": 320,
+    "document": 320,
+    "main": 320
+  },
+  {
+    "width": 320,
+    "route": "/history",
+    "accessibility": {
+      "violations": [],
+      "incomplete": []
+    }
+  },
+  {
+    "width": 320,
+    "route": "/settings?tab=security",
+    "viewport": 320,
+    "document": 320,
+    "main": 320
+  },
+  {
+    "width": 320,
+    "route": "/settings?tab=security",
+    "accessibility": {
+      "violations": [],
+      "incomplete": []
+    }
+  },
+  {
+    "width": 320,
+    "route": "/documents",
+    "viewport": 320,
+    "document": 320,
+    "main": 320
+  },
+  {
+    "width": 320,
+    "route": "/documents",
+    "accessibility": {
+      "violations": [],
+      "incomplete": []
+    }
+  },
+  {
+    "reduced_motion_navigation_transition": "1e-05s"
+  }
+]

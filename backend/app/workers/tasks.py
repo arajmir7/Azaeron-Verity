@@ -4,6 +4,7 @@ import asyncio
 import json
 import time
 from datetime import datetime, timezone
+from sqlalchemy.orm import lazyload
 from sqlalchemy import select
 from redis import Redis
 
@@ -21,7 +22,7 @@ from app.modules.jobs.service import JobService
 from app.modules.jobs.models import JobStatus, Job
 from app.modules.documents.target import AnalysisTarget
 from app.modules.documents.service import DocumentService
-from app.modules.documents.models import DocumentStatus, DocumentVersion
+from app.modules.documents.models import Document, DocumentStatus, DocumentVersion
 from app.modules.processing.service import DocumentProcessingService
 from app.modules.detection.service import DetectionService
 from app.modules.similarity.service import SimilarityService
@@ -268,6 +269,11 @@ def process_document(
                     await doc_service.update_status(
                         document_id, organization_id, DocumentStatus.PROCESSING
                     )
+                # Release the brief status-update lock before running the
+                # version-scoped analysis. Saves must not wait for detection,
+                # similarity and evidence graph materialization.
+                await db.commit()
+                await apply_tenant_context(db, organization_id, None)
                 version = target.version
                 processor = DocumentProcessingService(db)
                 processed = await processor.process_document(
@@ -381,13 +387,6 @@ def process_document(
                     document_version_id=str(version.id),
                 )
 
-                if is_current:
-                    doc.word_count = processed.word_count
-                    doc.language = processed.language
-                    await doc_service.update_status(
-                        document_id, organization_id, DocumentStatus.COMPLETED
-                    )
-
                 job.status = JobStatus.COMPLETED
                 job.progress_percent = 100
                 job.completed_at = datetime.now(timezone.utc)
@@ -412,6 +411,38 @@ def process_document(
                     outcome="completed",
                     duration_ms=round((time.perf_counter() - started) * 1000),
                 )
+                if is_current:
+                    # Acquire the document write lock only after quota settlement
+                    # and analysis writes. A save can proceed while those run.
+                    current_doc = (
+                        await db.execute(
+                            select(Document)
+                            .options(lazyload("*"))
+                            .where(
+                                Document.id == document_id,
+                                Document.organization_id == organization_id,
+                            )
+                            .with_for_update(of=Document, key_share=True)
+                            .execution_options(populate_existing=True)
+                        )
+                    ).scalar_one_or_none()
+                    current_version_id = (
+                        await db.execute(
+                            select(DocumentVersion.id)
+                            .where(DocumentVersion.document_id == document_id)
+                            .order_by(DocumentVersion.version_number.desc())
+                            .limit(1)
+                        )
+                    ).scalar_one_or_none()
+                    if (
+                        current_doc
+                        and current_doc.status != DocumentStatus.ARCHIVED
+                        and str(current_version_id) == document_version_id
+                    ):
+                        current_doc.word_count = processed.word_count
+                        current_doc.language = processed.language
+                        current_doc.status = DocumentStatus.COMPLETED
+                        current_doc.processed_at = datetime.now(timezone.utc)
                 await db.flush()
                 await db.commit()
 

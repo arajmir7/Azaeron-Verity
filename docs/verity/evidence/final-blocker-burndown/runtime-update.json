@@ -1,0 +1,17 @@
+{
+  "updated_at": "2026-09-28T16:27:36.406569+00:00",
+  "url": "http://localhost:4900",
+  "counts_before": "11|11|19|20260924_0035",
+  "counts_after": "11|11|19|20260928_0036",
+  "database_backup_sha256": "9c7cbf1ad6c613dc37e9af1450f59f56830a4f7aef0cec1d1da40d0b2601d9fa",
+  "data_counts_preserved": true,
+  "images": {
+    "backend": "sha256:301214029c67ae440fc6d9dbddc5b8f20e4c971453299ea41f57a38b8e7e5ebb",
+    "frontend": "sha256:8c8d2b98cdc38303462b24ca4d03418eec9473017a9ddda41840c35b778360e6",
+    "celery-worker": "sha256:301214029c67ae440fc6d9dbddc5b8f20e4c971453299ea41f57a38b8e7e5ebb"
+  },
+  "volumes_replaced": false,
+  "post_update_readiness": "PASS",
+  "post_update_services": "API, frontend, worker, PostgreSQL, Redis and MinIO healthy",
+  "migration_container": "Recreated from current image; upgrade head exits successfully"
+}

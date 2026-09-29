@@ -5,12 +5,13 @@ import uuid
 
 import pytest
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from app.modules.auth.models import User
 from app.modules.documents.models import Document, DocumentStatus, DocumentVersion
 from app.modules.documents.service import DocumentService
 from app.modules.organizations.models import Membership, Organization, OrganizationRole
+from app.modules.provenance.models import ProvenanceEvent
 
 
 async def _fixture(db_session):
@@ -91,6 +92,48 @@ async def test_non_owner_cannot_archive_another_member_document(db_session):
 
     document = await DocumentService(db_session).get_document(document_id, org_id)
     assert document.status == DocumentStatus.QUEUED
+
+
+@pytest.mark.asyncio
+async def test_rename_is_tenant_scoped_owner_only_and_retry_safe(db_session):
+    org_id, owner_id, member_id, document_id = await _fixture(db_session)
+    service = DocumentService(db_session)
+    with pytest.raises(HTTPException) as denied:
+        await service.rename_document(
+            document_id, org_id, member_id, "Unauthorized", None
+        )
+    assert denied.value.status_code == 403
+    with pytest.raises(HTTPException) as hidden:
+        await service.rename_document(
+            document_id, str(uuid.uuid4()), owner_id, "Hidden", None
+        )
+    assert hidden.value.status_code == 404
+
+    renamed = await service.rename_document(
+        document_id, org_id, owner_id, "Research draft", None
+    )
+    assert renamed.title == "Research draft"
+    count = await db_session.scalar(
+        select(func.count(ProvenanceEvent.id)).where(
+            ProvenanceEvent.document_id == document_id
+        )
+    )
+    repeated = await service.rename_document(
+        document_id, org_id, owner_id, "Research draft", None
+    )
+    assert repeated.title == "Research draft"
+    assert (
+        await db_session.scalar(
+            select(func.count(ProvenanceEvent.id)).where(
+                ProvenanceEvent.document_id == document_id
+            )
+        )
+        == count
+    )
+    with pytest.raises(HTTPException) as conflict:
+        await service.rename_document(document_id, org_id, owner_id, "Stale", None)
+    assert conflict.value.status_code == 409
+    assert (await service.get_document(document_id, org_id)).title == "Research draft"
 
 
 @pytest.mark.asyncio

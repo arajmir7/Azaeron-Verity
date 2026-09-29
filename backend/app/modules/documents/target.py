@@ -35,9 +35,12 @@ class AnalysisTarget:
             )
         )
         if lock:
-            # NO KEY UPDATE still serializes writers, while allowing foreign-key
-            # readers from concurrent similarity analyses of other documents.
-            document_query = document_query.with_for_update(of=Document, key_share=True)
+            # The immutable version row serializes analysis for this version.
+            # A shared parent lock fences erasure without blocking a new
+            # revision's non-key update for the duration of analysis.
+            document_query = document_query.with_for_update(
+                of=Document, read=True, key_share=True
+            )
         document = (
             (await db.execute(document_query)).scalar_one_or_none()
             if organization_id

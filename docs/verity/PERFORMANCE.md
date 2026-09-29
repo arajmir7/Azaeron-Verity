@@ -1,7 +1,22 @@
+# Current application performance profile — 2026-09-29
+
+The [final local profile](evidence/final-blocker-burndown/load-final/profile.json) sent 284 HTTP requests against eight synthetic documents (six 779-byte and two 7,691-byte inputs) and completed 56 real worker jobs. Its [unchanged proposed HTTP budgets](evidence/final-blocker-burndown/load-final/budgets.json) all pass. No unexpected HTTP status occurred; paired conflicting saves returned one success and one 409 as intended.
+
+| Operation | Concurrency 1 p95 | Concurrency 4 p95 | Concurrency 8 p95 | Budget |
+| --- | ---: | ---: | ---: | ---: |
+| Revision save | 234.463 ms | 138.791 ms | 483.636 ms | 1,000 ms |
+| Stale revision conflict | 99.826 ms | 206 ms | 195.784 ms | 1,000 ms |
+
+The previous same-host baseline's save p95 was 6,712 ms and conflict p95 1,560 ms at concurrency 4. Investigation found long worker transactions holding parent-document locks, a privacy trigger requesting a stronger lock than necessary for a version append, a uniqueness constraint on mutable `storage_path` that changed PostgreSQL's row-lock mode, inconsistent usage/document lock order, and eager loading of unrelated version histories during similarity analysis. The current migration uses a partial unique index for non-null storage paths and a KEY SHARE document privacy fence. Authorized erasure still takes FOR UPDATE. The worker releases its document lock before long analysis; usage and document writes now follow one order, and source similarity loads only needed rows. [PostgreSQL concurrency tests](evidence/final-blocker-burndown/repository-final/postgres-rls.log) cover erasure exclusion, uniqueness and concurrent saves. See [PostgreSQL's row-level locking semantics](https://www.postgresql.org/docs/16/explicit-locking.html).
+
+Intermediate profiles under `load-before`, `load-after`, `load-after-lock-order`, `load-lock-diagnostic`, `load-corrected-worker`, and `load-final-locks` are retained as investigation evidence. Some compared different worker images or failed to drain jobs, so only `load-final` is the current accepted profile. The local host was Apple M4/16 GiB with a Linux ARM64 Docker VM, not a representative production deployment. These small p95 samples do not establish capacity or production SLOs. Connection-pool wait, isolated RLS overhead, frontend waterfalls and model latency were not independently measured; the metrics token was absent for pool sampling. The previously proposed limits were not loosened.
+
+## Historical profile (2026-09-28)
+
 # Application performance evidence
 
-This is a reproducible **local application profile**, not a production capacity or
-model-inference certification. The final current-source run is
+This historical run is a reproducible **local application profile**, not a production capacity or
+model-inference certification. Its then-final run is
 [`load-final/profile.json`](evidence/final-production-certification/load-final/profile.json),
 with its [platform snapshot](evidence/final-production-certification/load-final/environment.json),
 [HTTP samples](evidence/final-production-certification/load-final/profile.samples.json),
@@ -69,8 +84,8 @@ representative approved deployment and dataset: p95 document read/list/history,
 API-key read, analysis admission, and job polling ≤250 ms; p95 revision save and
 conflict response ≤1,000 ms; p95 upload confirmation ≤500 ms; zero unexpected
 5xx/timeout responses; every admitted job reaches a terminal state within its
-published service budget; and no sustained connection-pool overflow. The current
-local run meets the read/admission targets but **fails the save/conflict target**.
+published service budget; and no sustained connection-pool overflow. The 2026-09-28
+local run met the read/admission targets but **failed the save/conflict target**.
 Production load, soak, tenant mix, retention growth, and SLOs are unverified.
 
 The current timeline endpoint still returns every version, analysis run, and

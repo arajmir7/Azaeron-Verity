@@ -37,7 +37,7 @@ test("critical navigation stays operable at narrow widths and restores focus", a
   const review = [];
   for (const width of [1280, 640, 320]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const route of ["/dashboard", "/check", "/write", "/settings?tab=security", "/documents"]) {
+    for (const route of ["/dashboard", "/ai", "/humaniser", "/detector", "/plagiarism", "/write", "/history", "/settings?tab=security", "/documents"]) {
       await page.goto(route);
       await expect(page.getByRole("main")).toBeVisible();
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();

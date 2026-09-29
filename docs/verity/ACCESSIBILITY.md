@@ -1,3 +1,11 @@
+# Current scoped accessibility review — 2026-09-29
+
+[Structured evidence](evidence/final-blocker-burndown/accessibility/structured-review.json) covers Home, Azaeron AI, AI Humaniser, AI Detector, Plagiarism Checker, Document Editor, History, Documents and Security Settings at 1,280, 640 and 320 CSS pixels: 27 viewport checks with no document-level overflow. Nine route-level axe checks at 320 pixels found zero violations or incomplete items. Browser tests also exercised keyboard navigation and focus restoration for the mobile drawer and reduced-motion behavior. The [current browser suite](evidence/final-blocker-burndown/repository-final/browser.log) passed 27 tests, including live editor interaction and identity flows. The [mobile captures](evidence/final-blocker-burndown/accessibility/) show the inspected states.
+
+This is a scoped automated and visual review. Actual VoiceOver/NVDA/TalkBack speech, 200% and 400% browser zoom, touch targets across all routes, text spacing, every dynamic error state and full WCAG conformance remain unverified.
+
+## Historical review
+
 # Accessibility review, 2026-09-25
 
 This review evaluates critical workflows against selected WCAG 2.2 AA criteria.

@@ -7,11 +7,24 @@ COPY requirements.lock ./
 RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock \
     && useradd --create-home --uid 1000 azaeron
 
-FROM runtime-base AS verification
+FROM runtime-base AS verification-base
 COPY requirements-dev.lock ./
 RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements-dev.lock
-COPY --chown=azaeron:azaeron . .
-USER azaeron
+
+FROM verification-base AS verification-assemble
+COPY --from=runtime-os / /base/
+COPY scripts/assemble_runtime.py /assemble_runtime.py
+RUN python /assemble_runtime.py --include-sqlite
+
+FROM runtime-os AS verification
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
+    PATH=/usr/local/bin:/usr/bin:/bin LD_LIBRARY_PATH=/usr/local/lib \
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    RUFF_CACHE_DIR=/tmp/ruff-cache MYPY_CACHE_DIR=/tmp/mypy-cache
+WORKDIR /app
+COPY --from=verification-assemble /runtime-root/ /
+COPY --chown=65532:65532 . .
+USER 65532:65532
 CMD ["pytest", "tests", "-q"]
 
 FROM runtime-base AS assemble

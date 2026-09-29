@@ -154,7 +154,7 @@ async def test_concurrent_text_limit_is_shared_across_tasks():
                     await UsageService(db).reserve(
                         org,
                         user,
-                        ["text_analyze", "text_verify"][i % 2],
+                        ["text_analyze", "text_verify", "ai_run", "ai_tool"][i % 4],
                         str(uuid4()),
                         {},
                     )

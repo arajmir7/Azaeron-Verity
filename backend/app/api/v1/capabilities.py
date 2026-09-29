@@ -31,6 +31,11 @@ async def capabilities() -> CapabilitiesResponse:
         zero_external_ai_api=settings.ZERO_EXTERNAL_AI_API,
         capabilities=[
             Capability(
+                id="azaeron_ai",
+                state="LIMITED",
+                description="Private conversations, authorized document tools, SSE run events and explicit version approval. Generation requires approved private runtimes.",
+            ),
+            Capability(
                 id="documents",
                 state="AVAILABLE",
                 description="Private uploads, immutable input versions and version-scoped analysis.",
@@ -57,8 +62,8 @@ async def capabilities() -> CapabilitiesResponse:
             ),
             Capability(
                 id="voice",
-                state="UNAVAILABLE",
-                description="The complete user-controlled voice-profile workflow is not implemented.",
+                state="LIMITED",
+                description="User-owned approved sample statistics; generated voice fidelity has not been evaluated.",
             ),
             Capability(
                 id="api_keys",

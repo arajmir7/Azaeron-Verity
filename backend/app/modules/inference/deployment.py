@@ -8,6 +8,7 @@ import argparse
 import json
 from pathlib import Path
 import re
+from typing import get_args
 
 from app.modules.inference.registry import AzaeronModelRegistry, Task, verify_artifacts
 
@@ -22,7 +23,9 @@ def deployment(
     namespace: str = "azaeron",
 ) -> dict:
     model = catalog.select(task)
-    name = "inference" if task == "refine" else "verification"
+    name = {"refine": "inference", "verify": "verification"}.get(
+        task, "inference-" + task
+    )
     if not re.fullmatch(r"[^\s]+@sha256:[a-f0-9]{64}", app_image):
         raise ValueError("Artifact-check image must be digest-pinned")
     if not re.fullmatch(r"[a-z0-9]([-a-z0-9]*[a-z0-9])?", namespace):
@@ -216,7 +219,9 @@ def deployment(
 
 
 def compose_manifest(catalog: AzaeronModelRegistry, task: Task, app_image: str) -> dict:
-    name = "inference" if task == "refine" else "verification"
+    name = {"refine": "inference", "verify": "verification"}.get(
+        task, "inference-" + task
+    )
     bundle = (
         "${AZAERON_"
         + task.upper()
@@ -277,7 +282,7 @@ def compose_manifest(catalog: AzaeronModelRegistry, task: Task, app_image: str) 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--registry", required=True)
-    parser.add_argument("--task", choices=["refine", "verify"], default="refine")
+    parser.add_argument("--task", choices=get_args(Task), default="refine")
     parser.add_argument("--verify", type=Path)
     parser.add_argument("--app-image")
     parser.add_argument(

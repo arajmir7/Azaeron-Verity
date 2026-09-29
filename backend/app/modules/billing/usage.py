@@ -25,6 +25,8 @@ from app.modules.billing.models import UsageBucket, UsageOperation
 from app.modules.organizations.models import Organization, SubscriptionTier
 
 LIMITS = {
+    "ai_run": (100, 1000),
+    "ai_tool": (200, 2000),
     "document_upload": (20, 200),
     "document_processing": (200, 2000),
     "text_analyze": (200, 2000),
@@ -235,14 +237,22 @@ class UsageService:
                     "period": period,
                 },
             )
-        if task.startswith("text_"):
+        if task.startswith("text_") or task in {"ai_run", "ai_tool"}:
             active = await self.db.scalar(
                 select(func.count())
                 .select_from(UsageOperation)
                 .where(
                     UsageOperation.organization_id == org,
                     UsageOperation.status == "RESERVED",
-                    UsageOperation.task.like("text_%"),
+                    UsageOperation.task.in_(
+                        [
+                            "text_refine",
+                            "text_verify",
+                            "text_analyze",
+                            "ai_run",
+                            "ai_tool",
+                        ]
+                    ),
                 )
             )
             if active and active >= 4:

@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter
 from app.api.v1 import (
+    ai,
     auth,
     organizations,
     documents,
@@ -28,6 +29,7 @@ from app.api.v1 import (
 )
 
 api_router = APIRouter(prefix="/v1")
+api_router.include_router(ai.router)
 api_router.include_router(usage.router)
 api_router.include_router(telemetry.router)
 api_router.include_router(privacy.router)

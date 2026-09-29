@@ -44,5 +44,16 @@ from app.modules.governance.models import (
 
 from app.modules.privacy.models import ErasureRequest
 from app.modules.billing.models import UsageBucket, UsageOperation
+from app.modules.agent.models import (
+    VoiceProfile,
+    Conversation,
+    Message,
+    AgentRun,
+    ToolCall,
+    ToolResult,
+    DocumentAttachment,
+    AgentEvent,
+    ActionReceipt,
+)
 
 __all__ = [name for name in globals() if name[0].isupper()]

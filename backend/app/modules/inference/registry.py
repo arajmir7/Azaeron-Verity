@@ -9,7 +9,9 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-Task = Literal["refine", "verify"]
+Task = Literal[
+    "chat", "summarize", "refine", "extract", "classify", "embed", "rerank", "verify"
+]
 Status = Literal["CANDIDATE", "EVALUATING", "APPROVED", "RETIRED", "BLOCKED"]
 
 

@@ -22,6 +22,14 @@ from app.modules.similarity.service import SimilarityService
 router = APIRouter(prefix="/similarity", tags=["Similarity Evidence"])
 
 
+@router.get("/corpora")
+async def corpus_coverage(current_user: User = Depends(get_current_active_user)):
+    from app.modules.similarity.corpus import coverage
+
+    active_org(current_user)
+    return {"corpora": coverage(), "web_wide_search": False}
+
+
 def active_org(user: User) -> str:
     if not user.current_organization_id:
         raise HTTPException(404, "Document not found")

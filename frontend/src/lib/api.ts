@@ -471,6 +471,9 @@ export class ApiClient {
   async getOrganizations() {
     return this.request<Organization[]>("/api/v1/organizations");
   }
+  async agent<T>(path: string, options: RequestInit = {}): Promise<T> {
+    return this.request<T>(`/api/v1/ai${path}`, options);
+  }
   async createOrganization(name: string, description?: string) {
     return this.request<Organization>("/api/v1/organizations", { method: "POST", body: JSON.stringify({ name, description }) });
   }

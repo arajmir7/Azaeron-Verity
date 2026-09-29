@@ -347,6 +347,174 @@
         "overrides": []
       },
       "options": {}
+    },
+    {
+      "id": 14,
+      "type": "timeseries",
+      "title": "Agent queue wait p95",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(azaeron_agent_queue_wait_seconds_bucket[5m])))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 56,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "id": 15,
+      "type": "timeseries",
+      "title": "Actual first token p95",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(azaeron_agent_first_token_seconds_bucket[5m])))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 56,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "id": 16,
+      "type": "timeseries",
+      "title": "Agent generation duration p95",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (le,outcome) (rate(azaeron_agent_duration_seconds_bucket[5m])))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 64,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "id": 17,
+      "type": "timeseries",
+      "title": "Reported model tokens / sec",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum by (direction) (rate(azaeron_agent_tokens_total[5m]))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 64,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "id": 18,
+      "type": "timeseries",
+      "title": "Internal tool latency p95",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (le,tool) (rate(azaeron_agent_tool_seconds_bucket[5m])))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 72,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "id": 19,
+      "type": "timeseries",
+      "title": "Agent failures and unavailable results",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum by (status) (rate(azaeron_agent_failures_total[5m]))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 72,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "id": 20,
+      "type": "timeseries",
+      "title": "Private runtime queue depth \u2014 exporter required",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum(vllm:num_requests_waiting)",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 80,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "id": 21,
+      "type": "timeseries",
+      "title": "GPU utilization \u2014 DCGM exporter required",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "verity-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "avg(DCGM_FI_DEV_GPU_UTIL)",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 80,
+        "w": 12,
+        "h": 8
+      }
     }
   ]
 }

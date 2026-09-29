@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     MODEL_REGISTRY_PATH: str = "/etc/azaeron/models/registry.json"
     INFERENCE_ENDPOINT: str = "https://inference-runtime:8000"
     INFERENCE_VERIFY_ENDPOINT: str = "https://verification-runtime:8000"
+    INFERENCE_MODEL_ENDPOINTS: dict[str, str] = {}
     IDENTITY_ENCRYPTION_KEY: str | None = None
     USAGE_ENCRYPTION_KEY: str | None = None
     EMAIL_ENABLED: bool = False

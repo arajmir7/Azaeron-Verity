@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { DocumentIntake } from "@/components/document-intake";
 import { useSearchParams } from "next/navigation";
 import { AlertCircle, ArrowUpRight, FileText, ScanSearch } from "lucide-react";
 import { api, type DetectionResult, type DocumentRecord } from "@/lib/api";
@@ -53,6 +54,7 @@ export default function DetectorPage() {
   }, [currentOrg, documentId]);
 
   return <div className="mx-auto max-w-5xl"><PageHeader eyebrow="AI Detector" title="Review writing signals" description="Inspect available evidence and its limits. A detector cannot establish who wrote a text or decide misconduct." action={<Link href="/check?next=detector"><Button><ScanSearch size={16} aria-hidden="true" /> Check new text</Button></Link>} />
+    <DocumentIntake onReady={(attachment) => { void api.getDocuments().then((list) => setDocuments(list.items)); setDocumentId(attachment.document_id); }} />
     <Notice tone="warning"><strong>Experimental.</strong> This detector has not passed production calibration. It abstains when reliable authorship assessment is unavailable; no unvalidated percentage is shown.</Notice>
     <div className="mt-5">{loading ? <LoadingState label="Loading documents…" /> : error && !documentId ? <ErrorState message={error} onRetry={() => void loadDocuments()} /> : !documents.length ? <EmptyState icon={FileText} title="Paste text or choose a document to analyse" description="Create a private document first, then review its available writing signals." action={<Link href="/check?next=detector"><Button>Create document</Button></Link>} /> : <>
       <Panel title="Choose a document" className="mb-5"><label className="block max-w-lg text-sm font-semibold">Document<select aria-label="Document to check for AI" value={documentId} onChange={(event) => setDocumentId(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 dark:border-slate-700 dark:bg-slate-950">{documents.map((document) => <option key={document.id} value={document.id}>{document.title || document.original_filename}</option>)}</select></label></Panel>

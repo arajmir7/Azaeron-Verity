@@ -114,6 +114,7 @@ class EditorRevisionService:
         if not text.strip() or len(set(edit_ids)) != len(edit_ids):
             raise HTTPException(422, "Use nonempty text and distinct edit IDs")
         source_hash = hashlib.sha256(text.encode()).hexdigest()
+        input_text = text
         fingerprint = self.fingerprint(
             {
                 "operation": "editor",
@@ -198,6 +199,35 @@ class EditorRevisionService:
                 **(edit.metadata_json or {}),
                 "accepted_version_id": str(version.id),
             }
+        if edits:
+            from app.modules.agent.receipts import propose
+            from app.modules.documents.target import AnalysisTarget
+
+            receipt = await propose(
+                self.db,
+                org=organization_id,
+                actor=user_id,
+                target=AnalysisTarget(organization_id, document, latest),
+                original=input_text,
+                candidate=text,
+                verification={
+                    "outcome": "VERIFIED",
+                    "semantic_checked": False,
+                    "limitations": [
+                        "Only deterministic editorial rules and protected-span checks ran; no semantic model was used."
+                    ],
+                },
+                model_evidence={
+                    "model_id": None,
+                    "method": "deterministic-editorial",
+                    "engine_versions": sorted({edit.engine_version for edit in edits}),
+                },
+                tool_calls=[{"name": "writing.refine", "edit_ids": edit_ids}],
+            )
+            receipt.decision = "ACCEPTED"
+            receipt.decided_at = datetime.now(timezone.utc)
+            receipt.result_version_id = str(version.id)
+            receipt.result_sha256 = version.content_hash
         await self.db.flush()
         return version
 

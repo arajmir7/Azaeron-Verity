@@ -357,6 +357,60 @@ async def test_receipt_confirmation_hash_verification_and_conflict(
     assert denied.value.status_code == 409
 
 
+async def test_similarity_receipt_decision_flushes_atomically(db_session, monkeypatch):
+    org, user, doc, version, storage, original = await seed_editor(
+        db_session, monkeypatch
+    )
+    await DocumentProcessingService(db_session).process_document(
+        doc, original.encode(), version.id
+    )
+    target = await AnalysisTarget.resolve(db_session, org.id, doc.id, version.id)
+    receipt = await propose(
+        db_session,
+        org=org.id,
+        actor=user.id,
+        target=target,
+        original=original,
+        candidate=original + " (reviewed source)",
+        verification={"outcome": "ATTRIBUTION_REVIEW"},
+        model_evidence={},
+        tool_calls=[],
+        similarity_before={"document_version_id": version.id},
+    )
+
+    async def analyze(*args):
+        return None
+
+    async def report(self, document_id, organization_id, document_version_id, policy):
+        # Force autoflush between new-version creation and final receipt decision.
+        await db_session.execute(
+            select(ActionReceipt).where(ActionReceipt.id == receipt.id)
+        )
+        return SimpleNamespace(
+            model_dump=lambda **kwargs: {"document_version_id": document_version_id}
+        )
+
+    monkeypatch.setattr(
+        "app.modules.similarity.service.SimilarityService.analyze_similarity", analyze
+    )
+    monkeypatch.setattr(
+        "app.modules.similarity.report.SimilarityReportService.build", report
+    )
+    result = await decide(
+        db_session,
+        org.id,
+        user.id,
+        receipt.id,
+        "ACCEPTED",
+        receipt.candidate_sha256,
+        storage,
+    )
+    assert (
+        result["similarity_after"]["document_version_id"] == result["result_version_id"]
+    )
+    assert result["decision"] == "ACCEPTED"
+
+
 async def test_running_generation_stops_on_cancellation(client, monkeypatch):
     auth, _ = await owner(client)
     conv = await conversation(client, auth)

@@ -162,8 +162,6 @@ async def decide(db, org, actor, receipt_id, decision, candidate_sha256, storage
             receipt.candidate_text,
             [],
         )
-        receipt.result_version_id = str(version.id)
-        receipt.result_sha256 = version.content_hash
         if receipt.similarity_before is not None:
             from app.modules.similarity.service import SimilarityService
             from app.modules.similarity.report import SimilarityReportService
@@ -178,6 +176,10 @@ async def decide(db, org, actor, receipt_id, decision, candidate_sha256, storage
                 receipt.document_id, org, str(version.id), ExclusionPolicy()
             )
             receipt.similarity_after = report.model_dump(mode="json")
+        # Set decision fields together, after analysis queries: autoflush must
+        # never expose a PENDING receipt with an accepted result version.
+        receipt.result_version_id = str(version.id)
+        receipt.result_sha256 = version.content_hash
     receipt.decision = decision
     receipt.decided_at = datetime.now(timezone.utc)
     await AuditService(db).log(

@@ -45,6 +45,13 @@ jobs:
           python scripts/verity_secret_gate.py
       - name: Export frontend SBOM
         run: npm --prefix frontend sbom --sbom-format cyclonedx > docs/verity/evidence/ci/frontend.cdx.json
+      - name: Reclaim build cache before image scans
+        run: |
+          df -h / /tmp
+          docker system df
+          docker builder prune --all --force
+          df -h / /tmp
+          docker system df
       - name: Pull pinned infrastructure images for security coverage
         run: docker compose -f /tmp/verity-ci.json --profile '*' pull --ignore-buildable
       - name: Scan every Compose image and generate SBOMs

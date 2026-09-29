@@ -1,0 +1,6 @@
+2026-09-29T02:19:16Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-09-29T02:19:16Z	FATAL	Fatal error	run error: image scan error: scan error: unable to initialize a scan service: unable to initialize artifact: unable to initialize archive image: 2 errors occurred:
+	* unable to open /scan/image.tar as a Docker image: unable to open the file: open /scan/image.tar: permission denied
+	* unable to open /scan/image.tar as an OCI Image: stat /scan/image.tar/index.json: not a directory
+
+

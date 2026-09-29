@@ -99,8 +99,9 @@ See the [architecture map](ARCHITECTURE.md),
   credentials are not needed to pull the former Quay image references.
 
 The documented verification environment has exercised Linux ARM64 on an Apple Silicon
-host. A prior hosted Linux AMD64 run executed the repository suite, but failed
-later in the secret gate; the final source still needs its own hosted run. Optional
+host. A hosted Linux AMD64 run executed the repository suite and security audits,
+but failed while exporting images for the scanner; the corrected source still
+needs its own hosted run. Optional
 ML dependencies have not been certified.
 Docker needs enough allocated memory for PostgreSQL, object storage, API, and workers;
 private model serving has a separate, model-specific hardware requirement.
@@ -322,8 +323,8 @@ integration test establish different things.
 
 | Evidence | Recorded result and scope |
 | --- | --- |
-| [Current repository gate](docs/verity/evidence/final-blocker-burndown/repository-final/results.json) | All 11 source-stable gates passed: 251 backend tests, 30 real PostgreSQL/RLS tests and 27 browser tests at the recorded manifest |
-| [Current image gate](docs/verity/evidence/final-blocker-burndown/all-images/results.json) | Fifteen image scans and SBOMs; four image families fail with 411 HIGH and 20 CRITICAL findings |
+| [Current repository gate](docs/verity/evidence/final-blocker-burndown/repository-ci-scan-fix-final/results.json) | All 11 source-stable gates passed: 251 backend tests, 30 real PostgreSQL/RLS tests and 27 browser tests at the recorded manifest |
+| [Current image gate](docs/verity/evidence/final-blocker-burndown/all-images-ci-scan-fix/results.json) | Fifteen image scans and SBOMs; four image families fail with 411 HIGH and 20 CRITICAL findings |
 | [Current local performance profile](docs/verity/evidence/final-blocker-burndown/load-final/budgets.json) | 284 requests and 56 completed jobs; unchanged proposed local HTTP budgets pass |
 | [Current recovery drill](docs/verity/evidence/final-blocker-burndown/recovery/recovery-result.json) | Fresh PostgreSQL/MinIO restore and post-backup privacy-erasure replay pass |
 | [R15 historical repository gate](docs/verity/evidence/final-production-certification/repository-final/results.json) | All 11 source-stable gates passed: 250 backend tests, PostgreSQL integration, frontend checks, and 25 browser tests at its earlier source manifest |

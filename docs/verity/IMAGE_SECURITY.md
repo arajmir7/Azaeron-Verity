@@ -1,6 +1,6 @@
 # Current all-image security review — 2026-09-29
 
-[Results](evidence/final-blocker-burndown/all-images/results.json) cover all 15 distinct images in the local Compose graph, with 15 CycloneDX SBOMs. Eleven image identities pass the unchanged HIGH/CRITICAL policy. Four fail:
+[Results](evidence/final-blocker-burndown/all-images-ci-scan-fix/results.json) cover all 15 distinct images in the local Compose graph, with 15 CycloneDX SBOMs. Eleven image identities pass the unchanged HIGH/CRITICAL policy. Four fail:
 
 | Image family | HIGH | CRITICAL | Status |
 | --- | ---: | ---: | --- |
@@ -11,6 +11,20 @@
 | **Total** | **411** | **20** | **FAIL** |
 
 The current backend, worker, beat, migrate, frontend, MinIO server/client, Mailpit, Redis, Prometheus and OpenTelemetry Collector images scan clean at these severity thresholds. Verification is a CI image; it is included because the gate scans every Compose profile. [Per-finding classification](evidence/final-blocker-burndown/all-images/classification.json) records package, installed version, CVE, available fix, runtime category, remediation and remaining exposure. Reachability is **UNDETERMINED** without deployment-specific proof. No finding is waived or asserted non-applicable. The image gate blocks release. The empty model registry supplies no inference image to certify. Hosted image scanning still requires the exact final commit.
+
+All 431 finding identities in the corrected scan match the classified set
+(image, target, package, installed version, CVE and severity); no classification
+was silently carried over for a changed finding.
+
+Hosted run [36510870667](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36510870667)
+passed the repository and source-security gates, then produced scanner
+**ERRORS**, not vulnerability results: the Linux runner denied access to the
+0700 image archive directory and exhausted disk while exporting another image.
+The scanner now exposes only its temporary archive as a read-only bind mount,
+streams the reports to host-owned output files, and marks missing or invalid
+JSON/SBOM reports as ERROR. Local [clean and findings smoke scans](evidence/final-blocker-burndown/ci-scanner-smoke/)
+confirm valid reports and distinct PASS/FAIL outcomes. Hosted CI now prunes
+build cache before scanning; a fresh hosted run must verify sufficient disk.
 
 ## Historical image reviews
 

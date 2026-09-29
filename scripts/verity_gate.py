@@ -104,6 +104,8 @@ def main() -> int:
         "CORS_ORIGINS=http://localhost:3000",
         args.verification_service,
         "pytest",
+        "-p",
+        "no:cacheprovider",
         "tests",
         "--ignore=tests/integration",
         "-q",
@@ -119,6 +121,8 @@ def main() -> int:
         "PRIVACY_MINIO_SECRET_KEY",
         args.verification_service,
         "pytest",
+        "-p",
+        "no:cacheprovider",
         "tests/integration",
         "-q",
     ]

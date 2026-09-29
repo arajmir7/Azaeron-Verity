@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
 import tempfile
@@ -64,10 +65,15 @@ def main() -> int:
         name = aliases[0]
         metadata = metadata_by_name[name]
         with tempfile.TemporaryDirectory(prefix="verity-image-") as directory:
+            # Docker writes the archive as the host runner, while the isolated
+            # scanner reads it from inside a container. TemporaryDirectory's
+            # default 0700 mode prevents traversal on Linux runners.
+            os.chmod(directory, 0o755)
             archive = Path(directory) / "image.tar"
             subprocess.run(
                 ["docker", "image", "save", name, "-o", str(archive)], check=True
             )
+            os.chmod(archive, 0o644)
             base = [
                 "docker",
                 "run",
@@ -78,8 +84,6 @@ def main() -> int:
                 "no-new-privileges",
                 "-v",
                 f"{archive}:/scan/image.tar:ro",
-                "-v",
-                f"{args.output.resolve()}:/results",
                 "-v",
                 "verity-scanner-cache:/root/.cache/trivy",
                 SCANNER,
@@ -104,12 +108,32 @@ def main() -> int:
                 ("sbom", ["--format", "cyclonedx"]),
             ]:
                 filename = f"image-{index}-{gate}"
-                with (args.output / f"{filename}.log").open("w") as log:
+                report = args.output / f"{filename}.json"
+                with report.open("w") as output, (args.output / f"{filename}.log").open(
+                    "w"
+                ) as log:
                     code = subprocess.run(
-                        base + options + ["--output", f"/results/{filename}.json"],
-                        stdout=log,
-                        stderr=subprocess.STDOUT,
+                        base + options,
+                        stdout=output,
+                        stderr=log,
                     ).returncode
+                try:
+                    parsed = json.loads(report.read_text())
+                    valid = (
+                        isinstance(parsed.get("Results"), list)
+                        if gate == "vulnerabilities"
+                        else parsed.get("bomFormat") == "CycloneDX"
+                    )
+                except (json.JSONDecodeError, AttributeError):
+                    valid = False
+                if not valid:
+                    status = "ERROR"
+                elif code == 0:
+                    status = "PASS"
+                elif gate == "vulnerabilities" and code == 1:
+                    status = "FAIL"
+                else:
+                    status = "ERROR"
                 results.append(
                     {
                         "image": name,
@@ -117,8 +141,8 @@ def main() -> int:
                         "image_id": metadata["Id"],
                         "bytes": metadata["Size"],
                         "gate": gate,
-                        "status": "PASS" if code == 0 else "FAIL",
-                        "exit_code": code,
+                        "status": status,
+                        "exit_code": code if code else (0 if valid else 2),
                         "report": f"{filename}.json",
                         "scanner": SCANNER,
                     }

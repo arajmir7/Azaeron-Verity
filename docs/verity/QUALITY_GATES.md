@@ -24,7 +24,10 @@ The helper retains real PostgreSQL RLS tests and all live browser tests, and
 fails on backend application/test formatting drift. The
 verification image carries test tools; production API/worker images do not.
 Python 3.12 Linux arm64 and Node 22.23.2 container builds are locally executed;
-host frontend checks also use Node 24.17.0. An earlier hosted AMD64 run executed all 11 repository gates but failed the secret gate afterward; the final source still requires its own hosted result.
+host frontend checks also use Node 24.17.0. Hosted AMD64 run
+[36510870667](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36510870667)
+executed all 11 repository gates and later failed while exporting images for
+the scanner. The corrected source still requires its own hosted result.
 
 `python scripts/verity_secret_gate.py` uses exact reviewed fingerprints in
 `secret-review.json`; new findings fail. Review scope and limitations are in

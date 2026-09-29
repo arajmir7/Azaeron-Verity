@@ -1,9 +1,30 @@
 # Execution ledger
 
+## 2026-09-29: hosted image-gate infrastructure correction
+
+[Hosted run 36510870667](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36510870667)
+at commit `73fb563` passed all 11 repository gates (251 backend, 30 real
+PostgreSQL and 27 browser tests), dependency audits, Bandit and the source
+secret gate. It then failed in image scanning: Linux container access to a
+0700 host temporary directory was denied, followed by runner disk exhaustion
+while saving a later image. The partial scanner exit codes are infrastructure
+**ERRORS**, not vulnerability classifications. [Archived hosted results](evidence/final-blocker-burndown/hosted-73fb563/).
+
+The scanner now makes only its ephemeral archive path readable to the isolated
+container, captures JSON and CycloneDX output through stdout without a writable
+repository mount, and distinguishes invalid reports from actual CVE failures.
+The hosted workflow reclaims Docker build cache before pulling and scanning the
+remaining images. Local smoke scans exercise both a clean image and one with
+expected findings. The corrected scanner then completed all 15 local images
+and 15 SBOMs with zero infrastructure errors; the same four image families
+retain 411 HIGH / 20 CRITICAL findings. [Results](evidence/final-blocker-burndown/all-images-ci-scan-fix/results.json).
+An exact-source hosted rerun remains required; these findings are still
+release-blocking.
+
 ## 2026-09-29: editor, save latency, stale review build and recertification
 
-**Source manifest:** `e80a7a22e6774a912e5f9e537e28290aba0d40ce23f9756bf6aa85f433743404`.
-The [final local repository gate](evidence/final-blocker-burndown/repository-final/results.json)
+**Source manifest:** `f366106d1773e91f7006d5c62e808503b5a2cce17896600eb5948b6cbee333e1`.
+The [final local repository gate](evidence/final-blocker-burndown/repository-ci-scan-fix-final/results.json)
 passes all 11 checks: 251 backend tests, 30 real PostgreSQL/RLS tests, 27 browser
 tests, formatting, lint, types, production build, Compose and source stability.
 Schema head is `20260928_0036`.
@@ -21,7 +42,7 @@ Schema head is `20260928_0036`.
   run; the prior run is not certification of this manifest.
 - **B2:** all 15 image identities scanned and all SBOMs generated. Eleven pass;
   Grafana, Jaeger, PostgreSQL and verification retain 411 HIGH / 20 CRITICAL
-  findings. [Inventory and results](evidence/final-blocker-burndown/all-images/results.json),
+  findings. [Inventory and results](evidence/final-blocker-burndown/all-images-ci-scan-fix/results.json),
   [per-finding classification](evidence/final-blocker-burndown/all-images/classification.json).
   Reachability is unresolved; no finding is suppressed or waived.
 - **B3:** debounced server saves, explicit save status, rename with stale-title

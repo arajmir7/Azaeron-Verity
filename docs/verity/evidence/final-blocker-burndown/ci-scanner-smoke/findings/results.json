@@ -1,0 +1,28 @@
+[
+  {
+    "image": "verity-burndown-verification",
+    "aliases": [
+      "verity-burndown-verification"
+    ],
+    "image_id": "sha256:e6b8093d2c490eb0033de588f129f56af4a3a41c27b095cefd62c0315247004b",
+    "bytes": 927389178,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-burndown-verification",
+    "aliases": [
+      "verity-burndown-verification"
+    ],
+    "image_id": "sha256:e6b8093d2c490eb0033de588f129f56af4a3a41c27b095cefd62c0315247004b",
+    "bytes": 927389178,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

@@ -98,7 +98,7 @@ test("similarity: real corpus, evidence, exclusions, pagination and immutable ve
   await page.goto(`/similarity?document=${target.id}&version=${original.document_version_id}`);
   await page.getByRole("button", { name: /^Inspect match/ }).first().click();
   await page.getByText("Resolve match", { exact: true }).click();
-  await page.getByLabel("Resolution", { exact: true }).selectOption("quote_and_cite");
+  await page.getByRole("combobox", { name: "Resolution", exact: true }).selectOption("quote_and_cite");
   await page.getByLabel("Source citation", { exact: true }).fill("(Workspace source, reviewed fixture)");
   await page.getByLabel("Reason for this resolution").fill("This passage is a direct quotation; retain its source attribution.");
   await page.getByRole("button", { name: "Prepare resolution for review" }).click();

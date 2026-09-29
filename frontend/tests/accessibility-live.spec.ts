@@ -64,6 +64,8 @@ test("keyboard login and refinement; critical pages have no automated WCAG AA vi
       await page.keyboard.press("ControlOrMeta+A");
       await page.keyboard.type(source.toString());
       await page.keyboard.press("Tab");
+      await expect(page.getByRole("button", { name: "Ask AI", exact: true })).toBeFocused();
+      await page.keyboard.press("Tab");
       await expect(page.getByRole("button", { name: "Improve draft" })).toBeFocused();
       await expect(page.getByRole("button", { name: "Improve draft" })).toBeEnabled();
       await page.keyboard.press("Enter");

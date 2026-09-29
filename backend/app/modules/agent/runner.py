@@ -309,9 +309,9 @@ async def execute_run(run_id, org, actor, *, session_factory=AsyncSessionLocal):
             await event(db, current, "done", {"status": "COMPLETED"})
             await db.commit()
             RUN_DURATION.labels("completed").observe(time.monotonic() - started)
-            for call in calls:
-                TOKENS.labels("input").inc(call["input_tokens"])
-                TOKENS.labels("output").inc(call["output_tokens"])
+            for usage_call in calls:
+                TOKENS.labels("input").inc(usage_call["input_tokens"])
+                TOKENS.labels("output").inc(usage_call["output_tokens"])
             return
         except InferenceUnavailable as error:
             status, code = "UNAVAILABLE", error.code
@@ -371,6 +371,6 @@ async def execute_run(run_id, org, actor, *, session_factory=AsyncSessionLocal):
         await db.commit()
         RUN_DURATION.labels(status.lower()).observe(time.monotonic() - started)
         FAILURES.labels(status).inc()
-        for call in calls:
-            TOKENS.labels("input").inc(call["input_tokens"])
-            TOKENS.labels("output").inc(call["output_tokens"])
+        for usage_call in calls:
+            TOKENS.labels("input").inc(usage_call["input_tokens"])
+            TOKENS.labels("output").inc(usage_call["output_tokens"])

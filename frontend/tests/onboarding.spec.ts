@@ -46,6 +46,7 @@ async function mockWorkspace(page: Page, options: { onboarded?: boolean; empty?:
       return route.fulfill({ json: organizations.find((organization) => organization.id === id) });
     }
     if (path.endsWith("/documents")) { documentRequests += 1; return route.fulfill({ json: { items: [], total: 0, page: 1, page_size: 20 } }); }
+    if (path.endsWith("/ai/conversations") || path.endsWith("/ai/voice-profiles")) return route.fulfill({ json: { items: [] } });
     return route.fulfill({ status: 404, json: { detail: `Unexpected test request: ${path}` } });
   });
   return { selected, documentRequests: () => documentRequests, refreshRequests: () => refreshRequests };
@@ -126,8 +127,9 @@ test("focused workspace navigation exposes five products and honest empty states
   ]);
   await expect(navigation.getByRole("link", { name: "Evidence graph" })).toHaveCount(0);
   await navigation.getByRole("link", { name: "Azaeron AI" }).click();
-  await expect(page.getByText("Private AI is being prepared")).toBeVisible();
-  await expect(page.getByText(/will not be sent to an outside AI provider/)).toBeVisible();
+  await expect(page.getByRole("textbox", { name: "Ask Azaeron AI" })).toBeVisible();
+  await expect(page.getByText(/Generation requires an approved self-hosted model/)).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Conversation history" })).toHaveCount(1);
   await navigation.getByRole("link", { name: "AI Detector" }).click();
   await expect(page.getByText("Paste text or choose a document to analyse")).toBeVisible();
   await navigation.getByRole("link", { name: "Plagiarism Checker" }).click();

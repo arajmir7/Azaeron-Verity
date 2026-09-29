@@ -124,7 +124,7 @@ export function AgentPanel({ context, selection, compact = false, onAccepted }: 
     try {
       await api.agent(`/conversations/${active.id}`, { method: action === "rename" ? "PATCH" : "DELETE", ...(action === "rename" ? { body: JSON.stringify({ title: rename }) } : {}) });
       if (action === "delete") { stream.current?.close(); epoch.current++; activeId.current = null; setHistory((items) => items.filter((item) => item.id !== active.id)); setActive(null); setPartial(""); setStatus("Conversation deleted"); }
-      else { setHistory((items) => items.map((item) => item.id === active.id ? { ...item, title: rename } : item)); await load(active.id); }
+      else { setHistory((items) => items.map((item) => item.id === active.id ? { ...item, title: rename } : item)); await load(active.id); setReceiptRevision(`renamed:${Date.now()}`); setStatus("Conversation renamed"); }
     } catch (reason) { setError(reason instanceof Error ? reason.message : "Change could not be saved"); }
     finally { setBusy(false); }
   };

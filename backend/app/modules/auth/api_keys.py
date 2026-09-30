@@ -31,6 +31,7 @@ Scope = Literal[
     "documents:read",
     "documents:write",
     "usage:read",
+    "ai:chat",
 ]
 SCOPES = frozenset(get_args(Scope))
 
@@ -38,7 +39,7 @@ SCOPES = frozenset(get_args(Scope))
 class KeyCreate(BaseModel):
     model_config = ConfigDict(extra="forbid")
     name: str = Field(min_length=1, max_length=100, pattern=r"^[^\x00-\x1f\x7f]+$")
-    scopes: list[Scope] = Field(min_length=1, max_length=6)
+    scopes: list[Scope] = Field(min_length=1, max_length=7)
     expires_at: datetime | None = None
 
     @field_validator("scopes")
@@ -96,6 +97,16 @@ def metadata(key: ApiKey) -> KeyMetadata:
 
 def scope_for_route(method: str, path: str) -> str | None:
     """Closed allowlist of public operations, shared by authentication and OpenAPI."""
+    if method == "POST":
+        own = {
+            "/api/v1/ai/chat": "ai:chat",
+            "/api/v1/ai/chat/stream": "ai:chat",
+            "/api/v1/humanize": "text:refine",
+            "/api/v1/detect": "text:analyze",
+            "/api/v1/plagiarism/check": "documents:write",
+        }
+        if path in own:
+            return own[path]
     if method == "POST" and path in {
         "/api/v1/text/analyze",
         "/api/v1/text/refine",

@@ -18,11 +18,58 @@ from app.modules.inference.registry import (
 
 
 def approved_model(**changes):
+    # Synthetic policy fixtures, never installed in the real model registry.
+    from app.modules.model_platform.policy import GATES
+
+    family = {"verify": "verifier", "classify": "detector", "embed": "embed"}.get(
+        changes.get("tasks", ["refine"])[0], "writer"
+    )
+    checkpoint = hashlib.sha256(
+        ("fixture" if family == "writer" else "fixture-" + family).encode()
+    ).hexdigest()
+    artifacts = {
+        "checkpoint.safetensors": checkpoint,
+        "training-manifest.json": "d" * 64,
+        "MODEL_CARD.md": "f" * 64,
+    }
+    artifacts.update({"evidence/" + gate + ".json": "e" * 64 for gate in GATES})
     data = dict(
         model_id="fixture-model",
         revision="a" * 40,
         tokenizer_revision="b" * 40,
-        artifacts={"weights.safetensors": hashlib.sha256(b"fixture").hexdigest()},
+        artifacts=artifacts,
+        lineage={
+            "classification": "AZAERON_NATIVE",
+            "family": family,
+            "purpose": "PRODUCTION",
+            "run_id": str(uuid4()),
+            "training_steps": 1,
+            "checkpoint_sha256": checkpoint,
+            "initialization_sha256": hashlib.sha256(
+                (family + "-initialization").encode()
+            ).hexdigest(),
+            "dataset_manifest_sha256": "1" * 64,
+            "training_manifest_sha256": "d" * 64,
+            "model_card_sha256": "f" * 64,
+            "code_sha256": "2" * 64,
+        },
+        release={
+            "reviewer": "TEST FIXTURE ONLY",
+            "approved_at": "2026-09-30",
+            "reference": "TEST ONLY",
+            "checkpoint_sha256": checkpoint,
+            "gates": {
+                gate: {
+                    "status": "PASS",
+                    "checkpoint_sha256": checkpoint,
+                    "evidence": {
+                        "path": "evidence/" + gate + ".json",
+                        "sha256": "e" * 64,
+                    },
+                }
+                for gate in GATES
+            },
+        },
         license="Test-only fixture, not an approved production artifact",
         commercial_use_approved=True,
         approval_reference="test-only",
@@ -205,7 +252,10 @@ async def test_redirect_timeout_cancellation_and_slot_recovery():
 
 
 def test_artifacts_fail_closed(tmp_path):
-    model = approved_model()
+    model = approved_model(
+        status="CANDIDATE",
+        artifacts={"weights.safetensors": hashlib.sha256(b"fixture").hexdigest()},
+    )
     (tmp_path / "weights.safetensors").write_bytes(b"fixture")
     verify_artifacts(model, tmp_path)
     (tmp_path / "weights.safetensors").write_bytes(b"tampered")

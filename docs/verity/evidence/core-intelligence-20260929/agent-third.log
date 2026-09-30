@@ -1,0 +1,14 @@
+ Container verity-core-0929-verification-run-90a3b6d5037d Creating 
+ Container verity-core-0929-verification-run-90a3b6d5037d Created 
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: anyio-4.15.1, asyncio-1.4.0, Faker-30.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 16 items
+
+tests/test_agent.py ..............                                       [ 87%]
+tests/test_agent_voice_corpus.py ..                                      [100%]
+
+============================= 16 passed in 11.78s ==============================

@@ -1,0 +1,285 @@
+ Image verity-core-0929-verification Building 
+ Image verity-core-0929-frontend Building 
+ Image verity-core-0929-backend Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 3.73kB done
+#1 DONE 0.0s
+
+#2 [frontend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.07kB 0.0s done
+#2 DONE 0.0s
+
+#3 [verification internal] load build definition from Dockerfile
+#3 transferring dockerfile: 2.03kB done
+#3 DONE 0.0s
+
+#4 [backend internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#4 DONE 3.7s
+
+#5 [backend internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#5 ...
+
+#6 [frontend internal] load metadata for docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#6 ...
+
+#5 [verification internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#5 DONE 20.9s
+
+#7 [backend internal] load .dockerignore
+#7 transferring context: 105B done
+#7 DONE 0.0s
+
+#6 [frontend internal] load metadata for docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#6 DONE 21.0s
+
+#8 [verification runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#8 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 0.0s done
+#8 DONE 0.0s
+
+#9 [backend runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#9 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 0.0s done
+#9 DONE 0.0s
+
+#10 [frontend internal] load .dockerignore
+#10 transferring context: 96B done
+#10 DONE 0.0s
+
+#11 [backend internal] load build context
+#11 transferring context: 52.43kB 0.1s done
+#11 DONE 0.1s
+
+#12 [verification internal] load build context
+#12 transferring context: 63.42kB 0.1s done
+#12 DONE 0.1s
+
+#13 [frontend internal] load build context
+#13 DONE 0.0s
+
+#14 [frontend builder 1/7] FROM docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#14 resolve docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85 0.1s done
+#14 DONE 0.1s
+
+#15 [backend assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#15 CACHED
+
+#16 [backend assemble 3/3] RUN python /assemble_runtime.py
+#16 CACHED
+
+#17 [backend runtime-base 3/4] COPY requirements.lock ./
+#17 CACHED
+
+#18 [backend assemble 1/3] COPY --from=runtime-os / /base/
+#18 CACHED
+
+#19 [backend runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#19 CACHED
+
+#20 [backend runtime 2/6] COPY --from=assemble /runtime-root/ /
+#20 CACHED
+
+#21 [verification verification-assemble 3/3] RUN python /assemble_runtime.py --include-sqlite
+#21 CACHED
+
+#22 [verification runtime 1/6] WORKDIR /app
+#22 CACHED
+
+#23 [verification verification-base 1/2] COPY requirements-dev.lock ./
+#23 CACHED
+
+#24 [verification verification-base 2/2] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements-dev.lock
+#24 CACHED
+
+#25 [verification verification-assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#25 CACHED
+
+#26 [verification runtime-base 2/4] WORKDIR /app
+#26 CACHED
+
+#27 [verification verification-assemble 1/3] COPY --from=runtime-os / /base/
+#27 CACHED
+
+#28 [verification runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#28 CACHED
+
+#29 [verification runtime-base 3/4] COPY requirements.lock ./
+#29 CACHED
+
+#30 [verification verification 2/3] COPY --from=verification-assemble /runtime-root/ /
+#30 CACHED
+
+#13 [frontend internal] load build context
+#13 transferring context: 836.96kB 0.1s done
+#13 DONE 0.1s
+
+#31 [frontend builder 2/7] WORKDIR /app
+#31 CACHED
+
+#32 [frontend builder 3/7] COPY package.json package-lock.json ./
+#32 CACHED
+
+#33 [frontend builder 4/7] RUN npm ci
+#33 CACHED
+
+#34 [frontend builder 5/7] COPY . .
+#34 DONE 0.1s
+
+#35 [verification verification 3/3] COPY --chown=65532:65532 . .
+#35 ...
+
+#36 [backend runtime 3/6] COPY --chown=65532:65532 app ./app
+#36 DONE 0.2s
+
+#37 [backend runtime 4/6] COPY --chown=65532:65532 alembic ./alembic
+#37 DONE 0.2s
+
+#38 [frontend builder 6/7] RUN mkdir -p public
+#38 ...
+
+#39 [backend runtime 5/6] COPY --chown=65532:65532 migration_snapshots ./migration_snapshots
+#39 DONE 0.1s
+
+#40 [backend runtime 6/6] COPY --chown=65532:65532 alembic.ini ./
+#40 DONE 0.1s
+
+#38 [frontend builder 6/7] RUN mkdir -p public
+#38 DONE 0.5s
+
+#35 [verification verification 3/3] COPY --chown=65532:65532 . .
+#35 DONE 0.7s
+
+#41 [frontend builder 7/7] RUN npm run build
+#41 ...
+
+#42 [backend] exporting to image
+#42 exporting layers 0.3s done
+#42 exporting manifest sha256:fcf4de5a9a860cdd0783d704de2ca3d95ee31ca8f53ee6fe27206762a1bb6f65 0.0s done
+#42 exporting config sha256:ff65778cd7bfc4aaf9d2561daf6dfc10f6bdd0b751263b1111dab8313b031bae 0.0s done
+#42 exporting attestation manifest sha256:826199a3e8f7eb887c5195ac5bdd0dfa1e2b4d68f0457c8a9934c92e71ccf694 0.0s done
+#42 exporting manifest list sha256:25648b4dcc85ca9e54d10068a4e939b104684dd426b3664e702d1d9456418ae9 0.0s done
+#42 naming to docker.io/library/verity-core-0929-backend:latest done
+#42 unpacking to docker.io/library/verity-core-0929-backend:latest 0.4s done
+#42 DONE 0.9s
+
+#43 [verification] exporting to image
+#43 ...
+
+#44 [backend] resolving provenance for metadata file
+#44 DONE 0.1s
+
+#43 [verification] exporting to image
+#43 ...
+
+#41 [frontend builder 7/7] RUN npm run build
+#41 1.940 
+#41 1.940 > azaeron-frontend@1.0.0 build
+#41 1.940 > node ./node_modules/next/dist/bin/next build
+#41 1.940 
+#41 6.001 ▲ Next.js 16.3.3 (Turbopack)
+#41 6.452 ✓ Running next.config.ts took 444ms
+#41 6.497 
+#41 6.684   Creating an optimized production build ...
+#41 ...
+
+#43 [verification] exporting to image
+#43 exporting layers 12.4s done
+#43 exporting manifest sha256:ef764f1aa062d6d93c6e209fcd2f28f45f41a92e3a6d721b448a618be30028eb 0.0s done
+#43 exporting config sha256:967920998276caa0e98dbfd22cbfef3b8e42ab46dc8be8fa31648c0c9449c4ba 0.1s done
+#43 exporting attestation manifest sha256:a6de8c3e06d58e01c6849c1302a78b8053acea013ef9579dd339d864e3b33a92
+#43 exporting attestation manifest sha256:a6de8c3e06d58e01c6849c1302a78b8053acea013ef9579dd339d864e3b33a92 0.1s done
+#43 exporting manifest list sha256:13b8fab6d5dfcd2227c618c016d9fd057006d7abc0b238b48fc4c448269b9dbd 0.0s done
+#43 naming to docker.io/library/verity-core-0929-verification:latest
+#43 naming to docker.io/library/verity-core-0929-verification:latest done
+#43 unpacking to docker.io/library/verity-core-0929-verification:latest
+#43 unpacking to docker.io/library/verity-core-0929-verification:latest 4.3s done
+#43 DONE 17.9s
+
+#41 [frontend builder 7/7] RUN npm run build
+#41 ...
+
+#45 [verification] resolving provenance for metadata file
+#45 DONE 0.3s
+
+#41 [frontend builder 7/7] RUN npm run build
+#41 66.65 ✓ Compiled successfully in 59s
+#41 66.67   Running TypeScript ...
+#41 78.94   Finished TypeScript in 12.3s ...
+#41 78.94   Collecting page data using 9 workers ...
+#41 80.49   Generating static pages using 9 workers (0/30) ...
+#41 80.89   Generating static pages using 9 workers (7/30) 
+#41 80.92   Generating static pages using 9 workers (14/30) 
+#41 81.04   Generating static pages using 9 workers (22/30) 
+#41 81.05 ✓ Generating static pages using 9 workers (30/30) in 565ms
+#41 81.06   Finalizing page optimization ...
+#41 81.71 
+#41 81.71 Route (app)
+#41 81.71 ┌ ○ /
+#41 81.71 ├ ○ /_not-found
+#41 81.71 ├ ○ /admin
+#41 81.71 ├ ○ /ai
+#41 81.71 ├ ○ /authorship
+#41 81.71 ├ ○ /check
+#41 81.71 ├ ○ /citations
+#41 81.71 ├ ○ /dashboard
+#41 81.71 ├ ○ /detector
+#41 81.71 ├ ○ /documents
+#41 81.71 ├ ƒ /documents/[id]
+#41 81.71 ├ ○ /erasure-status
+#41 81.71 ├ ○ /evidence-graph
+#41 81.71 ├ ○ /forgot-password
+#41 81.71 ├ ○ /help
+#41 81.71 ├ ○ /history
+#41 81.71 ├ ○ /humaniser
+#41 81.71 ├ ○ /login
+#41 81.71 ├ ○ /onboarding
+#41 81.71 ├ ○ /plagiarism
+#41 81.71 ├ ○ /provenance
+#41 81.71 ├ ○ /register
+#41 81.71 ├ ○ /reports
+#41 81.71 ├ ○ /reset-password
+#41 81.71 ├ ○ /settings
+#41 81.71 ├ ○ /similarity
+#41 81.71 ├ ○ /sources
+#41 81.71 ├ ○ /upload
+#41 81.71 ├ ○ /verify-email
+#41 81.71 └ ○ /write
+#41 81.71 
+#41 81.71 
+#41 81.71 ○  (Static)   prerendered as static content
+#41 81.71 ƒ  (Dynamic)  server-rendered on demand
+#41 81.71 
+#41 81.85 npm notice
+#41 81.85 npm notice New major version of npm available! 10.9.8 -> 12.1.0
+#41 81.85 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.1.0
+#41 81.85 npm notice To update run: npm install -g npm@12.1.0
+#41 81.85 npm notice
+#41 DONE 82.1s
+
+#46 [frontend runner 3/6] RUN rm -rf /usr/local/lib/node_modules/npm /opt/yarn-*     && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/yarn /usr/local/bin/yarnpkg
+#46 CACHED
+
+#47 [frontend runner 4/6] COPY --from=builder --chown=node:node /app/.next/standalone ./
+#47 DONE 0.8s
+
+#48 [frontend runner 5/6] COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+#48 DONE 0.1s
+
+#49 [frontend runner 6/6] COPY --from=builder --chown=node:node /app/public ./public
+#49 DONE 0.0s
+
+#50 [frontend] exporting to image
+#50 exporting layers
+#50 exporting layers 2.2s done
+#50 exporting manifest sha256:da778d271e31790ea134b687d15d4f2a2ab83cd06788532e3a181cfe5240766c 0.0s done
+#50 exporting config sha256:342b89e1b2e03b756129dd8ac9bcb24138f385b075157125094e44ab0f9c5aa1 done
+#50 exporting attestation manifest sha256:8a6746ffe95dc8a11bf020466a4464c7aa189dfec42d3df563bb1c6a1dd4cd31 done
+#50 exporting manifest list sha256:517f098022346f8fcad427249b9057f9de012609c0b9344d0cbefe7813448f66 0.0s done
+#50 naming to docker.io/library/verity-core-0929-frontend:latest done
+#50 unpacking to docker.io/library/verity-core-0929-frontend:latest
+#50 unpacking to docker.io/library/verity-core-0929-frontend:latest 0.8s done
+#50 DONE 3.1s
+
+#51 [frontend] resolving provenance for metadata file
+#51 DONE 0.1s
+ Image verity-core-0929-frontend Built 
+ Image verity-core-0929-backend Built 
+ Image verity-core-0929-verification Built 

@@ -1,0 +1,292 @@
+ Image verity-core-0929-migrate Building 
+ Image verity-core-0929-backend Building 
+ Image verity-core-0929-celery-worker Building 
+ Image verity-core-0929-frontend Building 
+ Image verity-core-0929-celery-beat Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 3.74kB done
+#1 DONE 0.0s
+
+#2 [celery-beat internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.03kB done
+#2 DONE 0.0s
+
+#3 [frontend internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.07kB done
+#3 DONE 0.0s
+
+#4 [backend internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#4 ...
+
+#5 [auth] library/node:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [auth] library/python:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#7 [backend internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#7 ...
+
+#4 [celery-beat internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#4 DONE 4.2s
+
+#8 [frontend internal] load metadata for docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#8 ...
+
+#7 [celery-worker internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#7 DONE 5.2s
+
+#9 [celery-worker internal] load .dockerignore
+#9 transferring context: 105B done
+#9 DONE 0.0s
+
+#10 [backend runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#10 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 0.0s done
+#10 DONE 0.0s
+
+#11 [backend runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#11 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 0.0s done
+#11 DONE 0.0s
+
+#12 [backend assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#12 CACHED
+
+#13 [backend runtime-base 2/4] WORKDIR /app
+#13 CACHED
+
+#14 [backend assemble 1/3] COPY --from=runtime-os / /base/
+#14 CACHED
+
+#15 [backend assemble 3/3] RUN python /assemble_runtime.py
+#15 CACHED
+
+#16 [backend runtime 1/6] WORKDIR /app
+#16 CACHED
+
+#17 [backend runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#17 CACHED
+
+#18 [backend runtime-base 3/4] COPY requirements.lock ./
+#18 CACHED
+
+#19 [migrate runtime 2/6] COPY --from=assemble /runtime-root/ /
+#19 CACHED
+
+#20 [migrate internal] load build context
+#20 transferring context: 161.23kB 0.0s done
+#20 ...
+
+#21 [backend runtime 3/6] COPY --chown=65532:65532 app ./app
+#21 DONE 0.1s
+
+#22 [migrate runtime 4/6] COPY --chown=65532:65532 alembic ./alembic
+#22 DONE 0.0s
+
+#23 [celery-beat runtime 5/6] COPY --chown=65532:65532 migration_snapshots ./migration_snapshots
+#23 DONE 0.0s
+
+#24 [backend runtime 6/6] COPY --chown=65532:65532 alembic.ini ./
+#24 DONE 0.0s
+
+#25 [backend] exporting to image
+#25 exporting layers 0.1s done
+#25 exporting manifest sha256:f354389a01b5d1d5a84efdf3c77d92d2557fe9eded324cc173e5cd4b44f1a1f0 0.0s done
+#25 exporting config sha256:f195f0de3fceebf6eda8627a35cee139b2df0a7437c1e83963c59cb17f8db78f 0.0s done
+#25 exporting attestation manifest sha256:4bc6ed6d067c40d0509b9fa51c0e0eb7debe6f3b60171c808a70b06bf93802d5 0.0s done
+#25 exporting manifest list sha256:ed9a1990c4e52f9ef8a6fc92c48fe0f7639173b48b0cf7258c6fba04a3ee4dd9 0.0s done
+#25 naming to docker.io/library/verity-core-0929-backend:latest done
+#25 unpacking to docker.io/library/verity-core-0929-backend:latest 0.1s done
+#25 DONE 0.3s
+
+#26 [celery-worker] exporting to image
+#26 exporting layers 0.1s done
+#26 exporting manifest sha256:53abfd0a360ec8fd3a0733d1ddda3ef9849983654962e53ad302c0aad8da4400 0.0s done
+#26 exporting config sha256:bec3106f776067ae520a21b7863e59799d3cbcb39da4ef3f654aadba58de7100 0.0s done
+#26 exporting attestation manifest sha256:a5c96fc104b6ef7f3cd153dcceecf61277d9e9cb92f052a20dc95dec00137fc7 0.0s done
+#26 exporting manifest list sha256:01a1fa4274ade49de5977bb6b41f2b64d74f79313128ebc800c56fbeb235fbcc 0.0s done
+#26 naming to docker.io/library/verity-core-0929-celery-worker:latest done
+#26 unpacking to docker.io/library/verity-core-0929-celery-worker:latest 0.1s done
+#26 DONE 0.3s
+
+#27 [migrate] exporting to image
+#27 exporting layers 0.1s done
+#27 exporting manifest sha256:574b66bfc9cfaf724e80d3768a149e673d871f6fadb4f76490a67b40d31e7b22 0.0s done
+#27 exporting config sha256:9fd8af5aee9f2043788f874cb076345e35e4634a17d146793c231175e0b311bd 0.0s done
+#27 exporting attestation manifest sha256:1add8067117939a54f2e0cd9e8a1cbc84ceb592863a53f56b88c053d08acbebf 0.0s done
+#27 exporting manifest list sha256:268458dab0d4ae398a1d1075961b46e337e9a62a9cdd1c5f0a3bbf7b15576590 0.0s done
+#27 naming to docker.io/library/verity-core-0929-migrate:latest done
+#27 unpacking to docker.io/library/verity-core-0929-migrate:latest 0.1s done
+#27 DONE 0.3s
+
+#28 [celery-beat] exporting to image
+#28 exporting layers 0.1s done
+#28 exporting manifest sha256:ed3370b2a8a05f11a23f12b6aeadbb688095eae6170a08ea0e0126af368c4a89 done
+#28 exporting config sha256:7811febc91892dd5d0e3c21734b1181fb98e32fb0d6e052e32e77e5298fbcd93 0.0s done
+#28 exporting attestation manifest sha256:229ce2e20181199a82fed987411dfbd87ea4fb3bf8127c3a6a9e525db2c8ce32 0.0s done
+#28 exporting manifest list sha256:e65960622e5fcc751122169a3c5142d6f40856db28cbcc33ea6d95cbb82ca16b done
+#28 naming to docker.io/library/verity-core-0929-celery-beat:latest done
+#28 unpacking to docker.io/library/verity-core-0929-celery-beat:latest 0.1s done
+#28 DONE 0.3s
+
+#20 [migrate internal] load build context
+#20 ...
+
+#29 [migrate] resolving provenance for metadata file
+#29 DONE 0.1s
+
+#30 [celery-worker] resolving provenance for metadata file
+#30 DONE 0.0s
+
+#31 [backend] resolving provenance for metadata file
+#31 DONE 0.1s
+
+#32 [celery-beat] resolving provenance for metadata file
+#32 DONE 0.0s
+
+#20 [migrate internal] load build context
+#20 ...
+
+#8 [frontend internal] load metadata for docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#8 DONE 9.9s
+
+#33 [frontend internal] load .dockerignore
+#33 transferring context: 96B done
+#33 DONE 0.1s
+
+#20 [migrate internal] load build context
+#20 ...
+
+#34 [frontend builder 1/7] FROM docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#34 resolve docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85 0.0s done
+#34 DONE 0.0s
+
+#35 [frontend internal] load build context
+#35 transferring context: 146.35kB 0.0s done
+#35 DONE 0.0s
+
+#36 [frontend builder 2/7] WORKDIR /app
+#36 CACHED
+
+#37 [frontend builder 3/7] COPY package.json package-lock.json ./
+#37 CACHED
+
+#38 [frontend builder 4/7] RUN npm ci
+#38 CACHED
+
+#39 [frontend builder 5/7] COPY . .
+#39 DONE 0.2s
+
+#20 [migrate internal] load build context
+#20 ...
+
+#40 [frontend builder 6/7] RUN mkdir -p public
+#40 DONE 0.2s
+
+#20 [migrate internal] load build context
+#20 ...
+
+#41 [frontend builder 7/7] RUN npm run build
+#41 0.567 
+#41 0.567 > azaeron-frontend@1.0.0 build
+#41 0.567 > node ./node_modules/next/dist/bin/next build
+#41 0.567 
+#41 0.933 ▲ Next.js 16.3.3 (Turbopack)
+#41 0.981 ✓ Running next.config.ts took 48ms
+#41 0.987 
+#41 1.002   Creating an optimized production build ...
+#41 3.798 ✓ Compiled successfully in 2.7s
+#41 3.808   Running TypeScript ...
+#41 6.806   Finished TypeScript in 3.0s ...
+#41 6.808   Collecting page data using 9 workers ...
+#41 7.281   Generating static pages using 9 workers (0/30) ...
+#41 7.483   Generating static pages using 9 workers (7/30) 
+#41 7.515   Generating static pages using 9 workers (14/30) 
+#41 7.619   Generating static pages using 9 workers (22/30) 
+#41 7.644 ✓ Generating static pages using 9 workers (30/30) in 363ms
+#41 7.651   Finalizing page optimization ...
+#41 8.026 
+#41 8.027 Route (app)
+#41 8.027 ┌ ○ /
+#41 8.027 ├ ○ /_not-found
+#41 8.027 ├ ○ /admin
+#41 8.027 ├ ○ /ai
+#41 8.027 ├ ○ /authorship
+#41 8.027 ├ ○ /check
+#41 8.027 ├ ○ /citations
+#41 8.027 ├ ○ /dashboard
+#41 8.027 ├ ○ /detector
+#41 8.027 ├ ○ /documents
+#41 8.027 ├ ƒ /documents/[id]
+#41 8.027 ├ ○ /erasure-status
+#41 8.027 ├ ○ /evidence-graph
+#41 8.027 ├ ○ /forgot-password
+#41 8.027 ├ ○ /help
+#41 8.027 ├ ○ /history
+#41 8.027 ├ ○ /humaniser
+#41 8.027 ├ ○ /login
+#41 8.027 ├ ○ /onboarding
+#41 8.027 ├ ○ /plagiarism
+#41 8.027 ├ ○ /provenance
+#41 8.027 ├ ○ /register
+#41 8.027 ├ ○ /reports
+#41 8.027 ├ ○ /reset-password
+#41 8.027 ├ ○ /settings
+#41 8.027 ├ ○ /similarity
+#41 8.027 ├ ○ /sources
+#41 8.027 ├ ○ /upload
+#41 8.027 ├ ○ /verify-email
+#41 8.027 └ ○ /write
+#41 8.027 
+#41 8.027 
+#41 8.027 ○  (Static)   prerendered as static content
+#41 8.027 ƒ  (Dynamic)  server-rendered on demand
+#41 8.027 
+#41 8.065 npm notice
+#41 8.065 npm notice New major version of npm available! 10.9.8 -> 12.1.0
+#41 8.065 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.1.0
+#41 8.065 npm notice To update run: npm install -g npm@12.1.0
+#41 8.065 npm notice
+#41 DONE 8.2s
+
+#20 [migrate internal] load build context
+#20 ...
+
+#42 [frontend runner 3/6] RUN rm -rf /usr/local/lib/node_modules/npm /opt/yarn-*     && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/yarn /usr/local/bin/yarnpkg
+#42 CACHED
+
+#43 [frontend runner 4/6] COPY --from=builder --chown=node:node /app/.next/standalone ./
+#43 DONE 0.3s
+
+#20 [migrate internal] load build context
+#20 ...
+
+#44 [frontend runner 5/6] COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+#44 DONE 0.1s
+
+#20 [migrate internal] load build context
+#20 ...
+
+#45 [frontend runner 6/6] COPY --from=builder --chown=node:node /app/public ./public
+#45 DONE 0.0s
+
+#46 [frontend] exporting to image
+#46 exporting layers
+#46 exporting layers 0.9s done
+#46 exporting manifest sha256:b8b8ff11c38728e41f23a5cbb1e33f2dd824456f336bb7c49d62f63626c33980 done
+#46 exporting config sha256:2fa690cecc4b706447adb26404807b361f174588a18aeee5dced4370d26bb774 done
+#46 exporting attestation manifest sha256:ac9156c8e03439a300d1072ee1f00d7268bfa56245e4a691cdce154b5c782191 done
+#46 exporting manifest list sha256:615b0b6513b42d3226031ae9b5a32d8423b94e33cde52f219c9cb55a841601cf done
+#46 naming to docker.io/library/verity-core-0929-frontend:latest done
+#46 unpacking to docker.io/library/verity-core-0929-frontend:latest
+#46 unpacking to docker.io/library/verity-core-0929-frontend:latest 0.3s done
+#46 DONE 1.2s
+
+#47 [frontend] resolving provenance for metadata file
+#47 DONE 0.0s
+
+#20 [migrate internal] load build context
+ Image verity-core-0929-celery-beat Built 
+ Image verity-core-0929-migrate Built 
+ Image verity-core-0929-frontend Built 
+ Image verity-core-0929-backend Built 
+ Image verity-core-0929-celery-worker Built 

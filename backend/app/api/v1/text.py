@@ -117,6 +117,7 @@ async def refine(
                     user_id=UUID(str(user.id)),
                     task="refine",
                     text=data.text,
+                    focus=getattr(data, "focus", "clarity"),
                 )
             )
         except InferenceUnavailable as error:

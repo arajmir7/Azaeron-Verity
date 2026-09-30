@@ -1,0 +1,9 @@
+ Container verity-core-0929-verification-run-ed51c8093ee0 Creating 
+ Container verity-core-0929-verification-run-ed51c8093ee0 Created 
+reformatted /app/app/modules/model_platform/bakeoff.py
+reformatted /app/app/modules/model_platform/derivative.py
+
+All done! ✨ 🍰 ✨
+2 files reformatted, 19 files left unchanged.
+All checks passed!
+Success: no issues found in 197 source files

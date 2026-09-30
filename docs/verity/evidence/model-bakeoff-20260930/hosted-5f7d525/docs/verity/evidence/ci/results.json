@@ -1,0 +1,197 @@
+{
+  "source_manifest_sha256": "655867b641d708ec0c129780f8123ba35053e1db3a1cfe236eaa79cb11a054e1",
+  "production_certified": false,
+  "results": [
+    {
+      "gate": "backend-format",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/tmp/verity-ci.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/home/runner/work/Azaeron-Verity/Azaeron-Verity/backend:/app",
+        "verification",
+        "black",
+        "--check",
+        "app",
+        "tests"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 10.1
+    },
+    {
+      "gate": "backend-lint",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/tmp/verity-ci.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/home/runner/work/Azaeron-Verity/Azaeron-Verity/backend:/app",
+        "verification",
+        "ruff",
+        "check",
+        "app",
+        "tests"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.67
+    },
+    {
+      "gate": "backend-typecheck",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/tmp/verity-ci.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/home/runner/work/Azaeron-Verity/Azaeron-Verity/backend:/app",
+        "verification",
+        "mypy",
+        "app"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 57.34
+    },
+    {
+      "gate": "unit-security-worker-contract",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/tmp/verity-ci.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/home/runner/work/Azaeron-Verity/Azaeron-Verity/backend:/app",
+        "-e",
+        "CORS_ORIGINS=http://localhost:3000",
+        "verification",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "tests",
+        "--ignore=tests/integration",
+        "-q"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 150.49
+    },
+    {
+      "gate": "postgres-rls",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/tmp/verity-ci.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/home/runner/work/Azaeron-Verity/Azaeron-Verity/backend:/app",
+        "-e",
+        "POSTGRES_TEST_DATABASE_URL",
+        "-e",
+        "RUN_STORAGE_INTEGRATION=1",
+        "-e",
+        "PRIVACY_MINIO_ACCESS_KEY",
+        "-e",
+        "PRIVACY_MINIO_SECRET_KEY",
+        "verification",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "tests/integration",
+        "-q"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 15.34
+    },
+    {
+      "gate": "frontend-lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 17.0
+    },
+    {
+      "gate": "compose",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/tmp/verity-ci.json",
+        "config",
+        "--quiet"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.17
+    },
+    {
+      "gate": "frontend-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 15.41
+    },
+    {
+      "gate": "frontend-typecheck",
+      "command": [
+        "npx",
+        "tsc",
+        "--noEmit"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 5.34
+    },
+    {
+      "gate": "browser",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--workers=1"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 282.8
+    },
+    {
+      "gate": "source-stability",
+      "status": "PASS",
+      "exit_code": 0,
+      "changed_paths": []
+    }
+  ]
+}

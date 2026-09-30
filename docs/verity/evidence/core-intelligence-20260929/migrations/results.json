@@ -1,0 +1,16 @@
+{
+  "results": [
+    {
+      "gate": "create-isolated-database",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "remove-isolated-database",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "results": [
+    {
+      "gate": "create-isolated-database",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "fresh-to-usage",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "seed-account",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "downgrade-to-privacy",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "reupgrade-usage",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "upgrade-document-locks",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "downgrade-document-locks",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "reupgrade-document-locks",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "account-preserved-and-create-usage",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    },
+    {
+      "gate": "usage-downgrade-rejected",
+      "exit_code": 1,
+      "expected": "rejection",
+      "status": "PASS"
+    },
+    {
+      "gate": "remove-isolated-database",
+      "exit_code": 0,
+      "expected": "zero",
+      "status": "PASS"
+    }
+  ]
+}

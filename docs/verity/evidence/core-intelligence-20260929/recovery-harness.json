@@ -1,0 +1,14 @@
+{
+  "source": "scripts/verity_recovery_gate.py",
+  "source_sha256": "5b02be426f43c4ab4d6e9bd828e56400b8f7aac457f550c2a21cbbfbc0e62904",
+  "scope": "same-host fresh private volumes; not offsite",
+  "modifications": "Only port literals remapped to avoid existing user projects",
+  "port_mapping": {
+    "15432": "35432",
+    "19700": "39700",
+    "19701": "39701",
+    "19710": "39710",
+    "14710": "34710"
+  },
+  "executed_harness_sha256": "8b713723f3043ee1f280b3f76505e93eef05a0084e439bcfc5d40e71592ee0fc"
+}

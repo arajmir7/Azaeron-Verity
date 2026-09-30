@@ -1,0 +1,6 @@
+2026-09-30T18:15:09Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-09-30T18:15:09Z	INFO	Detected OS	family="alpine" version="3.24.2"
+2026-09-30T18:15:09Z	WARN	This OS version is not on the EOL list	family="alpine" version="3.24"
+2026-09-30T18:15:09Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=18
+2026-09-30T18:15:09Z	INFO	Number of language-specific files	num=1
+2026-09-30T18:15:09Z	INFO	[node-pkg] Detecting vulnerabilities...

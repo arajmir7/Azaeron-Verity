@@ -1,0 +1,17 @@
+# Local private-model asset discovery — 2026-09-30
+
+**Assets FOUND; production approval and evaluation inputs NOT FOUND / BLOCKED.** Discovery inspected the repository and standard model/cache/runtime paths without sending inference prompts, promoting a model, or reading/exporting secrets. “NOT FOUND” applies to the searched locations, not the entire Mac.
+
+| Asset | Exact path | Observed evidence | Missing requirements |
+| --- | --- | --- | --- |
+| Existing MiniLM similarity bundle | `/Users/ajmiraribam/Projects/azaeron_verity/backend/model_assets/all-MiniLM-L6-v2` | Manifest `/Users/ajmiraribam/Projects/azaeron_verity/backend/model_assets/all-MiniLM-L6-v2/verity-model-manifest.json`; immutable revision `1110a243fdf4706b3f48f1d95db1a4f5529b4d41`; all listed hashes match. Local model card declares `apache-2.0`. 384-dimensional embeddings, not an authorship detector. | Approval in the expanded private-model registry NOT FOUND. No writing/verifier claim. |
+| Ollama `qwen2.5:7b` | Manifest `/Users/ajmiraribam/.ollama/models/manifests/registry.ollama.ai/library/qwen2.5/7b`; GGUF `/Users/ajmiraribam/.ollama/models/blobs/sha256-2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730` | Local API identifies 7.6B / Q4_K_M, 32,768 context. Bundled Apache License 2.0 text. | Commercial-use review, independent release approval, immutable upstream model/tokenizer revisions and approved evaluation evidence NOT FOUND. |
+| Ollama `qwen2.5-coder:7b` | Manifest `/Users/ajmiraribam/.ollama/models/manifests/registry.ollama.ai/library/qwen2.5-coder/7b`; GGUF `/Users/ajmiraribam/.ollama/models/blobs/sha256-60e05f2100071479f596b964f89f510f057ce397ea22f2833a0cfe029bfc2463` | Local API identifies 7.6B / Q4_K_M, 32,768 context. Bundled Apache License 2.0 text. | Commercial-use review, independent release approval, immutable upstream model/tokenizer revisions and approved evaluation evidence NOT FOUND. |
+
+The Qwen licence blob is `/Users/ajmiraribam/.ollama/models/blobs/sha256-832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e`. Presence of this text is recorded evidence, not a legal/commercial approval or proof of all redistribution obligations being met. No licence or approval was invented.
+
+The runtime executable is `/usr/local/bin/ollama`; local API `http://127.0.0.1:11434` reports version `0.34.4`. This is not the application's approved mTLS/vLLM runtime contract. No private writer/verifier endpoint, mTLS deployment or approved model route was established. The production registry at `/Users/ajmiraribam/Projects/azaeron_verity/config/models/registry.json` contains zero models and zero routes. Its backup copies are also empty registries.
+
+Rights-reviewed evaluation/calibration corpora, dataset rights/provenance records, separated production train/validation/calibration/test/OOD assets, and an owned calibrated classifier: **NOT FOUND / BLOCKED**. Repository fixture tests and local customer documents were not treated as such datasets. A model card's list of pretraining datasets is not a local evaluation corpus.
+
+[Search roots and file inventory](evidence/core-intelligence-20260929/local-asset-discovery.json), [model inspection and hashes](evidence/core-intelligence-20260929/local-model-inspection.json), [dataset search scope](evidence/core-intelligence-20260929/local-dataset-search.json). The local Ollama metadata request performed no generation and no external inference.

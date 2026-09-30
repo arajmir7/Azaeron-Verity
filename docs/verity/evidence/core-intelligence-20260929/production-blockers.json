@@ -1,0 +1,65 @@
+{
+  "production_certified": false,
+  "registry_sha256": "09ab735893091e98e40c54350bbba9dae11a17860b8548aebd57d5cb77c8d83c",
+  "registered_models": 0,
+  "registry_routes": {},
+  "inference_enabled": "false",
+  "gates": [
+    {
+      "gate": "real-private-chat-and-semantic-fidelity",
+      "status": "BLOCKED",
+      "reason": "No approved private model routes or running writer/independent verifier."
+    },
+    {
+      "gate": "model-bakeoff-quality-latency-memory-concurrency-recovery",
+      "status": "BLOCKED",
+      "reason": "Local Qwen/Ollama and MiniLM assets found, but commercial-review/release approvals and rights-reviewed evaluation dataset NOT FOUND. No approved mTLS private runtime deployment. See LOCAL_MODEL_ASSETS.md."
+    },
+    {
+      "gate": "owned-detector-production-benchmark-calibration-fairness-ood",
+      "status": "BLOCKED",
+      "reason": "No approved owned neural classifier and provenance-labelled production dataset. Fixture protocol tests are not a production benchmark."
+    },
+    {
+      "gate": "private-embedding-rerank-transport",
+      "status": "BLOCKED",
+      "reason": "Task registration exists; vector embedding/reranking transport in the expanded gateway remains unimplemented."
+    },
+    {
+      "gate": "public-scholarly-semantic-retrieval",
+      "status": "BLOCKED",
+      "reason": "Only a rights-gated offline lexical index is implemented. No deployed corpus or semantic candidate retrieval evaluation."
+    },
+    {
+      "gate": "production-load-soak-and-gpu-slos",
+      "status": "BLOCKED",
+      "reason": "Local development tests do not exercise production serving hardware or a production-duration soak."
+    },
+    {
+      "gate": "offsite-recovery-production-rpo-rto",
+      "status": "BLOCKED",
+      "reason": "No offsite restore target, production backup credentials or production recovery objectives supplied."
+    },
+    {
+      "gate": "screen-reader-speech-and-browser-zoom",
+      "status": "BLOCKED",
+      "reason": "Automated axe, keyboard and viewport checks cannot establish a manual screen-reader/zoom review."
+    },
+    {
+      "gate": "production-smtp",
+      "status": "BLOCKED",
+      "reason": "Isolated local Mailpit sink only; production delivery/DNS/provider not configured."
+    },
+    {
+      "gate": "production-retention-authorization-quota-recertification",
+      "status": "BLOCKED",
+      "reason": "Local PostgreSQL, API-key, role/quota race and erasure tests cover contracts; a complete production deployment audit has not run."
+    },
+    {
+      "gate": "deployed-model-runtime-egress-red-team",
+      "status": "BLOCKED",
+      "reason": "Private DNS/mTLS/manifest contracts tested using fixtures; no model deployment available for a live egress attack."
+    }
+  ],
+  "asset_discovery": "Three local model assets found and documented in docs/verity/LOCAL_MODEL_ASSETS.md. Registry approvals, immutable Qwen upstream revisions and rights-reviewed evaluation datasets NOT FOUND in searched locations. Ollama is not the approved gateway runtime."
+}

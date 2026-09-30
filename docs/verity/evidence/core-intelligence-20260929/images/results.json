@@ -1,0 +1,67 @@
+[
+  {
+    "image": "verity-core-0929-backend",
+    "aliases": [
+      "verity-core-0929-backend"
+    ],
+    "image_id": "sha256:5c7cb753a96c4a8fdc2d5f366756cf96b87d2e183cf16df0cf44f026650854e2",
+    "bytes": 520802039,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-core-0929-backend",
+    "aliases": [
+      "verity-core-0929-backend"
+    ],
+    "image_id": "sha256:5c7cb753a96c4a8fdc2d5f366756cf96b87d2e183cf16df0cf44f026650854e2",
+    "bytes": 520802039,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-core-0929-celery-beat",
+    "aliases": [
+      "verity-core-0929-celery-beat"
+    ],
+    "image_id": "sha256:b8ccf0fbef676e9fe80315a28a7a7b25f36cbe711f32a54dd5184678321c74e2",
+    "bytes": 520802043,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-core-0929-celery-beat",
+    "aliases": [
+      "verity-core-0929-celery-beat"
+    ],
+    "image_id": "sha256:b8ccf0fbef676e9fe80315a28a7a7b25f36cbe711f32a54dd5184678321c74e2",
+    "bytes": 520802043,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-core-0929-celery-worker",
+    "aliases": [
+      "verity-core-0929-celery-worker"
+    ],
+    "image_id": "sha256:19c097c1ec98ee4d85a609649b1881e504a279332414285fe60b9f73434b05b5",
+    "bytes": 520802045,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-2-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

@@ -1,0 +1,8 @@
+ Container verity-core-0929-verification-run-a6d7cf4fdfdd Creating 
+ Container verity-core-0929-verification-run-a6d7cf4fdfdd Created 
+app/modules/agent/runner.py:313: error: Value of type "ToolCall" is not indexable  [index]
+app/modules/agent/runner.py:314: error: Value of type "ToolCall" is not indexable  [index]
+app/modules/agent/runner.py:375: error: Value of type "ToolCall" is not indexable  [index]
+app/modules/agent/runner.py:376: error: Value of type "ToolCall" is not indexable  [index]
+Found 4 errors in 1 file (checked 178 source files)
+

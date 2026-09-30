@@ -1,0 +1,62 @@
+
+> azaeron-frontend@1.0.0 build
+> node ./node_modules/next/dist/bin/next build
+
+▲ Next.js 16.3.3 (Turbopack)
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/ajmiraribam/Projects/azaeron_verity/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/ajmiraribam/Projects/azaeron_verity/frontend/package-lock.json
+
+✓ Running next.config.ts took 81ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 971ms
+  Running TypeScript ...
+  Finished TypeScript in 1089ms ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/30) ...
+  Generating static pages using 9 workers (7/30) 
+  Generating static pages using 9 workers (14/30) 
+  Generating static pages using 9 workers (22/30) 
+✓ Generating static pages using 9 workers (30/30) in 164ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /admin
+├ ○ /ai
+├ ○ /authorship
+├ ○ /check
+├ ○ /citations
+├ ○ /dashboard
+├ ○ /detector
+├ ○ /documents
+├ ƒ /documents/[id]
+├ ○ /erasure-status
+├ ○ /evidence-graph
+├ ○ /forgot-password
+├ ○ /help
+├ ○ /history
+├ ○ /humaniser
+├ ○ /login
+├ ○ /onboarding
+├ ○ /plagiarism
+├ ○ /provenance
+├ ○ /register
+├ ○ /reports
+├ ○ /reset-password
+├ ○ /settings
+├ ○ /similarity
+├ ○ /sources
+├ ○ /upload
+├ ○ /verify-email
+└ ○ /write
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

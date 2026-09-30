@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ResolveMatch } from "@/components/resolve-match";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { FileText, Search } from "lucide-react";
 import { api, type DocumentRecord, type ProvenanceTimeline, type SimilarityEvidence, type SimilarityWorkflow } from "@/lib/api";
@@ -166,7 +167,7 @@ export default function SimilarityPage() {
         </div>
         {selected && <Panel className="mt-5" title="Side-by-side evidence" description="Highlights are the exact stored strings. Context is shown around each match; source versions are preserved.">
           <div className="mb-4 flex flex-wrap gap-2"><StatusBadge status={label(selected.quotation_status)} tone="neutral" /><StatusBadge status={label(selected.citation_status)} tone="neutral" /><StatusBadge status={selected.excluded ? "Excluded from summary" : "Included in summary"} tone="neutral" /></div>
-          <div className="grid gap-4 md:grid-cols-2"><EvidencePane match={selected} /><EvidencePane match={selected} source /></div>
+          <div className="grid gap-4 md:grid-cols-2"><EvidencePane match={selected} /><EvidencePane match={selected} source /></div><ResolveMatch key={`${versionId}:${selected.id}`} documentId={documentId} versionId={versionId} matchId={selected.id} sourceTitle={selected.source_title} onAccepted={(id) => { update({ version: id, match: null }); setRefresh((value) => value + 1); }} />
           {selected.flags.map((flag) => <p key={flag.code} className="mt-3 text-sm text-amber-900 dark:text-amber-200"><strong>{label(flag.code)}: </strong>{flag.explanation}</p>)}
           <details className="mt-5 text-xs leading-6 text-slate-500"><summary className="cursor-pointer font-semibold">Exact evidence trail</summary><dl className="mt-3 grid gap-2 break-all"><div><dt>Match ID</dt><dd>{selected.id}</dd></div><div><dt>Canonical evidence node</dt><dd>{selected.evidence_node_id || "Unavailable"}</dd></div><div><dt>Source content SHA-256</dt><dd>{selected.source_content_hash}</dd></div><div><dt>Source text SHA-256</dt><dd>{selected.source_text_hash}</dd></div><div><dt>Target content SHA-256</dt><dd>{selected.target_content_hash}</dd></div><div><dt>Target text SHA-256</dt><dd>{selected.target_text_hash}</dd></div><div><dt>Retrieved</dt><dd>{selected.retrieved_at}</dd></div><div><dt>Pipeline / analysis</dt><dd>{report.pipeline_version} / {report.analysis_id}</dd></div></dl></details>
         </Panel>}

@@ -1,0 +1,205 @@
+{
+  "conclusion": "failure",
+  "createdAt": "2026-09-30T00:53:12Z",
+  "headSha": "9c730bb16af5c6fba0f4bc1a3c5e623bce47c916",
+  "jobs": [
+    {
+      "completedAt": "2026-09-30T01:08:00Z",
+      "conclusion": "failure",
+      "databaseId": 109689465251,
+      "name": "repository",
+      "startedAt": "2026-09-30T00:53:15Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-09-30T00:53:17Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-09-30T00:53:16Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T00:53:20Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 2,
+          "startedAt": "2026-09-30T00:53:17Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T00:53:20Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "number": 3,
+          "startedAt": "2026-09-30T00:53:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T00:53:21Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "number": 4,
+          "startedAt": "2026-09-30T00:53:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T00:53:34Z",
+          "conclusion": "success",
+          "name": "Run npm ci --prefix frontend",
+          "number": 5,
+          "startedAt": "2026-09-30T00:53:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T00:54:01Z",
+          "conclusion": "success",
+          "name": "Run npx --prefix frontend playwright install --with-deps chromium",
+          "number": 6,
+          "startedAt": "2026-09-30T00:53:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T00:54:02Z",
+          "conclusion": "success",
+          "name": "Prepare an isolated runtime",
+          "number": 7,
+          "startedAt": "2026-09-30T00:54:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T00:57:18Z",
+          "conclusion": "success",
+          "name": "Build runtime and verification images",
+          "number": 8,
+          "startedAt": "2026-09-30T00:54:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T00:57:56Z",
+          "conclusion": "success",
+          "name": "Migrate and wait for dependencies",
+          "number": 9,
+          "startedAt": "2026-09-30T00:57:18Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:05:32Z",
+          "conclusion": "success",
+          "name": "Execute repository gate including live browser and PostgreSQL tests",
+          "number": 10,
+          "startedAt": "2026-09-30T00:57:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:05:38Z",
+          "conclusion": "success",
+          "name": "Install security scanners",
+          "number": 11,
+          "startedAt": "2026-09-30T01:05:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:05:41Z",
+          "conclusion": "success",
+          "name": "Dependency audits",
+          "number": 12,
+          "startedAt": "2026-09-30T01:05:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:05:54Z",
+          "conclusion": "success",
+          "name": "SAST and source secret gate",
+          "number": 13,
+          "startedAt": "2026-09-30T01:05:41Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:05:55Z",
+          "conclusion": "success",
+          "name": "Export frontend SBOM",
+          "number": 14,
+          "startedAt": "2026-09-30T01:05:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:06:20Z",
+          "conclusion": "success",
+          "name": "Reclaim build cache before image scans",
+          "number": 15,
+          "startedAt": "2026-09-30T01:05:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:06:20Z",
+          "conclusion": "success",
+          "name": "Pull pinned infrastructure images for security coverage",
+          "number": 16,
+          "startedAt": "2026-09-30T01:06:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:07:15Z",
+          "conclusion": "failure",
+          "name": "Scan every Compose image and generate SBOMs",
+          "number": 17,
+          "startedAt": "2026-09-30T01:06:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:07:16Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+          "number": 18,
+          "startedAt": "2026-09-30T01:07:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:07:58Z",
+          "conclusion": "success",
+          "name": "Stop isolated runtime",
+          "number": 19,
+          "startedAt": "2026-09-30T01:07:16Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:07:58Z",
+          "conclusion": "skipped",
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "number": 36,
+          "startedAt": "2026-09-30T01:07:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:07:58Z",
+          "conclusion": "skipped",
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "number": 37,
+          "startedAt": "2026-09-30T01:07:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:07:58Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 38,
+          "startedAt": "2026-09-30T01:07:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-30T01:07:58Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 39,
+          "startedAt": "2026-09-30T01:07:58Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/36652452350/job/109689465251"
+    }
+  ],
+  "status": "completed",
+  "updatedAt": "2026-09-30T01:08:00Z",
+  "url": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/36652452350"
+}

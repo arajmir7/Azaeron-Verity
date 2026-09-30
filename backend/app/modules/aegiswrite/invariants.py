@@ -15,6 +15,15 @@ class ProtectedSpan:
 
 
 PATTERNS = (
+    ("negation", r"\b(?i:not|no|never|without|cannot)\b|(?i:n['’]t)\b"),
+    (
+        "causal_qualifier",
+        r"\b(?i:may|might|could|approximately|estimated|possibly|unless|at least|at most|associated with|correlated with|because|causes?|caused)\b",
+    ),
+    (
+        "date",
+        r"\b(?i:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:,?\s+\d{4})?\b",
+    ),
     ("code", r"```[^\n]*\n[\s\S]*?(?:```|\Z)|~~~[^\n]*\n[\s\S]*?(?:~~~|\Z)|`[^`\n]+`"),
     (
         "quotation",

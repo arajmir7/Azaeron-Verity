@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "recovery_relations_unchanged": true,
+  "surviving_object_hashes_verified": 2,
+  "contract_tests_database_separate": true
+}

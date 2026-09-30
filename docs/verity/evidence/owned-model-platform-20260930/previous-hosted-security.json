@@ -1,0 +1,14 @@
+{
+  "previous_hosted_commit": "9c730bb16af5c6fba0f4bc1a3c5e623bce47c916",
+  "url": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/36652452350",
+  "repository_gates": "PASS",
+  "image_gate": "FAIL",
+  "passing_distinct_images": 11,
+  "total_distinct_images": 12,
+  "sboms_passed": 12,
+  "grafana": "PASS",
+  "postgres_high": 102,
+  "postgres_critical": 16,
+  "waivers": 0,
+  "scope": "Preceding agent-core commit, not certification of the new model platform."
+}

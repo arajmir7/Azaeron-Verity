@@ -1,0 +1,11 @@
+{
+  "status": "BLOCKED",
+  "production_certified": false,
+  "candidates": [],
+  "blockers": [
+    "At least two commercially reviewed approved private candidates are required.",
+    "No licensed evaluation dataset supplied."
+  ],
+  "protocol": "private-model-bakeoff-1",
+  "concurrency": 1
+}

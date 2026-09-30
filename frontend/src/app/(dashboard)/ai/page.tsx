@@ -1,12 +1,21 @@
-import Link from "next/link";
-import { ArrowUpRight, LockKeyhole, PenLine, Sparkles } from "lucide-react";
-import { Button, PageHeader, Panel, StatusBadge } from "@/components/design-system";
+"use client";
+
+import { Suspense, useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { AgentPanel } from "@/components/agent-panel";
+import { LoadingState } from "@/components/design-system";
+import { useStore } from "@/lib/store";
+
+function AIWorkspace() {
+  const { currentOrg, user } = useStore();
+  const params = useSearchParams();
+  const router = useRouter();
+  const requested = params.get("conversation");
+  const conversationId = requested && /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(requested) ? requested : undefined;
+  const select = useCallback((id?: string) => router.replace(id ? `/ai?conversation=${encodeURIComponent(id)}` : "/ai", { scroll: false }), [router]);
+  return <AgentPanel key={`${currentOrg?.id}:${user?.id}`} initialConversationId={conversationId} onConversationChange={select} />;
+}
 
 export default function AzaeronAIPage() {
-  return <div className="mx-auto max-w-4xl">
-    <PageHeader eyebrow="Azaeron AI" title="Your writing partner" description="Ask questions, explore ideas, and work with documents in one private workspace." />
-    <Panel className="overflow-hidden" title="Azaeron AI" action={<StatusBadge status="Unavailable" />}>
-      <div className="mx-auto max-w-xl py-10 text-center"><span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-teal-50 text-teal-900 dark:bg-teal-950 dark:text-teal-200"><LockKeyhole size={25} aria-hidden="true" /></span><h2 className="mt-5 text-xl font-semibold">Private AI is being prepared</h2><p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">An approved self-hosted writing model is not available in this environment. Questions and documents will not be sent to an outside AI provider, and we will not invent a response.</p><div className="mt-6 flex flex-wrap justify-center gap-3"><Link href="/write"><Button><PenLine size={16} aria-hidden="true" /> Open Document Editor</Button></Link><Link href="/humaniser"><Button variant="secondary"><Sparkles size={16} aria-hidden="true" /> Review writing suggestions <ArrowUpRight size={15} aria-hidden="true" /></Button></Link></div></div>
-    </Panel>
-  </div>;
+  return <div><header className="mb-5"><p className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.17em] text-teal-700 dark:text-teal-300">Workspace chat</p><h1 className="font-serif text-3xl tracking-[-0.04em] text-slate-950 dark:text-white sm:text-4xl">Azaeron AI</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">Ask a question or work through a document, with a clear record of your conversation.</p></header><Suspense fallback={<LoadingState label="Opening conversations…" />}><AIWorkspace /></Suspense></div>;
 }

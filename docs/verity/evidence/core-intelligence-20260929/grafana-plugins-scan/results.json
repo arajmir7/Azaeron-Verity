@@ -1,0 +1,28 @@
+[
+  {
+    "image": "verity-grafana-plugins-candidate",
+    "aliases": [
+      "verity-grafana-plugins-candidate"
+    ],
+    "image_id": "sha256:48fe2865f24429d982247efbf0a262a80cc744f792b34823689bda73feca6a4b",
+    "bytes": 1917869500,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-grafana-plugins-candidate",
+    "aliases": [
+      "verity-grafana-plugins-candidate"
+    ],
+    "image_id": "sha256:48fe2865f24429d982247efbf0a262a80cc744f792b34823689bda73feca6a4b",
+    "bytes": 1917869500,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

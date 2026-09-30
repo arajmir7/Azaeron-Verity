@@ -10,6 +10,46 @@ concurrency:
   group: verity-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  derivative-mechanics:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Install hash-locked CPU candidate dependencies
+        run: python -m pip install --require-hashes -r backend/requirements-derivative-linux-cpu.lock
+      - name: Exercise real full and LoRA training on TEST_ONLY fixtures
+        env:
+          PYTHONPATH: backend
+          HF_HUB_OFFLINE: '1'
+          TRANSFORMERS_OFFLINE: '1'
+          HF_HUB_DISABLE_TELEMETRY: '1'
+        run: python backend/scripts/derivative_smoke.py --output /tmp/derivative-smoke
+      - name: Exercise native four-family training with five TEST_ONLY splits
+        env:
+          PYTHONPATH: backend
+          HF_HUB_OFFLINE: '1'
+          TRANSFORMERS_OFFLINE: '1'
+        run: python backend/scripts/model_platform_smoke.py --output /tmp/native-v2-smoke
+      - name: Audit isolated derivative dependencies
+        run: |
+          python -m pip install pip-audit==2.10.1
+          python -m pip_audit -r backend/requirements-derivative-linux-cpu.lock --no-deps --disable-pip --format json --output /tmp/derivative-audit.json
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: derivative-mechanics-evidence
+          path: |
+            /tmp/derivative-smoke/result.json
+            /tmp/derivative-smoke/*-run/training-manifest.json
+            /tmp/derivative-smoke/bakeoff
+            /tmp/derivative-audit.json
+            /tmp/native-v2-smoke/results.json
+            /tmp/native-v2-smoke/*/evaluation.json
+            /tmp/native-v2-smoke/*/bundle/training-manifest.json
+          retention-days: 7
   repository:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
@@ -28,7 +68,7 @@ jobs:
       - name: Prepare an isolated runtime
         run: python backend/scripts/prepare_slice0_compose.py --project verity-ci --identity-mail --port-offset 1700 --output /tmp/verity-ci.json
       - name: Build runtime and verification images
-        run: docker compose -f /tmp/verity-ci.json --profile verification build backend celery-worker celery-beat migrate frontend verification minio minio-init
+        run: docker compose -f /tmp/verity-ci.json --profile verification build postgres backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger grafana
       - name: Migrate and wait for dependencies
         run: docker compose -f /tmp/verity-ci.json up -d --wait --wait-timeout 180 backend celery-worker frontend jaeger otel-collector prometheus
       - name: Execute repository gate including live browser and PostgreSQL tests

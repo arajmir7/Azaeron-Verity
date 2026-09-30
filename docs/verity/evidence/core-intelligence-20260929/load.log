@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_load_gate.py", line 151, in <module>
+    main()
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_load_gate.py", line 114, in main
+    sample = subprocess.run(
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 507, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 1134, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 1980, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 1178, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['docker', 'stats', '--no-stream', '--format', '{{json .}}', '616ea8c8c6ef6e6ffc27287a0f9a13407592ba166c61a9dbf21b567512e8a8df', '67959bfdf8c74d3d2e158e644ae76f71508467fa8035691990a2b2fd56b5ab8e', '4ec18bc5f520e22b0e025f2780c7412f97786acff56c21fdac6105090270a5da', '790737ee2c386d04afa21dfbbca89d30c9b925ddfe1ac37fced792de73775944', 'c2703793e754b9a7f7735c1fd898f4798dea75ddc852d8b47cf5d19b7cceb661']' timed out after 15 seconds

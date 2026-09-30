@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { api, type ApiKeyMetadata, type ApiKeyScope, type CreatedApiKey } from "@/lib/api";
 import { Button, Notice } from "@/components/design-system";
 
-const scopes: ApiKeyScope[] = ["text:analyze", "text:refine", "text:verify", "documents:read", "documents:write", "usage:read"];
+const scopes: ApiKeyScope[] = ["text:analyze", "text:refine", "text:verify", "documents:read", "documents:write", "usage:read", "ai:chat"];
 const fieldClass = "mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-950";
 
 export function ApiKeys({ organizationId }: { organizationId: string }) {

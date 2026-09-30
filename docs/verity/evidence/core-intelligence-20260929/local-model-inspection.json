@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-09-30T00:55:53.795458+00:00",
+  "runtime": "Ollama local API http://127.0.0.1:11434",
+  "inference_executed": false,
+  "models": [
+    {
+      "name": "qwen2.5:7b",
+      "manifest_path": "/Users/ajmiraribam/.ollama/models/manifests/registry.ollama.ai/library/qwen2.5/7b",
+      "manifest_sha256": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "7.6B",
+        "quantization_level": "Q4_K_M"
+      },
+      "model_identity": {
+        "general.architecture": "qwen2",
+        "general.file_type": 15,
+        "general.parameter_count": 7615616512,
+        "qwen2.context_length": 32768
+      },
+      "bundled_license_identification": "Apache License Version 2.0 text present",
+      "license_text_sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+      "artifacts": [
+        {
+          "type": "application/vnd.ollama.image.model",
+          "path": "/Users/ajmiraribam/.ollama/models/blobs/sha256-2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+          "digest": "sha256:2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+          "bytes": 4683073952,
+          "verified_sha256": "2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+          "integrity": "PASS"
+        },
+        {
+          "type": "application/vnd.ollama.image.license",
+          "path": "/Users/ajmiraribam/.ollama/models/blobs/sha256-832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "digest": "sha256:832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "bytes": 11343,
+          "verified_sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "integrity": "PASS"
+        }
+      ],
+      "commercial_review": "NOT FOUND",
+      "release_approval": "NOT FOUND",
+      "immutable_upstream_revision": "NOT FOUND",
+      "benchmark_status": "BLOCKED: approval and rights-reviewed evaluation data absent"
+    },
+    {
+      "name": "qwen2.5-coder:7b",
+      "manifest_path": "/Users/ajmiraribam/.ollama/models/manifests/registry.ollama.ai/library/qwen2.5-coder/7b",
+      "manifest_sha256": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "7.6B",
+        "quantization_level": "Q4_K_M"
+      },
+      "model_identity": {
+        "general.architecture": "qwen2",
+        "general.file_type": 15,
+        "general.parameter_count": 7615616512,
+        "qwen2.context_length": 32768
+      },
+      "bundled_license_identification": "Apache License Version 2.0 text present",
+      "license_text_sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+      "artifacts": [
+        {
+          "type": "application/vnd.ollama.image.model",
+          "path": "/Users/ajmiraribam/.ollama/models/blobs/sha256-60e05f2100071479f596b964f89f510f057ce397ea22f2833a0cfe029bfc2463",
+          "digest": "sha256:60e05f2100071479f596b964f89f510f057ce397ea22f2833a0cfe029bfc2463",
+          "bytes": 4683074048,
+          "verified_sha256": "60e05f2100071479f596b964f89f510f057ce397ea22f2833a0cfe029bfc2463",
+          "integrity": "PASS"
+        },
+        {
+          "type": "application/vnd.ollama.image.license",
+          "path": "/Users/ajmiraribam/.ollama/models/blobs/sha256-832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "digest": "sha256:832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "bytes": 11343,
+          "verified_sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "integrity": "PASS"
+        }
+      ],
+      "commercial_review": "NOT FOUND",
+      "release_approval": "NOT FOUND",
+      "immutable_upstream_revision": "NOT FOUND",
+      "benchmark_status": "BLOCKED: approval and rights-reviewed evaluation data absent"
+    }
+  ],
+  "ollama_version": "0.34.4",
+  "existing_similarity_model": {
+    "bundle_path": "/Users/ajmiraribam/Projects/azaeron_verity/backend/model_assets/all-MiniLM-L6-v2",
+    "manifest_path": "/Users/ajmiraribam/Projects/azaeron_verity/backend/model_assets/all-MiniLM-L6-v2/verity-model-manifest.json",
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "dimension": 384,
+    "manifest_integrity": "PASS",
+    "mismatches": [],
+    "license_declared_in_local_card": "apache-2.0",
+    "purpose": "similarity embeddings; not an AI-writing detector",
+    "expanded_registry_approval": "NOT FOUND"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "repository": "mistralai/Ministral-3-8B-Instruct-2512-BF16",
+  "kind": "models",
+  "role": "independent_baseline_candidate",
+  "revision": "f6fae9795746f63c9be8344932f01275f3c63734",
+  "captured_at": "2026-09-30T11:38:19.095642+00:00",
+  "primary_api": "https://huggingface.co/api/models/mistralai/Ministral-3-8B-Instruct-2512-BF16?blobs=true",
+  "metadata_sha256": "5301e40bb4ddfef371f1c5e67f37e1c6a2e1e8e81b271f292d6c0cc0a331b5a6",
+  "declared_license": "apache-2.0",
+  "local_metadata": {
+    "README.md": {
+      "sha256": "f390689977775d8ee2196a56d469f77293a1a33400069a6a2a00c5dc95f53510",
+      "source": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512-BF16/resolve/f6fae9795746f63c9be8344932f01275f3c63734/README.md"
+    },
+    "config.json": {
+      "sha256": "3953b565385881fe1e80980fa8f797ffef5dbcc170851b5f90d60ddcb1905f58",
+      "source": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512-BF16/resolve/f6fae9795746f63c9be8344932f01275f3c63734/config.json"
+    },
+    "tokenizer_config.json": {
+      "sha256": "f59f7294e4f26383d0ea93840fe21cf197784be0842a8301a0343e8c34ed0d6d",
+      "source": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512-BF16/resolve/f6fae9795746f63c9be8344932f01275f3c63734/tokenizer_config.json"
+    }
+  },
+  "unverified_payload_inventory": {
+    "consolidated.safetensors": {
+      "publisher_lfs_sha256": "44db184fe2b0b08edea6370ad8403d7b17d604d38127133f50a3da111a874eca",
+      "bytes": 17836115976,
+      "local_bytes_verified": false
+    },
+    "model-00001-of-00004.safetensors": {
+      "publisher_lfs_sha256": "95f4da19c81e6a06d4f0c61cac3dfdd85ef463a7955473dc4c07e570fd2342f9",
+      "bytes": 4984292952,
+      "local_bytes_verified": false
+    },
+    "model-00002-of-00004.safetensors": {
+      "publisher_lfs_sha256": "18275e4c8413d0ed4b0cb8380fe1fd4faeee34189960fdd92ef5b0d3f4ed1b98",
+      "bytes": 4999804256,
+      "local_bytes_verified": false
+    },
+    "model-00003-of-00004.safetensors": {
+      "publisher_lfs_sha256": "980d1d3635ae29a6e629e2f7ad589c882eba270c3f66da74da4f8ccb11845687",
+      "bytes": 4915917680,
+      "local_bytes_verified": false
+    },
+    "model-00004-of-00004.safetensors": {
+      "publisher_lfs_sha256": "fa80e52af465c5644b18b623eeeebb1d50e47dafbee73816bf26f2473f88d369",
+      "bytes": 2936108304,
+      "local_bytes_verified": false
+    }
+  },
+  "status": "REVIEW_REQUIRED",
+  "approval": "NOT_APPROVED",
+  "reviewer": null,
+  "blockers": [
+    "Accountable commercial-use/training review NOT FOUND",
+    "Weights NOT ACQUIRED / NOT VERIFIED",
+    "Offline runtime compatibility NOT EXECUTED",
+    "Internal quality comparison NOT EXECUTED"
+  ],
+  "technical_metadata": {
+    "architecture": [
+      "Mistral3ForConditionalGeneration"
+    ],
+    "text_model_type": "ministral3",
+    "publisher_parameters": 8918026240,
+    "configured_context": 262144,
+    "languages": [
+      "en",
+      "fr",
+      "es",
+      "de",
+      "it",
+      "pt",
+      "nl",
+      "zh",
+      "ja",
+      "ko",
+      "ar"
+    ],
+    "local_weights_verified": false
+  }
+}

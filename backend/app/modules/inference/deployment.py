@@ -8,6 +8,7 @@ import argparse
 import json
 from pathlib import Path
 import re
+from typing import get_args
 
 from app.modules.inference.registry import AzaeronModelRegistry, Task, verify_artifacts
 
@@ -22,7 +23,9 @@ def deployment(
     namespace: str = "azaeron",
 ) -> dict:
     model = catalog.select(task)
-    name = "inference" if task == "refine" else "verification"
+    name = {"refine": "inference", "verify": "verification"}.get(
+        task, "inference-" + task
+    )
     if not re.fullmatch(r"[^\s]+@sha256:[a-f0-9]{64}", app_image):
         raise ValueError("Artifact-check image must be digest-pinned")
     if not re.fullmatch(r"[a-z0-9]([-a-z0-9]*[a-z0-9])?", namespace):
@@ -58,6 +61,25 @@ def deployment(
     ]
     if model.quantization != "none":
         args.extend(["--quantization", model.quantization])
+    if model.runtime == "azaeron-native":
+        if model.quantization != "none":
+            raise ValueError("Native reference runtime does not support quantization")
+        args = [
+            "-m",
+            "app.modules.model_platform.runtime",
+            "--registry",
+            "/registry/registry.json",
+            "--bundle",
+            "/models",
+            "--task",
+            task,
+            "--cert",
+            "/tls/tls.crt",
+            "--key",
+            "/tls/tls.key",
+            "--ca",
+            "/tls/ca.crt",
+        ]
     labels = {"app": f"azaeron-{name}"}
     env = [
         {"name": name, "value": value}
@@ -147,7 +169,7 @@ def deployment(
             {
                 "name": "runtime",
                 "image": model.runtime_image,
-                "command": ["vllm"],
+                "command": ["python" if model.runtime == "azaeron-native" else "vllm"],
                 "args": args,
                 "env": env,
                 "securityContext": security,
@@ -155,7 +177,11 @@ def deployment(
                 + [{"name": "scratch", "mountPath": SCRATCH_DIRECTORY}],
                 "ports": [{"containerPort": 8000}],
                 "resources": {
-                    "limits": {"nvidia.com/gpu": "1"},
+                    "limits": (
+                        {"cpu": "2", "memory": model.hardware.get("memory", "16Gi")}
+                        if model.runtime == "azaeron-native"
+                        else {"nvidia.com/gpu": "1"}
+                    ),
                     "requests": {
                         "cpu": "2",
                         "memory": model.hardware.get("memory", "16Gi"),
@@ -216,7 +242,9 @@ def deployment(
 
 
 def compose_manifest(catalog: AzaeronModelRegistry, task: Task, app_image: str) -> dict:
-    name = "inference" if task == "refine" else "verification"
+    name = {"refine": "inference", "verify": "verification"}.get(
+        task, "inference-" + task
+    )
     bundle = (
         "${AZAERON_"
         + task.upper()
@@ -250,24 +278,29 @@ def compose_manifest(catalog: AzaeronModelRegistry, task: Task, app_image: str) 
                 "volumes": [
                     bundle,
                     tls,
+                    "${AZAERON_REGISTRY_DIRECTORY:?registry required}:/registry:ro",
                 ],
                 "depends_on": {
                     f"{name}-integrity": {"condition": "service_completed_successfully"}
                 },
                 "networks": ["inference-private"],
-                "deploy": {
-                    "resources": {
-                        "reservations": {
-                            "devices": [
-                                {
-                                    "driver": "nvidia",
-                                    "count": 1,
-                                    "capabilities": ["gpu"],
-                                }
-                            ]
+                "deploy": (
+                    {}
+                    if catalog.select(task).runtime == "azaeron-native"
+                    else {
+                        "resources": {
+                            "reservations": {
+                                "devices": [
+                                    {
+                                        "driver": "nvidia",
+                                        "count": 1,
+                                        "capabilities": ["gpu"],
+                                    }
+                                ]
+                            }
                         }
                     }
-                },
+                ),
             },
         },
         "networks": {"inference-private": {"internal": True}},
@@ -277,7 +310,7 @@ def compose_manifest(catalog: AzaeronModelRegistry, task: Task, app_image: str) 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--registry", required=True)
-    parser.add_argument("--task", choices=["refine", "verify"], default="refine")
+    parser.add_argument("--task", choices=get_args(Task), default="refine")
     parser.add_argument("--verify", type=Path)
     parser.add_argument("--app-image")
     parser.add_argument(
@@ -286,7 +319,11 @@ def main():
     args = parser.parse_args()
     catalog = AzaeronModelRegistry.load(args.registry)
     if args.verify:
-        verify_artifacts(catalog.select(args.task), args.verify)
+        model = catalog.select(args.task)
+        verify_artifacts(model, args.verify)
+        from app.modules.model_platform.policy import verify_release_files
+
+        verify_release_files(model, args.verify)
         print('{"artifact_integrity":"PASS"}')
     else:
         if not args.app_image:

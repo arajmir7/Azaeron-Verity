@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "status": "FAIL",
+  "run_live_e2e": true,
+  "run_observability_e2e": true
+}

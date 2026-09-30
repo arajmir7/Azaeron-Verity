@@ -1,0 +1,28 @@
+Unable to find image 'aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969' locally
+docker.io/aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969: Pulling from aquasec/trivy
+55afa1ecc21d: Already exists
+0c664a59f299: Pulling fs layer
+9b17763e725d: Pulling fs layer
+99f1ca71a2b5: Pulling fs layer
+99f1ca71a2b5: Verifying Checksum
+99f1ca71a2b5: Download complete
+0c664a59f299: Verifying Checksum
+0c664a59f299: Download complete
+9b17763e725d: Verifying Checksum
+9b17763e725d: Download complete
+0c664a59f299: Pull complete
+9b17763e725d: Pull complete
+99f1ca71a2b5: Pull complete
+Digest: sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969
+Status: Downloaded newer image for aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969
+2026-09-30T01:06:26Z	INFO	[vulndb] Need to update DB
+2026-09-30T01:06:26Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-09-30T01:06:26Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+13.65 MiB / 118.34 MiB [------>_____________________________________________________] 11.54% ? p/s ?29.55 MiB / 118.34 MiB [-------------->_____________________________________________] 24.97% ? p/s ?56.00 MiB / 118.34 MiB [---------------------------->_______________________________] 47.32% ? p/s ?90.30 MiB / 118.34 MiB [----------------------------------->__________] 76.30% 127.82 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 127.82 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 127.82 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 122.58 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 122.58 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 122.58 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 114.67 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 114.67 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 114.67 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 107.27 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 107.27 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 107.27 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 100.35 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 100.35 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 100.35 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 93.88 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 93.88 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 93.88 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-----------------------------------------------] 100.00% 29.43 MiB p/s 4.2s2026-09-30T01:06:31Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-09-30T01:06:31Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-09-30T01:06:31Z	INFO	[python] Licenses acquired from one or more METADATA files may be subject to additional terms. Use `--debug` flag to see all affected packages.
+2026-09-30T01:06:31Z	INFO	Detected OS	family="debian" version="13.7"
+2026-09-30T01:06:31Z	INFO	[debian] Detecting vulnerabilities...	os_version="13" pkg_num=16
+2026-09-30T01:06:31Z	INFO	Number of language-specific files	num=1
+2026-09-30T01:06:31Z	INFO	[python-pkg] Detecting vulnerabilities...
+2026-09-30T01:06:31Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.74/guide/scanner/vulnerability#severity-selection for details.

@@ -1,0 +1,14 @@
+time="2026-09-29T21:05:16+05:30" level=warning msg="Found orphan containers (verity-core-0929-verification-run-c79e517d5178, verity-core-0929-verification-run-cee188120299) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container verity-core-0929-verification-run-9a8a35da029b Creating 
+ Container verity-core-0929-verification-run-9a8a35da029b Created 
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: anyio-4.15.1, asyncio-1.4.0, Faker-30.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 1 item
+
+tests/test_agent.py .                                                    [100%]
+
+============================== 1 passed in 8.16s ===============================

@@ -31,6 +31,15 @@ pytestmark = pytest.mark.skipif(
 )
 
 TENANT_TABLES = {
+    "ai_voice_profiles",
+    "ai_conversations",
+    "ai_messages",
+    "ai_runs",
+    "ai_events",
+    "ai_tool_calls",
+    "ai_tool_results",
+    "ai_action_receipts",
+    "ai_document_attachments",
     "usage_operations",
     "usage_buckets",
     "privacy_erasures",

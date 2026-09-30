@@ -1,0 +1,5 @@
+{
+  "status": "INCOMPLETE",
+  "reason": "Paused own scanner to recover Docker host memory for repository checks",
+  "terminated_processes": 2
+}

@@ -1,0 +1,184 @@
+{
+  "result": "PASS",
+  "scope": "Local synthetic non-model application load after guarded PostgreSQL logical migration; original 25 latency budgets unchanged; not production soak.",
+  "requests": 284,
+  "unexpected_errors": 0,
+  "processing_jobs": 56,
+  "rows": [
+    {
+      "workload": "analysis",
+      "concurrency": 1,
+      "p95_ms": 14.866,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "analysis",
+      "concurrency": 4,
+      "p95_ms": 49.74,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "analysis",
+      "concurrency": 8,
+      "p95_ms": 82.14,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 1,
+      "p95_ms": 6.648,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 4,
+      "p95_ms": 20.388,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 8,
+      "p95_ms": 91.602,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 1,
+      "p95_ms": 7.248,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 4,
+      "p95_ms": 17.183,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 8,
+      "p95_ms": 34.675,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 1,
+      "p95_ms": 8.84,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 4,
+      "p95_ms": 58.635,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 8,
+      "p95_ms": 32.899,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 1,
+      "p95_ms": 42.49,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 4,
+      "p95_ms": 135.655,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 8,
+      "p95_ms": 278.851,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "job_creation",
+      "concurrency": 1,
+      "p95_ms": 182.675,
+      "limit_ms": 500,
+      "status": "PASS"
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 1,
+      "p95_ms": 10.074,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 4,
+      "p95_ms": 20.287,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 8,
+      "p95_ms": 34.61,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 1,
+      "p95_ms": 43.845,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 4,
+      "p95_ms": 192.698,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 8,
+      "p95_ms": 123.819,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 1,
+      "p95_ms": 8.089,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 4,
+      "p95_ms": 26.056,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 8,
+      "p95_ms": 41.783,
+      "limit_ms": 250,
+      "status": "PASS"
+    }
+  ]
+}

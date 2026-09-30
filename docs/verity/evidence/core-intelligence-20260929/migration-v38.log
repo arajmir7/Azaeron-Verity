@@ -1,0 +1,5 @@
+ Container verity-core-0929-migrate-run-fe1bf01691e7 Creating 
+ Container verity-core-0929-migrate-run-fe1bf01691e7 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260929_0037 -> 20260929_0038, User-approved voice statistics and source-dependent erasure.

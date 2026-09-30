@@ -5,6 +5,7 @@ library; scanners must see the actual final runtime rather than a stripped SBOM.
 """
 
 import json
+import argparse
 from pathlib import Path
 import re
 import shutil
@@ -12,6 +13,13 @@ import subprocess
 
 ROOT = Path("/runtime-root")
 BASE = Path("/base")
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument(
+    "--include-sqlite",
+    action="store_true",
+    help="Keep CPython SQLite support for the isolated unit-test image",
+)
+args = parser.parse_args()
 local = ROOT / "usr/local"
 shutil.copytree("/usr/local", local, symlinks=True)
 # Interactive/database tools are not application dependencies. Verification keeps
@@ -30,7 +38,6 @@ for pattern in (
     "lib/python3.12/site-packages/pip*",
     "lib/python3.12/lib-dynload/_curses*",
     "lib/python3.12/lib-dynload/readline*",
-    "lib/python3.12/lib-dynload/_sqlite3*",
     "lib/python3.12/lib-dynload/_dbm*",
     "lib/python3.12/lib-dynload/_gdbm*",
     "lib/python3.12/lib-dynload/_uuid*",
@@ -41,6 +48,9 @@ for pattern in (
             shutil.rmtree(target)
         else:
             target.unlink()
+if not args.include_sqlite:
+    for target in local.glob("lib/python3.12/lib-dynload/_sqlite3*"):
+        target.unlink()
 packages = set()
 libraries = {}
 for target in sorted(local.rglob("*")):

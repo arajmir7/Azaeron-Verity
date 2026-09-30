@@ -1,0 +1,11 @@
+{
+  "isolated_project": "verity-recover-0929",
+  "jaeger_api_v3_trace_survived_restart": true,
+  "grafana_datasource_health": {
+    "message": "Data source is working",
+    "status": "OK"
+  },
+  "grafana_trace_query_http_status": 200,
+  "grafana_trace_frames": 1,
+  "grafana_trace_id_matches": true
+}

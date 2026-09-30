@@ -1,0 +1,117 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 483B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572
+#4 resolve docker.io/grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572 done
+#4 CACHED
+
+#5 [2/2] RUN apk upgrade --no-cache     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1         ! -name jaeger ! -name prometheus -exec rm -rf {} +
+#5 5.085 WARNING: fetching https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/APKINDEX.tar.gz: DNS: transient error (try again later)
+#5 10.09 WARNING: fetching https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/APKINDEX.tar.gz: DNS: transient error (try again later)
+#5 10.09 ERROR: Not continuing due to stale/unavailable repositories. Use --force-missing-repositories to continue.
+#5 ERROR: process "/bin/sh -c apk upgrade --no-cache     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1         ! -name jaeger ! -name prometheus -exec rm -rf {} +" did not complete successfully: exit code: 99
+------
+ > [2/2] RUN apk upgrade --no-cache     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1         ! -name jaeger ! -name prometheus -exec rm -rf {} +:
+5.085 WARNING: fetching https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/APKINDEX.tar.gz: DNS: transient error (try again later)
+10.09 WARNING: fetching https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/APKINDEX.tar.gz: DNS: transient error (try again later)
+10.09 ERROR: Not continuing due to stale/unavailable repositories. Use --force-missing-repositories to continue.
+------
+Dockerfile:6
+--------------------
+   5 |     USER root
+   6 | >>> RUN apk upgrade --no-cache \
+   7 | >>>     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1 \
+   8 | >>>         ! -name jaeger ! -name prometheus -exec rm -rf {} +
+   9 |     USER 472:0
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c apk upgrade --no-cache     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1         ! -name jaeger ! -name prometheus -exec rm -rf {} +" did not complete successfully: exit code: 99
+66532 v0.37.1 /Users/ajmiraribam/.docker/cli-plugins/docker-buildx buildx build -t verity-grafana-patch-candidate /tmp/verity-grafana-patch-context
+github.com/docker/buildx/commands.runBuildWithOptions
+	github.com/docker/buildx/commands/build.go:506
+github.com/docker/buildx/commands.runBuild
+	github.com/docker/buildx/commands/build.go:421
+github.com/docker/buildx/commands.buildCmd.func1
+	github.com/docker/buildx/commands/build.go:542
+github.com/docker/cli/cli-plugins/plugin.RunPlugin.func1.1.2
+	github.com/docker/cli@v29.7.2+incompatible/cli-plugins/plugin/plugin.go:65
+github.com/spf13/cobra.(*Command).execute
+	github.com/spf13/cobra@v1.10.2/command.go:1015
+github.com/spf13/cobra.(*Command).ExecuteC
+	github.com/spf13/cobra@v1.10.2/command.go:1148
+github.com/spf13/cobra.(*Command).Execute
+	github.com/spf13/cobra@v1.10.2/command.go:1071
+github.com/docker/cli/cli-plugins/plugin.RunPlugin
+	github.com/docker/cli@v29.7.2+incompatible/cli-plugins/plugin/plugin.go:80
+main.runPlugin
+	github.com/docker/buildx/cmd/buildx/main.go:66
+main.run
+	github.com/docker/buildx/cmd/buildx/main.go:80
+main.main
+	github.com/docker/buildx/cmd/buildx/main.go:90
+runtime.main
+	runtime/proc.go:290
+runtime.goexit
+	runtime/asm_arm64.s:1447
+
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/moby/buildkit/executor/runcexecutor.exitError
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/executor/runcexecutor/executor.go:449
+github.com/moby/buildkit/executor/runcexecutor.(*runcExecutor).Run
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/executor/runcexecutor/executor.go:397
+github.com/moby/buildkit/solver/llbsolver/ops.(*ExecOp).Exec
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/llbsolver/ops/exec.go:525
+github.com/moby/buildkit/solver.(*sharedOp).Exec.func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/jobs.go:1248
+github.com/moby/buildkit/util/flightcontrol.(*call[...]).run
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/util/flightcontrol/flightcontrol.go:122
+sync.(*Once).doSlow
+	/usr/local/go/src/sync/once.go:78
+sync.(*Once).Do
+	/usr/local/go/src/sync/once.go:69
+runtime.goexit
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+66532 v0.37.1 /Users/ajmiraribam/.docker/cli-plugins/docker-buildx buildx build -t verity-grafana-patch-candidate /tmp/verity-grafana-patch-context
+google.golang.org/grpc.(*ClientConn).Invoke
+	google.golang.org/grpc@v1.83.2/call.go:35
+github.com/moby/buildkit/api/services/control.(*controlClient).Solve
+	github.com/moby/buildkit@v0.33.0/api/services/control/control_grpc.pb.go:88
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.33.0/client/solve.go:337
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.22.0/errgroup/errgroup.go:93
+runtime.goexit
+	runtime/asm_arm64.s:1447
+
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/moby/buildkit/solver.(*edge).execOp
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/edge.go:979
+github.com/moby/buildkit/solver/internal/pipe.NewWithFunction[...].func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/internal/pipe/pipe.go:78
+runtime.goexit
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+66532 v0.37.1 /Users/ajmiraribam/.docker/cli-plugins/docker-buildx buildx build -t verity-grafana-patch-candidate /tmp/verity-grafana-patch-context
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.33.0/client/solve.go:339
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.22.0/errgroup/errgroup.go:93
+
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/moby/buildkit/solver/llbsolver/ops.(*ExecOp).Exec
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/llbsolver/ops/exec.go:556
+github.com/moby/buildkit/solver.(*sharedOp).Exec.func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/jobs.go:1248
+
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/iwnnn3er0mhvbujq0y19x4cml

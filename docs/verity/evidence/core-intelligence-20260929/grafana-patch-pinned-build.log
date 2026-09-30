@@ -1,0 +1,31 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 451B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572
+#4 resolve docker.io/grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572 done
+#4 CACHED
+
+#5 [2/2] RUN find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1         ! -name jaeger ! -name prometheus -exec rm -rf {} +
+#5 DONE 0.2s
+
+#6 exporting to image
+#6 exporting layers 0.0s done
+#6 exporting manifest sha256:30c2047c203f754764110052b85c79e817b6044ac19aa20cfd04342be9c3dd57 done
+#6 exporting config sha256:a84fc330c90f7c802c283283e83346218d060759fdc09ae44e8a1b3e5c5eb7d8 done
+#6 exporting attestation manifest sha256:a7dd5dc8c6cd6cc0519c240e8ee6e1609124d8373e91eff91bef210bd55d86a8 done
+#6 exporting manifest list sha256:9a089deb430ab02b6fae5699ad7bc9384635962899cacb2ebf220eff207c6a2e done
+#6 naming to docker.io/library/verity-grafana-patch-pinned:latest done
+#6 unpacking to docker.io/library/verity-grafana-patch-pinned:latest done
+#6 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/wr5v7t6on2w53rn7dx5wnmadt

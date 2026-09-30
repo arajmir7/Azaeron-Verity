@@ -1,0 +1,33 @@
+ Container verity-core-0929-verification-run-6972b82b0742 Creating 
+ Container verity-core-0929-verification-run-6972b82b0742 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: anyio-4.15.1, asyncio-1.4.0, Faker-30.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 55 items
+
+tests/test_agent.py ..........                                           [ 18%]
+tests/test_agent_voice_corpus.py F.                                      [ 21%]
+tests/test_editor_revisions.py ....                                      [ 29%]
+tests/test_refine_invariants.py ................                         [ 58%]
+tests/test_private_inference.py .......................                  [100%]
+
+=================================== FAILURES ===================================
+___ test_voice_requires_owned_approved_samples_and_contains_statistics_only ____
+tests/test_agent_voice_corpus.py:22: in test_voice_requires_owned_approved_samples_and_contains_statistics_only
+    await DocumentProcessingService(db_session).process_document(doc, sample.encode(), version.id)
+app/modules/processing/service.py:47: in process_document
+    raise ValueError(
+E   ValueError: Document bytes do not match the immutable version fingerprint
+----------------------------- Captured stdout call -----------------------------
+{"document_id": "0d902136-a65c-4af2-a67e-e743444d5ce6", "event_type": "created", "document_version_id": "0aba6f95-71bd-491e-bac4-0540c44837dc", "event": "provenance_event_recorded", "logger": "app.modules.provenance.service", "level": "info", "timestamp": "2026-09-29T08:58:04.832098Z"}
+{"document_id": "0d902136-a65c-4af2-a67e-e743444d5ce6", "owner_id": "ed4d3da7-3284-4f0a-84f1-d6606193af73", "organization_id": "3f6d5e12-3139-4dd6-9707-aaa7af5797c5", "event": "document_created", "logger": "app.modules.documents.service", "level": "info", "timestamp": "2026-09-29T08:58:04.832925Z"}
+------------------------------ Captured log call -------------------------------
+INFO     app.modules.provenance.service:service.py:110 {"document_id": "0d902136-a65c-4af2-a67e-e743444d5ce6", "event_type": "created", "document_version_id": "0aba6f95-71bd-491e-bac4-0540c44837dc", "event": "provenance_event_recorded", "logger": "app.modules.provenance.service", "level": "info", "timestamp": "2026-09-29T08:58:04.832098Z"}
+INFO     app.modules.documents.service:service.py:103 {"document_id": "0d902136-a65c-4af2-a67e-e743444d5ce6", "owner_id": "ed4d3da7-3284-4f0a-84f1-d6606193af73", "organization_id": "3f6d5e12-3139-4dd6-9707-aaa7af5797c5", "event": "document_created", "logger": "app.modules.documents.service", "level": "info", "timestamp": "2026-09-29T08:58:04.832925Z"}
+=========================== short test summary info ============================
+FAILED tests/test_agent_voice_corpus.py::test_voice_requires_owned_approved_samples_and_contains_statistics_only
+======================== 1 failed, 54 passed in 11.70s =========================
+

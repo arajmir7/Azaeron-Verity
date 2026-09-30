@@ -1,0 +1,151 @@
+{
+  "captured_at": "2026-09-30T19:17:56.473346+00:00",
+  "review_head": "6632f2b2e5f418f80fbb0121c3669d30c89d61bf",
+  "normal_head": "69fc08df86d886a16d56bdac3158df4220bd8b2d",
+  "normal_index_tree": "46e79d3a7dedeebbdd539f186e15deffac6b1d7c",
+  "registries": {
+    "config/models/registry.json": {
+      "sha256": "7e4df07a42c71821d64422b8f75fa1f446a198641c1a55cdc01d7bca15e348ec",
+      "contents": {
+        "schema_version": 2,
+        "promotion_requirements": [
+          "exact_model_and_tokenizer_revisions",
+          "artifact_sha256_manifest",
+          "license_and_commercial_use_review",
+          "attribution_and_redistribution_review",
+          "training_data_disclosures_and_known_limitations",
+          "supported_languages_and_context_window",
+          "owned_hardware_runtime_cuda_and_quantization",
+          "versioned_licensed_evaluation_datasets",
+          "quality_latency_memory_concurrency_and_cost_results",
+          "independent_release_approval",
+          "azaeron_controlled_training_new_checkpoint",
+          "rights_reviewed_task_scoped_dataset",
+          "original_or_derivative_lineage",
+          "eight_checkpoint_bound_promotion_gates",
+          "independent_specialist_checkpoint_hashes"
+        ],
+        "status": "BLOCKED_NO_APPROVED_MODELS",
+        "models": [],
+        "routes": {}
+      }
+    },
+    "config/model-platform/candidates.json": {
+      "sha256": "22195a507d5b0cd3c599c829428642150b65b5e08c5a1cc5af924bd3ef7c6f07",
+      "contents": {
+        "schema_version": 1,
+        "status": "BLOCKED_NO_ADMITTED_PRODUCTION_CANDIDATES",
+        "candidates": [],
+        "download_policy": "EXPLICIT_OPERATOR_APPROVAL_REQUIRED",
+        "admission_is_production_approval": false
+      }
+    },
+    "config/model-platform/datasets.json": {
+      "sha256": "f242f51676851fc67af8aa497602454b866604de780eaa5faa79f922001d26a7",
+      "contents": {
+        "schema_version": 2,
+        "status": "BLOCKED_NO_RIGHTS_REVIEWED_PRODUCTION_DATASETS",
+        "datasets": [],
+        "unknown_rights": "REJECT",
+        "customer_content": "PROHIBITED"
+      }
+    }
+  },
+  "prior_ci": {
+    "conclusion": "success",
+    "headSha": "6632f2b2e5f418f80fbb0121c3669d30c89d61bf",
+    "status": "completed",
+    "url": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/36758345197"
+  },
+  "prior_images": [
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-0-vulnerabilities.json",
+      "sha256": "49b7c0ddeb97a01eae1361af0dee77e71dd8efbbae018885af6987d91f68ac1f",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-1-vulnerabilities.json",
+      "sha256": "6f6113bd322b9d26b231f41cda2427237336bd706ab624cdf90ec25fa3fb7757",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-10-vulnerabilities.json",
+      "sha256": "66d66acce3781f398f5bec4f99db6c33cbae814bfdd17f0d16ca516860385660",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-11-vulnerabilities.json",
+      "sha256": "f36801e5dc2defb5f521ddac768cfaf05b9fdab01a08f7ee95b6098377bbd0d4",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-2-vulnerabilities.json",
+      "sha256": "2109fe26ab2ef25d4a938bf1841c5cc57c4caad9213f017da300ee6079c52e51",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-3-vulnerabilities.json",
+      "sha256": "d34eef62a4912c0e17eaedaba37c43ff4cf8e73f71f50fb48726908a66d1f794",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-4-vulnerabilities.json",
+      "sha256": "9f7fa82ecca164bbaa55a1af85f543f59ab82e4180a6ae43b0ddf30b0ae37287",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-5-vulnerabilities.json",
+      "sha256": "8c8de7634ea9016316cd4806934a81d71c93826da3cf758dabd04f3ba02ca788",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-6-vulnerabilities.json",
+      "sha256": "cffdb9c2e060ad6163e4ced0fde7a4730bae3204e7243c0ce54043082d623358",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-7-vulnerabilities.json",
+      "sha256": "795b7804f498cf264827f277a0e94026a6d38ae2328a7df8983f99b9debf1880",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-8-vulnerabilities.json",
+      "sha256": "47ea198199a73effdb6c7914e9194d8c8f752bf2065e7fc15e6231ec6bd44230",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/hosted-6632f2b-evidence/verity-gate-evidence/docs/verity/evidence/ci/images/image-9-vulnerabilities.json",
+      "sha256": "97bf45b4924405950142fa2a44c1cc3933ea39972d233ccfbb9accb871cb52e3",
+      "reported_findings": 0,
+      "high": 0,
+      "critical": 0
+    }
+  ],
+  "current_patch_ci": "NOT_RUN",
+  "external_ai_apis_used": false,
+  "approved_models": 0,
+  "rights_discovery_scope": "Repository registries, immutable rights dossiers and previously inventoried local caches; no customer documents or secret files read.",
+  "audit_script_sha256": "17617b13cff2d33481a8a61f61f3de6ac3e1b6e52a354cdf68c53aaed1ac720b"
+}

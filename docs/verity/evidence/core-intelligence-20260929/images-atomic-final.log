@@ -1,0 +1,155 @@
+ Image verity-core-0929-backend Building 
+ Image verity-core-0929-verification Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 3.13kB done
+#1 DONE 0.0s
+
+#2 [verification internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.03kB 0.0s done
+#2 DONE 0.1s
+
+#3 [verification internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#3 DONE 0.1s
+
+#4 [verification internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#4 DONE 70.1s
+
+#5 [verification internal] load .dockerignore
+#5 transferring context: 105B 0.0s done
+#5 DONE 0.0s
+
+#6 [verification runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#6 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#6 ...
+
+#7 [backend runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#7 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 0.1s done
+#7 DONE 0.1s
+
+#6 [verification runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#6 ...
+
+#8 [backend internal] load build context
+#8 transferring context: 44.17kB 0.1s done
+#8 DONE 0.2s
+
+#9 [verification internal] load build context
+#9 transferring context: 93.15MB 2.7s done
+#9 DONE 2.7s
+
+#6 [verification runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#6 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 60.1s done
+#6 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 60.1s done
+#6 DONE 60.2s
+
+#10 [backend assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#10 CACHED
+
+#11 [backend runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#11 CACHED
+
+#12 [backend assemble 1/3] COPY --from=runtime-os / /base/
+#12 CACHED
+
+#13 [backend assemble 3/3] RUN python /assemble_runtime.py
+#13 CACHED
+
+#14 [backend runtime 1/6] WORKDIR /app
+#14 CACHED
+
+#15 [backend runtime-base 2/4] WORKDIR /app
+#15 CACHED
+
+#16 [backend runtime-base 3/4] COPY requirements.lock ./
+#16 CACHED
+
+#17 [backend runtime 2/6] COPY --from=assemble /runtime-root/ /
+#17 CACHED
+
+#18 [verification verification-assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#18 CACHED
+
+#19 [verification verification-assemble 3/3] RUN python /assemble_runtime.py --include-sqlite
+#19 CACHED
+
+#14 [verification runtime 1/6] WORKDIR /app
+#14 CACHED
+
+#15 [verification runtime-base 2/4] WORKDIR /app
+#15 CACHED
+
+#20 [verification verification-base 2/2] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements-dev.lock
+#20 CACHED
+
+#21 [verification runtime-base 3/4] COPY requirements.lock ./
+#21 CACHED
+
+#22 [verification runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#22 CACHED
+
+#23 [verification verification-base 1/2] COPY requirements-dev.lock ./
+#23 CACHED
+
+#24 [verification verification-assemble 1/3] COPY --from=runtime-os / /base/
+#24 CACHED
+
+#25 [verification verification 2/3] COPY --from=verification-assemble /runtime-root/ /
+#25 CACHED
+
+#26 [verification verification 3/3] COPY --chown=65532:65532 . .
+#26 ...
+
+#27 [backend runtime 3/6] COPY --chown=65532:65532 app ./app
+#27 DONE 0.5s
+
+#28 [backend runtime 4/6] COPY --chown=65532:65532 alembic ./alembic
+#28 DONE 0.2s
+
+#26 [verification verification 3/3] COPY --chown=65532:65532 . .
+#26 ...
+
+#29 [backend runtime 5/6] COPY --chown=65532:65532 migration_snapshots ./migration_snapshots
+#29 DONE 0.2s
+
+#30 [backend runtime 6/6] COPY --chown=65532:65532 alembic.ini ./
+#30 DONE 0.1s
+
+#31 [backend] exporting to image
+#31 ...
+
+#26 [verification verification 3/3] COPY --chown=65532:65532 . .
+#26 DONE 1.1s
+
+#31 [backend] exporting to image
+#31 exporting layers
+#31 exporting layers 0.7s done
+#31 exporting manifest sha256:bb689d662936a20f93f2dcb54d1f476ee417e953d0834ae3b3b49fba44c35838 0.0s done
+#31 exporting config sha256:ac84d1c1dbff92a337db49e5ae6cc1f9e164f02cf188d01905107aae268b35b4 0.0s done
+#31 exporting attestation manifest sha256:b71bef94f500acd0393d45bf2d061c82cd7c36fd20c6c20a5090c70c8b01d35b 0.0s done
+#31 exporting manifest list sha256:1a9cc8850d8f8b1bb4f8dff6d8607958af577cad2dd1d1f13b3e9edf08a56c39 0.0s done
+#31 naming to docker.io/library/verity-core-0929-backend:latest done
+#31 unpacking to docker.io/library/verity-core-0929-backend:latest
+#31 unpacking to docker.io/library/verity-core-0929-backend:latest 0.2s done
+#31 DONE 1.1s
+
+#32 [verification] exporting to image
+#32 ...
+
+#33 [backend] resolving provenance for metadata file
+#33 DONE 0.2s
+
+#32 [verification] exporting to image
+#32 exporting layers 8.2s done
+#32 exporting manifest sha256:be5162513e35551ef659320d2efe9d512e5c226fadd3355528f5bac21f40654c 0.0s done
+#32 exporting config sha256:1ae57b4825605c40b7a35d8acce3dac62f6a8f06553ce8e14d25246b085a1e1f 0.0s done
+#32 exporting attestation manifest sha256:b6a5719f57a95dbb0617d6e4a7cabe16cb208ed80e46922bcfc63b836885450f 0.0s done
+#32 exporting manifest list sha256:9fb836c14a9febe1649e5258ded668c11a4a76ec1aec8b3194ccb06e24c2aa04 0.0s done
+#32 naming to docker.io/library/verity-core-0929-verification:latest 0.0s done
+#32 unpacking to docker.io/library/verity-core-0929-verification:latest
+#32 unpacking to docker.io/library/verity-core-0929-verification:latest 3.8s done
+#32 DONE 12.2s
+
+#34 [verification] resolving provenance for metadata file
+#34 DONE 0.5s
+ Image verity-core-0929-backend Built 
+ Image verity-core-0929-verification Built 

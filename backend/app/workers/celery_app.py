@@ -20,7 +20,7 @@ celery_app = Celery(
     "azaeron",
     broker=settings.REDIS_URL,
     backend=settings.REDIS_URL,
-    include=["app.workers.tasks"],
+    include=["app.workers.tasks", "app.workers.agent"],
 )
 celery_app.conf.update(
     beat_schedule={
@@ -72,6 +72,7 @@ celery_app.conf.update(
     worker_max_tasks_per_child=50,
     worker_send_task_events=True,
     task_routes={
+        "app.workers.agent.run": {"queue": "document_processing"},
         "app.workers.tasks.reconcile_usage": {"queue": "identity"},
         "app.workers.tasks.deliver_identity_mail": {"queue": "identity"},
         "app.workers.tasks.erase_private_data": {"queue": "identity"},

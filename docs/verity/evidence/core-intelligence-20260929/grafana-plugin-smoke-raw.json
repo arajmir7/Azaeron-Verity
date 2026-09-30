@@ -1,0 +1,1226 @@
+{
+  "/api/health": {
+    "status": 200,
+    "result": {
+      "database": "ok",
+      "version": "13.2.3",
+      "commit": "90ffed056f0884267356c12a0eeb72a022af53f1"
+    }
+  },
+  "/api/datasources": {
+    "status": 200,
+    "result": [
+      {
+        "id": 1,
+        "uid": "verity-prometheus",
+        "orgId": 1,
+        "name": "Azaeron Prometheus",
+        "type": "prometheus",
+        "typeName": "Prometheus",
+        "typeLogoUrl": "public/plugins/prometheus/img/prometheus_logo.svg",
+        "access": "proxy",
+        "url": "http://prometheus:9090",
+        "user": "",
+        "database": "",
+        "basicAuth": false,
+        "isDefault": true,
+        "jsonData": {},
+        "readOnly": true
+      },
+      {
+        "id": 2,
+        "uid": "verity-traces",
+        "orgId": 1,
+        "name": "Azaeron Traces",
+        "type": "jaeger",
+        "typeName": "Jaeger",
+        "typeLogoUrl": "public/plugins/jaeger/img/jaeger_logo.svg",
+        "access": "proxy",
+        "url": "http://jaeger:16686",
+        "user": "",
+        "database": "",
+        "basicAuth": false,
+        "isDefault": false,
+        "jsonData": {},
+        "readOnly": true
+      }
+    ]
+  },
+  "/api/datasources/uid/verity-prometheus/health": {
+    "status": 200,
+    "result": {
+      "details": {
+        "application": "Prometheus",
+        "features": {
+          "rulerApiEnabled": false
+        }
+      },
+      "message": "Successfully queried the Prometheus API.",
+      "status": "OK"
+    }
+  },
+  "/api/datasources/uid/verity-traces/health": {
+    "status": 200,
+    "result": {
+      "message": "Data source is working",
+      "status": "OK"
+    }
+  },
+  "prometheus_query": {
+    "status": 200,
+    "result": {
+      "results": {
+        "A": {
+          "status": 200,
+          "frames": [
+            {
+              "schema": {
+                "refId": "A",
+                "meta": {
+                  "type": "numeric-multi",
+                  "typeVersion": [
+                    0,
+                    1
+                  ],
+                  "custom": {
+                    "calculatedMinStep": 15000,
+                    "resultType": "vector"
+                  },
+                  "executedQueryString": "Expr: up\nStep: 15s"
+                },
+                "fields": [
+                  {
+                    "name": "Time",
+                    "type": "time",
+                    "typeInfo": {
+                      "frame": "time.Time"
+                    },
+                    "config": {
+                      "interval": 15000
+                    }
+                  },
+                  {
+                    "name": "up",
+                    "type": "number",
+                    "typeInfo": {
+                      "frame": "float64"
+                    },
+                    "labels": {
+                      "__name__": "up",
+                      "instance": "backend:8000",
+                      "job": "azaeron-backend"
+                    },
+                    "config": {
+                      "displayNameFromDS": "up{instance=\"backend:8000\", job=\"azaeron-backend\"}"
+                    }
+                  }
+                ]
+              },
+              "data": {
+                "values": [
+                  [
+                    1790729505670
+                  ],
+                  [
+                    1
+                  ]
+                ]
+              }
+            },
+            {
+              "schema": {
+                "refId": "A",
+                "meta": {
+                  "type": "numeric-multi",
+                  "typeVersion": [
+                    0,
+                    1
+                  ],
+                  "custom": {
+                    "resultType": "vector"
+                  }
+                },
+                "fields": [
+                  {
+                    "name": "Time",
+                    "type": "time",
+                    "typeInfo": {
+                      "frame": "time.Time"
+                    },
+                    "config": {
+                      "interval": 15000
+                    }
+                  },
+                  {
+                    "name": "up",
+                    "type": "number",
+                    "typeInfo": {
+                      "frame": "float64"
+                    },
+                    "labels": {
+                      "__name__": "up",
+                      "instance": "celery-worker:9100",
+                      "job": "azaeron-worker"
+                    },
+                    "config": {
+                      "displayNameFromDS": "up{instance=\"celery-worker:9100\", job=\"azaeron-worker\"}"
+                    }
+                  }
+                ]
+              },
+              "data": {
+                "values": [
+                  [
+                    1790729505670
+                  ],
+                  [
+                    1
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "jaeger_query": {
+    "status": 200,
+    "trace_id": "2dde09dd6aa397725b9f1a742280d2cf",
+    "result": {
+      "results": {
+        "A": {
+          "status": 200,
+          "frames": [
+            {
+              "schema": {
+                "name": "A",
+                "refId": "A",
+                "meta": {
+                  "typeVersion": [
+                    0,
+                    0
+                  ],
+                  "custom": {
+                    "traceFormat": "jaeger"
+                  },
+                  "preferredVisualisationType": "trace"
+                },
+                "fields": [
+                  {
+                    "name": "traceID",
+                    "type": "string",
+                    "typeInfo": {
+                      "frame": "string"
+                    }
+                  },
+                  {
+                    "name": "spanID",
+                    "type": "string",
+                    "typeInfo": {
+                      "frame": "string"
+                    }
+                  },
+                  {
+                    "name": "parentSpanID",
+                    "type": "string",
+                    "typeInfo": {
+                      "frame": "string"
+                    }
+                  },
+                  {
+                    "name": "statusCode",
+                    "type": "number",
+                    "typeInfo": {
+                      "frame": "int64"
+                    }
+                  },
+                  {
+                    "name": "statusMessage",
+                    "type": "string",
+                    "typeInfo": {
+                      "frame": "string"
+                    }
+                  },
+                  {
+                    "name": "kind",
+                    "type": "string",
+                    "typeInfo": {
+                      "frame": "string"
+                    }
+                  },
+                  {
+                    "name": "operationName",
+                    "type": "string",
+                    "typeInfo": {
+                      "frame": "string"
+                    }
+                  },
+                  {
+                    "name": "serviceName",
+                    "type": "string",
+                    "typeInfo": {
+                      "frame": "string"
+                    }
+                  },
+                  {
+                    "name": "serviceTags",
+                    "type": "other",
+                    "typeInfo": {
+                      "frame": "json.RawMessage"
+                    }
+                  },
+                  {
+                    "name": "startTime",
+                    "type": "number",
+                    "typeInfo": {
+                      "frame": "float64"
+                    }
+                  },
+                  {
+                    "name": "duration",
+                    "type": "number",
+                    "typeInfo": {
+                      "frame": "float64"
+                    }
+                  },
+                  {
+                    "name": "logs",
+                    "type": "other",
+                    "typeInfo": {
+                      "frame": "json.RawMessage"
+                    }
+                  },
+                  {
+                    "name": "references",
+                    "type": "other",
+                    "typeInfo": {
+                      "frame": "json.RawMessage"
+                    }
+                  },
+                  {
+                    "name": "tags",
+                    "type": "other",
+                    "typeInfo": {
+                      "frame": "json.RawMessage"
+                    }
+                  }
+                ]
+              },
+              "data": {
+                "values": [
+                  [
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf",
+                    "2dde09dd6aa397725b9f1a742280d2cf"
+                  ],
+                  [
+                    "8c7046ace216047f",
+                    "2120c3e3a298fe40",
+                    "65bf686e60cb69de",
+                    "d8abd05025593b76",
+                    "f2e92754730743df",
+                    "bc63b9f029930557",
+                    "64f876429d4b5124",
+                    "055a5d99fa6258d1",
+                    "48cc34ec912755e2",
+                    "3597c0bd56825d22",
+                    "8b2c5ca85d2242fc",
+                    "09db8c9f249d3b3e",
+                    "932bfd31d6e15657"
+                  ],
+                  [
+                    "",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f",
+                    "8c7046ace216047f"
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                  ],
+                  [
+                    "server",
+                    "client",
+                    "client",
+                    "client",
+                    "client",
+                    "client",
+                    "client",
+                    "client",
+                    "client",
+                    "client",
+                    "client",
+                    "client",
+                    "client"
+                  ],
+                  [
+                    "GET /api/v1/jobs",
+                    "db.SELECT",
+                    "db.SELECT",
+                    "db.SELECT",
+                    "db.SELECT",
+                    "db.SELECT",
+                    "db.SELECT",
+                    "db.SELECT",
+                    "db.SELECT",
+                    "db.SELECT",
+                    "db.SELECT",
+                    "db.SELECT",
+                    "db.SELECT"
+                  ],
+                  [
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api",
+                    "azaeron-api"
+                  ],
+                  [
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "deployment.environment",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "service.name",
+                        "type": "string",
+                        "value": "azaeron-api"
+                      },
+                      {
+                        "key": "service.version",
+                        "type": "string",
+                        "value": "1.0.0"
+                      },
+                      {
+                        "key": "telemetry.sdk.language",
+                        "type": "string",
+                        "value": "python"
+                      },
+                      {
+                        "key": "telemetry.sdk.name",
+                        "type": "string",
+                        "value": "opentelemetry"
+                      },
+                      {
+                        "key": "telemetry.sdk.version",
+                        "type": "string",
+                        "value": "1.28.0"
+                      }
+                    ]
+                  ],
+                  [
+                    1790729056109.8354,
+                    1790729056112.9832,
+                    1790729056113.8857,
+                    1790729056114.7302,
+                    1790729056115.7205,
+                    1790729056116.5198,
+                    1790729056117.0435,
+                    1790729056118.162,
+                    1790729056119.0605,
+                    1790729056119.8726,
+                    1790729056120.4763,
+                    1790729056121.2566,
+                    1790729056121.8953
+                  ],
+                  [
+                    14.050048,
+                    0.816128,
+                    0.619776,
+                    0.767744,
+                    0.655104,
+                    0.372224,
+                    0.922624,
+                    0.688128,
+                    0.668928,
+                    0.50688,
+                    0.561664,
+                    0.522752,
+                    0.524288
+                  ],
+                  [
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    []
+                  ],
+                  [
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    []
+                  ],
+                  [
+                    [
+                      {
+                        "key": "correlation.id",
+                        "type": "string",
+                        "value": "6a6fc6e5-9c10-413d-a12e-6b2d3d2f771b"
+                      },
+                      {
+                        "key": "http.request.method",
+                        "type": "string",
+                        "value": "GET"
+                      },
+                      {
+                        "key": "http.route",
+                        "type": "string",
+                        "value": "/api/v1/jobs"
+                      },
+                      {
+                        "key": "http.status_code",
+                        "type": "int64",
+                        "value": 200
+                      },
+                      {
+                        "key": "release.id",
+                        "type": "string",
+                        "value": "development"
+                      },
+                      {
+                        "key": "request.id",
+                        "type": "string",
+                        "value": "6a6fc6e5-9c10-413d-a12e-6b2d3d2f771b"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ],
+                    [
+                      {
+                        "key": "db.operation.name",
+                        "type": "string",
+                        "value": "SELECT"
+                      },
+                      {
+                        "key": "db.system.name",
+                        "type": "string",
+                        "value": "postgresql"
+                      },
+                      {
+                        "key": "otel.scope.name",
+                        "type": "string",
+                        "value": "azaeron.database"
+                      }
+                    ]
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

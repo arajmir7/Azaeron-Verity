@@ -1,42 +1,66 @@
 # AZAERON VERITY — RELEASE CERTIFICATION
 
-Date: **2026-09-29**. **NOT PRODUCTION READY.**
+**2026-10-01 model layer — NOT PRODUCTION READY.** The [new audit](evidence/model-layer-20261001/README.md) fixes native dataset-admission and detector abstention defects. It does not supply missing commercial approvals, production data, capable checkpoints, independent human reviews or deployed-model evidence. Current local source passes 315 backend/security tests; preceding hosted platform evidence below does not certify this patch.
 
-The current local source manifest is `f366106d1773e91f7006d5c62e808503b5a2cce17896600eb5948b6cbee333e1` ([manifest](evidence/final-blocker-burndown/repository-ci-scan-fix-final/source.json), [results](evidence/final-blocker-burndown/repository-ci-scan-fix-final/results.json)). It covers code, migrations, tests, infrastructure, scripts, dependency locks and CI workflow; release prose and generated evidence are outside the hash. The local and port-4900 review runtimes matched all 202 backend application and migration files ([comparison](evidence/final-blocker-burndown/runtime-source.json)). The tested environment is a local Linux ARM64 development stack, not a production deployment.
+**2026-09-30 — NOT PRODUCTION READY.** Current work closes the locally reproduced
+container vulnerabilities and demonstrates a safe logical migration to a controlled
+PostgreSQL 16 image. It does not approve models or certify production operation.
 
-## Executed gates
+The backend and verification images contain Debian stable security OpenSSL
+`3.5.7-1~deb13u3`, with actual package records and file hashes retained. A refreshed
+Trivy database reports zero HIGH/CRITICAL findings. The PostgreSQL candidate uses
+the pinned official 16.15 Alpine base and hash-verified pgvector 0.8.6 source, runs
+non-root and excludes the unused vulnerable root privilege-switch utility.
+Its scan and SBOM pass. No scanner threshold, CVE waiver, unstable package or fake
+VEX was used. Initial failures are retained in the evidence directory.
 
-| Gate | Result | Evidence |
-| --- | --- | --- |
-| Repository | **PASS, 11/11:** 251 backend unit/security/worker/contract tests, 30 actual PostgreSQL/RLS tests, 27 browser tests, Black, Ruff, mypy, ESLint, TypeScript, production build, Compose and source stability. | [Results](evidence/final-blocker-burndown/repository-ci-scan-fix-final/results.json), [browser log](evidence/final-blocker-burndown/repository-ci-scan-fix-final/browser.log) |
-| Earlier hosted CI at `33f1205` | **FAIL after all 11 repository gates passed.** The secret gate treated Git's `FETCH_HEAD` SHA as a source finding. `.git/` is now excluded; actual source remains scanned. The earlier run cannot certify the current manifest. | [Run 36431472782](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36431472782), [job summary](evidence/final-blocker-burndown/hosted-33f1205.json) |
-| Hosted CI at `73fb563` | **FAIL in the image scanner after all 11 repository gates, dependency audits, Bandit and reviewed-secret scan passed.** The scanner could not traverse the Linux host's 0700 temporary archive directory; exporting a later image also exhausted runner disk. The next revision makes the archive readable, streams reports to host files, and prunes build cache before scans. The image gate still requires a new hosted run. | [Run 36510870667](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36510870667), [repository results](evidence/final-blocker-burndown/hosted-73fb563/repository-results.json), [scanner errors](evidence/final-blocker-burndown/hosted-73fb563/image-0-error.log) |
-| Python/npm audits, Bandit, reviewed-secret gate | **PASS:** zero known dependency findings, zero SAST findings, zero unreviewed secret findings. | [Python](evidence/final-blocker-burndown/python-audit.json), [npm](evidence/final-blocker-burndown/npm-audit.json), [Bandit](evidence/final-blocker-burndown/bandit.json), [secrets](evidence/secret-gate.json) |
-| All image scans and CycloneDX SBOMs | **FAIL:** 15 distinct images scanned and 15 SBOMs produced; 11 pass and four families have **411 HIGH / 20 CRITICAL** findings. No waivers. | [Results](evidence/final-blocker-burndown/all-images-ci-scan-fix/results.json), [per-finding classification](evidence/final-blocker-burndown/all-images/classification.json) |
-| Fresh and downgrade/re-upgrade migration | **PASS:** schema `20260928_0036`, preservation and accounting guards. | [Migration evidence](evidence/final-blocker-burndown/migrations/) |
-| Local application performance | **PASS:** 284 requests and 56 completed jobs; concurrency-8 save p95 484 ms and conflict p95 196 ms against unchanged 1,000 ms budgets. Production load and inference unverified. | [Profile](evidence/final-blocker-burndown/load-final/profile.json), [budgets](evidence/final-blocker-burndown/load-final/budgets.json), [analysis](PERFORMANCE.md) |
-| Scoped accessibility | **PASS:** 27 viewport checks, nine route-level axe checks, keyboard drawer/focus and reduced-motion checks. Real screen-reader speech and browser zoom unverified. | [Review](evidence/final-blocker-burndown/accessibility/structured-review.json) |
-| PostgreSQL/MinIO recovery and privacy replay | **PASS on fresh private volumes:** four objects restored; one post-backup erasure replayed; two objects removed; surviving version bytes and two provenance events match. Active restore/replay 18.718 seconds. | [Result](evidence/final-blocker-burndown/recovery/recovery-result.json), [provenance](evidence/final-blocker-burndown/recovery/provenance.json) |
-| Port-4900 review workspace | **PASS:** current five-product frontend/backend deployed after private DB backup; 11 accounts, 11 documents and 19 versions retained. Visual capture used synthetic API fixtures; real runtime readiness/counts separately verified. | [Runtime update](evidence/final-blocker-burndown/runtime-update.json), [capture](evidence/final-blocker-burndown/dashboard-4900.png) |
+The PostgreSQL image refuses implicit bootstrap and unrecognized PGDATA. Primary
+Compose uses a distinct physical volume; existing data requires the
+[logical migration procedure](../../infrastructure/postgres/MIGRATION.md).
+No customer volume was switched, deleted or migrated automatically.
 
-## Product and release decision
+[Current evidence](evidence/commercial-production-20260930/) includes old-image
+backup, new-volume restore, migrations, 34 PostgreSQL/RLS/storage tests, 292 backend
+tests before subsequent dataset hardening, and a clean replay plus second recovery.
+The representative fixture contains documents, versions, provenance, conversations,
+messages, tool calls/results/events, an accepted receipt and a private voice profile.
+Row hashes match after restore. One post-backup account erasure is replayed before
+serving; seven objects are removed, the surviving version hash passes and the erased
+account cannot log in. A second backup/restore preserves the tombstone and both
+surviving object hashes. These are local measurements, not production RPO/RTO.
+A failed replay contaminated by intentionally retained integration-test fixtures is
+preserved and classified; the clean recovery was repeated in entirely new volumes.
 
-The Document Editor supports rename, debounced server autosave, explicit save status, undo/redo, selection-based deterministic edits, archive, immutable history, restore, export, conflict handling and network recovery. Draft-save retry identities survive tab reload. Archive preserves history; permanent erasure uses the separate privacy workflow. Generative Humanise and Expand remain unavailable without an approved private model.
+Dataset hardening additionally requires derivative rights, permitted tasks and
+source/author/document lineage, and rejects cross-split lexical near duplicates.
+The narrow candidate-policy suite passes 21 tests. Exact-head hosted AMD64 run
+[36755563468](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36755563468)
+passed repository, image, security and derivative-mechanics checks for commit
+`b0e279b74a8de4a4b1243c763ae8c22aa8c4e0a1`; the source-manifest hash and archived
+results are in [hosted-b0e279](evidence/commercial-production-20260930/hosted-b0e279/).
+Its training smoke used `TEST_ONLY` fixtures and does not approve a model or change
+the production verdict. See [execution state](EXECUTION_STATE.md) for scope and
+remaining gates.
 
-The AI Humaniser offers labelled deterministic rules only. The AI Detector is **EXPERIMENTAL** and abstains instead of showing an uncalibrated probability. The Plagiarism Checker searches sources indexed in the authorized workspace; similarity does not prove plagiarism. Azaeron AI's core chat lifecycle and private document-grounded generation remain incomplete. The model registry is empty. No licensed model, independent semantic verifier, calibration corpus or private serving hardware has been approved. Inference-dependent quality checks are **BLOCKED**. There is no external AI API fallback.
+[Rights and compute dossiers](evidence/commercial-production-20260930/RIGHTS_AND_COMPUTE.md)
+cover three Writer candidates, two proposed independent baselines and specialist
+initializations. No candidate is admitted: commercial review, verified payloads and
+runtime evidence are missing; unsafe artifact forms are rejected. Four real dataset
+sources were researched; none is approved. Noncommercial and unresolved mixed-source
+rights are rejected. Original TEST_ONLY checkpoints remain smoke evidence only.
+No new toy training, external AI inference, strong-baseline result, human rating or
+production model approval was fabricated.
 
-Tenant RLS, immutable revisions, storage-path uniqueness and explicit privacy-erasure locks remain. Concurrent PostgreSQL tests and a clean same-host recovery drill pass. Full route-level permission/quota review, offsite recovery, production RPO/RTO, assistive-technology testing and production load/soak remain open.
+P0: no confirmed catastrophic issue in this exercised scope. P1: approved data,
+capable production checkpoints, independent human/baseline evaluation, specialist
+derivative/runtime implementation and private serving certification remain absent.
+P2: production soak, GPU measurements, offsite recovery, locale-sensitive migration
+validation and manual accessibility review remain unexecuted. Unexecuted is BLOCKED.
 
-**P0:** No confirmed P0 in executed checks; untested paths are not cleared.
+The five-product scope and existing architecture are retained. Required own API
+routes exist; model-backed AI, Humaniser and calibrated Detector remain fail-closed.
+Workspace similarity measures indexed overlap, and Documents retain immutable
+versions. No merge or commercial launch is certified.
 
-**P1:** Four image families retain 20 CRITICAL and 411 HIGH scanner findings, with reachability undetermined and no waiver. Private chat/product completion, licensed model and independent verifier, detector calibration and full authorization/quota review remain release blockers.
-
-**P2:** Exact-final-commit hosted CI, production capacity/SLO and telemetry, screen-reader/zoom review, offsite and versioned-bucket recovery, production email delivery and complete retention review remain unverified.
-
-**P3:** No Azaeron-owned deprecation warning appeared in the current backend suite.
-
-**External dependencies:** Approved model and licensed evaluation data, private serving hardware and upstream security fixes are unavailable. Internal blockers also remain.
-
-**Final verdict: AZAERON VERITY — NOT PRODUCTION READY.**
-
-The [execution ledger](EXECUTION_STATE.md) retains historical attempts. Hosted CI must test the exact pushed source before its result can be included here.
+Historical reports: [previous certification](evidence/commercial-production-20260930/release-certification-before.md),
+[prior hosted exact-head results](evidence/model-bakeoff-20260930/FINAL_REPORT.md).

@@ -1,0 +1,68 @@
+[
+  {
+    "repository": "Qwen/Qwen3-4B-Instruct-2507",
+    "revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "status": "REVIEW_REQUIRED",
+    "dossier": "Qwen--Qwen3-4B-Instruct-2507/cdbee75f17c01a7cc42f958dc650907174af0554/review-dossier.json"
+  },
+  {
+    "repository": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "status": "REVIEW_REQUIRED",
+    "dossier": "Qwen--Qwen3.5-4B/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/review-dossier.json"
+  },
+  {
+    "repository": "HuggingFaceTB/SmolLM3-3B",
+    "revision": "a07cc9a04f16550a088caea529712d1d335b0ac1",
+    "status": "REVIEW_REQUIRED",
+    "dossier": "HuggingFaceTB--SmolLM3-3B/a07cc9a04f16550a088caea529712d1d335b0ac1/review-dossier.json"
+  },
+  {
+    "repository": "microsoft/Phi-4-mini-instruct",
+    "revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "status": "REJECTED",
+    "dossier": "microsoft--Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/review-dossier.json"
+  },
+  {
+    "repository": "mistralai/Ministral-3-8B-Instruct-2512-BF16",
+    "revision": "f6fae9795746f63c9be8344932f01275f3c63734",
+    "status": "REVIEW_REQUIRED",
+    "dossier": "mistralai--Ministral-3-8B-Instruct-2512-BF16/f6fae9795746f63c9be8344932f01275f3c63734/review-dossier.json"
+  },
+  {
+    "repository": "Qwen/Qwen3-Embedding-0.6B",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "status": "REVIEW_REQUIRED",
+    "dossier": "Qwen--Qwen3-Embedding-0.6B/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/review-dossier.json"
+  },
+  {
+    "repository": "microsoft/deberta-v3-base",
+    "revision": "8ccc9b6f36199bec6961081d44eb72fb3f7353f3",
+    "status": "REJECTED",
+    "dossier": "microsoft--deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/review-dossier.json"
+  },
+  {
+    "repository": "databricks/databricks-dolly-15k",
+    "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+    "status": "REVIEW_REQUIRED",
+    "dossier": "databricks--databricks-dolly-15k/bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a/review-dossier.json"
+  },
+  {
+    "repository": "OpenAssistant/oasst1",
+    "revision": "fdf72ae0827c1cda404aff25b6603abec9e3399b",
+    "status": "REVIEW_REQUIRED",
+    "dossier": "OpenAssistant--oasst1/fdf72ae0827c1cda404aff25b6603abec9e3399b/review-dossier.json"
+  },
+  {
+    "repository": "HuggingFaceH4/no_robots",
+    "revision": "e6f9a4ac5c37faeb744ba9ecf0473184d7f8105b",
+    "status": "REJECTED",
+    "dossier": "HuggingFaceH4--no_robots/e6f9a4ac5c37faeb744ba9ecf0473184d7f8105b/review-dossier.json"
+  },
+  {
+    "repository": "allenai/Dolci-Instruct-SFT",
+    "revision": "bd3c8f3a9b2cc5a9682e44b96ddd0bb2ff027221",
+    "status": "REJECTED",
+    "dossier": "allenai--Dolci-Instruct-SFT/bd3c8f3a9b2cc5a9682e44b96ddd0bb2ff027221/review-dossier.json"
+  }
+]

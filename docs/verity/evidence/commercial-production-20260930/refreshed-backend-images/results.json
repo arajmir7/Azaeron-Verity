@@ -1,0 +1,54 @@
+[
+  {
+    "image": "azaeron-commercial-backend-candidate",
+    "aliases": [
+      "azaeron-commercial-backend-candidate"
+    ],
+    "image_id": "sha256:f952593993899b6b7ef1509c8bad82bd32b38e75381acecd4ba118a209f1dd43",
+    "bytes": 532521946,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-commercial-backend-candidate",
+    "aliases": [
+      "azaeron-commercial-backend-candidate"
+    ],
+    "image_id": "sha256:f952593993899b6b7ef1509c8bad82bd32b38e75381acecd4ba118a209f1dd43",
+    "bytes": 532521946,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-commercial-verification-candidate",
+    "aliases": [
+      "azaeron-commercial-verification-candidate"
+    ],
+    "image_id": "sha256:eec391f3af720d5a15f290f9b072f7cee2bc3eb65b0cc0abee48a14bd9d42b26",
+    "bytes": 826550119,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-commercial-verification-candidate",
+    "aliases": [
+      "azaeron-commercial-verification-candidate"
+    ],
+    "image_id": "sha256:eec391f3af720d5a15f290f9b072f7cee2bc3eb65b0cc0abee48a14bd9d42b26",
+    "bytes": 826550119,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

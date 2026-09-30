@@ -1,0 +1,17 @@
+{
+  "bootstrap_ack_required": {
+    "exit_code": 1,
+    "message": "Explicit new-install or logical-restore bootstrap is required.",
+    "status": "PASS"
+  },
+  "root_rejected": {
+    "exit_code": 1,
+    "message": "Azaeron PostgreSQL must run as the postgres user.",
+    "status": "PASS"
+  },
+  "foreign_pgdata_rejected": {
+    "exit_code": 1,
+    "message": "Unrecognized PGDATA family. Restore a logical dump into a NEW volume.",
+    "status": "PASS"
+  }
+}

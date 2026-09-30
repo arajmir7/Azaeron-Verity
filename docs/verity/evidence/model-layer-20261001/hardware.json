@@ -1,0 +1,12 @@
+{
+  "system": "Darwin",
+  "machine": "arm64",
+  "processor": "arm",
+  "python": "3.13.9",
+  "torch": "2.14.0",
+  "memory_total_bytes": 17179869184,
+  "memory_available_bytes": 2938519552,
+  "disk_free_bytes": 46005493760,
+  "mps_available": true,
+  "cuda": []
+}

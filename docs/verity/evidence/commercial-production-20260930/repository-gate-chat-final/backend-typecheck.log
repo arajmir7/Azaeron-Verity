@@ -1,0 +1,96 @@
+ Image verity-commercial-final-chat-verification Pulling 
+ Image verity-commercial-final-chat-verification pull access denied for verity-commercial-final-chat-verification, repository does not exist or may require 'docker login' 
+ Image verity-commercial-final-chat-verification Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 650B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.70kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#3 DONE 0.0s
+
+#4 [internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#4 DONE 2.0s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 105B done
+#5 DONE 0.0s
+
+#6 [runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#6 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 0.0s done
+#6 DONE 0.0s
+
+#7 [runtime-os-upstream 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#7 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 80.95kB 0.1s done
+#8 DONE 0.1s
+
+#9 [verification-assemble 3/3] RUN python /assemble_runtime.py --include-sqlite
+#9 CACHED
+
+#10 [verification-base 1/2] COPY requirements-dev.lock ./
+#10 CACHED
+
+#11 [runtime-security 4/4] RUN python /runtime_security_overlay.py
+#11 CACHED
+
+#12 [runtime-security 3/4] COPY scripts/runtime_security_overlay.py /runtime_security_overlay.py
+#12 CACHED
+
+#13 [verification-assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#13 CACHED
+
+#14 [verification-assemble 1/3] COPY --from=runtime-os / /base/
+#14 CACHED
+
+#15 [runtime-base 3/4] COPY requirements.lock ./
+#15 CACHED
+
+#16 [runtime-base 2/4] WORKDIR /app
+#16 CACHED
+
+#17 [runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#17 CACHED
+
+#18 [verification-base 2/2] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements-dev.lock
+#18 CACHED
+
+#19 [verification 1/3] WORKDIR /app
+#19 CACHED
+
+#20 [runtime-security 2/4] RUN apt-get update     && apt-get install -y --no-install-recommends        libssl3t64=3.5.7-1~deb13u3 openssl-provider-legacy=3.5.7-1~deb13u3     && rm -rf /var/lib/apt/lists/*
+#20 CACHED
+
+#21 [runtime-os 1/1] COPY --from=runtime-security /security-overlay/ /
+#21 CACHED
+
+#22 [verification 2/3] COPY --from=verification-assemble /runtime-root/ /
+#22 CACHED
+
+#23 [verification 3/3] COPY --chown=65532:65532 . .
+#23 DONE 1.3s
+
+#24 exporting to image
+#24 exporting layers
+#24 exporting layers 1.8s done
+#24 exporting manifest sha256:1bf3a15bb6bb65f3939c5845394db20ea095c4792c36f4538dd0c1f9fcb9f9da 0.0s done
+#24 exporting config sha256:d2319145d573fccc594eaeee162b3f27cf9a917cfd19f57316f2fc0b93ae45be done
+#24 exporting attestation manifest sha256:76f5ff96663c519669c257b3487ce7d6276522330240be93cc9923fb2ceecca3 0.0s done
+#24 exporting manifest list sha256:bd41b2ae40c8b2c1129b02622307fffb98de2467356d157335fc22f0f296af5b done
+#24 naming to docker.io/library/verity-commercial-final-chat-verification:latest done
+#24 unpacking to docker.io/library/verity-commercial-final-chat-verification:latest
+#24 unpacking to docker.io/library/verity-commercial-final-chat-verification:latest 0.6s done
+#24 DONE 2.6s
+
+#25 resolving provenance for metadata file
+#25 DONE 0.1s
+ Image verity-commercial-final-chat-verification Built 
+ Container verity-commercial-final-chat-verification-run-3ea11e82f837 Creating 
+ Container verity-commercial-final-chat-verification-run-3ea11e82f837 Created 
+Success: no issues found in 197 source files

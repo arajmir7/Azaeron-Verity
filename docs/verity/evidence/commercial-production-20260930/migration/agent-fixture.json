@@ -1,0 +1,9 @@
+{
+  "conversation_id": "690119d7-3cb5-48dc-b103-bcc0552f8072",
+  "model_executed": false,
+  "receipt_id": "7bc228d6-b559-4fa6-aeab-044a31b04f47",
+  "result": "PASS",
+  "result_sha256": "38e41d0428595d81d41dea7e44690b948bf57dcd276c8362e604972ec05499a4",
+  "result_version_id": "f69b45f4-2ab8-461d-b473-9eed3a63202b",
+  "voice_profile_id": "44e4ffdf-f682-49f2-8fa1-0cc57a3ee399"
+}

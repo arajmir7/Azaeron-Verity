@@ -1,0 +1,79 @@
+Traceback (most recent call last):
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 69, in map_httpcore_exceptions
+    yield
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 233, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 231, in _receive_event
+    raise RemoteProtocolError(msg)
+httpcore.RemoteProtocolError: Server disconnected without sending a response.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/verity-core-recovery-runner.py", line 7, in <module>
+    exec(compile(text, str(source), "exec"), {"__name__": "__main__", "__file__": str(source)})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 952, in <module>
+    {
+    ~
+    ...<4 lines>...
+        "replay": replay,
+        ~~~~~~~~~~~~~~~~~
+    }[phase]()
+    ~~~~~~~~^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 120, in fixture
+    response = api.post("/api/v1/" + route, json=payload)
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpx/_client.py", line 1145, in post
+    return self.request(
+           ~~~~~~~~~~~~^
+        "POST",
+        ^^^^^^^
+    ...<11 lines>...
+        extensions=extensions,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpx/_client.py", line 827, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpx/_client.py", line 1015, in _send_single_request
+    response = transport.handle_request(request)
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 232, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/anaconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 86, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.RemoteProtocolError: Server disconnected without sending a response.

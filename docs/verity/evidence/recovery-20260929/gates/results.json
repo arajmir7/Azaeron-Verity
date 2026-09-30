@@ -1,0 +1,197 @@
+{
+  "source_manifest_sha256": "adefd32f7836631bfc139ae7f07d051d917a3bc2797a6aa140b9ce3f86587a27",
+  "production_certified": false,
+  "results": [
+    {
+      "gate": "backend-format",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/verity-recover-0929.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_verity/backend:/app",
+        "verification",
+        "black",
+        "--check",
+        "app",
+        "tests"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 176.88
+    },
+    {
+      "gate": "backend-lint",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/verity-recover-0929.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_verity/backend:/app",
+        "verification",
+        "ruff",
+        "check",
+        "app",
+        "tests"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 66.42
+    },
+    {
+      "gate": "backend-typecheck",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/verity-recover-0929.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_verity/backend:/app",
+        "verification",
+        "mypy",
+        "app"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 388.23
+    },
+    {
+      "gate": "unit-security-worker-contract",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/verity-recover-0929.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_verity/backend:/app",
+        "-e",
+        "CORS_ORIGINS=http://localhost:3000",
+        "verification",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "tests",
+        "--ignore=tests/integration",
+        "-q"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 381.57
+    },
+    {
+      "gate": "postgres-rls",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/verity-recover-0929.json",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-T",
+        "-v",
+        "/Users/ajmiraribam/Projects/azaeron_verity/backend:/app",
+        "-e",
+        "POSTGRES_TEST_DATABASE_URL",
+        "-e",
+        "RUN_STORAGE_INTEGRATION=1",
+        "-e",
+        "PRIVACY_MINIO_ACCESS_KEY",
+        "-e",
+        "PRIVACY_MINIO_SECRET_KEY",
+        "verification",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "tests/integration",
+        "-q"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 103.02
+    },
+    {
+      "gate": "frontend-lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 6.73
+    },
+    {
+      "gate": "compose",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/private/tmp/verity-recover-0929.json",
+        "config",
+        "--quiet"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.29
+    },
+    {
+      "gate": "frontend-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 4.92
+    },
+    {
+      "gate": "frontend-typecheck",
+      "command": [
+        "npx",
+        "tsc",
+        "--noEmit"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 1.24
+    },
+    {
+      "gate": "browser",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--workers=1"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 247.68
+    },
+    {
+      "gate": "source-stability",
+      "status": "PASS",
+      "exit_code": 0,
+      "changed_paths": []
+    }
+  ]
+}

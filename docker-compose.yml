@@ -1,13 +1,15 @@
 services:
   postgres:
-    # PostgreSQL 16 preserves the established /var/lib/postgresql/data volume
-    # layout. PostgreSQL 18 requires a different parent mount path.
-    image: pgvector/pgvector:pg16@sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b
+    # Changed image family: NEW volume only. Existing installations must follow
+    # infrastructure/postgres/MIGRATION.md; never reuse the legacy PGDATA volume.
+    build:
+      context: ./infrastructure/postgres
     container_name: azaeron-postgres
     environment:
       POSTGRES_USER: azaeron
       POSTGRES_PASSWORD: ${DB_PASSWORD:-azaeron_dev_password}
       POSTGRES_DB: azaeron
+      AZAERON_DATABASE_BOOTSTRAP: ${AZAERON_DATABASE_BOOTSTRAP:-}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backend/scripts/init-pgvector.sql:/docker-entrypoint-initdb.d/02-init-pgvector.sql
@@ -320,16 +322,14 @@ services:
       - azaeron-network
 
   jaeger:
-    image: jaegertracing/all-in-one:1.62.0@sha256:836e9b69c88afbedf7683ea7162e179de63b1f981662e83f5ebb68badadc710f
+    image: azaeron-jaeger:2.21.0-minimal
+    build:
+      context: ./infrastructure/jaeger
+      dockerfile: Dockerfile
     container_name: azaeron-jaeger
-    environment:
-      COLLECTOR_OTLP_ENABLED: "true"
-      SPAN_STORAGE_TYPE: badger
-      BADGER_EPHEMERAL: "false"
-      BADGER_DIRECTORY_VALUE: /tmp/badger/data
-      BADGER_DIRECTORY_KEY: /tmp/badger/key
     volumes:
       - jaeger_data:/tmp
+      - ./infrastructure/jaeger/config.yaml:/etc/jaeger/config.yaml:ro
     ports:
       - "127.0.0.1:16686:16686"
     networks:
@@ -348,13 +348,19 @@ services:
       - azaeron-network
 
   grafana:
+    image: azaeron-grafana:13.2.3-minimal
+    build:
+      context: ./infrastructure/grafana
+      dockerfile: Dockerfile
     environment:
       GF_ANALYTICS_ENABLED: "false"
       GF_ANALYTICS_REPORTING_ENABLED: "false"
       GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
       GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
       GF_PLUGINS_PREINSTALL_DISABLED: "true"
-    image: grafana/grafana:latest@sha256:3fd54ae1214669f8355f065ec9f6445d5279a3d77095ab048ca045685272429b
+      # Jaeger v2 serves service discovery at /api/v3/services, which the
+      # bundled datasource uses when this supported toggle is enabled.
+      GF_FEATURE_TOGGLES_ENABLE: "jaegerEnableGrpcEndpoint"
     container_name: azaeron-grafana
     ports:
       - "127.0.0.1:3001:3000"
@@ -367,6 +373,7 @@ services:
 
 volumes:
   postgres_data:
+    name: azaeron_verity_postgres16_secure_data
   redis_data:
   minio_data:
   prometheus_data:

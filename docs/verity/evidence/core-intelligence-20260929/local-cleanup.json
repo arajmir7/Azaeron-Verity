@@ -1,0 +1,10 @@
+{
+  "time": "2026-09-30T00:38:41.776559+00:00",
+  "requested_action": "Stop only task-created verity-core-0929 application/data services; retain volumes.",
+  "status": "UNCONFIRMED",
+  "command_exit_code": 1,
+  "reason": "Docker local socket unavailable; stop command could not connect.",
+  "volumes_removed": false,
+  "other_projects_targeted": false,
+  "log": "local-stack-stop.log"
+}

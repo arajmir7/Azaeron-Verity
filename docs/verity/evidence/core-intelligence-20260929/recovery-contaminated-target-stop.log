@@ -1,0 +1,6 @@
+ Container verity-core-dr-0930-redis-1 Stopping 
+ Container verity-core-dr-0930-postgres-1 Stopping 
+ Container verity-core-dr-0930-minio-1 Stopping 
+ Container verity-core-dr-0930-minio-1 Stopped 
+ Container verity-core-dr-0930-postgres-1 Stopped 
+ Container verity-core-dr-0930-redis-1 Stopped 

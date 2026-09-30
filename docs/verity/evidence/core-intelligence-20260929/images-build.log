@@ -1,0 +1,725 @@
+ Image verity-core-0929-grafana Building 
+ Image verity-core-0929-jaeger Building 
+ Image verity-core-0929-frontend Building 
+ Image verity-core-0929-backend Building 
+ Image verity-core-0929-minio Building 
+ Image verity-core-0929-celery-worker Building 
+ Image verity-core-0929-minio-init Building 
+ Image verity-core-0929-migrate Building 
+ Image verity-core-0929-celery-beat Building 
+ Image verity-core-0929-verification Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 5.35kB done
+#1 DONE 0.0s
+
+#2 [minio internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.90kB done
+#2 DONE 0.0s
+
+#3 [migrate internal] load build definition from Dockerfile
+#3 transferring dockerfile: 2.03kB done
+#3 DONE 0.0s
+
+#4 [jaeger internal] load build definition from Dockerfile
+#4 transferring dockerfile: 645B done
+#4 DONE 0.0s
+
+#5 [frontend internal] load build definition from Dockerfile
+#5 transferring dockerfile: 1.07kB done
+#5 DONE 0.0s
+
+#6 [grafana internal] load build definition from Dockerfile
+#6 transferring dockerfile: 483B done
+#6 DONE 0.0s
+
+#7 [frontend internal] load metadata for docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#7 DONE 0.0s
+
+#8 [frontend internal] load .dockerignore
+#8 transferring context: 96B done
+#8 DONE 0.0s
+
+#9 [frontend builder 1/7] FROM docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
+#9 resolve docker.io/library/node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85 done
+#9 DONE 0.0s
+
+#10 [frontend internal] load build context
+#10 transferring context: 229.78kB 0.0s done
+#10 DONE 0.0s
+
+#11 [frontend builder 3/7] COPY package.json package-lock.json ./
+#11 CACHED
+
+#12 [frontend builder 2/7] WORKDIR /app
+#12 CACHED
+
+#13 [frontend builder 4/7] RUN npm ci
+#13 CACHED
+
+#14 [frontend builder 5/7] COPY . .
+#14 DONE 0.1s
+
+#15 [verification internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#15 ...
+
+#16 [frontend builder 6/7] RUN mkdir -p public
+#16 DONE 0.2s
+
+#17 [verification internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#17 ...
+
+#18 [grafana internal] load metadata for docker.io/grafana/grafana:13.2.2@sha256:ac461fb352abc50da10a51c7d02462e9c05488f11f53f14b3ad79a8145f638a0
+#18 DONE 1.6s
+
+#19 [jaeger internal] load metadata for docker.io/jaegertracing/jaeger:2.21.0@sha256:3d0ac795ff98aa04d1be04311d2dac6c25b4bfc8322dc02e53bc5b170c5018c3
+#19 DONE 1.6s
+
+#20 [jaeger internal] load metadata for docker.io/library/alpine:3.24.2@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6
+#20 DONE 1.6s
+
+#21 [grafana internal] load .dockerignore
+#21 transferring context: 2B done
+#21 DONE 0.0s
+
+#22 [jaeger internal] load .dockerignore
+#22 transferring context: 2B done
+#22 DONE 0.0s
+
+#23 [jaeger internal] load build context
+#23 transferring context: 33B done
+#23 DONE 0.0s
+
+#24 [grafana 1/2] FROM docker.io/grafana/grafana:13.2.2@sha256:ac461fb352abc50da10a51c7d02462e9c05488f11f53f14b3ad79a8145f638a0
+#24 resolve docker.io/grafana/grafana:13.2.2@sha256:ac461fb352abc50da10a51c7d02462e9c05488f11f53f14b3ad79a8145f638a0 0.0s done
+#24 DONE 0.1s
+
+#25 [jaeger stage-1 1/4] FROM docker.io/library/alpine:3.24.2@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6
+#25 resolve docker.io/library/alpine:3.24.2@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 0.0s done
+#25 DONE 0.0s
+
+#26 [jaeger upstream 1/1] FROM docker.io/jaegertracing/jaeger:2.21.0@sha256:3d0ac795ff98aa04d1be04311d2dac6c25b4bfc8322dc02e53bc5b170c5018c3
+#26 resolve docker.io/jaegertracing/jaeger:2.21.0@sha256:3d0ac795ff98aa04d1be04311d2dac6c25b4bfc8322dc02e53bc5b170c5018c3 0.0s done
+#26 DONE 0.1s
+
+#27 [jaeger stage-1 2/4] RUN mkdir -p /etc/jaeger /tmp/badger-v2/key /tmp/badger-v2/data     && chmod 1777 /tmp     && chown -R 10001:0 /tmp/badger-v2
+#27 CACHED
+
+#28 [jaeger stage-1 3/4] COPY --from=upstream --chown=10001:0 /cmd/jaeger/jaeger-linux /usr/local/bin/jaeger
+#28 CACHED
+
+#29 [jaeger stage-1 4/4] COPY --chown=10001:0 config.yaml /etc/jaeger/config.yaml
+#29 CACHED
+
+#30 [grafana 2/2] RUN apk upgrade --no-cache     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1         ! -name jaeger ! -name prometheus -exec rm -rf {} +
+#30 CACHED
+
+#31 [grafana] exporting to image
+#31 exporting layers 0.0s done
+#31 exporting manifest sha256:7a18e7f04a707e0f7d19d39701151eb52b659692b350fc0695a73578aaad6e7c 0.0s done
+#31 exporting config sha256:0d51bb12f2aeea369ac1af9b21444dc5d53fc66e02fa0510907f83726d09679d 0.0s done
+#31 exporting attestation manifest sha256:0407940d8e2f94d715f0cde34031ce80e82d87936334ce1ddd5de3b4346afa66 done
+#31 exporting manifest list sha256:b2b7d5bbbe4525da888143a09df2ee5e9d55ff287ee7a16713f07b281db373e6 0.0s done
+#31 naming to docker.io/library/verity-core-0929-grafana:latest done
+#31 unpacking to docker.io/library/verity-core-0929-grafana:latest 0.0s done
+#31 DONE 0.1s
+
+#32 [jaeger] exporting to image
+#32 exporting layers done
+#32 exporting manifest sha256:105b41888044246173f6611a0158ddb08741a86f584e326e8b9082deda40c23b 0.0s done
+#32 exporting config sha256:f8d32bda29d94c4f1d67e1a9e6939d7da0df45b5f7b56e75b13f99631ed23977 0.0s done
+#32 exporting attestation manifest sha256:ec32741cab13687548d75929059609fe9230e385689b5e16264d3439e29405ae 0.0s done
+#32 exporting manifest list sha256:e57f684f94e9086f74b39eea50a575595dd2b62c177b71cce4dc2a0a5c171d0f done
+#32 naming to docker.io/library/verity-core-0929-jaeger:latest done
+#32 unpacking to docker.io/library/verity-core-0929-jaeger:latest done
+#32 DONE 0.1s
+
+#33 [frontend builder 7/7] RUN npm run build
+#33 0.630 
+#33 0.630 > azaeron-frontend@1.0.0 build
+#33 0.630 > node ./node_modules/next/dist/bin/next build
+#33 0.630 
+#33 1.220 ▲ Next.js 16.3.3 (Turbopack)
+#33 1.304 ✓ Running next.config.ts took 83ms
+#33 1.316 
+#33 1.352   Creating an optimized production build ...
+#33 ...
+
+#34 [grafana] resolving provenance for metadata file
+#34 DONE 0.0s
+
+#35 [jaeger] resolving provenance for metadata file
+#35 DONE 0.1s
+
+#36 [minio internal] load metadata for docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+#36 ...
+
+#37 [minio internal] load metadata for docker.io/library/golang:1.26.8-alpine3.24@sha256:8ac98ca534ac3f51e1f420a1dd2c15e74c75cfa0f23f3ad27eb5d7236c349a0c
+#37 ...
+
+#38 [auth] library/python:pull token for registry-1.docker.io
+#38 DONE 0.0s
+
+#39 [auth] library/golang:pull token for registry-1.docker.io
+#39 DONE 0.0s
+
+#40 [auth] library/alpine:pull token for registry-1.docker.io
+#40 DONE 0.0s
+
+#36 [minio internal] load metadata for docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+#36 DONE 49.0s
+
+#37 [minio-init internal] load metadata for docker.io/library/golang:1.26.8-alpine3.24@sha256:8ac98ca534ac3f51e1f420a1dd2c15e74c75cfa0f23f3ad27eb5d7236c349a0c
+#37 DONE 49.0s
+
+#17 [celery-worker internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#17 DONE 49.2s
+
+#33 [frontend builder 7/7] RUN npm run build
+#33 ...
+
+#41 [minio-init internal] load .dockerignore
+#41 DONE 0.0s
+
+#15 [migrate internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#15 DONE 51.2s
+
+#42 [verification internal] load .dockerignore
+#42 DONE 0.4s
+
+#41 [minio internal] load .dockerignore
+#41 transferring context:
+#41 transferring context: 2B 0.6s done
+#41 DONE 5.7s
+
+#42 [migrate internal] load .dockerignore
+#42 transferring context: 105B 3.6s done
+#42 transferring context: 105B 3.6s done
+#42 DONE 6.6s
+
+#33 [frontend builder 7/7] RUN npm run build
+#33 ...
+
+#43 [minio server-build 3/6] ADD --checksum=sha256:09ffb1ddfa9636348f8d029f9680bb086840dccf9d34370e8462151d28e95f97 https://codeload.github.com/minio/minio/tar.gz/5aebb3970e132ca231508152c0333cb223c83d70 /tmp/source.tgz
+#43 DONE 0.0s
+
+#44 [minio server 1/5] FROM docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+#44 ...
+
+#45 [minio-init client-build 3/6] ADD --checksum=sha256:4cea8ed209c8f96e59ea1a5cc4901019b54c2be6d6f5f16c6749ea8bdcf4172e https://codeload.github.com/minio/mc/tar.gz/d6541ea280b73a834b64d4097e21f2be77676104 /tmp/source.tgz
+#45 DONE 0.0s
+
+#44 [minio-init server 1/5] FROM docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+#44 ...
+
+#46 [verification internal] load build context
+#46 DONE 0.0s
+
+#47 [backend internal] load build context
+#47 DONE 0.0s
+
+#47 [migrate internal] load build context
+#47 transferring context: 246.47kB 1.6s
+#47 transferring context: 246.48kB 2.4s done
+#47 DONE 3.1s
+
+#46 [verification internal] load build context
+#46 transferring context: 3.03MB 7.3s
+#46 ...
+
+#48 [minio-init server-build 1/6] FROM docker.io/library/golang:1.26.8-alpine3.24@sha256:8ac98ca534ac3f51e1f420a1dd2c15e74c75cfa0f23f3ad27eb5d7236c349a0c
+#48 ...
+
+#49 [celery-worker runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#49 ...
+
+#50 [celery-worker runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#50 ...
+
+#46 [verification internal] load build context
+#46 transferring context: 4.99MB 12.6s
+#46 transferring context: 8.48MB 18.0s
+#46 transferring context: 10.78MB 23.1s
+#46 transferring context: 16.91MB 28.2s
+#46 transferring context: 22.29MB 33.2s
+#46 transferring context: 36.68MB 38.8s
+#46 transferring context: 42.67MB 43.8s
+#46 transferring context: 45.39MB 49.5s
+#46 transferring context: 48.84MB 54.9s
+#46 transferring context: 51.72MB 60.3s
+#46 transferring context: 55.49MB 65.5s
+#46 transferring context: 77.88MB 70.5s
+#46 ...
+
+#49 [celery-worker runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#49 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#49 ...
+
+#44 [minio server 1/5] FROM docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+#44 resolve docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8 2.1s done
+#44 DONE 73.6s
+
+#48 [minio server-build 1/6] FROM docker.io/library/golang:1.26.8-alpine3.24@sha256:8ac98ca534ac3f51e1f420a1dd2c15e74c75cfa0f23f3ad27eb5d7236c349a0c
+#48 resolve docker.io/library/golang:1.26.8-alpine3.24@sha256:8ac98ca534ac3f51e1f420a1dd2c15e74c75cfa0f23f3ad27eb5d7236c349a0c 2.0s done
+#48 DONE 73.7s
+
+#49 [celery-worker runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#49 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 2.2s done
+#49 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 2.2s done
+#49 DONE 73.6s
+
+#46 [verification internal] load build context
+#46 ...
+
+#51 [minio server-build 3/6] ADD --checksum=sha256:09ffb1ddfa9636348f8d029f9680bb086840dccf9d34370e8462151d28e95f97 https://codeload.github.com/minio/minio/tar.gz/5aebb3970e132ca231508152c0333cb223c83d70 /tmp/source.tgz
+#51 CACHED
+
+#52 [minio server-build 4/6] RUN tar -xzf /tmp/source.tgz --strip-components=1 && rm /tmp/source.tgz
+#52 CACHED
+
+#53 [minio server 2/5] RUN apk add --no-cache ca-certificates && addgroup -g 10001 minio && adduser -D -H -u 10001 -G minio minio     && mkdir /data && chown minio:minio /data
+#53 CACHED
+
+#54 [minio server-build 5/6] RUN --mount=type=cache,target=/go/pkg/mod     go get github.com/apache/thrift@v0.24.0 github.com/buger/jsonparser@v1.1.2       github.com/go-jose/go-jose/v4@v4.1.4 github.com/prometheus/prometheus@v0.311.3       github.com/rabbitmq/amqp091-go@v1.13.0       golang.org/x/crypto@v0.55.0 google.golang.org/grpc@v1.83.2     && go mod download && go mod verify
+#54 CACHED
+
+#55 [minio server 4/5] COPY --from=server-build /src/LICENSE /usr/share/licenses/minio/LICENSE
+#55 CACHED
+
+#56 [minio server-build 2/6] WORKDIR /src
+#56 CACHED
+
+#57 [minio server-build 6/6] RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build     go build -mod=mod -trimpath -tags kqueue -ldflags='-s -w' -o /out/minio .     && go mod verify
+#57 CACHED
+
+#58 [minio server 3/5] COPY --from=server-build /out/minio /usr/local/bin/minio
+#58 CACHED
+
+#59 [minio-init client 2/4] RUN apk add --no-cache ca-certificates && addgroup -g 10001 minio && adduser -D -u 10001 -G minio minio
+#59 CACHED
+
+#60 [minio-init client-build 5/6] RUN --mount=type=cache,target=/go/pkg/mod     go get github.com/prometheus/prometheus@v0.311.3       golang.org/x/crypto@v0.55.0 google.golang.org/grpc@v1.83.2     && go mod tidy && go mod download && go mod verify
+#60 CACHED
+
+#56 [minio-init server-build 2/6] WORKDIR /src
+#56 CACHED
+
+#61 [minio-init client-build 3/6] ADD --checksum=sha256:4cea8ed209c8f96e59ea1a5cc4901019b54c2be6d6f5f16c6749ea8bdcf4172e https://codeload.github.com/minio/mc/tar.gz/d6541ea280b73a834b64d4097e21f2be77676104 /tmp/source.tgz
+#61 CACHED
+
+#62 [minio-init client-build 4/6] RUN tar -xzf /tmp/source.tgz --strip-components=1 && rm /tmp/source.tgz
+#62 CACHED
+
+#63 [minio-init client-build 6/6] RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build     go build -trimpath -tags kqueue -ldflags='-s -w' -o /out/mc .
+#63 CACHED
+
+#64 [minio-init client 3/4] COPY --from=client-build /out/mc /usr/local/bin/mc
+#64 CACHED
+
+#65 [minio server 5/5] COPY --from=server-build /src/NOTICE /usr/share/licenses/minio/NOTICE
+#65 CACHED
+
+#66 [minio-init client 4/4] COPY --from=client-build /src/LICENSE /usr/share/licenses/mc/LICENSE
+#66 CACHED
+
+#50 [celery-worker runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#50 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#50 ...
+
+#46 [verification internal] load build context
+#46 transferring context: 93.35MB 74.5s done
+#46 DONE 75.2s
+
+#67 [minio-init] exporting to image
+#67 exporting layers 0.1s done
+#67 exporting manifest sha256:ee5c5243bc0a350d070445cc5853a5618a3aba8b2e11970f950c525b69897e85
+#67 exporting manifest sha256:ee5c5243bc0a350d070445cc5853a5618a3aba8b2e11970f950c525b69897e85 0.4s done
+#67 exporting config sha256:da707d559a62d9606bfd8eccc8ccf766795726c0128e82a37a57723afe8d521e
+#67 exporting config sha256:da707d559a62d9606bfd8eccc8ccf766795726c0128e82a37a57723afe8d521e 0.3s done
+#67 ...
+
+#50 [backend runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#50 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 4.8s done
+#50 DONE 76.1s
+
+#68 [minio] exporting to image
+#68 exporting layers 0.4s done
+#68 exporting manifest sha256:4c746521c86c86e0c28c49df26b6e9ea641e30f81ebc008f268ba9b7e3da2925 0.3s done
+#68 exporting config sha256:a131d03e23a33768a14a223773df7174dbe54671b7fee031aa53ae9132b2b465 0.4s done
+#68 exporting attestation manifest sha256:0c88c653ea9f4ad807c6d103ec3b9fe35b198fe575c71e5a053d22958fcf3c67
+#68 exporting attestation manifest sha256:0c88c653ea9f4ad807c6d103ec3b9fe35b198fe575c71e5a053d22958fcf3c67 0.6s done
+#68 exporting manifest list sha256:42f40e663d37a82aa623d9fd4459f94c0c2e5a3d7ddb885ae764cee0da4beb75
+#68 exporting manifest list sha256:42f40e663d37a82aa623d9fd4459f94c0c2e5a3d7ddb885ae764cee0da4beb75 0.9s done
+#68 naming to docker.io/library/verity-core-0929-minio:latest
+#68 naming to docker.io/library/verity-core-0929-minio:latest 0.1s done
+#68 unpacking to docker.io/library/verity-core-0929-minio:latest
+#68 unpacking to docker.io/library/verity-core-0929-minio:latest 1.9s done
+#68 ...
+
+#67 [minio-init] exporting to image
+#67 exporting attestation manifest sha256:6b4636f87e803e5ba147fb3243016d530135078eb08659fcbbde14733195f341 0.4s done
+#67 exporting manifest list sha256:19393b2f65f1f3bb14529a9fe92be6c4f97f5ace6fba6843ca96c53425d735ae 0.3s done
+#67 naming to docker.io/library/verity-core-0929-minio-init:latest 0.2s done
+#67 unpacking to docker.io/library/verity-core-0929-minio-init:latest 1.5s done
+#67 DONE 10.2s
+
+#68 [minio] exporting to image
+#68 DONE 11.2s
+
+#33 [frontend builder 7/7] RUN npm run build
+#33 ...
+
+#69 [celery-worker runtime-base 2/4] WORKDIR /app
+#69 CACHED
+
+#70 [celery-worker runtime-base 3/4] COPY requirements.lock ./
+#70 CACHED
+
+#71 [celery-worker runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#71 CACHED
+
+#72 [celery-worker assemble 3/3] RUN python /assemble_runtime.py
+#72 CACHED
+
+#73 [celery-worker assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#73 CACHED
+
+#74 [celery-worker verification 1/3] WORKDIR /app
+#74 CACHED
+
+#75 [celery-worker assemble 1/3] COPY --from=runtime-os / /base/
+#75 CACHED
+
+#76 [celery-worker runtime 2/6] COPY --from=assemble /runtime-root/ /
+#76 ...
+
+#77 [verification verification-assemble 1/3] COPY --from=runtime-os / /base/
+#77 CACHED
+
+#78 [verification verification-assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#78 CACHED
+
+#79 [verification runtime-base 3/4] COPY requirements.lock ./
+#79 CACHED
+
+#80 [verification verification-base 2/2] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements-dev.lock
+#80 CACHED
+
+#81 [verification verification-assemble 3/3] RUN python /assemble_runtime.py --include-sqlite
+#81 CACHED
+
+#82 [verification runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#82 CACHED
+
+#83 [verification verification-base 1/2] COPY requirements-dev.lock ./
+#83 CACHED
+
+#69 [backend runtime-base 2/4] WORKDIR /app
+#69 CACHED
+
+#72 [backend assemble 3/3] RUN python /assemble_runtime.py
+#72 CACHED
+
+#74 [backend verification 1/3] WORKDIR /app
+#74 CACHED
+
+#75 [backend assemble 1/3] COPY --from=runtime-os / /base/
+#75 CACHED
+
+#70 [backend runtime-base 3/4] COPY requirements.lock ./
+#70 CACHED
+
+#71 [backend runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#71 CACHED
+
+#73 [backend assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#73 CACHED
+
+#76 [backend runtime 2/6] COPY --from=assemble /runtime-root/ /
+#76 ...
+
+#84 [verification verification 2/3] COPY --from=verification-assemble /runtime-root/ /
+#84 CACHED
+
+#85 [verification verification 3/3] COPY --chown=65532:65532 . .
+#85 ...
+
+#76 [backend runtime 2/6] COPY --from=assemble /runtime-root/ /
+#76 CACHED
+
+#86 [celery-beat runtime 3/6] COPY --chown=65532:65532 app ./app
+#86 ...
+
+#87 [minio] resolving provenance for metadata file
+#87 DONE 4.4s
+
+#88 [minio-init] resolving provenance for metadata file
+#88 DONE 1.3s
+
+#85 [verification verification 3/3] COPY --chown=65532:65532 . .
+#85 ...
+
+#86 [migrate runtime 3/6] COPY --chown=65532:65532 app ./app
+#86 DONE 162.8s
+
+#85 [verification verification 3/3] COPY --chown=65532:65532 . .
+#85 DONE 164.0s
+
+#33 [frontend builder 7/7] RUN npm run build
+#33 ...
+
+#89 [migrate runtime 4/6] COPY --chown=65532:65532 alembic ./alembic
+#89 ...
+
+#90 [verification] exporting to image
+#90 exporting layers
+#90 ...
+
+#89 [celery-worker runtime 4/6] COPY --chown=65532:65532 alembic ./alembic
+#89 DONE 73.4s
+
+#90 [verification] exporting to image
+#90 ...
+
+#91 [backend runtime 5/6] COPY --chown=65532:65532 migration_snapshots ./migration_snapshots
+#91 DONE 2.6s
+
+#90 [verification] exporting to image
+#90 ...
+
+#92 [celery-worker runtime 6/6] COPY --chown=65532:65532 alembic.ini ./
+#92 DONE 2.1s
+
+#90 [verification] exporting to image
+#90 ...
+
+#93 [migrate] exporting to image
+#93 exporting layers
+#93 ...
+
+#94 [backend] exporting to image
+#94 ...
+
+#95 [celery-worker] exporting to image
+#95 ...
+
+#96 [celery-beat] exporting to image
+#96 ...
+
+#90 [verification] exporting to image
+#90 exporting layers 151.0s done
+#90 ...
+
+#96 [celery-beat] exporting to image
+#96 exporting layers 69.9s done
+#96 ...
+
+#94 [backend] exporting to image
+#94 exporting layers 70.0s done
+#94 ...
+
+#95 [celery-worker] exporting to image
+#95 exporting layers 70.0s done
+#95 ...
+
+#93 [migrate] exporting to image
+#93 exporting layers 70.0s done
+#93 ...
+
+#90 [verification] exporting to image
+#90 exporting manifest sha256:e4df9646b15095727437e792dc17813bd21c80c6d126fe0d8326e54944ada249
+#90 ...
+
+#93 [migrate] exporting to image
+#93 exporting manifest sha256:83fc7b203403433fc478e6b28fb6015e10bfa1de7d9f0683b7b5c72de169c05e
+#93 ...
+
+#96 [celery-beat] exporting to image
+#96 exporting manifest sha256:83e2765572af6c4066333f093e83965c6cb3fa9dfba7517e02f5f1b8e35cde7c
+#96 ...
+
+#94 [backend] exporting to image
+#94 exporting manifest sha256:b52c4b8e156bc833bd8e336620d35c2bcb7c04f0a06fec2d0aecec96e8693824
+#94 ...
+
+#95 [celery-worker] exporting to image
+#95 exporting manifest sha256:c87477ad8249599442f27895d5b283fed709d26016f7fa1a6cbbf0a1485368f5
+#95 ...
+
+#96 [celery-beat] exporting to image
+#96 exporting manifest sha256:83e2765572af6c4066333f093e83965c6cb3fa9dfba7517e02f5f1b8e35cde7c 11.1s done
+#96 exporting config sha256:1647d100e75c0b27a92d9f42f1f4da528b54fd46c68f54d6800f0ef366ebd3cc
+#96 exporting config sha256:1647d100e75c0b27a92d9f42f1f4da528b54fd46c68f54d6800f0ef366ebd3cc 0.7s done
+#96 exporting attestation manifest sha256:260c58e7d542ee27c94a93667685c3a455fe709457eeb4b6948d59f424ce394a
+#96 exporting attestation manifest sha256:260c58e7d542ee27c94a93667685c3a455fe709457eeb4b6948d59f424ce394a 1.8s done
+#96 exporting manifest list sha256:5239cc19d86f456c6cddcebcc304a6e2bd40fb0f13658257280a36849bf225e2
+#96 exporting manifest list sha256:5239cc19d86f456c6cddcebcc304a6e2bd40fb0f13658257280a36849bf225e2 0.5s done
+#96 naming to docker.io/library/verity-core-0929-celery-beat:latest 0.0s done
+#96 unpacking to docker.io/library/verity-core-0929-celery-beat:latest
+#96 unpacking to docker.io/library/verity-core-0929-celery-beat:latest 2.6s done
+#96 ...
+
+#93 [migrate] exporting to image
+#93 exporting manifest sha256:83fc7b203403433fc478e6b28fb6015e10bfa1de7d9f0683b7b5c72de169c05e 11.3s done
+#93 exporting config sha256:af24c973c4bf8b8723d052962654603345a2b98bd65dbb4e12e4abdaa057f916 0.4s done
+#93 exporting attestation manifest sha256:1117a21873665e8faa4639593bf7e9a71796defa85c688f116539fcdf1f583af 1.8s done
+#93 exporting manifest list sha256:804f8e211933f420ad97d2e5de458072049463720a80beca2d32dc7d7a22695e 0.5s done
+#93 naming to docker.io/library/verity-core-0929-migrate:latest 0.0s done
+#93 unpacking to docker.io/library/verity-core-0929-migrate:latest 2.5s done
+#93 ...
+
+#90 [verification] exporting to image
+#90 exporting manifest sha256:e4df9646b15095727437e792dc17813bd21c80c6d126fe0d8326e54944ada249 11.5s done
+#90 exporting config sha256:34f07a988128c1ad34ed6643a3303a877d6d64b2aaa78c444c05348af8c1d421 0.6s done
+#90 exporting attestation manifest sha256:13241005c1e4632a35f08bef91c68859cc024840fc8b40cebf63e1ebb3ade95b 1.8s done
+#90 exporting manifest list sha256:da6405e93a1b819bfe37c366621a7faf56f982a0bc7f804682234797afb51db0 0.5s done
+#90 naming to docker.io/library/verity-core-0929-verification:latest 0.1s done
+#90 unpacking to docker.io/library/verity-core-0929-verification:latest
+#90 ...
+
+#94 [backend] exporting to image
+#94 exporting manifest sha256:b52c4b8e156bc833bd8e336620d35c2bcb7c04f0a06fec2d0aecec96e8693824 11.3s done
+#94 exporting config sha256:5c0c7650f691932a6eaacfeee4df38062562f37543147cd2bff4dd95cd98f944 0.4s done
+#94 exporting attestation manifest sha256:6197a167c1810e224e1f05ca6e63a6e9e9ae9a4b14f375a8f955f26df4bb3b40 1.8s done
+#94 exporting manifest list sha256:c14da46eea6682c0c238c79b09d4dd47f66141a26de5ac612852265027a398c0 0.5s done
+#94 naming to docker.io/library/verity-core-0929-backend:latest 0.1s done
+#94 unpacking to docker.io/library/verity-core-0929-backend:latest 2.4s done
+#94 ...
+
+#95 [celery-worker] exporting to image
+#95 exporting manifest sha256:c87477ad8249599442f27895d5b283fed709d26016f7fa1a6cbbf0a1485368f5 11.2s done
+#95 exporting config sha256:766707c9159fb2a6aff0c1020cf19df36a48f178a8b4a001391106ce4183d54a 0.6s done
+#95 exporting attestation manifest sha256:e5641687448ecc65884a6ab6ac715fbdf0654c8e0be94db393f84c6da4d9a068 1.8s done
+#95 exporting manifest list sha256:6a3a7c208243f1435934ce73b19b84f92060e58080fd1358989eb6de7b88cdea 0.5s done
+#95 naming to docker.io/library/verity-core-0929-celery-worker:latest 0.1s done
+#95 unpacking to docker.io/library/verity-core-0929-celery-worker:latest 2.4s done
+#95 ...
+
+#93 [migrate] exporting to image
+#93 DONE 162.6s
+
+#95 [celery-worker] exporting to image
+#95 DONE 162.5s
+
+#94 [backend] exporting to image
+#94 DONE 162.5s
+
+#96 [celery-beat] exporting to image
+#96 DONE 162.6s
+
+#33 [frontend builder 7/7] RUN npm run build
+#33 ...
+
+#90 [verification] exporting to image
+#90 unpacking to docker.io/library/verity-core-0929-verification:latest 13.0s done
+#90 DONE 254.0s
+
+#33 [frontend builder 7/7] RUN npm run build
+#33 629.1 ✓ Compiled successfully in 10.5min
+#33 629.4   Running TypeScript ...
+#33 ...
+
+#97 [migrate] resolving provenance for metadata file
+#97 DONE 0.7s
+
+#98 [celery-worker] resolving provenance for metadata file
+#98 DONE 0.3s
+
+#99 [celery-beat] resolving provenance for metadata file
+#99 DONE 0.4s
+
+#100 [verification] resolving provenance for metadata file
+#100 DONE 0.3s
+
+#101 [backend] resolving provenance for metadata file
+#101 DONE 0.1s
+
+#33 [frontend builder 7/7] RUN npm run build
+#33 666.0   Finished TypeScript in 36.6s ...
+#33 666.0   Collecting page data using 9 workers ...
+#33 668.9   Generating static pages using 9 workers (0/30) ...
+#33 669.6   Generating static pages using 9 workers (7/30) 
+#33 669.6   Generating static pages using 9 workers (14/30) 
+#33 669.9   Generating static pages using 9 workers (22/30) 
+#33 669.9 ✓ Generating static pages using 9 workers (30/30) in 940ms
+#33 669.9   Finalizing page optimization ...
+#33 671.3 
+#33 671.3 Route (app)
+#33 671.3 ┌ ○ /
+#33 671.3 ├ ○ /_not-found
+#33 671.3 ├ ○ /admin
+#33 671.3 ├ ○ /ai
+#33 671.3 ├ ○ /authorship
+#33 671.3 ├ ○ /check
+#33 671.3 ├ ○ /citations
+#33 671.3 ├ ○ /dashboard
+#33 671.3 ├ ○ /detector
+#33 671.3 ├ ○ /documents
+#33 671.3 ├ ƒ /documents/[id]
+#33 671.3 ├ ○ /erasure-status
+#33 671.3 ├ ○ /evidence-graph
+#33 671.3 ├ ○ /forgot-password
+#33 671.3 ├ ○ /help
+#33 671.3 ├ ○ /history
+#33 671.3 ├ ○ /humaniser
+#33 671.3 ├ ○ /login
+#33 671.3 ├ ○ /onboarding
+#33 671.3 ├ ○ /plagiarism
+#33 671.3 ├ ○ /provenance
+#33 671.3 ├ ○ /register
+#33 671.3 ├ ○ /reports
+#33 671.3 ├ ○ /reset-password
+#33 671.3 ├ ○ /settings
+#33 671.3 ├ ○ /similarity
+#33 671.3 ├ ○ /sources
+#33 671.3 ├ ○ /upload
+#33 671.3 ├ ○ /verify-email
+#33 671.3 └ ○ /write
+#33 671.3 
+#33 671.3 
+#33 671.3 ○  (Static)   prerendered as static content
+#33 671.3 ƒ  (Dynamic)  server-rendered on demand
+#33 671.3 
+#33 673.2 npm notice
+#33 673.2 npm notice New major version of npm available! 10.9.8 -> 12.1.0
+#33 673.2 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.1.0
+#33 673.2 npm notice To update run: npm install -g npm@12.1.0
+#33 673.2 npm notice
+#33 DONE 673.7s
+
+#102 [frontend runner 3/6] RUN rm -rf /usr/local/lib/node_modules/npm /opt/yarn-*     && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/yarn /usr/local/bin/yarnpkg
+#102 CACHED
+
+#103 [frontend runner 4/6] COPY --from=builder --chown=node:node /app/.next/standalone ./
+#103 DONE 1.5s
+
+#104 [frontend runner 5/6] COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+#104 DONE 0.1s
+
+#105 [frontend runner 6/6] COPY --from=builder --chown=node:node /app/public ./public
+#105 DONE 0.5s
+
+#106 [frontend] exporting to image
+#106 exporting layers
+#106 exporting layers 2.1s done
+#106 exporting manifest sha256:a603059043156c56dc336e1d6cd83aae29a317acdcbe01d1553632a08fc9d59a 0.1s done
+#106 exporting config sha256:6ef3f11b3400d59bb067ea4460499ecf53147b797625dfe8fc1613bf8732be36 0.0s done
+#106 exporting attestation manifest sha256:3f0f5b0809968173fd8f68113dd1c1fd36c6fb00ee8bc5f8b90e0f981e0d8400
+#106 exporting attestation manifest sha256:3f0f5b0809968173fd8f68113dd1c1fd36c6fb00ee8bc5f8b90e0f981e0d8400 0.0s done
+#106 exporting manifest list sha256:1f8053021a33e2cbfe83c6d41ef05e42e9827b42bcd022b41dd7dd0267d4e0ea 0.0s done
+#106 naming to docker.io/library/verity-core-0929-frontend:latest done
+#106 unpacking to docker.io/library/verity-core-0929-frontend:latest
+#106 unpacking to docker.io/library/verity-core-0929-frontend:latest 1.0s done
+#106 DONE 3.4s
+
+#107 [frontend] resolving provenance for metadata file
+#107 DONE 0.2s
+ Image verity-core-0929-celery-beat Built 
+ Image verity-core-0929-backend Built 
+ Image verity-core-0929-minio Built 
+ Image verity-core-0929-minio-init Built 
+ Image verity-core-0929-migrate Built 
+ Image verity-core-0929-verification Built 
+ Image verity-core-0929-grafana Built 
+ Image verity-core-0929-celery-worker Built 
+ Image verity-core-0929-jaeger Built 
+ Image verity-core-0929-frontend Built 

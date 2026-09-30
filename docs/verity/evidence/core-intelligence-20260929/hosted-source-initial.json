@@ -1,0 +1,8 @@
+{
+  "branch": "codex/private-agent-core-20260929",
+  "commit": "7e841caf8671f04f5ab8f52cc20989114a4a9a7f",
+  "parent": "69fc08df86d886a16d56bdac3158df4220bd8b2d",
+  "tree": "127be47eec104ec33fe0e0f54c87d8d312510dc9",
+  "working_branch_unchanged": true,
+  "production_certified": false
+}

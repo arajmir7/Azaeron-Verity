@@ -36,6 +36,7 @@ def gateway() -> AzaeronInferenceGateway:
     return AzaeronInferenceGateway(
         catalog,
         {
+            **settings.INFERENCE_MODEL_ENDPOINTS,
             writer.model_id: settings.INFERENCE_ENDPOINT,
             verifier.model_id: settings.INFERENCE_VERIFY_ENDPOINT,
         },

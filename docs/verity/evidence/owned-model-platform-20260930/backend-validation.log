@@ -1,0 +1,61 @@
+ Container verity-core-0929-verification-run-4cfaa1384cc8 Creating 
+ Container verity-core-0929-verification-run-4cfaa1384cc8 Created 
+reformatted /app/app/modules/model_platform/policy.py
+
+All done! ✨ 🍰 ✨
+1 file reformatted, 241 files left unchanged.
+All checks passed!
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: anyio-4.15.1, asyncio-1.4.0, Faker-30.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 277 items
+
+tests/security/test_document_mutation_authorization.py ......            [  2%]
+tests/security/test_failure_privacy.py ..                                [  2%]
+tests/security/test_readonly_permissions.py ..                           [  3%]
+tests/security/test_security_gate.py ...                                 [  4%]
+tests/security/test_session_boundary.py ...........                      [  8%]
+tests/security/test_tenant_authorization.py ..                           [  9%]
+tests/security/test_upload_validation.py ....                            [ 10%]
+tests/security/test_zero_external_ai.py .........                        [ 14%]
+tests/test_aegiswrite.py ....                                            [ 15%]
+tests/test_agent.py ...............                                      [ 20%]
+tests/test_agent_voice_corpus.py ..                                      [ 21%]
+tests/test_api_keys.py ......                                            [ 23%]
+tests/test_auth.py .........                                             [ 27%]
+tests/test_authorship_consistency.py ...                                 [ 28%]
+tests/test_capability_contract.py ...                                    [ 29%]
+tests/test_citation_intelligence.py ..                                   [ 29%]
+tests/test_detector_calibration_protocol.py ....                         [ 31%]
+tests/test_detector_intelligence.py .......                              [ 33%]
+tests/test_document_intelligence.py ..........                           [ 37%]
+tests/test_editor_revisions.py ....                                      [ 38%]
+tests/test_evidence_graph.py ....                                        [ 40%]
+tests/test_evidence_report.py ...                                        [ 41%]
+tests/test_failure_gate.py ......                                        [ 43%]
+tests/test_governance.py ...                                             [ 44%]
+tests/test_identity.py .......                                           [ 47%]
+tests/test_lineage_contract.py ...................                       [ 54%]
+tests/test_model_platform.py .........                                   [ 57%]
+tests/test_observability.py ....                                         [ 58%]
+tests/test_operations.py ....                                            [ 60%]
+tests/test_organization_state_contract.py ..                             [ 61%]
+tests/test_privacy.py .........                                          [ 64%]
+tests/test_private_inference.py .......................                  [ 72%]
+tests/test_provenance.py ..                                              [ 73%]
+tests/test_refine_invariants.py ................                         [ 79%]
+tests/test_semantic_verification.py .................                    [ 85%]
+tests/test_similarity_engine.py .....                                    [ 87%]
+tests/test_similarity_workflow.py .......                                [ 89%]
+tests/test_storage_urls.py .                                             [ 89%]
+tests/test_transaction_boundary.py ..                                    [ 90%]
+tests/test_usage.py ....                                                 [ 92%]
+tests/test_validation_gate.py ......                                     [ 94%]
+tests/test_worker_redelivery.py ....                                     [ 95%]
+tests/test_workspace_onboarding.py ............                          [100%]
+
+======================= 277 passed in 158.72s (0:02:38) ========================
+Success: no issues found in 191 source files

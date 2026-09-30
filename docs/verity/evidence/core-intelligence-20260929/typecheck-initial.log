@@ -1,0 +1,4 @@
+app/modules/agent/receipts.py:91: error: Missing positional argument "policy" in call to "build" of "SimilarityReportService"  [call-arg]
+app/modules/agent/tools.py:93: error: Missing positional argument "policy" in call to "build" of "SimilarityReportService"  [call-arg]
+app/modules/agent/tools.py:131: error: Missing positional argument "policy" in call to "build" of "SimilarityReportService"  [call-arg]
+Found 3 errors in 2 files (checked 174 source files)

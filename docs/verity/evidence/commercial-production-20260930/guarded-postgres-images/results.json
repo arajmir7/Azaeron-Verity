@@ -1,0 +1,28 @@
+[
+  {
+    "image": "azaeron-commercial-postgres-guarded",
+    "aliases": [
+      "azaeron-commercial-postgres-guarded"
+    ],
+    "image_id": "sha256:8776659e6ddfcb8184811ae753680c0716d16029525ef1548129eebdf30ba214",
+    "bytes": 411383677,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-commercial-postgres-guarded",
+    "aliases": [
+      "azaeron-commercial-postgres-guarded"
+    ],
+    "image_id": "sha256:8776659e6ddfcb8184811ae753680c0716d16029525ef1548129eebdf30ba214",
+    "bytes": 411383677,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

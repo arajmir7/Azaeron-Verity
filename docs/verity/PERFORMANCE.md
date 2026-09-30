@@ -1,3 +1,21 @@
+# Current application performance — 2026-09-30, after Docker restart
+
+**PASS within this local scope:** [284 requests and 56 completed worker jobs](evidence/core-intelligence-20260929/load-restarted/profile.json), zero unexpected HTTP responses, and all 25 [unchanged latency budgets](evidence/core-intelligence-20260929/load-restarted/budgets.json) met. At concurrency eight, save p95 was **261.896 ms** and conflict p95 **135.083 ms**, against 1,000 ms limits. The run completed in about 52 seconds on Docker 29.8.1. The backend source is identical to the failed attempt below.
+
+Older Verity test stacks were no longer running after Docker restarted. Only the current verification stack was started, including telemetry. This strongly supports host resource contention as a contributor to the earlier failures, while the small synthetic fixture cannot certify production capacity, soak, or behavior under sustained memory pressure. The original failures remain documented below. No latency target was changed.
+
+## Earlier failed attempt on the contended host
+
+# Current application performance — 2026-09-30
+
+**FAIL.** The private-agent candidate's [local attempt](evidence/core-intelligence-20260929/load/budgets.json) recorded 284 requests on the shared Apple M4 / 7.75 GiB Linux ARM64 Docker VM. Docker resource sampling exceeded its 15-second timeout. Five revision saves returned HTTP 500; all 25 measured latency cells exceed the unchanged targets; the profiler did not establish completion of the worker backlog. No production capacity or soak result is available.
+
+[VM pressure](evidence/core-intelligence-20260929/load/vm-pressure.txt) recorded memory `some avg60=76.84%` and `full avg60=43.75%`. Many other projects were running. Worker logs include processing timeouts and trace-export deadlines. This supports resource contention as a contributing factor, but does not isolate a source regression or establish a sole cause. Only this task's Grafana/Jaeger/Prometheus/collector were stopped after the sampler failure, at 264 samples. Other projects were untouched. The final 20 samples therefore follow that intervention; this entire attempt remains failed.
+
+The [raw samples](evidence/core-intelligence-20260929/load/profile.samples.json), [resources](evidence/core-intelligence-20260929/load/resources.jsonl), [environment](evidence/core-intelligence-20260929/load/environment.json) and [attempt record](evidence/core-intelligence-20260929/load/attempt-status.json) are retained. All backend application sources match the current candidate; a later frontend ARIA role change does not alter this API workload. Historical passing profiles below cannot certify the expanded application or the current host state.
+
+## Historical performance records
+
 # Current application performance profile — 2026-09-29
 
 The [final local profile](evidence/final-blocker-burndown/load-final/profile.json) sent 284 HTTP requests against eight synthetic documents (six 779-byte and two 7,691-byte inputs) and completed 56 real worker jobs. Its [unchanged proposed HTTP budgets](evidence/final-blocker-burndown/load-final/budgets.json) all pass. No unexpected HTTP status occurred; paired conflicting saves returned one success and one 409 as intended.

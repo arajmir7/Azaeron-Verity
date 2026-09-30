@@ -1,0 +1,68 @@
+{
+  "api_ready": true,
+  "dump_sha256": "db4b1cad678005bd956dcc680026113eb86f00aa83eca66051f32d835b2b3cee",
+  "erased_account_absent": true,
+  "object_count": 2,
+  "object_hashes_verified": true,
+  "postgres_image": "sha256:8776659e6ddfcb8184811ae753680c0716d16029525ef1548129eebdf30ba214",
+  "production_rpo_rto_certified": false,
+  "relations": {
+    "ai_action_receipts": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "ai_conversations": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "ai_document_attachments": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "ai_events": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "ai_messages": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "ai_runs": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "ai_tool_calls": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "ai_tool_results": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "ai_voice_profiles": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "document_versions": {
+      "count": 1,
+      "sha256": "da6a2f95668ee53ec4b65e8ab3b5a6330d7e29974f52e238c6a8fe304669a7bd"
+    },
+    "documents": {
+      "count": 1,
+      "sha256": "808aae3742260c6f12ce98bfde0072e2b7b37e2e869c19010a9e4ff9641aebf2"
+    },
+    "provenance_events": {
+      "count": 2,
+      "sha256": "10b95db62321af315e3da97c356c19d4f777d5f9aeb8e7bd2fa65af06d3b11de"
+    }
+  },
+  "result": "PASS",
+  "seconds": 11.712,
+  "surviving_account_present": true,
+  "tombstones_preserved": 1,
+  "volumes": [
+    "verity-commercial-guarded-second_minio_data",
+    "verity-commercial-guarded-second_postgres_data",
+    "verity-commercial-guarded-second_redis_data"
+  ]
+}

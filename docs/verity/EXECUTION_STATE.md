@@ -1,5 +1,25 @@
 # Execution ledger
 
+## 2026-10-01: model-layer hostile review
+
+[Model-layer evidence](evidence/model-layer-20261001/README.md) records the current repository audit, three upstream review candidates, dataset admission blockers, hardware profile, fixes and executed checks. No candidate, dataset or production model was approved. The Mac has 16 GiB unified memory, MPS and no CUDA. The old 411 HIGH / 20 CRITICAL counts below are historical: the latest preceding exact-head hosted run at `6632f2b` passed 12 image scans with zero reported HIGH/CRITICAL findings.
+
+Fixed a native-training bypass of the v2 five-split dataset gate and inconsistent detector metrics after region abstention. UNCERTAIN detector responses now withhold probabilities and the gateway rejects probability leaks and checkpoint substitution. Four native TEST_ONLY training/evaluation regressions execute the new v2 path; their quality evaluations remain BLOCKED. Local checks pass 315 backend/security tests, 197-module mypy and lint. These local tests mount current source into the existing verification image; they are not certification of a newly rebuilt production deployment. Exact-source hosted CI is required for this new patch.
+
+## 2026-09-30: familiar chat workspace and end-to-end map
+
+The frontend now presents Azaeron AI with a searchable conversation rail, centered empty state, focused composer, compact document actions, saved-chat deep links and model-registry status. Home independently loads documents, conversations and approved-model count, so a failed panel does not hide the others. `docs/verity/INTEGRATION_MAP.md` maps the frozen five product paths and required `/api/v1` routes through same-origin auth, tenant/quota checks, storage/workers and fail-closed private inference.
+
+The guarded isolated stack passes all 17 selected live browser tests with no skips: saved-chat lifecycle/deep links, document intake and grounded actions, tenant scoping, and the Home failure path. The review checks 27 routes at 1280/640/320px, keyboard focus restoration and reduced motion; axe reports no WCAG AA violations on critical routes at 320px. A low-contrast Home label and a non-focusable scroll region found on earlier scans were corrected. The current authenticated Azaeron AI capture is saved at `evidence/commercial-production-20260930/frontend-audit/05-ai-after-final.png`.
+
+The complete isolated 11-gate local repository rerun passed at source-manifest SHA-256 `7077e90de5a928924b9f969b2eb594b0342b8afca1a254ba845f9389e54563f0`: formatting, lint, mypy (197 modules), 298 backend/security/worker/contract tests, 34 PostgreSQL/RLS/storage tests, frontend lint/build/typecheck, Compose validation, 30 live browser tests, and source stability (`changed_paths: []`). Full results and logs are retained at `evidence/commercial-production-20260930/repository-gate-chat-final-verified/`. An earlier run in `repository-gate-chat-final/` failed one stale public-home assertion after the redesign; the test was updated to assert the current evidence-based landing page, its focused rerun passed, and this final complete rerun passed all 30 browser tests.
+
+Security follow-up upgraded Next.js from 16.3.3 to 16.3.8 and PyJWT from 2.14.0 to 2.15.0, including the direct pin and both runtime/dev hash locks. Local npm/pip audits report zero known vulnerabilities; Bandit reports zero issues; source-secret scanning reports zero unreviewed findings. The updated frontend image builds cleanly with the app root configured, and all 30 live browser tests pass against it. The initial local Python image rebuild was stopped for slow downloads, then the exact hosted run below rebuilt and verified the complete stack successfully.
+
+Exact-head hosted run [36755563468](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36755563468) passed for commit `b0e279b74a8de4a4b1243c763ae8c22aa8c4e0a1`, source-manifest SHA-256 `eb4cf50a001ce83ae83764372805649f393de5becdb9975b6a9ad9443240a105`. It passed all 11 repository gates: 298 backend/security/worker tests, 34 PostgreSQL/RLS/storage tests, 30 browser tests, formatting/lint, mypy (197 files), frontend build/typecheck, Compose, and source stability. Dependency audits, Bandit, secret scan, frontend SBOM, 12 image vulnerability checks, and 12 image SBOMs passed. The complete evidence is archived at [hosted-b0e279](evidence/commercial-production-20260930/hosted-b0e279/).
+
+The hosted derivative-mechanics job passed two-step full and LoRA smoke runs on `TEST_ONLY` fixtures, with a null bakeoff winner and no quality evidence; production approval remains `NOT_APPROVED`. Actual model training remains blocked by the absence of rights-approved training/evaluation data, admitted base checkpoints, independent blinded review and suitable measured hardware. Existing owned smoke checkpoints remain `TEST_ONLY`; the production model registry is empty and model-backed UX/API behavior continues to fail closed.
+
 ## 2026-09-29: hosted image-gate infrastructure correction
 
 [Hosted run 36510870667](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36510870667)

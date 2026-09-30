@@ -1,0 +1,1 @@
+{"batch_size":4,"context":128,"dataset":{"path":"dataset.json","sha256":"52647247177bedf59c5023b5ff14c46ae844bb701ea6251c47840dd4fd64ffcb"},"device":"cpu","embedding_size":16,"epochs":3,"family":"writer","heads":4,"layers":1,"learning_rate":0.003,"seed":7,"width":32}

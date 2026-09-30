@@ -31,9 +31,14 @@ preserved and classified; the clean recovery was repeated in entirely new volume
 
 Dataset hardening additionally requires derivative rights, permitted tasks and
 source/author/document lineage, and rejects cross-split lexical near duplicates.
-The narrow candidate-policy suite passes 21 tests. Full exact-head hosted AMD64
-repository, image, security and derivative-mechanics checks remain pending for this
-snapshot; consult [execution state](EXECUTION_STATE.md) for the final run identity.
+The narrow candidate-policy suite passes 21 tests. Exact-head hosted AMD64 run
+[36755563468](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36755563468)
+passed repository, image, security and derivative-mechanics checks for commit
+`b0e279b74a8de4a4b1243c763ae8c22aa8c4e0a1`; the source-manifest hash and archived
+results are in [hosted-b0e279](evidence/commercial-production-20260930/hosted-b0e279/).
+Its training smoke used `TEST_ONLY` fixtures and does not approve a model or change
+the production verdict. See [execution state](EXECUTION_STATE.md) for scope and
+remaining gates.
 
 [Rights and compute dossiers](evidence/commercial-production-20260930/RIGHTS_AND_COMPUTE.md)
 cover three Writer candidates, two proposed independent baselines and specialist

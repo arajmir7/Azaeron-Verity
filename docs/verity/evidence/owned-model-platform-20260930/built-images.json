@@ -1,0 +1,27 @@
+{
+  "backend": {
+    "image": "verity-core-0929-backend",
+    "id": "sha256:b8e676f4494847ab2c25ce8497a785a6bf5cf0602842132435f5b155563d1a91",
+    "created": "2026-09-30T05:33:32.026241928Z"
+  },
+  "celery-worker": {
+    "image": "verity-core-0929-celery-worker",
+    "id": "sha256:9ef31d953b70835a4b37e03b47cf18f8721514e6b75cf5db03237c1553f5e735",
+    "created": "2026-09-30T05:33:32.026241928Z"
+  },
+  "celery-beat": {
+    "image": "verity-core-0929-celery-beat",
+    "id": "sha256:d141cbf0becbce82e4fce55e2f4b1c19c48a8add231ece13318428a1ee4070d6",
+    "created": "2026-09-30T05:33:32.026241928Z"
+  },
+  "migrate": {
+    "image": "verity-core-0929-migrate",
+    "id": "sha256:028d715f59b4bd9b622893f1e4d75e7038770972837c195e5169ae0897ba2a92",
+    "created": "2026-09-30T05:33:32.026241928Z"
+  },
+  "frontend": {
+    "image": "verity-core-0929-frontend",
+    "id": "sha256:615b0b6513b42d3226031ae9b5a32d8423b94e33cde52f219c9cb55a841601cf",
+    "created": "2026-09-30T05:18:39.503070709Z"
+  }
+}

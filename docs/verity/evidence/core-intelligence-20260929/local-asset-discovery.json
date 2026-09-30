@@ -1,0 +1,123 @@
+{
+  "searched_at": "2026-09-30T00:54:42.052027+00:00",
+  "roots": [
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/backend/model_assets",
+      "exists": true,
+      "files_seen": 12
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/config/models",
+      "exists": true,
+      "files_seen": 1
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local",
+      "exists": true,
+      "files_seen": 5085
+    },
+    {
+      "path": "/Users/ajmiraribam/.cache/huggingface",
+      "exists": true,
+      "files_seen": 1
+    },
+    {
+      "path": "/Users/ajmiraribam/.cache/torch",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/.ollama/models",
+      "exists": true,
+      "files_seen": 10
+    },
+    {
+      "path": "/Users/ajmiraribam/.lmstudio/models",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/.cache/lm-studio",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/.cache/mlx",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/Library/Caches/huggingface",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/Library/Application Support/LM Studio",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/Library/Application Support/Jan",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/jan/models",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/models",
+      "exists": false
+    }
+  ],
+  "possible_model_files": [
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/backend/model_assets/all-MiniLM-L6-v2/model.safetensors",
+      "bytes": 90868376
+    },
+    {
+      "path": "/Users/ajmiraribam/.ollama/models/blobs/sha256-2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+      "bytes": 4683073952
+    },
+    {
+      "path": "/Users/ajmiraribam/.ollama/models/blobs/sha256-60e05f2100071479f596b964f89f510f057ce397ea22f2833a0cfe029bfc2463",
+      "bytes": 4683074048
+    }
+  ],
+  "candidate_metadata_files": [
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/backend/model_assets/all-MiniLM-L6-v2/README.md",
+      "bytes": 10502
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/backend/model_assets/all-MiniLM-L6-v2/config.json",
+      "bytes": 612
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/backend/model_assets/all-MiniLM-L6-v2/tokenizer_config.json",
+      "bytes": 350
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/backend/model_assets/all-MiniLM-L6-v2/1_Pooling/config.json",
+      "bytes": 190
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/config/models/registry.json",
+      "bytes": 589
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/recovery-r15-control/backup/model-config/registry.json",
+      "bytes": 589
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/core-intelligence-recovery-restarted/backup/model-config/registry.json",
+      "bytes": 589
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/recovery-r15/backup/model-config/registry.json",
+      "bytes": 589
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/recovery-burndown/backup/model-config/registry.json",
+      "bytes": 589
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/recovery/backup/model-config/registry.json",
+      "bytes": 589
+    }
+  ],
+  "secret_contents_exposed": false
+}

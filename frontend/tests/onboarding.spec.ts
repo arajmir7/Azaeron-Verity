@@ -46,6 +46,7 @@ async function mockWorkspace(page: Page, options: { onboarded?: boolean; empty?:
       return route.fulfill({ json: organizations.find((organization) => organization.id === id) });
     }
     if (path.endsWith("/documents")) { documentRequests += 1; return route.fulfill({ json: { items: [], total: 0, page: 1, page_size: 20 } }); }
+    if (path.endsWith("/models")) return route.fulfill({ json: { models: [], status: "BLOCKED_BY_EXTERNAL_INFRASTRUCTURE" } });
     if (path.endsWith("/ai/conversations") || path.endsWith("/ai/voice-profiles")) return route.fulfill({ json: { items: [] } });
     return route.fulfill({ status: 404, json: { detail: `Unexpected test request: ${path}` } });
   });
@@ -120,7 +121,7 @@ test("cached workspace IDs cannot override the server's active membership", asyn
 test("focused workspace navigation exposes five products and honest empty states", async ({ page }) => {
   await mockWorkspace(page);
   await page.goto("/dashboard");
-  await expect(page.getByRole("heading", { name: "Write better. Check confidently. Understand your work." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /^Welcome back,/ })).toBeVisible();
   const navigation = page.getByRole("navigation", { name: "Workspace navigation" });
   await expect(navigation.getByRole("link")).toHaveText([
     "Home", "Azaeron AI", "AI Humaniser", "AI Detector", "Plagiarism Checker", "Documents", "History",
@@ -128,7 +129,7 @@ test("focused workspace navigation exposes five products and honest empty states
   await expect(navigation.getByRole("link", { name: "Evidence graph" })).toHaveCount(0);
   await navigation.getByRole("link", { name: "Azaeron AI" }).click();
   await expect(page.getByRole("textbox", { name: "Ask Azaeron AI" })).toBeVisible();
-  await expect(page.getByText(/Generation requires an approved self-hosted model/)).toBeVisible();
+  await expect(page.getByText(/AI generation starts only when an approved private model is available/)).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Conversation history" })).toHaveCount(1);
   await navigation.getByRole("link", { name: "AI Detector" }).click();
   await expect(page.getByText("Paste text or choose a document to analyse")).toBeVisible();
@@ -138,4 +139,21 @@ test("focused workspace navigation exposes five products and honest empty states
   await expect(page.getByText("No history yet")).toBeVisible();
   await page.goto("/write");
   await expect(navigation.getByRole("link", { name: "Documents" })).toHaveAttribute("aria-current", "page");
+});
+
+test("Home keeps saved chats available when document loading fails and scopes history on workspace switch", async ({ page }) => {
+  await mockWorkspace(page);
+  let chatRequests = 0;
+  await page.route("**/api/v1/ai/conversations", async (route) => {
+    chatRequests++;
+    return route.fulfill({ json: { items: [{ id: "d1593c92-3c37-43c8-a38b-d39f86ebf245", title: chatRequests === 1 ? "Personal notes" : "Team discussion" }] } });
+  });
+  await page.route("**/api/v1/documents?*", (route) => route.fulfill({ status: 503, json: { detail: "Document service temporarily unavailable" } }));
+  await page.goto("/dashboard");
+  await expect(page.getByRole("link", { name: "Personal notes", exact: true })).toHaveAttribute("href", "/ai?conversation=d1593c92-3c37-43c8-a38b-d39f86ebf245");
+  await expect(page.getByText("Document service temporarily unavailable")).toBeVisible();
+  await expect(page.getByText(/no approved models are registered/)).toBeVisible();
+  await page.getByRole("combobox", { name: "Active workspace" }).selectOption(team.id);
+  await expect(page.getByRole("link", { name: "Team discussion", exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Personal notes", exact: true })).toHaveCount(0);
 });

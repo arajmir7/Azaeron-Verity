@@ -1,0 +1,4 @@
+2026-09-29T04:55:00Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-09-29T04:55:00Z	INFO	Detected OS	family="alpine" version="3.21.8"
+2026-09-29T04:55:00Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.21" repository="3.21" pkg_num=19
+2026-09-29T04:55:00Z	INFO	Number of language-specific files	num=0

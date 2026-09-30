@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-09-30T00:35:35.386882+00:00",
+  "observed": "API readiness PASS; Redis document_processing length11, identity43, unacked2. Celery active returned empty.",
+  "action": "Restart only verity-core-0929-celery-worker-1 with 30-second shutdown timeout. No other projects or volumes changed.",
+  "limitation": "Does not establish automated recovery or passing load/soak."
+}

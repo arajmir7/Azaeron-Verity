@@ -1,0 +1,26 @@
+Name:      docker.io/pgvector/pgvector:pg16-trixie
+MediaType: application/vnd.oci.image.index.v1+json
+Digest:    sha256:c8483555ce48101872f888c1df8a895ff689d6c7c7a5f7ac266475f9dfe89e0b
+           
+Manifests: 
+  Name:        docker.io/pgvector/pgvector:pg16-trixie@sha256:1dbb5a8894499a7110f3f6f586de1bb8beec36ea050cef3b89550fb1575019ef
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/amd64
+               
+  Name:        docker.io/pgvector/pgvector:pg16-trixie@sha256:2d189a20163a96ccf29af8fd02b0f0137805a99eecfde355b6143f230b26098a
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/arm64
+               
+  Name:        docker.io/pgvector/pgvector:pg16-trixie@sha256:0acb68be14c8db959d0ee8c962c1b3e3e9614bdf7f8152ff9a1fda4d521c8cf6
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest: sha256:1dbb5a8894499a7110f3f6f586de1bb8beec36ea050cef3b89550fb1575019ef
+    vnd.docker.reference.type:   attestation-manifest
+               
+  Name:        docker.io/pgvector/pgvector:pg16-trixie@sha256:f43407529472725777c514b9590abf577c52826fcb69851b0a17fb7e0e4d17f7
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest: sha256:2d189a20163a96ccf29af8fd02b0f0137805a99eecfde355b6143f230b26098a
+    vnd.docker.reference.type:   attestation-manifest

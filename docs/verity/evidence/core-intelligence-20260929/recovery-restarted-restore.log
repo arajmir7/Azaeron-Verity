@@ -1,0 +1,36 @@
+Traceback (most recent call last):
+  File "/tmp/verity-core-recovery-runner.py", line 7, in <module>
+    exec(compile(text, str(source), "exec"), {"__name__": "__main__", "__file__": str(source)})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 952, in <module>
+    {
+    ~
+    ...<4 lines>...
+        "replay": replay,
+        ~~~~~~~~~~~~~~~~~
+    }[phase]()
+    ~~~~~~~~^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 495, in restore
+    compose(
+    ~~~~~~~^
+        config,
+        ^^^^^^^
+    ...<7 lines>...
+        timeout=180,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 71, in compose
+    return subprocess.run(
+           ~~~~~~~~~~~~~~^
+        ["docker", "compose", "-f", str(config), *args],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        timeout=kwargs.get("timeout", 180),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/anaconda3/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['docker', 'compose', '-f', '/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/core-intelligence-recovery-restarted/target-compose.json', 'up', '-d', '--no-deps', '--no-build', 'postgres', 'redis', 'minio']' returned non-zero exit status 1.

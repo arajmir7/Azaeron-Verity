@@ -1,0 +1,9 @@
+{
+  "status": "FAIL",
+  "phase": "prepare",
+  "reason": "Fixture processing did not finish in the unchanged harness limit after stopping this task telemetry containers. API readiness later passed; worker backlog not certified.",
+  "restore": "BLOCKED",
+  "post_backup_erasure_replay": "BLOCKED",
+  "log": "recovery-prepare-retry.log",
+  "production_certified": false
+}

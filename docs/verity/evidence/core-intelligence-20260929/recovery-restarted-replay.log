@@ -1,0 +1,37 @@
+Traceback (most recent call last):
+  File "/tmp/verity-core-recovery-runner.py", line 7, in <module>
+    exec(compile(text, str(source), "exec"), {"__name__": "__main__", "__file__": str(source)})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 952, in <module>
+    {
+    ~
+    ...<4 lines>...
+        "replay": replay,
+        ~~~~~~~~~~~~~~~~~
+    }[phase]()
+    ~~~~~~~~^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 840, in replay
+    response = target_store.get_object(BUCKET, key)
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/minio/api.py", line 1254, in get_object
+    return self._execute(
+           ~~~~~~~~~~~~~^
+        "GET",
+        ^^^^^^
+    ...<4 lines>...
+        preload_content=False,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/minio/api.py", line 441, in _execute
+    return self._url_open(
+           ~~~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<7 lines>...
+        no_body_trace=no_body_trace,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/security-venv/lib/python3.13/site-packages/minio/api.py", line 424, in _url_open
+    raise response_error
+minio.error.S3Error: S3 operation failed; code: NoSuchKey, message: The specified key does not exist., resource: /azaeron-documents/tests/c7c46b02-0394-4351-bd54-05c2a24495c7.txt, request_id: 18D9F354DDC04810, host_id: dd9025bab4ad464b049177c95eb6ebf374d3b3fd1af9251148b658df7ac2e3e8, bucket_name: azaeron-documents, object_name: tests/c7c46b02-0394-4351-bd54-05c2a24495c7.txt

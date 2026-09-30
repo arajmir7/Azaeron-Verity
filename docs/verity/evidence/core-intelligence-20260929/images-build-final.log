@@ -1,0 +1,213 @@
+ Image verity-core-0929-backend Building 
+ Image verity-core-0929-celery-worker Building 
+ Image verity-core-0929-celery-beat Building 
+ Image verity-core-0929-migrate Building 
+ Image verity-core-0929-verification Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 3.69kB done
+#1 DONE 0.0s
+
+#2 [backend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.03kB done
+#2 DONE 0.0s
+
+#3 [migrate internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#3 ...
+
+#4 [backend internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#4 DONE 3.6s
+
+#3 [migrate internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#3 DONE 4.3s
+
+#5 [verification internal] load .dockerignore
+#5 transferring context: 105B done
+#5 DONE 0.0s
+
+#6 [verification runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#6 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 0.0s done
+#6 DONE 0.0s
+
+#7 [backend runtime-os 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#7 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 0.0s done
+#7 DONE 0.0s
+
+#8 [migrate internal] load build context
+#8 transferring context: 50.29kB 0.1s done
+#8 DONE 0.1s
+
+#9 [backend runtime 1/6] WORKDIR /app
+#9 CACHED
+
+#10 [backend runtime-base 2/4] WORKDIR /app
+#10 CACHED
+
+#11 [backend runtime-base 3/4] COPY requirements.lock ./
+#11 CACHED
+
+#12 [backend assemble 3/3] RUN python /assemble_runtime.py
+#12 CACHED
+
+#13 [backend runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#13 CACHED
+
+#14 [backend assemble 1/3] COPY --from=runtime-os / /base/
+#14 CACHED
+
+#15 [backend assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#15 CACHED
+
+#16 [backend runtime 2/6] COPY --from=assemble /runtime-root/ /
+#16 CACHED
+
+#13 [migrate runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#13 CACHED
+
+#14 [migrate assemble 1/3] COPY --from=runtime-os / /base/
+#14 CACHED
+
+#15 [migrate assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#15 CACHED
+
+#9 [migrate runtime 1/6] WORKDIR /app
+#9 CACHED
+
+#10 [migrate runtime-base 2/4] WORKDIR /app
+#10 CACHED
+
+#11 [migrate runtime-base 3/4] COPY requirements.lock ./
+#11 CACHED
+
+#12 [migrate assemble 3/3] RUN python /assemble_runtime.py
+#12 CACHED
+
+#17 [migrate runtime 3/6] COPY --chown=65532:65532 app ./app
+#17 DONE 0.4s
+
+#18 [backend runtime 4/6] COPY --chown=65532:65532 alembic ./alembic
+#18 DONE 0.3s
+
+#19 [celery-worker runtime 5/6] COPY --chown=65532:65532 migration_snapshots ./migration_snapshots
+#19 DONE 0.0s
+
+#20 [backend runtime 6/6] COPY --chown=65532:65532 alembic.ini ./
+#20 DONE 0.1s
+
+#21 [migrate] exporting to image
+#21 exporting layers
+#21 ...
+
+#22 [verification internal] load build context
+#22 transferring context: 96.46MB 1.4s done
+#22 DONE 1.4s
+
+#9 [verification runtime 1/6] WORKDIR /app
+#9 CACHED
+
+#23 [verification runtime-base 4/4] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock     && useradd --create-home --uid 1000 azaeron
+#23 CACHED
+
+#24 [verification runtime-base 3/4] COPY requirements.lock ./
+#24 CACHED
+
+#25 [verification verification-assemble 2/3] COPY scripts/assemble_runtime.py /assemble_runtime.py
+#25 CACHED
+
+#10 [verification runtime-base 2/4] WORKDIR /app
+#10 CACHED
+
+#26 [verification verification-assemble 1/3] COPY --from=runtime-os / /base/
+#26 CACHED
+
+#27 [verification verification-base 2/2] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements-dev.lock
+#27 CACHED
+
+#28 [verification verification-assemble 3/3] RUN python /assemble_runtime.py --include-sqlite
+#28 CACHED
+
+#29 [verification verification-base 1/2] COPY requirements-dev.lock ./
+#29 CACHED
+
+#30 [verification verification 2/3] COPY --from=verification-assemble /runtime-root/ /
+#30 CACHED
+
+#21 [migrate] exporting to image
+#21 exporting layers 0.3s done
+#21 exporting manifest sha256:574204d96eb2b4e7d21380a09f3d96f6e7b340837c5ca909de0eec65b4dff053 0.0s done
+#21 exporting config sha256:94149926feb36b448f21d23540d34461aba2ca25e147dc68c50856f6089a85b1 0.0s done
+#21 exporting attestation manifest sha256:0492236138983458a86c8af533a66c0b347a1c151da8529b66cf6e6f13d0238a 0.0s done
+#21 exporting manifest list sha256:61dbb0e9d25dffdca974820e38be160d39e39bf4e1319647da399ed1031e496c 0.0s done
+#21 naming to docker.io/library/verity-core-0929-migrate:latest done
+#21 unpacking to docker.io/library/verity-core-0929-migrate:latest
+#21 ...
+
+#31 [verification verification 3/3] COPY --chown=65532:65532 . .
+#31 DONE 0.7s
+
+#21 [migrate] exporting to image
+#21 unpacking to docker.io/library/verity-core-0929-migrate:latest 0.4s done
+#21 DONE 1.0s
+
+#32 [backend] exporting to image
+#32 exporting layers 0.3s done
+#32 exporting manifest sha256:2dfb47d05644f6f005b1593005f5f3a7d490384b3452fab514a49b88c66080a1 0.0s done
+#32 exporting config sha256:c89343780a70dd5a5be50203fa3d23f4c609acf0213312bb7b655a47b87410b5 0.0s done
+#32 exporting attestation manifest sha256:767385cb453166d32cc63b088f5e08c1043fba505b03963ad49d486a04a7266c 0.0s done
+#32 exporting manifest list sha256:5c7cb753a96c4a8fdc2d5f366756cf96b87d2e183cf16df0cf44f026650854e2 0.0s done
+#32 naming to docker.io/library/verity-core-0929-backend:latest done
+#32 unpacking to docker.io/library/verity-core-0929-backend:latest 0.4s done
+#32 DONE 1.0s
+
+#33 [celery-worker] exporting to image
+#33 exporting layers 0.3s done
+#33 exporting manifest sha256:ffb1029676bd72fc2cc8ac77b12a476cfc3afc275f4148cbc395b8de10b1b147 0.0s done
+#33 exporting config sha256:f655d5a8b660e5e587096dee0f12d5aea47b67bc3d25c81a258a979655c30439 0.0s done
+#33 exporting attestation manifest sha256:23112689cc2a9ebaf6d45cc46b14bbcd691c60436d20584aa30de2cf2d342ce9 0.0s done
+#33 exporting manifest list sha256:19c097c1ec98ee4d85a609649b1881e504a279332414285fe60b9f73434b05b5 0.0s done
+#33 naming to docker.io/library/verity-core-0929-celery-worker:latest done
+#33 unpacking to docker.io/library/verity-core-0929-celery-worker:latest 0.4s done
+#33 DONE 1.0s
+
+#34 [celery-beat] exporting to image
+#34 exporting layers 0.3s done
+#34 exporting manifest sha256:d7977c5362fda6164ed51e0b53c20d223007e2e1bf2b77d10ad6b8a9c02e75ab 0.0s done
+#34 exporting config sha256:cb0dd127621a70486f67f1024e281b54b083f1d4dd384069a3153bb643798fec 0.0s done
+#34 exporting attestation manifest sha256:8e5c17aebba5fc0b46f3b4b78cce7437f2920680e9a8ebf01f68cc3acc76f4eb 0.0s done
+#34 exporting manifest list sha256:b8ccf0fbef676e9fe80315a28a7a7b25f36cbe711f32a54dd5184678321c74e2 0.0s done
+#34 naming to docker.io/library/verity-core-0929-celery-beat:latest done
+#34 unpacking to docker.io/library/verity-core-0929-celery-beat:latest 0.4s done
+#34 DONE 1.0s
+
+#35 [verification] exporting to image
+#35 ...
+
+#36 [migrate] resolving provenance for metadata file
+#36 DONE 0.2s
+
+#37 [celery-worker] resolving provenance for metadata file
+#37 DONE 0.1s
+
+#38 [backend] resolving provenance for metadata file
+#38 DONE 0.2s
+
+#39 [celery-beat] resolving provenance for metadata file
+#39 DONE 0.1s
+
+#35 [verification] exporting to image
+#35 exporting layers 4.4s done
+#35 exporting manifest sha256:b84b05e158233075732b2e732cd6b5dc6b247eede626a8e22569a38510ea4994 0.0s done
+#35 exporting config sha256:c15d8f3fa551c18ce3bff28728da57004f6005d414c68f838acdb1fe2d35ca1d 0.0s done
+#35 exporting attestation manifest sha256:1fe8e935e6f12b11191efa67b5456a65978c89983541d846939e6843dd775ac9 0.0s done
+#35 exporting manifest list sha256:6d4f8b9f27dac9e17da641bec831f2aeaca09b4ee2a5aec63d7422424265ff9c 0.0s done
+#35 naming to docker.io/library/verity-core-0929-verification:latest done
+#35 unpacking to docker.io/library/verity-core-0929-verification:latest
+#35 unpacking to docker.io/library/verity-core-0929-verification:latest 1.7s done
+#35 DONE 6.4s
+
+#40 [verification] resolving provenance for metadata file
+#40 DONE 0.0s
+ Image verity-core-0929-migrate Built 
+ Image verity-core-0929-verification Built 
+ Image verity-core-0929-backend Built 
+ Image verity-core-0929-celery-worker Built 
+ Image verity-core-0929-celery-beat Built 

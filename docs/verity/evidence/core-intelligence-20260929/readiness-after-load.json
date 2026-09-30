@@ -1,0 +1,1 @@
+{"status":"ready","checks":{"database":{"status":"ok","latency_ms":2.29},"redis":{"status":"ok","latency_ms":1.8},"storage":{"status":"ok","latency_ms":19.86},"workers":{"status":"ok","latency_ms":2.24,"queue_consumers":{"document_processing":1,"similarity_analysis":1,"citation_analysis":1,"ai_detection":1,"authorship_analysis":1,"report_generation":1,"identity":1}}}}

@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/tmp/verity-core-recovery-runner.py", line 7, in <module>
+    exec(compile(text, str(source), "exec"), {"__name__": "__main__", "__file__": str(source)})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 952, in <module>
+    {
+    ~
+    ...<4 lines>...
+        "replay": replay,
+        ~~~~~~~~~~~~~~~~~
+    }[phase]()
+    ~~~~~~~~^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity/scripts/verity_recovery_gate.py", line 159, in fixture
+    raise RuntimeError("Recovery fixture processing did not complete")
+RuntimeError: Recovery fixture processing did not complete

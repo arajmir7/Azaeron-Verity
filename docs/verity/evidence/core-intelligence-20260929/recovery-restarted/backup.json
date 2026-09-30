@@ -1,0 +1,17 @@
+{
+  "bucket_versioning": "disabled",
+  "compose_sha256": "339ee80392e84b77ca19f8a490d91834667f1f37007bb67660a3d0e1c73fe8fc",
+  "model_registry_sha256": "09ab735893091e98e40c54350bbba9dae11a17860b8548aebd57d5cb77c8d83c",
+  "object_bytes": 236833,
+  "object_count": 162,
+  "object_manifest_sha256": "8f1e1ad30c9910b3948f3a9e17fa1fa59bad941461f853d8d4fd098867c53143",
+  "pause_seconds": 4.302,
+  "policy_sha256": {
+    "minio-app-policy.json": "717be3a91a8439b4ad7726c94f452aabf2e7564ca96cc29b518c05fd0c999bc3",
+    "minio-maintenance-policy.json": "9e284c0c3b9500208581da5214cd98ecb7433f7c892b2e2fb2ccbc216d175f7a"
+  },
+  "postgres_dump_bytes": 18932740,
+  "postgres_dump_sha256": "061138f3fb4894aa0df6c817e28b2c60b4a2b676239d03e1185b148537963672",
+  "result": "PASS",
+  "snapshot_at": "2026-09-30T00:46:08.720338+00:00"
+}

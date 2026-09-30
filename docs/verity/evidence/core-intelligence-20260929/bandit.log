@@ -1,0 +1,40 @@
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:145
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:146
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:149
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/auth/service.py:148
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:34
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:35
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:36
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:38
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:41
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:42
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:43
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:45
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:46
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:47
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:48
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:49
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:50
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:51
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:52
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:53
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:54
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:55
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:56
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:57
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:58
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:59
+[tester]	WARNING	nosec encountered (B104), but no failed test on file backend/app/modules/inference/deployment.py:60
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:125
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:126
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:127
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:124
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:125
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:126
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/app/modules/similarity/retrieval.py:127
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:01
+[json]	INFO	JSON output written to file: docs/verity/evidence/core-intelligence-20260929/bandit.json

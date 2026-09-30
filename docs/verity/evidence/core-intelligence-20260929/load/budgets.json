@@ -1,0 +1,291 @@
+{
+  "result": "FAIL",
+  "scope": "Contended local synthetic workload; no production SLO claim. Telemetry was stopped after sampler failure, at 264 samples.",
+  "requests": 284,
+  "unexpected_http_results": 5,
+  "completed_jobs": "UNVERIFIED: profiler did not produce its completion report",
+  "resource_sampling": "FAIL: Docker stats 15s timeout",
+  "threshold_source": "docs/verity/PERFORMANCE.md unchanged proposed budgets",
+  "rows": [
+    {
+      "workload": "analysis",
+      "concurrency": 1,
+      "requests": 12,
+      "p95_ms": 8244.676,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "analysis",
+      "concurrency": 4,
+      "requests": 12,
+      "p95_ms": 22691.242,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "analysis",
+      "concurrency": 8,
+      "requests": 12,
+      "p95_ms": 45724.317,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "429": 4,
+        "200": 8
+      }
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 1,
+      "requests": 12,
+      "p95_ms": 2413.122,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 4,
+      "requests": 12,
+      "p95_ms": 5352.659,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 8,
+      "requests": 12,
+      "p95_ms": 10124.648,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 1,
+      "requests": 12,
+      "p95_ms": 2428.513,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 4,
+      "requests": 12,
+      "p95_ms": 4373.329,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 8,
+      "requests": 12,
+      "p95_ms": 11893.081,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 1,
+      "requests": 12,
+      "p95_ms": 2097.263,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 4,
+      "requests": 12,
+      "p95_ms": 7157.888,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 8,
+      "requests": 12,
+      "p95_ms": 10491.787,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 1,
+      "requests": 12,
+      "p95_ms": 12746.46,
+      "limit_ms": 1000,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 4,
+      "requests": 12,
+      "p95_ms": 29190.923,
+      "limit_ms": 1000,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 8,
+      "requests": 12,
+      "p95_ms": 48674.438,
+      "limit_ms": 1000,
+      "status": "FAIL",
+      "statuses": {
+        "200": 7,
+        "500": 5
+      }
+    },
+    {
+      "workload": "job_creation",
+      "concurrency": 1,
+      "requests": 8,
+      "p95_ms": 505.539,
+      "limit_ms": 500,
+      "status": "FAIL",
+      "statuses": {
+        "200": 8
+      }
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 1,
+      "requests": 12,
+      "p95_ms": 1835.267,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 4,
+      "requests": 12,
+      "p95_ms": 8380.431,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 8,
+      "requests": 12,
+      "p95_ms": 7277.444,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 1,
+      "requests": 8,
+      "p95_ms": 9730.316,
+      "limit_ms": 1000,
+      "status": "FAIL",
+      "statuses": {
+        "200": 4,
+        "409": 4
+      }
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 4,
+      "requests": 8,
+      "p95_ms": 33968.628,
+      "limit_ms": 1000,
+      "status": "FAIL",
+      "statuses": {
+        "200": 4,
+        "409": 4
+      }
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 8,
+      "requests": 8,
+      "p95_ms": 42588.77,
+      "limit_ms": 1000,
+      "status": "FAIL",
+      "statuses": {
+        "200": 4,
+        "409": 4
+      }
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 1,
+      "requests": 12,
+      "p95_ms": 8209.448,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 4,
+      "requests": 12,
+      "p95_ms": 5230.662,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 8,
+      "requests": 12,
+      "p95_ms": 7815.655,
+      "limit_ms": 250,
+      "status": "FAIL",
+      "statuses": {
+        "200": 12
+      }
+    }
+  ]
+}

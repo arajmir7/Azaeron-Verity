@@ -131,7 +131,7 @@ class FamilyNetwork(nn.Module):
 def training_loss(model, rows, device):
     family, context = model.architecture.family, model.architecture.context
     if family == "writer":
-        sequences, labels = [], []
+        sequences, writer_labels = [], []
         for row in rows:
             prompt = encode(row["input"], context)[:-1] + [3]
             answer = encode(row["target"], context)[1:]
@@ -139,27 +139,29 @@ def training_loss(model, rows, device):
             if len(sequence) > context:
                 raise ValueError("context_overflow_no_silent_truncation")
             sequences.append(sequence[:-1])
-            labels.append([-100] * (len(prompt) - 1) + answer)
+            writer_labels.append([-100] * (len(prompt) - 1) + answer)
         tokens = padded(sequences, device)
         targets = torch.full_like(tokens, -100)
-        for i, values in enumerate(labels):
+        for i, values in enumerate(writer_labels):
             targets[i, : len(values)] = torch.tensor(values, device=device)
         return F.cross_entropy(
             model(tokens).flatten(0, 1), targets.flatten(), ignore_index=-100
         )
     tokens = padded([encode(row["input"], context) for row in rows], device)
     if family in {"verifier", "detector"}:
-        labels = VERIFIER_LABELS if family == "verifier" else DETECTOR_LABELS
+        class_labels = VERIFIER_LABELS if family == "verifier" else DETECTOR_LABELS
         targets = torch.tensor(
-            [labels.index(row["target"]) for row in rows], device=device
+            [class_labels.index(row["target"]) for row in rows], device=device
         )
         return F.cross_entropy(model(tokens), targets)
     if len(rows) < 2 or len({row["target"] for row in rows}) != len(rows):
         raise ValueError("contrastive_batch_requires_distinct_positives")
     positives = padded([encode(row["target"], context) for row in rows], device)
     scores = model(tokens) @ model(positives).T / 0.07
-    labels = torch.arange(len(rows), device=device)
-    return (F.cross_entropy(scores, labels) + F.cross_entropy(scores.T, labels)) / 2
+    pair_labels = torch.arange(len(rows), device=device)
+    return (
+        F.cross_entropy(scores, pair_labels) + F.cross_entropy(scores.T, pair_labels)
+    ) / 2
 
 
 def load_network(root, device="cpu"):

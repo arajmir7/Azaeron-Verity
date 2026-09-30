@@ -1,0 +1,192 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 483B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572
+#2 DONE 14.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572
+#4 resolve docker.io/grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572 done
+#4 sha256:37bc7484dfb53c48ac14627eb97b1bafafed58d6b5fc804203e4728d233cfc8b 0B / 1.33kB 0.2s
+#4 sha256:37bc7484dfb53c48ac14627eb97b1bafafed58d6b5fc804203e4728d233cfc8b 1.33kB / 1.33kB 0.3s done
+#4 sha256:bb9dbccd408535fffb7077f8e668ae564935b6ac3df574e500e0921b53abf9a4 0B / 182B 0.2s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 0B / 145.31MB 0.2s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 0B / 288.36MB 0.2s
+#4 sha256:ade4e896e587ac3df4daee139800e8cc0d217e8b5e17f975a4a1308aa3c06d72 0B / 32.55kB 0.2s
+#4 sha256:bb9dbccd408535fffb7077f8e668ae564935b6ac3df574e500e0921b53abf9a4 182B / 182B 0.6s done
+#4 sha256:8998fa436a659ffd3393603eef38b4f0e6764afe540b74c0e85993f6d6856ce4 0B / 76.02kB 0.2s
+#4 sha256:8998fa436a659ffd3393603eef38b4f0e6764afe540b74c0e85993f6d6856ce4 76.02kB / 76.02kB 0.6s done
+#4 sha256:ade4e896e587ac3df4daee139800e8cc0d217e8b5e17f975a4a1308aa3c06d72 32.55kB / 32.55kB 0.9s done
+#4 sha256:70c8dc1ba068261753194732c9a47f52039038bbc8a62b865bc79cb8cb551adf 0B / 6.87MB 0.2s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 15.73MB / 288.36MB 1.4s
+#4 sha256:1efc728fcb3ee63779e30babe41f59120381ce706b700924ac6f2ffc950cdd3e 0B / 139B 0.2s
+#4 sha256:1efc728fcb3ee63779e30babe41f59120381ce706b700924ac6f2ffc950cdd3e 139B / 139B 0.4s done
+#4 extracting sha256:1efc728fcb3ee63779e30babe41f59120381ce706b700924ac6f2ffc950cdd3e done
+#4 sha256:70c8dc1ba068261753194732c9a47f52039038bbc8a62b865bc79cb8cb551adf 1.05MB / 6.87MB 1.4s
+#4 sha256:70c8dc1ba068261753194732c9a47f52039038bbc8a62b865bc79cb8cb551adf 3.15MB / 6.87MB 1.7s
+#4 sha256:70c8dc1ba068261753194732c9a47f52039038bbc8a62b865bc79cb8cb551adf 4.19MB / 6.87MB 1.8s
+#4 sha256:70c8dc1ba068261753194732c9a47f52039038bbc8a62b865bc79cb8cb551adf 5.24MB / 6.87MB 2.1s
+#4 sha256:70c8dc1ba068261753194732c9a47f52039038bbc8a62b865bc79cb8cb551adf 6.29MB / 6.87MB 2.3s
+#4 sha256:70c8dc1ba068261753194732c9a47f52039038bbc8a62b865bc79cb8cb551adf 6.87MB / 6.87MB 2.4s done
+#4 extracting sha256:70c8dc1ba068261753194732c9a47f52039038bbc8a62b865bc79cb8cb551adf
+#4 extracting sha256:70c8dc1ba068261753194732c9a47f52039038bbc8a62b865bc79cb8cb551adf 0.1s done
+#4 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 done
+#4 extracting sha256:8998fa436a659ffd3393603eef38b4f0e6764afe540b74c0e85993f6d6856ce4 0.0s done
+#4 extracting sha256:ade4e896e587ac3df4daee139800e8cc0d217e8b5e17f975a4a1308aa3c06d72 0.0s done
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 32.51MB / 288.36MB 3.8s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 7.34MB / 145.31MB 4.1s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 14.68MB / 145.31MB 4.7s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 22.02MB / 145.31MB 5.3s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 29.36MB / 145.31MB 5.9s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 36.70MB / 145.31MB 6.5s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 45.09MB / 145.31MB 7.2s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 52.43MB / 145.31MB 7.8s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 59.77MB / 145.31MB 8.4s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 32.51MB / 288.36MB 8.9s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 68.16MB / 145.31MB 9.2s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 75.50MB / 145.31MB 9.8s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 82.84MB / 145.31MB 10.4s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 91.23MB / 145.31MB 11.1s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 98.57MB / 145.31MB 11.7s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 105.91MB / 145.31MB 12.3s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 114.29MB / 145.31MB 13.1s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 121.63MB / 145.31MB 13.7s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 32.51MB / 288.36MB 14.0s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 130.02MB / 145.31MB 14.4s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 138.41MB / 145.31MB 15.2s
+#4 sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 145.31MB / 145.31MB 16.1s done
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 47.19MB / 288.36MB 17.4s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 62.91MB / 288.36MB 18.9s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 77.59MB / 288.36MB 20.4s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 94.37MB / 288.36MB 21.8s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 110.10MB / 288.36MB 23.1s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 124.78MB / 288.36MB 24.5s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 142.61MB / 288.36MB 26.0s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 159.38MB / 288.36MB 27.6s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 176.16MB / 288.36MB 29.1s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 190.84MB / 288.36MB 30.5s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 205.52MB / 288.36MB 31.8s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 222.30MB / 288.36MB 33.3s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 236.98MB / 288.36MB 34.7s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 251.66MB / 288.36MB 35.9s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 266.34MB / 288.36MB 37.2s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 284.16MB / 288.36MB 38.7s
+#4 sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 288.36MB / 288.36MB 39.1s done
+#4 extracting sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1
+#4 extracting sha256:df1d4782a40bae35f9552f4a52c27f11a2d786b6befa74b04fd5d4c452adb1a1 3.3s done
+#4 extracting sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14
+#4 extracting sha256:947ef31db38e0d8dedcc5e2d893d90aa7553509e41679d4b499cc3b3f07c6b14 2.1s done
+#4 DONE 44.5s
+
+#4 [1/2] FROM docker.io/grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572
+#4 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 0.0s done
+#4 extracting sha256:bb9dbccd408535fffb7077f8e668ae564935b6ac3df574e500e0921b53abf9a4 0.0s done
+#4 extracting sha256:37bc7484dfb53c48ac14627eb97b1bafafed58d6b5fc804203e4728d233cfc8b 0.0s done
+#4 DONE 44.6s
+
+#5 [2/2] RUN apk upgrade --no-cache     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1         ! -name jaeger ! -name prometheus -exec rm -rf {} +
+#5 5.112 WARNING: fetching https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/APKINDEX.tar.gz: DNS: transient error (try again later)
+#5 10.12 WARNING: fetching https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/APKINDEX.tar.gz: DNS: transient error (try again later)
+#5 10.12 ERROR: Not continuing due to stale/unavailable repositories. Use --force-missing-repositories to continue.
+#5 ERROR: process "/bin/sh -c apk upgrade --no-cache     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1         ! -name jaeger ! -name prometheus -exec rm -rf {} +" did not complete successfully: exit code: 99
+------
+ > [2/2] RUN apk upgrade --no-cache     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1         ! -name jaeger ! -name prometheus -exec rm -rf {} +:
+5.112 WARNING: fetching https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/APKINDEX.tar.gz: DNS: transient error (try again later)
+10.12 WARNING: fetching https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/APKINDEX.tar.gz: DNS: transient error (try again later)
+10.12 ERROR: Not continuing due to stale/unavailable repositories. Use --force-missing-repositories to continue.
+------
+Dockerfile:6
+--------------------
+   5 |     USER root
+   6 | >>> RUN apk upgrade --no-cache \
+   7 | >>>     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1 \
+   8 | >>>         ! -name jaeger ! -name prometheus -exec rm -rf {} +
+   9 |     USER 472:0
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c apk upgrade --no-cache     && find /usr/share/grafana/data/plugins-bundled -mindepth 1 -maxdepth 1         ! -name jaeger ! -name prometheus -exec rm -rf {} +" did not complete successfully: exit code: 99
+66262 v0.37.1 /Users/ajmiraribam/.docker/cli-plugins/docker-buildx buildx build -t verity-grafana-patch-candidate /tmp/verity-grafana-patch-context
+github.com/docker/buildx/commands.runBuildWithOptions
+	github.com/docker/buildx/commands/build.go:506
+github.com/docker/buildx/commands.runBuild
+	github.com/docker/buildx/commands/build.go:421
+github.com/docker/buildx/commands.buildCmd.func1
+	github.com/docker/buildx/commands/build.go:542
+github.com/docker/cli/cli-plugins/plugin.RunPlugin.func1.1.2
+	github.com/docker/cli@v29.7.2+incompatible/cli-plugins/plugin/plugin.go:65
+github.com/spf13/cobra.(*Command).execute
+	github.com/spf13/cobra@v1.10.2/command.go:1015
+github.com/spf13/cobra.(*Command).ExecuteC
+	github.com/spf13/cobra@v1.10.2/command.go:1148
+github.com/spf13/cobra.(*Command).Execute
+	github.com/spf13/cobra@v1.10.2/command.go:1071
+github.com/docker/cli/cli-plugins/plugin.RunPlugin
+	github.com/docker/cli@v29.7.2+incompatible/cli-plugins/plugin/plugin.go:80
+main.runPlugin
+	github.com/docker/buildx/cmd/buildx/main.go:66
+main.run
+	github.com/docker/buildx/cmd/buildx/main.go:80
+main.main
+	github.com/docker/buildx/cmd/buildx/main.go:90
+runtime.main
+	runtime/proc.go:290
+runtime.goexit
+	runtime/asm_arm64.s:1447
+
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/moby/buildkit/executor/runcexecutor.exitError
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/executor/runcexecutor/executor.go:449
+github.com/moby/buildkit/executor/runcexecutor.(*runcExecutor).Run
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/executor/runcexecutor/executor.go:397
+github.com/moby/buildkit/solver/llbsolver/ops.(*ExecOp).Exec
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/llbsolver/ops/exec.go:525
+github.com/moby/buildkit/solver.(*sharedOp).Exec.func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/jobs.go:1248
+github.com/moby/buildkit/util/flightcontrol.(*call[...]).run
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/util/flightcontrol/flightcontrol.go:122
+sync.(*Once).doSlow
+	/usr/local/go/src/sync/once.go:78
+sync.(*Once).Do
+	/usr/local/go/src/sync/once.go:69
+runtime.goexit
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+66262 v0.37.1 /Users/ajmiraribam/.docker/cli-plugins/docker-buildx buildx build -t verity-grafana-patch-candidate /tmp/verity-grafana-patch-context
+google.golang.org/grpc.(*ClientConn).Invoke
+	google.golang.org/grpc@v1.83.2/call.go:35
+github.com/moby/buildkit/api/services/control.(*controlClient).Solve
+	github.com/moby/buildkit@v0.33.0/api/services/control/control_grpc.pb.go:88
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.33.0/client/solve.go:337
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.22.0/errgroup/errgroup.go:93
+runtime.goexit
+	runtime/asm_arm64.s:1447
+
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/moby/buildkit/solver.(*edge).execOp
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/edge.go:979
+github.com/moby/buildkit/solver/internal/pipe.NewWithFunction[...].func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/internal/pipe/pipe.go:78
+runtime.goexit
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+66262 v0.37.1 /Users/ajmiraribam/.docker/cli-plugins/docker-buildx buildx build -t verity-grafana-patch-candidate /tmp/verity-grafana-patch-context
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.33.0/client/solve.go:339
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.22.0/errgroup/errgroup.go:93
+
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/moby/buildkit/solver/llbsolver/ops.(*ExecOp).Exec
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/llbsolver/ops/exec.go:556
+github.com/moby/buildkit/solver.(*sharedOp).Exec.func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/jobs.go:1248
+
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/aeaf5mc2z8riv1t77sr7eca72

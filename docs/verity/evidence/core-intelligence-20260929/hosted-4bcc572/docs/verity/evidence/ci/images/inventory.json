@@ -1,0 +1,17 @@
+{
+  "backend": "verity-ci-backend",
+  "celery-beat": "verity-ci-celery-beat",
+  "celery-worker": "verity-ci-celery-worker",
+  "frontend": "verity-ci-frontend",
+  "grafana": "verity-ci-grafana",
+  "jaeger": "verity-ci-jaeger",
+  "mailpit": "axllent/mailpit:v1.31.2@sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d",
+  "migrate": "verity-ci-migrate",
+  "minio": "verity-ci-minio",
+  "minio-init": "verity-ci-minio-init",
+  "otel-collector": "otel/opentelemetry-collector-contrib:0.161.0@sha256:fd328de2552466ad78385e1b1289c3f2402b1c45f265b252aab1955b42845ac1",
+  "postgres": "pgvector/pgvector:pg16@sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b",
+  "prometheus": "prom/prometheus:v3.15.0@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e",
+  "redis": "redis:7.4-alpine@sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499",
+  "verification": "verity-ci-verification"
+}

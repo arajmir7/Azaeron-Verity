@@ -1,0 +1,9 @@
+{
+  "status": "FAIL",
+  "phase": "prepare",
+  "reason": "Recovery fixture document processing did not complete within the unchanged harness limit.",
+  "restore": "BLOCKED",
+  "post_backup_erasure_replay": "BLOCKED",
+  "log": "recovery-prepare.log",
+  "production_certified": false
+}

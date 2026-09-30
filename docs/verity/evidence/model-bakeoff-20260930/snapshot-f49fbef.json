@@ -1,0 +1,10 @@
+{
+  "branch": "codex/private-agent-core-20260929",
+  "parent": "2ca4b6cdd4be1d307061c82b266d39f40e0a37c7",
+  "commit": "f49fbef3948c65a7f6d8c7a565d6a56107a23f3d",
+  "source_files": 434,
+  "source_sha256": "d419e799304a075aad314af2bf36e351b3338d8b2c90aedac0855ccd5234acbe",
+  "working_index_unchanged": true,
+  "checkout_preserved": "main",
+  "merged": false
+}

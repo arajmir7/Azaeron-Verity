@@ -1,0 +1,2291 @@
+{
+  "result": "PASS",
+  "trace_id": "00bc8a0b436186bb949a17a15e4100ae",
+  "request_id": "e184c915-196b-4c44-aef4-cf698dd65a33",
+  "canary": "PRIVATE-CUSTOMER-CANARY-9ddcce02-32db-4a74-826b-db5b0670dbe2",
+  "checks": [
+    "browser upload",
+    "API span",
+    "DB child spans",
+    "storage spans",
+    "worker parent",
+    "job/operation/release IDs",
+    "closed browser error report",
+    "scraped worker metrics",
+    "no customer text in trace"
+  ],
+  "spans": [
+    {
+      "name": "POST /api/v1/documents/upload-confirm",
+      "id": "7132adf8f4f512f4",
+      "parents": []
+    },
+    {
+      "name": "storage.HEAD",
+      "id": "10d2bdbbe36197fc",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "storage.GET",
+      "id": "0a42f8ef8ff022bc",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "storage.PUT",
+      "id": "34b23c42914a1a5c",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "dd82cea319a2e5d6",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "11ba0b6f48a0cb47",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "922c99656498e091",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "e4c9e05ccbb02049",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "c741b5172f19713b",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "8abc8b4ad962fb3c",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "9cc6e522dc2dde4e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "b826f610878cb31e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "799e5fbaec083557",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "cff1bfe6238abe22",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "83a37a5e466136ca",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "99db6134ad89c47b",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "fd412a20cc187e22",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "8342bd7c6cfdc0f2",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "b38a44db958f44c2",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "5e65fd6f288370d5",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "8ba65fa593cc8d9a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "7e16095b26af795f",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "ff98a3e6a4dd1f3f",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "1af00cba68492e04",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "7a54c256500159e3",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "8e82981a22bc16c0",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "6b3540228316c062",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "ba6eedcd3cbd9e61",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "38fb8a748b1aae1a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "87113639daa89f62",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "80239f3884c60eaf",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "1b7e967a700cbbcd",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "08a05dbba2a36d27",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "d6f6a67c82cdff8b",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "6e69ca55fd0e0c31",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "ceedcbdf155aae9a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "b073047d1a7d8536",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "a42e0ccb84bdd61e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "ec36a814d1cb0ebe",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "e07d2a9ca75dba5d",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "33a8bf2a6b57e74d",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "95a08486ed6738e6",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "53d78282ffeb3bf9",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "3f56090ce3d5d24a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "41df40d0a27216fb",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "c7a7d8761a9a95a9",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "07bf01283206e313",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "79d3b2c5d12e4477",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "00c213e431d42119",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "3b717ee954028c64",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "9b90887c07d1347b",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "f6ab0e49f268e659",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "6cd2642114c6a786",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "66ec8177812b16a3",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "20b68e0f99cfc019",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "ec3367a1fad9f8eb",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "2983103acbff76f0",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "48a067f6b995fadd",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "93beb8e64191a826",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "0c73bb619788f53e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "aaa1349aeef31498",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "bc0daccae02a1e45",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "bcd1fae3188df6c5",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "2b120663218aa702",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "47fb990ff6678589",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "c56e1b1109d7bdd6",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "dd76ba82b626a92f",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "5f9aa290bd7c2df3",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "6deff77577644fd3",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "740a7fb6d1544488",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "ec57185d9e84f81f",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "85a30956accc088b",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "5c0386cb433d2199",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "050f4ef04c2349f6",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "8c2c69bf6e1ab586",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "b8976acbc68606a4",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "970f4e584f05ad88",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "d9ffea7761ec833c",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "597438f70850bf1a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "0d7e62d95824dc73",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "00a8883ae05511ea",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "f19de71e0c6c0931",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "09617c6a16b01ddd",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "7fd9dcd00218abd3",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "4b86807dfc7f64cd",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "2120c9e341061981",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "f72ee386c5ea2710",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "e77693683a14ddbe",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "0215ef88749c5900",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "0ba1495e2b04ed8e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "celery.process_document",
+      "id": "6d724bb434e566ca",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "7132adf8f4f512f4"
+        }
+      ]
+    },
+    {
+      "name": "celery.process_document",
+      "id": "d580a8643614b678",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "6d724bb434e566ca"
+        }
+      ]
+    },
+    {
+      "name": "storage.GET",
+      "id": "ce208c9ba42ec5bb",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "77ab743239e1c193",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "1ae24c87ec712c2d",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "f6db71a7f9c1dcdb",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "c291495ea9157d5a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "f99be032ab162913",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "a291874884da12af",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "ba9437619bdbf563",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "cdb46cc8e2d1eccb",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "bd2d88d64193c09c",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "52eb4944d9563e90",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "09d38b6236a933a8",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "99532330455e714f",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "7b603bb01f54be21",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "3d57c61ba888bedc",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "d1e56b4b0626c66c",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "e986f8be6b1b7c41",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "60276e1ddc556ec6",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "a6e072132bb0de1e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "9380b61243b22340",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "45ad5ab2df0e19ef",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "e844b69577f901d3",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "37660bcd47376ed9",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "bec831f8b6ce08bb",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "b8c0091781408e22",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "fcf4f305a5d10880",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "9051f52de145eb19",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "e3519b707304762e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "723c4e232e4ebebe",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "c0d1dc3b89c14403",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "45da8fe02ddc68d5",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "9c7247736551c474",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "fb9be487acb1a72c",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "8bea7c2262ee57c8",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "9f1dea17f266fe39",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "9331ac9dfaf8da80",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "141c8a74f68c81a4",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "de5174bcc8abb213",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "3383983fb8df9bcc",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "22bb2bf853dbe2b8",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "52459a999cdb608a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "e9a1b401006e287e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "94e1ff71c468265e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "e5809f3c709c48e3",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "26426cf74716d316",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "9e8b00bb7014e7f2",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "c89b01738c007c06",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "a52bf484d2a993db",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "fd739f5ee47bc01c",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "ecd62a92f731251a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "a28e0d6dc7a40051",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "10d5fcb347460529",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "5173e2ec470a785a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "e480d97ce6919a57",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "8ecff5d483537d3f",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "24ff9caf78ac98cd",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "5ab42a86d0641eaf",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "50ca3e1097f11b44",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "89651d53c6d83a6f",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "e8e5c9b887ca2d92",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "519ec8f236345232",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "b9ca45a6246f4cab",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "6caa2c3f8d498ace",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "ce6b625ab2090a9a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "3f0b38d0a8151afd",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "51c9c729c13113c9",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "bc99ca187c672def",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "1e19edf1144b6b02",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "595ef0bd8c06e755",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "fcb3a8377fa3ae69",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "3e7700d63d8e726a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "262da22d511d05dd",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "82804908f65b51a9",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "ceca509d4f5269f2",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "399d7bff2e38fea6",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "65b8ea821056262c",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "ce661eead50999f1",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "da87f78a17d92ebd",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "b10fd9c93e995f8e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "ae237f9d60919de9",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "9ad303d1aed260a4",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "ce7777ff47e53aec",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "9e397721085671e0",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "1a495fb08e8e21b6",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "781413f1d8d4a6dc",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "61424ce2a053c14e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "1f4a963a2ea40624",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "67964168e097d780",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "5625bb695a809d68",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "81d3e3b6ac212cfc",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "d9e80e1f7d1b1890",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "dacb2b62ee6668db",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "b8bc35466bee6ff3",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "e0912b736dfbb648",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "a358a1cdc2dd60f2",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "cd22eb403711d632",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "655e7b2612562c14",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "569949a942205a7e",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "e717c061ba2dfcc3",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "4735e782293e2012",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "ab611e3cb75c6798",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.INSERT",
+      "id": "814d09bd4225de44",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "67c216313e9a2cf5",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "98b0793366f94ce0",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "2f3ea86d55c47052",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "554684985f3f1f04",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "d37aac3c08145a77",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "9d0586877b340e11",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "bd319cc311f1f3a0",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "751103b2e62a7b3a",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "7c42658c8b6ef540",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "8505dd86db804263",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "8bcf9d1eee9a5768",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.SELECT",
+      "id": "b0509592fc385fd0",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    },
+    {
+      "name": "db.UPDATE",
+      "id": "12cde60e9b7b7a09",
+      "parents": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "00bc8a0b436186bb949a17a15e4100ae",
+          "spanID": "d580a8643614b678"
+        }
+      ]
+    }
+  ],
+  "model_runtime": "BLOCKED: approved model/hardware unavailable"
+}

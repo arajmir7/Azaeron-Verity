@@ -1,0 +1,74 @@
+{
+  "branch": "codex/private-agent-core-20260929",
+  "commit": "5f7d525f93253e250b8e3e94be84d1122a9677a0",
+  "run_id": 36684766301,
+  "url": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/36684766301",
+  "pr": "https://github.com/arajmir7/Azaeron-Verity/pull/1",
+  "draft": true,
+  "merged": false,
+  "workflow_status": "FAIL_IMAGE_SECURITY",
+  "exact_source_files_verified": 434,
+  "derivative_mechanics": "PASS_TEST_ONLY",
+  "repository_gates": {
+    "backend-format": "PASS",
+    "backend-lint": "PASS",
+    "backend-typecheck": "PASS",
+    "unit-security-worker-contract": "PASS",
+    "postgres-rls": "PASS",
+    "frontend-lint": "PASS",
+    "compose": "PASS",
+    "frontend-build": "PASS",
+    "frontend-typecheck": "PASS",
+    "browser": "PASS",
+    "source-stability": "PASS"
+  },
+  "tests": {
+    "backend": 292,
+    "postgres_rls_storage": 34,
+    "browser": 29
+  },
+  "mypy_modules": 197,
+  "dependency_audits": "PASS",
+  "sast": "PASS",
+  "secret_gate": "PASS",
+  "frontend_sbom": "PASS",
+  "image_sboms_passed": 12,
+  "image_security_failures": [
+    {
+      "image": "verity-ci-backend",
+      "image_id": "sha256:9ab1bcb0a0e34077b6d9813c0ab552758d4a5d003de86f47edc8dab59fac1c24",
+      "counts": {
+        "HIGH": 2
+      },
+      "no_fixed_version_count": 0,
+      "report": "image-0-vulnerabilities.json"
+    },
+    {
+      "image": "pgvector/pgvector:pg16@sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b",
+      "image_id": "sha256:9b05db12a35460fff0587e009f9326e414a53e9484555547f96d214a2ba98ef7",
+      "counts": {
+        "HIGH": 104,
+        "CRITICAL": 16
+      },
+      "no_fixed_version_count": 95,
+      "report": "image-8-vulnerabilities.json"
+    },
+    {
+      "image": "verity-ci-verification",
+      "image_id": "sha256:9dbb96dcf23bf7bf8da1d07874737ef32d18051e52ac02e0a8d0db0db78cf959",
+      "counts": {
+        "HIGH": 2
+      },
+      "no_fixed_version_count": 0,
+      "report": "image-11-vulnerabilities.json"
+    }
+  ],
+  "production_approved_models": [],
+  "model_program_verdict": "BLOCKED_MISSING_RIGHTS_DATA_REVIEW_GPU_RUNTIME_EVIDENCE",
+  "openssl_stable_fix": "3.5.7-1~deb13u3 is now available; current pinned distroless image still carries u2",
+  "upstream_distroless_digest_unchanged": true,
+  "upstream_pgvector_pg16_digest_unchanged": true,
+  "source": "https://security-tracker.debian.org/tracker/CVE-2026-84782",
+  "waivers_added": false,
+  "scanner_thresholds_lowered": false
+}

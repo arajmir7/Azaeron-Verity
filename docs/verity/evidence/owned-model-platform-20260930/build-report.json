@@ -1,0 +1,38 @@
+{
+  "verdict": "NOT_PRODUCTION_READY",
+  "approved_models": 0,
+  "test_only_checkpoints": 4,
+  "optimizer_steps_per_checkpoint": 9,
+  "repeated_checkpoint_hashes_match": true,
+  "repository_gates": {
+    "passed": 11,
+    "total": 11,
+    "backend_tests": 277,
+    "postgres_tests": 34,
+    "browser_tests": 29
+  },
+  "training_dependency_audit": "PASS",
+  "sast": "PASS",
+  "secret_gate": "PASS",
+  "application_images": {
+    "backend": "FAIL_ONE_HIGH_OPENSSL",
+    "frontend": "PASS",
+    "sbom": "PASS"
+  },
+  "baseline_comparison": "BLOCKED_NO_RIGHTS_REVIEWED_DATA",
+  "production_runtime": "BLOCKED_NO_APPROVED_CHECKPOINTS",
+  "training": "TEST_ONLY_EXECUTED_PRODUCTION_BLOCKED",
+  "external_ai_apis": "NONE",
+  "snapshot": {
+    "commit": "2ca4b6cdd4be1d307061c82b266d39f40e0a37c7",
+    "parent": "9c730bb16af5c6fba0f4bc1a3c5e623bce47c916",
+    "branch": "refs/heads/codex/private-agent-core-20260929",
+    "source_files": 415,
+    "matched_tested_source": true,
+    "mismatched_paths": [],
+    "working_index_unchanged": true,
+    "production_certified": false,
+    "pushed_to_existing_branch": true
+  },
+  "report": "docs/verity/OWN_MODEL_BUILD_REPORT.md"
+}

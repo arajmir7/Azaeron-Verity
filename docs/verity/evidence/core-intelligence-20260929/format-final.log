@@ -1,0 +1,7 @@
+time="2026-09-29T14:47:13+05:30" level=warning msg="Found orphan containers (verity-core-0929-verification-run-9a3326790889) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container verity-core-0929-verification-run-f8811460526d Creating 
+ Container verity-core-0929-verification-run-f8811460526d Created 
+reformatted app/api/v1/ai.py
+
+All done! ✨ 🍰 ✨
+1 file reformatted, 1 file left unchanged.

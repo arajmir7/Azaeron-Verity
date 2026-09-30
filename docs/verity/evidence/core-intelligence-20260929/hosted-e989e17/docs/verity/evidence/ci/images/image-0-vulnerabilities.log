@@ -1,0 +1,28 @@
+Unable to find image 'aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969' locally
+docker.io/aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969: Pulling from aquasec/trivy
+55afa1ecc21d: Already exists
+0c664a59f299: Pulling fs layer
+9b17763e725d: Pulling fs layer
+99f1ca71a2b5: Pulling fs layer
+99f1ca71a2b5: Verifying Checksum
+99f1ca71a2b5: Download complete
+0c664a59f299: Verifying Checksum
+0c664a59f299: Download complete
+9b17763e725d: Verifying Checksum
+9b17763e725d: Download complete
+0c664a59f299: Pull complete
+9b17763e725d: Pull complete
+99f1ca71a2b5: Pull complete
+Digest: sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969
+Status: Downloaded newer image for aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969
+2026-09-30T00:38:22Z	INFO	[vulndb] Need to update DB
+2026-09-30T00:38:22Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-09-30T00:38:22Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+1.59 MiB / 118.34 MiB [>_____________________________________________________________] 1.34% ? p/s ?18.84 MiB / 118.34 MiB [--------->__________________________________________________] 15.92% ? p/s ?47.44 MiB / 118.34 MiB [------------------------>___________________________________] 40.09% ? p/s ?76.00 MiB / 118.34 MiB [----------------------------->________________] 64.22% 124.01 MiB p/s ETA 0s105.30 MiB / 118.34 MiB [---------------------------------------->____] 88.97% 124.01 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 124.01 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 120.55 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 120.55 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 120.55 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 112.78 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 112.78 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 112.78 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 105.50 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 105.50 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [------------------------------------------->] 100.00% 105.50 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 98.69 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 98.69 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 98.69 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 92.33 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 92.33 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 92.33 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 86.37 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 86.37 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-------------------------------------------->] 100.00% 86.37 MiB p/s ETA 0s118.34 MiB / 118.34 MiB [-----------------------------------------------] 100.00% 25.09 MiB p/s 4.9s2026-09-30T00:38:28Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-09-30T00:38:28Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-09-30T00:38:29Z	INFO	[python] Licenses acquired from one or more METADATA files may be subject to additional terms. Use `--debug` flag to see all affected packages.
+2026-09-30T00:38:29Z	INFO	Detected OS	family="debian" version="13.7"
+2026-09-30T00:38:29Z	INFO	[debian] Detecting vulnerabilities...	os_version="13" pkg_num=16
+2026-09-30T00:38:29Z	INFO	Number of language-specific files	num=1
+2026-09-30T00:38:29Z	INFO	[python-pkg] Detecting vulnerabilities...
+2026-09-30T00:38:29Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.74/guide/scanner/vulnerability#severity-selection for details.

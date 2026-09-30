@@ -1,0 +1,403 @@
+ Container verity-core-0929-verification-run-4c68a804ea82 Creating 
+ Container verity-core-0929-verification-run-4c68a804ea82 Created 
+{
+  "scope": "synthetic local application performance; not model inference or production capacity",
+  "platform": "Linux-7.0.14-linuxkit-aarch64-with-glibc2.41",
+  "dataset": {
+    "documents": 8,
+    "initial_bytes": [
+      779,
+      779,
+      779,
+      779,
+      779,
+      779,
+      7691,
+      7691
+    ],
+    "processing_jobs": 56
+  },
+  "profiles": [
+    {
+      "workload": "analysis",
+      "concurrency": 1,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 10.654,
+        "p95": 16.62,
+        "p99": 16.62
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 364
+    },
+    {
+      "workload": "analysis",
+      "concurrency": 4,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 41.623,
+        "p95": 52.392,
+        "p99": 52.392
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 364
+    },
+    {
+      "workload": "analysis",
+      "concurrency": 8,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 67.139,
+        "p95": 95.297,
+        "p99": 95.297
+      },
+      "status_counts": {
+        "429": 4,
+        "200": 8
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 362
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 1,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 5.253,
+        "p95": 13.637,
+        "p99": 13.637
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 626
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 4,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 19.468,
+        "p95": 25.289,
+        "p99": 25.289
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 623
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 8,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 34.845,
+        "p95": 44.41,
+        "p99": 44.41
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 623
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 1,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 4.308,
+        "p95": 6.031,
+        "p99": 6.031
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 3173
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 4,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 20.698,
+        "p95": 23.76,
+        "p99": 23.76
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 3158
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 8,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 79.045,
+        "p95": 84.036,
+        "p99": 84.036
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 3158
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 1,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 4.252,
+        "p95": 11.717,
+        "p99": 11.717
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 626
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 4,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 13.045,
+        "p95": 50.511,
+        "p99": 50.511
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 623
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 8,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 26.657,
+        "p95": 33.018,
+        "p99": 33.018
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 623
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 1,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 24.379,
+        "p95": 74.287,
+        "p99": 74.287
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 845
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 4,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 99.52,
+        "p95": 135.36,
+        "p99": 135.36
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 845
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 8,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 157.336,
+        "p95": 261.896,
+        "p99": 261.896
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 845
+    },
+    {
+      "workload": "job_creation",
+      "concurrency": 1,
+      "requests": 8,
+      "latency_ms": {
+        "p50": 38.806,
+        "p95": 170.662,
+        "p99": 170.662
+      },
+      "status_counts": {
+        "200": 8
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 599
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 1,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 6.626,
+        "p95": 15.234,
+        "p99": 15.234
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 16532
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 4,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 18.833,
+        "p95": 36.613,
+        "p99": 36.613
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 15566
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 8,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 43.746,
+        "p95": 50.456,
+        "p99": 50.456
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 16008
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 1,
+      "requests": 8,
+      "latency_ms": {
+        "p50": 30.071,
+        "p95": 53.874,
+        "p99": 53.874
+      },
+      "status_counts": {
+        "200": 4,
+        "409": 4
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 845
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 4,
+      "requests": 8,
+      "latency_ms": {
+        "p50": 180.208,
+        "p95": 237.656,
+        "p99": 237.656
+      },
+      "status_counts": {
+        "200": 4,
+        "409": 4
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 845
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 8,
+      "requests": 8,
+      "latency_ms": {
+        "p50": 108.869,
+        "p95": 135.083,
+        "p99": 135.083
+      },
+      "status_counts": {
+        "200": 4,
+        "409": 4
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 846
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 1,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 5.173,
+        "p95": 7.384,
+        "p99": 7.384
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 4848
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 4,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 22.396,
+        "p95": 27.286,
+        "p99": 27.286
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 9195
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 8,
+      "requests": 12,
+      "latency_ms": {
+        "p50": 47.379,
+        "p95": 53.724,
+        "p99": 53.724
+      },
+      "status_counts": {
+        "200": 12
+      },
+      "unexpected_error_rate": 0.0,
+      "max_response_bytes": 16207
+    }
+  ],
+  "model_inference": "BLOCKED: approved assets/hardware unavailable",
+  "result": "PASS"
+}

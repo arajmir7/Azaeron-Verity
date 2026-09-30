@@ -143,7 +143,7 @@ class LeakageIndex:
         self.shingle_count += len(shingles)
         if self.shingle_count > 2_000_000:
             raise PolicyError("near_duplicate_review_capacity_exceeded")
-        candidates = set()
+        candidates: set[int] = set()
         for value in shingles:
             candidates.update(self.postings.get(value, ()))
         for index in candidates:

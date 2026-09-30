@@ -1,0 +1,54 @@
+[
+  {
+    "image": "verity-core-0929-backend",
+    "aliases": [
+      "verity-core-0929-backend"
+    ],
+    "image_id": "sha256:b8e676f4494847ab2c25ce8497a785a6bf5cf0602842132435f5b155563d1a91",
+    "bytes": 521146362,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-core-0929-backend",
+    "aliases": [
+      "verity-core-0929-backend"
+    ],
+    "image_id": "sha256:b8e676f4494847ab2c25ce8497a785a6bf5cf0602842132435f5b155563d1a91",
+    "bytes": 521146362,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-core-0929-frontend",
+    "aliases": [
+      "verity-core-0929-frontend"
+    ],
+    "image_id": "sha256:615b0b6513b42d3226031ae9b5a32d8423b94e33cde52f219c9cb55a841601cf",
+    "bytes": 306543778,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-core-0929-frontend",
+    "aliases": [
+      "verity-core-0929-frontend"
+    ],
+    "image_id": "sha256:615b0b6513b42d3226031ae9b5a32d8423b94e33cde52f219c9cb55a841601cf",
+    "bytes": 306543778,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-1-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

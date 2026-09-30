@@ -1,0 +1,8 @@
+[Download page](https://grafana.com/grafana/download/13.2.3)
+[What's new highlights](https://grafana.com/docs/grafana/latest/whatsnew/)
+
+### Security
+
+- Security: Fix CVE-2026-13719
+- Security: Fix CVE-2026-13720
+- Security: Fix CVE-2026-81841

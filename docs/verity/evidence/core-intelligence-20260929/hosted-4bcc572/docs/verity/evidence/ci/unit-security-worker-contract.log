@@ -1,0 +1,52 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: asyncio-1.4.0, Faker-30.0.0, anyio-4.15.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 268 items
+
+tests/security/test_document_mutation_authorization.py ......            [  2%]
+tests/security/test_failure_privacy.py ..                                [  2%]
+tests/security/test_readonly_permissions.py ..                           [  3%]
+tests/security/test_security_gate.py ...                                 [  4%]
+tests/security/test_session_boundary.py ...........                      [  8%]
+tests/security/test_tenant_authorization.py ..                           [  9%]
+tests/security/test_upload_validation.py ....                            [ 11%]
+tests/security/test_zero_external_ai.py .........                        [ 14%]
+tests/test_aegiswrite.py ....                                            [ 16%]
+tests/test_agent.py ...............                                      [ 21%]
+tests/test_agent_voice_corpus.py ..                                      [ 22%]
+tests/test_api_keys.py ......                                            [ 24%]
+tests/test_auth.py .........                                             [ 27%]
+tests/test_authorship_consistency.py ...                                 [ 29%]
+tests/test_capability_contract.py ...                                    [ 30%]
+tests/test_citation_intelligence.py ..                                   [ 30%]
+tests/test_detector_calibration_protocol.py ....                         [ 32%]
+tests/test_detector_intelligence.py .......                              [ 35%]
+tests/test_document_intelligence.py ..........                           [ 38%]
+tests/test_editor_revisions.py ....                                      [ 40%]
+tests/test_evidence_graph.py ....                                        [ 41%]
+tests/test_evidence_report.py ...                                        [ 42%]
+tests/test_failure_gate.py ......                                        [ 45%]
+tests/test_governance.py ...                                             [ 46%]
+tests/test_identity.py .......                                           [ 48%]
+tests/test_lineage_contract.py ...................                       [ 55%]
+tests/test_observability.py ....                                         [ 57%]
+tests/test_operations.py ....                                            [ 58%]
+tests/test_organization_state_contract.py ..                             [ 59%]
+tests/test_privacy.py .........                                          [ 63%]
+tests/test_private_inference.py .......................                  [ 71%]
+tests/test_provenance.py ..                                              [ 72%]
+tests/test_refine_invariants.py ................                         [ 78%]
+tests/test_semantic_verification.py .................                    [ 84%]
+tests/test_similarity_engine.py .....                                    [ 86%]
+tests/test_similarity_workflow.py .......                                [ 89%]
+tests/test_storage_urls.py .                                             [ 89%]
+tests/test_transaction_boundary.py ..                                    [ 90%]
+tests/test_usage.py ....                                                 [ 91%]
+tests/test_validation_gate.py ......                                     [ 94%]
+tests/test_worker_redelivery.py ....                                     [ 95%]
+tests/test_workspace_onboarding.py ............                          [100%]
+
+======================= 268 passed in 134.08s (0:02:14) ========================

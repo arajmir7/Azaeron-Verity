@@ -2,64 +2,62 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, FileCheck2, FileText, PenLine, ScanSearch, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, FileCheck2, FileText, MessageSquare, PenLine, Plus, ScanSearch, Sparkles } from "lucide-react";
 import { api, type DocumentRecord } from "@/lib/api";
 import { useStore } from "@/lib/store";
-import { Button, ErrorState, isPermissionError, LoadingState, StatusBadge } from "@/components/design-system";
+import { EmptyState, ErrorState, isPermissionError, LoadingState, Panel, StatusBadge } from "@/components/design-system";
 
-type DashboardState = "loading" | "ready" | "error" | "permission";
-
+type Resource<T> = { value: T; state: "loading" | "ready" | "error" | "permission"; error?: string };
+type Chat = { id: string; title: string };
 const actions = [
-  { href: "/ai", label: "Ask Azaeron AI", detail: "Private AI pending approval", icon: Sparkles },
-  { href: "/humaniser", label: "Humanise text", detail: "Review changes to your writing", icon: PenLine },
-  { href: "/detector", label: "Detect AI", detail: "Inspect experimental writing signals", icon: ScanSearch },
-  { href: "/plagiarism", label: "Check plagiarism", detail: "Compare with available sources", icon: FileCheck2 },
-  { href: "/write", label: "Open document", detail: "Edit and preserve your versions", icon: FileText },
+  { href: "/ai", label: "Azaeron AI", detail: "Ask, explore and work with your documents.", icon: Sparkles },
+  { href: "/humaniser", label: "AI Humaniser", detail: "Refine your writing. Keep your meaning.", icon: PenLine },
+  { href: "/detector", label: "AI Detector", detail: "Inspect writing signals and uncertainty.", icon: ScanSearch },
+  { href: "/plagiarism", label: "Plagiarism Checker", detail: "Find overlap with available sources.", icon: FileCheck2 },
+  { href: "/documents", label: "Documents", detail: "Your drafts, versions and evidence.", icon: FileText },
 ];
 
 export default function DashboardPage() {
   const { user, currentOrg } = useStore();
-  const [state, setState] = useState<DashboardState>("loading");
-  const [documents, setDocuments] = useState<DocumentRecord[]>([]);
-  const [error, setError] = useState("");
+  const [documents, setDocuments] = useState<Resource<DocumentRecord[]>>({ value: [], state: "loading" });
+  const [chats, setChats] = useState<Resource<Chat[]>>({ value: [], state: "loading" });
+  const [models, setModels] = useState<Resource<number>>({ value: 0, state: "loading" });
+  const [revision, setRevision] = useState(0);
+  const retry = useCallback(() => setRevision((value) => value + 1), []);
 
-  const loadData = useCallback(async () => {
+  useEffect(() => {
     if (!currentOrg) return;
-    setState("loading");
-    setError("");
-    try {
-      const response = await api.getDocuments(1);
-      setDocuments((response.items || []).slice(0, 5));
-      setState("ready");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Unable to load your documents.");
-      setState(isPermissionError(reason) ? "permission" : "error");
-    }
-  }, [currentOrg]);
-
-  // The effect synchronizes this page with the authenticated API.
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { void loadData(); }, [loadData]);
+    let alive = true;
+    const failure = (reason: unknown) => ({ state: isPermissionError(reason) ? "permission" as const : "error" as const, error: reason instanceof Error ? reason.message : "This information could not be loaded." });
+    // Independent panels preserve useful results when another service is unavailable.
+    void api.getDocuments(1).then((result) => { if (alive) setDocuments({ value: result.items.slice(0, 5), state: "ready" }); }).catch((reason) => { if (alive) setDocuments({ value: [], ...failure(reason) }); });
+    void api.getConversations().then((result) => { if (alive) setChats({ value: result.items.slice(0, 4), state: "ready" }); }).catch((reason) => { if (alive) setChats({ value: [], ...failure(reason) }); });
+    void api.getModels().then((result) => { if (alive) setModels({ value: result.models.length, state: "ready" }); }).catch((reason) => { if (alive) setModels({ value: 0, ...failure(reason) }); });
+    return () => { alive = false; };
+  }, [currentOrg, revision]);
 
   const displayName = user?.first_name || user?.email?.split("@")[0] || "there";
-  const reports = documents.filter((document) => document.status === "completed").slice(0, 3);
-
-  return <div className="mx-auto max-w-6xl space-y-8">
-    <header className="rounded-3xl bg-teal-950 px-6 py-9 text-white sm:px-9 sm:py-11">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-200">Hello, {displayName}</p>
-      <h1 className="mt-3 max-w-2xl text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">Write better. Check confidently. Understand your work.</h1>
-      <p className="mt-3 max-w-xl text-sm leading-6 text-teal-100/80">One place to work on a draft, inspect writing signals, and review matches with sources you can see.</p>
-      <Link href="/ai" className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-teal-950 hover:bg-teal-50">View Azaeron AI <ArrowUpRight size={16} aria-hidden="true" /></Link>
+  const reports = documents.value.filter((document) => document.status === "completed").slice(0, 3);
+  const linkStyle = "inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-teal-800 hover:text-teal-950 dark:text-teal-300";
+  return <div className="workspace-home space-y-7">
+    <header className="home-intro">
+      <div><p className="home-eyebrow">Your workspace, in focus</p><h1>Welcome back, {displayName}.</h1><p className="home-description">Good work starts with a clear draft. Pick up where you left off.</p></div>
+      <Link href="/check" className="home-create"><Plus size={17} aria-hidden="true" /> Create document</Link>
     </header>
-
-    <section aria-labelledby="start-title">
-      <h2 id="start-title" className="text-lg font-semibold text-slate-950 dark:text-white">What would you like to do?</h2>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{actions.map(({ href, label, detail, icon: Icon }) => <Link key={href} href={href} className="group flex min-h-28 items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-teal-400 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-600/40 dark:border-slate-800 dark:bg-slate-900"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-teal-50 text-teal-900 dark:bg-teal-950 dark:text-teal-200"><Icon size={19} aria-hidden="true" /></span><span><span className="block text-sm font-semibold text-slate-950 dark:text-white">{label}</span><span className="mt-1 block text-xs leading-5 text-slate-500 dark:text-slate-400">{detail}</span></span><ArrowUpRight size={15} className="ml-auto shrink-0 text-slate-400 group-hover:text-teal-800" aria-hidden="true" /></Link>)}</div>
+    <section aria-labelledby="start-title" className="home-tools">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2"><h2 id="start-title" className="text-sm font-semibold text-slate-900 dark:text-white">Your writing toolkit</h2><span className="text-xs text-slate-600 dark:text-slate-400">Five tools. One connected workflow.</span></div>
+      <div className="tool-grid">{actions.map(({ href, label, detail, icon: Icon }, index) => <Link key={href} href={href} className="tool-tile"><div className="flex items-center justify-between"><span className="tool-icon"><Icon size={20} aria-hidden="true" /></span><span className="tool-number" aria-hidden="true">0{index + 1}</span></div><h3>{label}</h3><p>{detail}</p><ArrowUpRight className="tool-arrow" size={17} aria-hidden="true" /></Link>)}</div>
+      <div className="model-availability"><span className="availability-marker" aria-hidden="true" /><p>{models.state === "loading" ? "Checking model approval status…" : models.state !== "ready" ? "Model status could not be confirmed. Generation remains subject to approval checks." : models.value === 0 ? "AI generation is unavailable: no approved models are registered. You can still edit documents and review recorded evidence." : `${models.value} approved model${models.value === 1 ? "" : "s"} registered. Each request also checks task support and private runtime availability.`}</p>{models.state === "error" && <button onClick={retry} className="shrink-0 text-xs font-semibold underline">Retry status</button>}</div>
     </section>
-
-    {state === "loading" ? <LoadingState label="Loading your recent work…" rows={3} /> : state === "permission" ? <ErrorState permission message="Your role cannot read documents in this workspace." onRetry={() => void loadData()} /> : state === "error" ? <ErrorState message={error} onRetry={() => void loadData()} /> : <div className="grid gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-      <section aria-labelledby="recent-documents" className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"><div className="flex items-center justify-between gap-3"><h2 id="recent-documents" className="text-base font-semibold">Recent documents</h2><Link href="/documents" className="text-xs font-semibold text-teal-800 dark:text-teal-300">View all</Link></div>{documents.length ? <ul className="mt-4 divide-y divide-slate-100 dark:divide-slate-800">{documents.map((document) => <li key={document.id} className="flex items-center gap-3 py-3"><FileText size={17} className="shrink-0 text-teal-800" aria-hidden="true" /><Link href={`/write?document=${document.id}`} className="min-w-0 flex-1 truncate text-sm font-medium hover:text-teal-800">{document.title || document.original_filename}</Link><StatusBadge status={document.status} /></li>)}</ul> : <div className="mt-4 rounded-xl border border-dashed border-slate-300 px-5 py-6 text-center dark:border-slate-700"><p className="text-sm font-semibold">No documents yet</p><p className="mt-2 text-xs text-slate-500">Create a draft or import a file to get started.</p><Link href="/check" className="mt-4 inline-block"><Button variant="secondary">Create document</Button></Link></div>}</section>
-      <div className="space-y-5"><section aria-labelledby="recent-reports" className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"><h2 id="recent-reports" className="text-base font-semibold">Recent reports</h2>{reports.length ? <ul className="mt-3 space-y-2">{reports.map((document) => <li key={document.id}><Link href={`/documents/${document.id}`} className="flex items-center gap-2 rounded-lg py-2 text-sm font-medium hover:text-teal-800"><FileCheck2 size={16} aria-hidden="true" /><span className="truncate">{document.title || document.original_filename}</span><ArrowUpRight size={14} className="ml-auto shrink-0" aria-hidden="true" /></Link></li>)}</ul> : <p className="mt-3 text-sm leading-6 text-slate-500">Reports appear here after a document finishes processing.</p>}</section><section aria-labelledby="recent-chats" className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"><h2 id="recent-chats" className="text-base font-semibold">Recent chats</h2><p className="mt-3 text-sm leading-6 text-slate-500">Chat history will appear when private AI is available. No conversations are recorded yet.</p></section></div>
-    </div>}
+    <div className="grid min-w-0 gap-5 xl:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+      <Panel title="Recent documents" eyebrow="Continue your work" action={<Link href="/documents" className={linkStyle}>View all <ArrowRight size={14} aria-hidden="true" /></Link>}>
+        {documents.state === "loading" ? <LoadingState label="Loading your recent work…" /> : documents.state !== "ready" ? <ErrorState permission={documents.state === "permission"} message={documents.error || "Unable to load documents."} onRetry={retry} /> : documents.value.length ? <ul className="document-list">{documents.value.map((document) => <li key={document.id}><span className="document-glyph"><FileText size={20} aria-hidden="true" /></span><div className="min-w-0 flex-1"><Link className="block truncate text-sm font-semibold hover:underline" href={document.status === "completed" ? `/write?document=${document.id}` : `/documents/${document.id}`}>{document.title || document.original_filename}</Link><p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{new Date(document.created_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}</p></div><StatusBadge status={document.status} /></li>)}</ul> : <EmptyState title="A place for your next idea" description="Paste a draft or import a file. Your versions and review history stay together." action={<Link href="/check" className={linkStyle}>Create your first document <ArrowRight size={15} aria-hidden="true" /></Link>} />}
+      </Panel>
+      <Panel title="Recent chats" eyebrow="Pick up the conversation" action={<MessageSquare size={18} className="mt-3 text-slate-400" aria-hidden="true" />}>
+        {chats.state === "loading" ? <LoadingState label="Loading conversations…" rows={2} /> : chats.state !== "ready" ? <ErrorState permission={chats.state === "permission"} message={chats.error || "Unable to load conversations."} onRetry={retry} /> : chats.value.length ? <ul className="chat-list">{chats.value.map((chat) => <li key={chat.id}><Link href={`/ai?conversation=${encodeURIComponent(chat.id)}`}><MessageSquare size={16} aria-hidden="true" /><span className="min-w-0 flex-1 truncate">{chat.title}</span><ArrowUpRight size={14} aria-hidden="true" /></Link></li>)}</ul> : <div className="py-5"><p className="text-sm font-medium">Your conversations start here.</p><p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">Saved conversations will appear here, including requests awaiting an approved model.</p></div>}
+        <Link href="/ai" className={`${linkStyle} mt-3`}>Open Azaeron AI <ArrowRight size={14} aria-hidden="true" /></Link>
+      </Panel>
+    </div>
+    <section aria-labelledby="recent-reports" className="home-reports"><div><span className="home-eyebrow">Evidence, within reach</span><h2 id="recent-reports" className="mt-2 text-lg font-semibold">Recent reports</h2><p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">Review the findings behind your writing.</p></div><div className="min-w-0 flex-1">{documents.state === "loading" ? <p className="text-sm text-slate-600 dark:text-slate-400">Loading reports…</p> : documents.state !== "ready" ? <p className="text-sm text-slate-600 dark:text-slate-400">Reports could not be loaded with your documents.</p> : reports.length ? <ul className="chat-list">{reports.map((document) => <li key={document.id}><Link href={`/documents/${document.id}`}><FileCheck2 size={17} aria-hidden="true" /><span className="min-w-0 flex-1 truncate">{document.title || document.original_filename}</span><ArrowUpRight size={14} aria-hidden="true" /></Link></li>)}</ul> : <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">Reports appear here after a document finishes processing.</p>}</div></section>
   </div>;
 }

@@ -90,10 +90,16 @@ def extract_html(content: bytes) -> ExtractedDocument:
         if node.name == "table":
             start, cells = len(text), []
             rows = [
-                row for row in node.find_all("tr") if row.find_parent("table") is node
+                row
+                for row in node.find_all("tr")
+                if isinstance(row, Tag) and row.find_parent("table") is node
             ]
             for row_index, row in enumerate(rows):
-                row_cells = row.find_all(["td", "th"], recursive=False)
+                row_cells = [
+                    cell
+                    for cell in row.find_all(["td", "th"], recursive=False)
+                    if isinstance(cell, Tag)
+                ]
                 for column, cell in enumerate(row_cells):
                     value = cell.get_text(separator=" ", strip=True)
                     cell_start = len(text)

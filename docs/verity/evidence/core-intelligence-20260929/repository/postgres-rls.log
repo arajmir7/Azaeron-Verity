@@ -1,0 +1,170 @@
+ Container verity-core-0929-verification-run-de8b55f52f69 Creating 
+ Container verity-core-0929-verification-run-de8b55f52f69 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: anyio-4.15.1, asyncio-1.4.0, Faker-30.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 34 items
+
+tests/integration/test_agent_rls.py ....                                 [ 11%]
+tests/integration/test_postgres_rls.py ......................F..         [ 85%]
+tests/integration/test_usage_concurrency.py .....                        [100%]
+
+=================================== FAILURES ===================================
+______________ test_legacy_migration_and_erasure_use_actual_minio ______________
+/usr/local/lib/python3.12/site-packages/urllib3/connection.py:239: in _new_conn
+    sock = connection.create_connection(
+/usr/local/lib/python3.12/site-packages/urllib3/util/connection.py:60: in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/socket.py:978: in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   socket.gaierror: [Errno -5] No address associated with hostname
+
+The above exception was the direct cause of the following exception:
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:793: in urlopen
+    response = self._make_request(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:499: in _make_request
+    conn.request(
+/usr/local/lib/python3.12/site-packages/urllib3/connection.py:567: in request
+    self.endheaders()
+/usr/local/lib/python3.12/http/client.py:1381: in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+/usr/local/lib/python3.12/http/client.py:1141: in _send_output
+    self.send(msg)
+/usr/local/lib/python3.12/http/client.py:1085: in send
+    self.connect()
+/usr/local/lib/python3.12/site-packages/urllib3/connection.py:398: in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/urllib3/connection.py:246: in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+E   urllib3.exceptions.NameResolutionError: HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_postgres_rls.py:1324: in test_legacy_migration_and_erasure_use_actual_minio
+    app_storage.put_object(
+/usr/local/lib/python3.12/site-packages/minio/api.py:1996: in put_object
+    raise exc
+/usr/local/lib/python3.12/site-packages/minio/api.py:1942: in put_object
+    return self._put_object(
+/usr/local/lib/python3.12/site-packages/minio/api.py:1781: in _put_object
+    response = self._execute(
+app/core/object_storage.py:20: in _execute
+    response = super()._execute(method, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/minio/api.py:441: in _execute
+    return self._url_open(
+/usr/local/lib/python3.12/site-packages/minio/api.py:303: in _url_open
+    response = self._http.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/poolmanager.py:459: in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:886: in urlopen
+    return self.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:886: in urlopen
+    return self.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:886: in urlopen
+    return self.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:886: in urlopen
+    return self.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:886: in urlopen
+    return self.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:847: in urlopen
+    retries = retries.increment(
+/usr/local/lib/python3.12/site-packages/urllib3/util/retry.py:555: in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='minio', port=9000): Max retries exceeded with url: /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt (Caused by NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)"))
+
+During handling of the above exception, another exception occurred:
+/usr/local/lib/python3.12/site-packages/urllib3/connection.py:239: in _new_conn
+    sock = connection.create_connection(
+/usr/local/lib/python3.12/site-packages/urllib3/util/connection.py:60: in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/socket.py:978: in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   socket.gaierror: [Errno -5] No address associated with hostname
+
+The above exception was the direct cause of the following exception:
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:793: in urlopen
+    response = self._make_request(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:499: in _make_request
+    conn.request(
+/usr/local/lib/python3.12/site-packages/urllib3/connection.py:567: in request
+    self.endheaders()
+/usr/local/lib/python3.12/http/client.py:1381: in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+/usr/local/lib/python3.12/http/client.py:1141: in _send_output
+    self.send(msg)
+/usr/local/lib/python3.12/http/client.py:1085: in send
+    self.connect()
+/usr/local/lib/python3.12/site-packages/urllib3/connection.py:398: in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/urllib3/connection.py:246: in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+E   urllib3.exceptions.NameResolutionError: HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_postgres_rls.py:1422: in test_legacy_migration_and_erasure_use_actual_minio
+    storage.remove_object(settings.MINIO_BUCKET, key)
+/usr/local/lib/python3.12/site-packages/minio/api.py:2173: in remove_object
+    self._execute(
+app/core/object_storage.py:20: in _execute
+    response = super()._execute(method, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/minio/api.py:441: in _execute
+    return self._url_open(
+/usr/local/lib/python3.12/site-packages/minio/api.py:303: in _url_open
+    response = self._http.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/poolmanager.py:459: in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:886: in urlopen
+    return self.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:886: in urlopen
+    return self.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:886: in urlopen
+    return self.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:886: in urlopen
+    return self.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:886: in urlopen
+    return self.urlopen(
+/usr/local/lib/python3.12/site-packages/urllib3/connectionpool.py:847: in urlopen
+    retries = retries.increment(
+/usr/local/lib/python3.12/site-packages/urllib3/util/retry.py:555: in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='minio', port=9000): Max retries exceeded with url: /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt (Caused by NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)"))
+----------------------------- Captured stdout call -----------------------------
+Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+------------------------------ Captured log call -------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPConnection(host='minio', port=9000): Failed to resolve 'minio' ([Errno -5] No address associated with hostname)")': /azaeron-documents/uploads/ba41d7a8-65c6-4a84-91e0-6ebb10fd159b/e590b9e5-1392-4c25-8286-14330f878cf1/ada3fffc-0286-4094-9e99-05cde5cd920a.txt
+=========================== short test summary info ============================
+FAILED tests/integration/test_postgres_rls.py::test_legacy_migration_and_erasure_use_actual_minio
+=================== 1 failed, 33 passed in 105.17s (0:01:45) ===================
+

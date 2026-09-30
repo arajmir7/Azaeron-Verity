@@ -1,0 +1,5 @@
+verity-core-0929-backend: vulnerabilities → PASS
+verity-core-0929-backend: sbom → PASS
+verity-core-0929-celery-beat: vulnerabilities → PASS
+verity-core-0929-celery-beat: sbom → PASS
+verity-core-0929-celery-worker: vulnerabilities → PASS

@@ -1,0 +1,7 @@
+ Container verity-core-0929-verification-run-35d38057897e Creating 
+ Container verity-core-0929-verification-run-35d38057897e Created 
+reformatted /app/app/modules/agent/service.py
+reformatted /app/tests/test_agent.py
+
+All done! ✨ 🍰 ✨
+2 files reformatted, 230 files left unchanged.

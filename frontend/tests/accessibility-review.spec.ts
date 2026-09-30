@@ -33,11 +33,24 @@ test("critical navigation stays operable at narrow widths and restores focus", a
   expect((await postWithRetryAfter(page.request, "/api/v1/auth/register", { headers, data: credentials })).status()).toBe(201);
   expect((await postWithRetryAfter(page.request, "/api/v1/auth/login", { headers, data: credentials })).status()).toBe(200);
   expect((await page.request.post("/api/v1/auth/onboarding", { headers, data: { product_role: "researcher" } })).ok()).toBeTruthy();
+  // This suite evaluates layout and keyboard behavior; the durable agent suite
+  // covers real conversation data. Keep the repeated 27-route viewport sweep
+  // from consuming the isolated stack's per-IP chat-history rate budget.
+  await page.route("**/api/v1/ai/conversations**", (route) => route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify({ items: [], offset: 0, limit: 50 }),
+  }));
 
   const review = [];
+  let conversationListRequests = 0;
+  page.on("request", (request) => {
+    if (new URL(request.url()).pathname === "/api/v1/ai/conversations") conversationListRequests += 1;
+  });
   for (const width of [1280, 640, 320]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of ["/dashboard", "/ai", "/humaniser", "/detector", "/plagiarism", "/write", "/history", "/settings?tab=security", "/documents"]) {
+      const previousConversationListRequests = conversationListRequests;
       await page.goto(route);
       await expect(page.getByRole("main")).toBeVisible();
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
@@ -50,7 +63,7 @@ test("critical navigation stays operable at narrow widths and restores focus", a
         document: document.documentElement.scrollWidth,
         main: document.querySelector("main")?.getBoundingClientRect().width,
       }));
-      review.push({ width, route, ...dimensions });
+      review.push({ width, route, conversation_list_requests: conversationListRequests - previousConversationListRequests, ...dimensions });
       expect(dimensions.document, `${route} at ${width}px`).toBeLessThanOrEqual(dimensions.viewport);
       if (width === 320) {
         const scan = await wcagViolations(page);

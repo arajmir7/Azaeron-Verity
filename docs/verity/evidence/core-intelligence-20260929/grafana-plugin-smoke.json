@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "grafana_version": "13.2.3",
+  "datasources": {
+    "verity-prometheus": {
+      "details": {
+        "application": "Prometheus",
+        "features": {
+          "rulerApiEnabled": false
+        }
+      },
+      "message": "Successfully queried the Prometheus API.",
+      "status": "OK"
+    },
+    "verity-traces": {
+      "message": "Data source is working",
+      "status": "OK"
+    }
+  },
+  "prometheus_query_frames": 2,
+  "jaeger_query_frames": 1,
+  "jaeger_trace_id_matches": true,
+  "unsigned_plugin_allowlist_added": false
+}

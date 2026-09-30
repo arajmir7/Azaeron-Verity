@@ -1,0 +1,56 @@
+ Container verity-commercial-final-chat-verification-run-edf00d657fba Creating 
+ Container verity-commercial-final-chat-verification-run-edf00d657fba Created 
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pytest.ini
+plugins: anyio-4.15.1, asyncio-1.4.0, Faker-30.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 298 items
+
+tests/security/test_document_mutation_authorization.py ......            [  2%]
+tests/security/test_failure_privacy.py ..                                [  2%]
+tests/security/test_readonly_permissions.py ..                           [  3%]
+tests/security/test_security_gate.py ...                                 [  4%]
+tests/security/test_session_boundary.py ...........                      [  8%]
+tests/security/test_tenant_authorization.py ..                           [  8%]
+tests/security/test_upload_validation.py ....                            [ 10%]
+tests/security/test_zero_external_ai.py .........                        [ 13%]
+tests/test_aegiswrite.py ....                                            [ 14%]
+tests/test_agent.py ...............                                      [ 19%]
+tests/test_agent_voice_corpus.py ..                                      [ 20%]
+tests/test_api_keys.py ......                                            [ 22%]
+tests/test_auth.py .........                                             [ 25%]
+tests/test_authorship_consistency.py ...                                 [ 26%]
+tests/test_candidate_program.py .....................                    [ 33%]
+tests/test_capability_contract.py ...                                    [ 34%]
+tests/test_citation_intelligence.py ..                                   [ 34%]
+tests/test_detector_calibration_protocol.py ....                         [ 36%]
+tests/test_detector_intelligence.py .......                              [ 38%]
+tests/test_document_intelligence.py ..........                           [ 41%]
+tests/test_editor_revisions.py ....                                      [ 43%]
+tests/test_evidence_graph.py ....                                        [ 44%]
+tests/test_evidence_report.py ...                                        [ 45%]
+tests/test_failure_gate.py ......                                        [ 47%]
+tests/test_governance.py ...                                             [ 48%]
+tests/test_identity.py .......                                           [ 51%]
+tests/test_lineage_contract.py ...................                       [ 57%]
+tests/test_model_platform.py .........                                   [ 60%]
+tests/test_observability.py ....                                         [ 61%]
+tests/test_operations.py ....                                            [ 63%]
+tests/test_organization_state_contract.py ..                             [ 63%]
+tests/test_privacy.py .........                                          [ 66%]
+tests/test_private_inference.py .......................                  [ 74%]
+tests/test_provenance.py ..                                              [ 75%]
+tests/test_refine_invariants.py ................                         [ 80%]
+tests/test_semantic_verification.py .................                    [ 86%]
+tests/test_similarity_engine.py .....                                    [ 87%]
+tests/test_similarity_workflow.py .......                                [ 90%]
+tests/test_storage_urls.py .                                             [ 90%]
+tests/test_transaction_boundary.py ..                                    [ 91%]
+tests/test_usage.py ....                                                 [ 92%]
+tests/test_validation_gate.py ......                                     [ 94%]
+tests/test_worker_redelivery.py ....                                     [ 95%]
+tests/test_workspace_onboarding.py ............                          [100%]
+
+======================= 298 passed in 116.72s (0:01:56) ========================

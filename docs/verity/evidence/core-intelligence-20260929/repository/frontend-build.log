@@ -1,0 +1,55 @@
+
+> azaeron-frontend@1.0.0 build
+> node ./node_modules/next/dist/bin/next build
+
+▲ Next.js 16.3.3 (Turbopack)
+✓ Running next.config.ts took 286ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.6s
+  Running TypeScript ...
+  Finished TypeScript in 6.4s ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/30) ...
+  Generating static pages using 9 workers (7/30) 
+  Generating static pages using 9 workers (14/30) 
+  Generating static pages using 9 workers (22/30) 
+✓ Generating static pages using 9 workers (30/30) in 369ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /admin
+├ ○ /ai
+├ ○ /authorship
+├ ○ /check
+├ ○ /citations
+├ ○ /dashboard
+├ ○ /detector
+├ ○ /documents
+├ ƒ /documents/[id]
+├ ○ /erasure-status
+├ ○ /evidence-graph
+├ ○ /forgot-password
+├ ○ /help
+├ ○ /history
+├ ○ /humaniser
+├ ○ /login
+├ ○ /onboarding
+├ ○ /plagiarism
+├ ○ /provenance
+├ ○ /register
+├ ○ /reports
+├ ○ /reset-password
+├ ○ /settings
+├ ○ /similarity
+├ ○ /sources
+├ ○ /upload
+├ ○ /verify-email
+└ ○ /write
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

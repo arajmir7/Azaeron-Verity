@@ -1,0 +1,28 @@
+ Container verity-core-0929-verification-run-cdbdddf6280e Creating 
+ Container verity-core-0929-verification-run-cdbdddf6280e Created 
+reformatted /app/app/api/v1/capabilities.py
+reformatted /app/app/api/v1/similarity.py
+reformatted /app/app/modules/aegiswrite/invariants.py
+reformatted /app/app/api/v1/ai.py
+reformatted /app/app/modules/agent/metrics.py
+reformatted /app/app/modules/agent/voice.py
+reformatted /app/app/modules/agent/runner.py
+reformatted /app/app/modules/agent/service.py
+reformatted /app/app/modules/agent/tools.py
+reformatted /app/app/modules/documents/editor.py
+reformatted /app/app/modules/inference/deployment.py
+reformatted /app/app/modules/similarity/corpus.py
+reformatted /app/app/modules/inference/gateway.py
+reformatted /app/app/modules/similarity/public_index.py
+reformatted /app/tests/integration/test_agent_rls.py
+reformatted /app/tests/test_agent_voice_corpus.py
+reformatted /app/tests/test_agent.py
+reformatted scripts/index_public_corpus.py
+reformatted alembic/versions/20260929_0039_agent_erasure_fence.py
+reformatted alembic/versions/20260929_0038_voice_profiles.py
+reformatted alembic/versions/20260929_0037_private_agent.py
+reformatted scripts/model_bakeoff.py
+reformatted /app/tests/integration/test_postgres_rls.py
+
+All done! ✨ 🍰 ✨
+23 files reformatted, 209 files left unchanged.

@@ -1,0 +1,321 @@
+
+> azaeron-frontend@1.0.0 test
+> playwright test --workers=1
+
+
+Running 29 tests using 1 worker
+
+[1/29] [chromium] › tests/accessibility-live.spec.ts:14:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations
+[2/29] (retries) [chromium] › tests/accessibility-live.spec.ts:14:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations (retry #1)
+[3/29] (retries) [chromium] › tests/accessibility-live.spec.ts:14:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations (retry #2)
+  1) [chromium] › tests/accessibility-live.spec.ts:14:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('button', { name: 'Improve draft' })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Improve draft' })
+        14 × locator resolved to <button class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:text-slate-200 border-transparent bg-indigo-700 text-white hover:bg-indigo-800 dark:text-white">Improve draft</button>
+           - unexpected value "inactive"
+
+
+      65 |       await page.keyboard.type(source.toString());
+      66 |       await page.keyboard.press("Tab");
+    > 67 |       await expect(page.getByRole("button", { name: "Improve draft" })).toBeFocused();
+         |                                                                         ^
+      68 |       await expect(page.getByRole("button", { name: "Improve draft" })).toBeEnabled();
+      69 |       await page.keyboard.press("Enter");
+      70 |       await expect(page.getByText("Original → revision → reason")).toBeVisible();
+        at /home/runner/work/Azaeron-Verity/Azaeron-Verity/frontend/tests/accessibility-live.spec.ts:67:73
+
+    Error Context: test-results/accessibility-live-keyboar-14205-utomated-WCAG-AA-violations-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('button', { name: 'Improve draft' })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Improve draft' })
+        14 × locator resolved to <button class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:text-slate-200 border-transparent bg-indigo-700 text-white hover:bg-indigo-800 dark:text-white">Improve draft</button>
+           - unexpected value "inactive"
+
+
+      65 |       await page.keyboard.type(source.toString());
+      66 |       await page.keyboard.press("Tab");
+    > 67 |       await expect(page.getByRole("button", { name: "Improve draft" })).toBeFocused();
+         |                                                                         ^
+      68 |       await expect(page.getByRole("button", { name: "Improve draft" })).toBeEnabled();
+      69 |       await page.keyboard.press("Enter");
+      70 |       await expect(page.getByText("Original → revision → reason")).toBeVisible();
+        at /home/runner/work/Azaeron-Verity/Azaeron-Verity/frontend/tests/accessibility-live.spec.ts:67:73
+
+    Error Context: test-results/accessibility-live-keyboar-14205-utomated-WCAG-AA-violations-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/accessibility-live-keyboar-14205-utomated-WCAG-AA-violations-chromium-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/accessibility-live-keyboar-14205-utomated-WCAG-AA-violations-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('button', { name: 'Improve draft' })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Improve draft' })
+        14 × locator resolved to <button class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:text-slate-200 border-transparent bg-indigo-700 text-white hover:bg-indigo-800 dark:text-white">Improve draft</button>
+           - unexpected value "inactive"
+
+
+      65 |       await page.keyboard.type(source.toString());
+      66 |       await page.keyboard.press("Tab");
+    > 67 |       await expect(page.getByRole("button", { name: "Improve draft" })).toBeFocused();
+         |                                                                         ^
+      68 |       await expect(page.getByRole("button", { name: "Improve draft" })).toBeEnabled();
+      69 |       await page.keyboard.press("Enter");
+      70 |       await expect(page.getByText("Original → revision → reason")).toBeVisible();
+        at /home/runner/work/Azaeron-Verity/Azaeron-Verity/frontend/tests/accessibility-live.spec.ts:67:73
+
+    Error Context: test-results/accessibility-live-keyboar-14205-utomated-WCAG-AA-violations-chromium-retry2/error-context.md
+
+
+[4/29] [chromium] › tests/accessibility-review.spec.ts:15:5 › critical navigation stays operable at narrow widths and restores focus
+[5/29] [chromium] › tests/agent-live.spec.ts:5:5 › private agent: durable prompts, SSE unavailable state, edit, search, rename and deletion
+[6/29] [chromium] › tests/agent-live.spec.ts:47:5 › agent document tool: pasted intake, grounded read, abstaining detection, no implicit revision
+[chromium] › tests/agent-live.spec.ts:47:5 › agent document tool: pasted intake, grounded read, abstaining detection, no implicit revision
+Live authentication respected Retry-After: 60s
+
+[7/29] [chromium] › tests/api-keys.spec.ts:4:5 › API keys show the secret once, rotate, revoke, and avoid browser storage
+[8/29] [chromium] › tests/editor-live.spec.ts:5:5 › editor: selective acceptance, reload, restore, offline recovery and lost-response retry
+[9/29] [chromium] › tests/editor-live.spec.ts:118:5 › editor: undo, redo, debounced autosave, rename and archive
+[10/29] [chromium] › tests/error-boundary.spec.ts:3:5 › render errors have a focused recovery boundary and send only closed metadata
+[11/29] [chromium] › tests/identity-live.spec.ts:19:5 › real SMTP verification, MFA recovery login, password reset and device revocation
+[12/29] [chromium] › tests/observability-live.spec.ts:7:5 › browser upload correlates API, database, storage and worker without customer text
+[13/29] [chromium] › tests/onboarding.spec.ts:54:5 › an expired access cookie refreshes with a valid request body and restores the workspace
+[14/29] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives student the server-provided starting workflow
+[15/29] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives teacher the server-provided starting workflow
+[16/29] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives professor the server-provided starting workflow
+[17/29] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives researcher the server-provided starting workflow
+[18/29] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives reviewer the server-provided starting workflow
+[19/29] [chromium] › tests/onboarding.spec.ts:63:7 › onboarding gives institution the server-provided starting workflow
+[20/29] [chromium] › tests/onboarding.spec.ts:76:5 › a document workflow offers workspace creation inline
+[21/29] [chromium] › tests/onboarding.spec.ts:86:5 › revoked recent membership falls back only after server validation
+[22/29] [chromium] › tests/onboarding.spec.ts:95:5 › failed switching hides tenant data and offers a working retry
+[23/29] [chromium] › tests/onboarding.spec.ts:111:5 › cached workspace IDs cannot override the server's active membership
+[24/29] [chromium] › tests/onboarding.spec.ts:119:5 › focused workspace navigation exposes five products and honest empty states
+[25/29] (retries) [chromium] › tests/onboarding.spec.ts:119:5 › focused workspace navigation exposes five products and honest empty states (retry #1)
+[26/29] (retries) [chromium] › tests/onboarding.spec.ts:119:5 › focused workspace navigation exposes five products and honest empty states (retry #2)
+  2) [chromium] › tests/onboarding.spec.ts:119:5 › focused workspace navigation exposes five products and honest empty states 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Private AI is being prepared')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for getByText('Private AI is being prepared')
+
+
+      127 |   await expect(navigation.getByRole("link", { name: "Evidence graph" })).toHaveCount(0);
+      128 |   await navigation.getByRole("link", { name: "Azaeron AI" }).click();
+    > 129 |   await expect(page.getByText("Private AI is being prepared")).toBeVisible();
+          |                                                                ^
+      130 |   await expect(page.getByText(/will not be sent to an outside AI provider/)).toBeVisible();
+      131 |   await navigation.getByRole("link", { name: "AI Detector" }).click();
+      132 |   await expect(page.getByText("Paste text or choose a document to analyse")).toBeVisible();
+        at /home/runner/work/Azaeron-Verity/Azaeron-Verity/frontend/tests/onboarding.spec.ts:129:64
+
+    Error Context: test-results/onboarding-focused-workspa-0d223-cts-and-honest-empty-states-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Private AI is being prepared')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for getByText('Private AI is being prepared')
+
+
+      127 |   await expect(navigation.getByRole("link", { name: "Evidence graph" })).toHaveCount(0);
+      128 |   await navigation.getByRole("link", { name: "Azaeron AI" }).click();
+    > 129 |   await expect(page.getByText("Private AI is being prepared")).toBeVisible();
+          |                                                                ^
+      130 |   await expect(page.getByText(/will not be sent to an outside AI provider/)).toBeVisible();
+      131 |   await navigation.getByRole("link", { name: "AI Detector" }).click();
+      132 |   await expect(page.getByText("Paste text or choose a document to analyse")).toBeVisible();
+        at /home/runner/work/Azaeron-Verity/Azaeron-Verity/frontend/tests/onboarding.spec.ts:129:64
+
+    Error Context: test-results/onboarding-focused-workspa-0d223-cts-and-honest-empty-states-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/onboarding-focused-workspa-0d223-cts-and-honest-empty-states-chromium-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/onboarding-focused-workspa-0d223-cts-and-honest-empty-states-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Private AI is being prepared')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for getByText('Private AI is being prepared')
+
+
+      127 |   await expect(navigation.getByRole("link", { name: "Evidence graph" })).toHaveCount(0);
+      128 |   await navigation.getByRole("link", { name: "Azaeron AI" }).click();
+    > 129 |   await expect(page.getByText("Private AI is being prepared")).toBeVisible();
+          |                                                                ^
+      130 |   await expect(page.getByText(/will not be sent to an outside AI provider/)).toBeVisible();
+      131 |   await navigation.getByRole("link", { name: "AI Detector" }).click();
+      132 |   await expect(page.getByText("Paste text or choose a document to analyse")).toBeVisible();
+        at /home/runner/work/Azaeron-Verity/Azaeron-Verity/frontend/tests/onboarding.spec.ts:129:64
+
+    Error Context: test-results/onboarding-focused-workspa-0d223-cts-and-honest-empty-states-chromium-retry2/error-context.md
+
+
+[27/29] [chromium] › tests/privacy.spec.ts:4:5 › privacy form requires explicit confirmation and keeps its receipt out of persistent storage
+[28/29] [chromium] › tests/usage.spec.ts:4:5 › workspace usage shows authoritative totals and handles unavailable refresh
+[29/29] [chromium] › tests/workspace.spec.ts:3:5 › public workspace keeps analysis evidence-based and editorial work authenticated
+[30/29] [chromium] › tests/workspace.spec.ts:13:5 › public navigation remains usable on a narrow viewport
+[31/29] [chromium] › tests/document-intelligence-live.spec.ts:7:5 › document core: upload, analyze and switch immutable versions across existing views
+[32/29] [chromium] › tests/onboarding-live.spec.ts:5:5 › live signup, personal workspace, upload, refresh and persistent switching
+[33/29] [chromium] › tests/similarity-live.spec.ts:8:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions
+[34/29] (retries) [chromium] › tests/similarity-live.spec.ts:8:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions (retry #1)
+[35/29] (retries) [chromium] › tests/similarity-live.spec.ts:8:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions (retry #2)
+  3) [chromium] › tests/similarity-live.spec.ts:8:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions 
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 180000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Resolution', { exact: true })
+
+
+       99 |   await page.getByRole("button", { name: /^Inspect match/ }).first().click();
+      100 |   await page.getByText("Resolve match", { exact: true }).click();
+    > 101 |   await page.getByLabel("Resolution", { exact: true }).selectOption("quote_and_cite");
+          |                                                        ^
+      102 |   await page.getByLabel("Source citation", { exact: true }).fill("(Workspace source, reviewed fixture)");
+      103 |   await page.getByLabel("Reason for this resolution").fill("This passage is a direct quotation; retain its source attribution.");
+      104 |   await page.getByRole("button", { name: "Prepare resolution for review" }).click();
+        at /home/runner/work/Azaeron-Verity/Azaeron-Verity/frontend/tests/similarity-live.spec.ts:101:56
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 180000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Resolution', { exact: true })
+
+
+       99 |   await page.getByRole("button", { name: /^Inspect match/ }).first().click();
+      100 |   await page.getByText("Resolve match", { exact: true }).click();
+    > 101 |   await page.getByLabel("Resolution", { exact: true }).selectOption("quote_and_cite");
+          |                                                        ^
+      102 |   await page.getByLabel("Source citation", { exact: true }).fill("(Workspace source, reviewed fixture)");
+      103 |   await page.getByLabel("Reason for this resolution").fill("This passage is a direct quotation; retain its source attribution.");
+      104 |   await page.getByRole("button", { name: "Prepare resolution for review" }).click();
+        at /home/runner/work/Azaeron-Verity/Azaeron-Verity/frontend/tests/similarity-live.spec.ts:101:56
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium-retry1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium-retry1/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 180000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Resolution', { exact: true })
+
+
+       99 |   await page.getByRole("button", { name: /^Inspect match/ }).first().click();
+      100 |   await page.getByText("Resolve match", { exact: true }).click();
+    > 101 |   await page.getByLabel("Resolution", { exact: true }).selectOption("quote_and_cite");
+          |                                                        ^
+      102 |   await page.getByLabel("Source citation", { exact: true }).fill("(Workspace source, reviewed fixture)");
+      103 |   await page.getByLabel("Reason for this resolution").fill("This passage is a direct quotation; retain its source attribution.");
+      104 |   await page.getByRole("button", { name: "Prepare resolution for review" }).click();
+        at /home/runner/work/Azaeron-Verity/Azaeron-Verity/frontend/tests/similarity-live.spec.ts:101:56
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium-retry2/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium-retry2/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium-retry2/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/similarity-live-similarity-b6b12-tion-and-immutable-versions-chromium-retry2/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  3 failed
+    [chromium] › tests/accessibility-live.spec.ts:14:5 › keyboard login and refinement; critical pages have no automated WCAG AA violations 
+    [chromium] › tests/onboarding.spec.ts:119:5 › focused workspace navigation exposes five products and honest empty states 
+    [chromium] › tests/similarity-live.spec.ts:8:5 › similarity: real corpus, evidence, exclusions, pagination and immutable versions 
+  26 passed (14.7m)

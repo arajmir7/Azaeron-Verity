@@ -1,0 +1,45 @@
+{
+  "roots": [
+    {
+      "path": "/Users/ajmiraribam/datasets",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/data",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/Documents/datasets",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/Downloads/datasets",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/.cache/huggingface/datasets",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/.cache/kagglehub/datasets",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/.cache/kaggle/datasets",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/datasets",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/backend/data",
+      "exists": false
+    },
+    {
+      "path": "/Users/ajmiraribam/Projects/azaeron_verity/data",
+      "exists": false
+    }
+  ],
+  "limits": "Path/metadata discovery only; no personal document content treated as training/evaluation data."
+}

@@ -1,0 +1,9 @@
+{
+  "status": "FAIL",
+  "phase": "prepare",
+  "reason": "After scoped worker restart, HTTP client received RemoteProtocolError: server disconnected without a response.",
+  "restore": "BLOCKED",
+  "post_backup_erasure_replay": "BLOCKED",
+  "log": "recovery-prepare-after-restart.log",
+  "production_certified": false
+}

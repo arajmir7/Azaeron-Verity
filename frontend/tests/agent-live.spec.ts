@@ -2,15 +2,19 @@ import { randomUUID } from "node:crypto";
 import { expect, test } from "@playwright/test";
 import { postWithRetryAfter } from "./live-request";
 
-test("private agent: durable prompts, SSE unavailable state, edit, search, rename and deletion", async ({ page, baseURL }) => {
+test("private agent: durable prompts, SSE unavailable state, edit, search, rename and deletion", async ({ page, baseURL }, testInfo) => {
   test.skip(process.env.RUN_LIVE_E2E !== "1", "Requires isolated PostgreSQL and worker");
   test.setTimeout(120_000);
+  page.on("response", (response) => { if (response.status() === 429) console.warn(`[live-e2e] rate limited: ${new URL(response.url()).pathname}`); });
   const headers = { Origin: baseURL! };
   const credentials = { email: `agent-${Date.now()}@example.com`, password: randomUUID() + "Aa9!" };
   expect((await postWithRetryAfter(page.request, "/api/v1/auth/register", { headers, data: credentials })).status()).toBe(201);
   expect((await postWithRetryAfter(page.request, "/api/v1/auth/login", { headers, data: credentials })).ok()).toBeTruthy();
   expect((await page.request.post("/api/v1/auth/onboarding", { headers, data: { product_role: "researcher" } })).ok()).toBeTruthy();
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/ai");
+  await expect(page.getByText("Generation unavailable", { exact: true })).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath("azaeron-ai-workspace.png"), fullPage: true });
   const prompt = page.getByRole("textbox", { name: "Ask Azaeron AI" });
   await prompt.fill("My private writing question <script>alert('never execute')</script>");
   await page.getByRole("button", { name: "Send", exact: true }).click();
@@ -36,8 +40,14 @@ test("private agent: durable prompts, SSE unavailable state, edit, search, renam
   await page.getByRole("button", { name: "Rename", exact: true }).click();
   await page.getByRole("textbox", { name: "Search conversations" }).fill("Reviewed research");
   await expect(page.getByRole("navigation", { name: "Conversation history" })).toContainText("Reviewed research conversation");
-  await page.getByText("Trust Drawer", { exact: true }).click();
-  await expect(page.getByText("Only executed tools and recorded model evidence appear here.")).toBeVisible();
+  // Home must read real actor-private history and deep-link the selected conversation.
+  await page.goto("/dashboard");
+  await page.getByRole("link", { name: "Reviewed research conversation", exact: true }).click();
+  await expect(page).toHaveURL(new RegExp(`/ai\\?conversation=${list.items[0].id}$`));
+  await expect(page.getByLabel("Conversation messages")).toContainText("An edited private question");
+  await page.getByText("Conversation options", { exact: true }).click();
+  await page.getByText("Trust Drawer · recorded tools and model evidence", { exact: true }).click();
+  await expect(page.getByText("verity-agent-1", { exact: false })).toBeVisible();
   page.once("dialog", (dialog) => dialog.accept());
   await page.getByRole("button", { name: "Delete", exact: true }).click();
   await expect(page.getByLabel("Azaeron AI conversation").getByRole("status")).toContainText("Conversation deleted");
@@ -47,22 +57,25 @@ test("private agent: durable prompts, SSE unavailable state, edit, search, renam
 test("agent document tool: pasted intake, grounded read, abstaining detection, no implicit revision", async ({ page, baseURL }) => {
   test.skip(process.env.RUN_LIVE_E2E !== "1", "Requires isolated storage and workers");
   test.setTimeout(120_000);
+  page.on("response", (response) => { if (response.status() === 429) console.warn(`[live-e2e] rate limited: ${new URL(response.url()).pathname}`); });
   const headers = { Origin: baseURL! };
   const credentials = { email: `agent-doc-${Date.now()}@example.com`, password: randomUUID() + "Aa9!" };
   expect((await postWithRetryAfter(page.request, "/api/v1/auth/register", { headers, data: credentials })).status()).toBe(201);
   expect((await postWithRetryAfter(page.request, "/api/v1/auth/login", { headers, data: credentials })).ok()).toBeTruthy();
   expect((await page.request.post("/api/v1/auth/onboarding", { headers, data: { product_role: "researcher" } })).ok()).toBeTruthy();
   await page.goto("/ai");
+  await page.getByText("Add context", { exact: true }).click();
   await page.getByText("Paste, type or upload", { exact: true }).click();
   await page.getByLabel("Text to analyse").fill("A private passage for the live agent tool test. It may support further review, but it does not prove authorship. " + "We write carefully and preserve sources for a later review. ".repeat(12));
   await page.getByRole("button", { name: "Use this text", exact: true }).click();
-  await expect(page.getByText(/Attached version/)).toBeVisible({ timeout: 60_000 });
-  await page.getByRole("button", { name: "Read document", exact: true }).click();
+  await expect(page.getByText("Private version ready", { exact: true })).toBeVisible({ timeout: 60_000 });
+  await page.getByRole("button", { name: "Read", exact: true }).click();
   await expect(page.getByText("document.read · recorded result", { exact: true })).toBeVisible({ timeout: 20_000 });
   await expect(page.getByLabel("Conversation messages")).toContainText("A private passage for the live agent tool test.");
   await page.getByRole("button", { name: "Check AI", exact: true }).click();
   await expect(page.getByText("detection.analyze · recorded result", { exact: true })).toBeVisible({ timeout: 20_000 });
   await expect(page.getByLabel("Conversation messages")).toContainText("Uncertain");
+  await page.getByText("Voice", { exact: true }).click();
   await page.getByText("VoiceLock · optional writing style", { exact: true }).click();
   await page.getByRole("textbox", { name: "New profile name" }).fill("My reviewed sample");
   await page.getByRole("checkbox", { name: /I own and approve/ }).check();

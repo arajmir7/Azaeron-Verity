@@ -1,0 +1,61 @@
+
+> azaeron-frontend@1.0.0 build
+> node ./node_modules/next/dist/bin/next build
+
+▲ Next.js 16.3.3 (Turbopack)
+✓ Running next.config.ts took 25ms
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 7.8s
+  Running TypeScript ...
+  Finished TypeScript in 5.6s ...
+  Collecting page data using 3 workers ...
+  Generating static pages using 3 workers (0/30) ...
+  Generating static pages using 3 workers (7/30) 
+  Generating static pages using 3 workers (14/30) 
+  Generating static pages using 3 workers (22/30) 
+✓ Generating static pages using 3 workers (30/30) in 557ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /admin
+├ ○ /ai
+├ ○ /authorship
+├ ○ /check
+├ ○ /citations
+├ ○ /dashboard
+├ ○ /detector
+├ ○ /documents
+├ ƒ /documents/[id]
+├ ○ /erasure-status
+├ ○ /evidence-graph
+├ ○ /forgot-password
+├ ○ /help
+├ ○ /history
+├ ○ /humaniser
+├ ○ /login
+├ ○ /onboarding
+├ ○ /plagiarism
+├ ○ /provenance
+├ ○ /register
+├ ○ /reports
+├ ○ /reset-password
+├ ○ /settings
+├ ○ /similarity
+├ ○ /sources
+├ ○ /upload
+├ ○ /verify-email
+└ ○ /write
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

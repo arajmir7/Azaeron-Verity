@@ -1,0 +1,14 @@
+reformatted /app/app/modules/agent/schemas.py
+reformatted app/models.py
+reformatted /app/app/modules/agent/models.py
+reformatted /app/app/modules/agent/receipts.py
+reformatted /app/app/modules/inference/registry.py
+reformatted /app/app/modules/agent/runner.py
+reformatted /app/app/modules/agent/service.py
+reformatted /app/app/modules/inference/gateway.py
+reformatted /app/app/modules/agent/tools.py
+reformatted app/api/v1/ai.py
+reformatted app/modules/billing/usage.py
+
+All done! ✨ 🍰 ✨
+11 files reformatted, 8 files left unchanged.

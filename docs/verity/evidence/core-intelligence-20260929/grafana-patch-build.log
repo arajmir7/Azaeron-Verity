@@ -1,0 +1,167 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from verity-grafana-candidate.Dockerfile
+#1 transferring dockerfile: 67B 0.0s done
+#1 ERROR: error from sender: failed to xattr /private/tmp/mysql.sock.lock: permission denied
+------
+ > [internal] load build definition from verity-grafana-candidate.Dockerfile:
+------
+ERROR: failed to build: failed to solve: failed to read dockerfile: error from sender: failed to xattr /private/tmp/mysql.sock.lock: permission denied
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/moby/buildkit/frontend/dockerui.(*Client).ReadEntrypoint
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/dockerui/config.go:411
+github.com/moby/buildkit/frontend/dockerfile/builder.Build
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/dockerfile/builder/build.go:49
+github.com/moby/buildkit/frontend/gateway/forwarder.(*GatewayForwarder).Solve
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/forwarder/frontend.go:36
+github.com/moby/buildkit/solver/llbsolver.(*provenanceBridge).Solve
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/llbsolver/provenance.go:203
+github.com/moby/buildkit/frontend/gateway.(*llbBridgeForwarder).Solve
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/gateway.go:744
+github.com/moby/buildkit/control/gateway.(*GatewayForwarder).Solve
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/control/gateway/gateway.go:77
+github.com/moby/buildkit/frontend/gateway/pb._LLBBridge_Solve_Handler.func1
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/pb/gateway_grpc.pb.go:415
+google.golang.org/grpc.getChainUnaryHandler.func1
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1256
+github.com/moby/moby/v2/daemon/server/router/grpc.unaryInterceptor
+	/root/build-deb/engine/daemon/server/router/grpc/grpc.go:77
+google.golang.org/grpc.NewServer.chainUnaryServerInterceptors.chainUnaryInterceptors.func1
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1247
+github.com/moby/buildkit/frontend/gateway/pb._LLBBridge_Solve_Handler
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/pb/gateway_grpc.pb.go:417
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1443
+google.golang.org/grpc.(*Server).handleStream
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1858
+google.golang.org/grpc.(*Server).serveStreams.func2.1
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1078
+runtime.goexit
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+66168 v0.37.1 /Users/ajmiraribam/.docker/cli-plugins/docker-buildx buildx build -f /tmp/verity-grafana-candidate.Dockerfile -t verity-grafana-patch-candidate infrastructure/grafana
+github.com/docker/buildx/commands.runBuildWithOptions
+	github.com/docker/buildx/commands/build.go:506
+github.com/docker/buildx/commands.runBuild
+	github.com/docker/buildx/commands/build.go:421
+github.com/docker/buildx/commands.buildCmd.func1
+	github.com/docker/buildx/commands/build.go:542
+github.com/docker/cli/cli-plugins/plugin.RunPlugin.func1.1.2
+	github.com/docker/cli@v29.7.2+incompatible/cli-plugins/plugin/plugin.go:65
+github.com/spf13/cobra.(*Command).execute
+	github.com/spf13/cobra@v1.10.2/command.go:1015
+github.com/spf13/cobra.(*Command).ExecuteC
+	github.com/spf13/cobra@v1.10.2/command.go:1148
+github.com/spf13/cobra.(*Command).Execute
+	github.com/spf13/cobra@v1.10.2/command.go:1071
+github.com/docker/cli/cli-plugins/plugin.RunPlugin
+	github.com/docker/cli@v29.7.2+incompatible/cli-plugins/plugin/plugin.go:80
+main.runPlugin
+	github.com/docker/buildx/cmd/buildx/main.go:66
+main.run
+	github.com/docker/buildx/cmd/buildx/main.go:80
+main.main
+	github.com/docker/buildx/cmd/buildx/main.go:90
+runtime.main
+	runtime/proc.go:290
+runtime.goexit
+	runtime/asm_arm64.s:1447
+
+66168 v0.37.1 /Users/ajmiraribam/.docker/cli-plugins/docker-buildx buildx build -f /tmp/verity-grafana-candidate.Dockerfile -t verity-grafana-patch-candidate infrastructure/grafana
+google.golang.org/grpc.(*ClientConn).Invoke
+	google.golang.org/grpc@v1.83.2/call.go:35
+github.com/moby/buildkit/frontend/gateway/pb.(*lLBBridgeClient).Solve
+	github.com/moby/buildkit@v0.33.0/frontend/gateway/pb/gateway_grpc.pb.go:105
+github.com/moby/buildkit/client.(*gatewayClientForBuild).Solve
+	github.com/moby/buildkit@v0.33.0/client/build.go:98
+github.com/moby/buildkit/frontend/gateway/grpcclient.(*grpcClient).Solve
+	github.com/moby/buildkit@v0.33.0/frontend/gateway/grpcclient/client.go:416
+github.com/docker/buildx/build.solve
+	github.com/docker/buildx/build/build.go:1402
+github.com/docker/buildx/build.BuildWithResultHandler.func2.4.2
+	github.com/docker/buildx/build/build.go:704
+github.com/moby/buildkit/frontend/gateway/grpcclient.(*grpcClient).Run
+	github.com/moby/buildkit@v0.33.0/frontend/gateway/grpcclient/client.go:219
+github.com/moby/buildkit/client.(*Client).Build.func2
+	github.com/moby/buildkit@v0.33.0/client/build.go:59
+github.com/moby/buildkit/client.(*Client).solve.func3
+	github.com/moby/buildkit@v0.33.0/client/solve.go:349
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.22.0/errgroup/errgroup.go:93
+runtime.goexit
+	runtime/asm_arm64.s:1447
+
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/moby/buildkit/session/filesync.recvDiffCopy
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/session/filesync/diffcopy.go:103
+github.com/moby/buildkit/session/filesync.FSSync
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/session/filesync/filesync.go:250
+github.com/moby/buildkit/source/local.(*localSourceHandler).snapshot
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/source/local/source.go:304
+github.com/moby/buildkit/source/local.(*localSourceHandler).Snapshot
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/source/local/source.go:180
+github.com/moby/buildkit/solver/llbsolver/ops.(*SourceOp).Exec
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/llbsolver/ops/source.go:112
+github.com/moby/buildkit/solver.(*sharedOp).Exec.func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/jobs.go:1248
+github.com/moby/buildkit/util/flightcontrol.(*call[...]).run
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/util/flightcontrol/flightcontrol.go:122
+sync.(*Once).doSlow
+	/usr/local/go/src/sync/once.go:78
+sync.(*Once).Do
+	/usr/local/go/src/sync/once.go:69
+runtime.goexit
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/moby/buildkit/frontend/gateway.(*llbBridgeForwarder).Return
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/gateway.go:1033
+github.com/moby/buildkit/control/gateway.(*GatewayForwarder).Return
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/control/gateway/gateway.go:109
+github.com/moby/buildkit/frontend/gateway/pb._LLBBridge_Return_Handler.func1
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/pb/gateway_grpc.pb.go:523
+google.golang.org/grpc.getChainUnaryHandler.func1
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1256
+github.com/moby/moby/v2/daemon/server/router/grpc.unaryInterceptor
+	/root/build-deb/engine/daemon/server/router/grpc/grpc.go:77
+google.golang.org/grpc.NewServer.chainUnaryServerInterceptors.chainUnaryInterceptors.func1
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1247
+github.com/moby/buildkit/frontend/gateway/pb._LLBBridge_Return_Handler
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/pb/gateway_grpc.pb.go:525
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1443
+
+66168 v0.37.1 /Users/ajmiraribam/.docker/cli-plugins/docker-buildx buildx build -f /tmp/verity-grafana-candidate.Dockerfile -t verity-grafana-patch-candidate infrastructure/grafana
+google.golang.org/grpc.(*ClientConn).Invoke
+	google.golang.org/grpc@v1.83.2/call.go:35
+github.com/moby/buildkit/api/services/control.(*controlClient).Solve
+	github.com/moby/buildkit@v0.33.0/api/services/control/control_grpc.pb.go:88
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.33.0/client/solve.go:337
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.22.0/errgroup/errgroup.go:93
+
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/tonistiigi/fsutil.(*receiver).run.func2
+	/root/build-deb/engine/vendor/github.com/tonistiigi/fsutil/receive.go:250
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	/root/build-deb/engine/vendor/golang.org/x/sync/errgroup/errgroup.go:93
+runtime.goexit
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+290  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json
+github.com/moby/buildkit/solver.(*edge).execOp
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/edge.go:979
+github.com/moby/buildkit/solver/internal/pipe.NewWithFunction[...].func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/internal/pipe/pipe.go:78
+runtime.goexit
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+66168 v0.37.1 /Users/ajmiraribam/.docker/cli-plugins/docker-buildx buildx build -f /tmp/verity-grafana-candidate.Dockerfile -t verity-grafana-patch-candidate infrastructure/grafana
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.33.0/client/solve.go:339
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.22.0/errgroup/errgroup.go:93
+
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/7vaga366fdt3iby1ye45xijq5

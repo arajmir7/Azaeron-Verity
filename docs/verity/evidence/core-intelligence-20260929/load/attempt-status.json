@@ -1,0 +1,8 @@
+{
+  "recorded_at": "2026-09-30T00:27:20.343971+00:00",
+  "status": "FAIL",
+  "reason": "Resource sampler Docker stats exceeded 15s; observed API latency budgets exceeded. Workload child may still drain.",
+  "samples_at_intervention": 264,
+  "observed_memory_pressure": "VM /proc/pressure/memory some avg60=76.84%, full avg60=43.75%. See vm-pressure.txt.",
+  "intervention": "Stop only this task project Grafana/Jaeger/Prometheus/collector to relieve VM pressure. Original samples and failure retained. Other projects untouched."
+}

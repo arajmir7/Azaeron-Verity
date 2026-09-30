@@ -24,7 +24,7 @@ celery==5.4.0
 # Security
 # Direct bcrypt calls avoid the abandoned Passlib/bcrypt compatibility shim.
 bcrypt==4.0.1
-PyJWT==2.14.0
+PyJWT==2.15.0
 itsdangerous==2.2.0
 cryptography==50.0.1
 
@@ -52,4 +52,3 @@ opentelemetry-exporter-otlp-proto-grpc==1.28.0
 
 # Utilities
 python-dateutil==2.9.0
-

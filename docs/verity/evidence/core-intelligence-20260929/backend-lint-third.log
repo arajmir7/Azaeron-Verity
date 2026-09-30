@@ -1,0 +1,96 @@
+ Container verity-core-0929-verification-run-9a3326790889 Creating 
+ Container verity-core-0929-verification-run-9a3326790889 Created 
+app/api/v1/ai.py:347:1: E402 Module level import not at top of file
+    |
+347 | from app.modules.agent.schemas import VoiceCreate
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+348 | from app.modules.agent.models import VoiceProfile
+    |
+
+app/api/v1/ai.py:348:1: E402 Module level import not at top of file
+    |
+347 | from app.modules.agent.schemas import VoiceCreate
+348 | from app.modules.agent.models import VoiceProfile
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+    |
+
+tests/integration/test_agent_rls.py:42:60: F811 Redefinition of unused `postgres_session` from line 17
+   |
+42 | async def test_all_agent_tables_force_actor_and_tenant_rls(postgres_session, tenants):
+   |                                                            ^^^^^^^^^^^^^^^^ F811
+43 |     db = postgres_session
+44 |     chats = [await create_chat(db, tenant) for tenant in tenants]
+   |
+   = help: Remove definition: `postgres_session`
+
+tests/integration/test_agent_rls.py:42:78: F811 Redefinition of unused `tenants` from line 17
+   |
+42 | async def test_all_agent_tables_force_actor_and_tenant_rls(postgres_session, tenants):
+   |                                                                              ^^^^^^^ F811
+43 |     db = postgres_session
+44 |     chats = [await create_chat(db, tenant) for tenant in tenants]
+   |
+   = help: Remove definition: `tenants`
+
+tests/integration/test_agent_rls.py:65:5: F811 Redefinition of unused `postgres_session` from line 17
+   |
+64 | async def test_attachment_and_parent_forgery_rejected_by_database(
+65 |     postgres_session, tenants
+   |     ^^^^^^^^^^^^^^^^ F811
+66 | ):
+67 |     db = postgres_session
+   |
+   = help: Remove definition: `postgres_session`
+
+tests/integration/test_agent_rls.py:65:23: F811 Redefinition of unused `tenants` from line 17
+   |
+64 | async def test_attachment_and_parent_forgery_rejected_by_database(
+65 |     postgres_session, tenants
+   |                       ^^^^^^^ F811
+66 | ):
+67 |     db = postgres_session
+   |
+   = help: Remove definition: `tenants`
+
+tests/integration/test_agent_rls.py:100:5: F811 Redefinition of unused `postgres_session` from line 17
+    |
+ 99 | async def test_receipt_candidate_immutable_and_cannot_forge_result(
+100 |     postgres_session, tenants
+    |     ^^^^^^^^^^^^^^^^ F811
+101 | ):
+102 |     db = postgres_session
+    |
+    = help: Remove definition: `postgres_session`
+
+tests/integration/test_agent_rls.py:100:23: F811 Redefinition of unused `tenants` from line 17
+    |
+ 99 | async def test_receipt_candidate_immutable_and_cannot_forge_result(
+100 |     postgres_session, tenants
+    |                       ^^^^^^^ F811
+101 | ):
+102 |     db = postgres_session
+    |
+    = help: Remove definition: `tenants`
+
+tests/integration/test_agent_rls.py:155:5: F811 Redefinition of unused `postgres_session` from line 17
+    |
+154 | async def test_document_erasure_covers_chat_and_receipt_derivatives(
+155 |     postgres_session, tenants
+    |     ^^^^^^^^^^^^^^^^ F811
+156 | ):
+157 |     db = postgres_session
+    |
+    = help: Remove definition: `postgres_session`
+
+tests/integration/test_agent_rls.py:155:23: F811 Redefinition of unused `tenants` from line 17
+    |
+154 | async def test_document_erasure_covers_chat_and_receipt_derivatives(
+155 |     postgres_session, tenants
+    |                       ^^^^^^^ F811
+156 | ):
+157 |     db = postgres_session
+    |
+    = help: Remove definition: `tenants`
+
+Found 10 errors.
+

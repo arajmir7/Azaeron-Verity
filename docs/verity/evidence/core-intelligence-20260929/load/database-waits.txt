@@ -1,0 +1,9 @@
+idle|Client|ClientRead|6
+idle in transaction|Client|ClientRead|5
+active|||3
+|Activity|BgWriterMain|1
+|Activity|AutoVacuumMain|1
+|Timeout|CheckpointWriteDelay|1
+active|Client|ClientRead|1
+|Activity|WalWriterMain|1
+|Activity|LogicalLauncherMain|1

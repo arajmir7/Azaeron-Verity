@@ -1,0 +1,22 @@
+repository	Execute repository gate including live browser and PostgreSQL tests	﻿2026-09-29T15:42:56.9633956Z ##[group]Run python scripts/verity_gate.py --compose /tmp/verity-ci.json --browser-url http://localhost:4700 --output docs/verity/evidence/ci
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:56.9635837Z ^[[36;1mpython scripts/verity_gate.py --compose /tmp/verity-ci.json --browser-url http://localhost:4700 --output docs/verity/evidence/ci^[[0m
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:56.9707716Z shell: /usr/bin/bash -e {0}
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:56.9708205Z env:
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:56.9709531Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:56.9710255Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:56.9711513Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:56.9712186Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:56.9712873Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:56.9713586Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:56.9714199Z ##[endgroup]
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:42:57.9174461Z backend-lint: PASS (0.62s)
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:43:06.4465949Z backend-format: PASS (9.15s)
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:43:23.2148710Z postgres-rls: PASS (16.77s)
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:43:39.4209534Z frontend-lint: PASS (16.21s)
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:43:39.5861798Z compose: PASS (0.17s)
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:43:51.8224047Z backend-typecheck: FAIL (54.52s)
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:45:26.7128554Z unit-security-worker-contract: PASS (148.8s)
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:45:42.4702325Z frontend-build: PASS (15.76s)
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T15:45:48.0650040Z frontend-typecheck: PASS (5.59s)
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T16:00:28.8617457Z browser: FAIL (880.8s)
+repository	Execute repository gate including live browser and PostgreSQL tests	2026-09-29T16:00:28.9201302Z ##[error]Process completed with exit code 1.

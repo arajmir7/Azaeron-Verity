@@ -1,0 +1,68 @@
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 198.06it/s]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 2775.85it/s]
+Loading weights:   0%|          | 0/16 [00:00<?, ?it/s]Loading weights: 100%|██████████| 16/16 [00:00<00:00, 22068.02it/s]
+[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 2207.53it/s]
+Loading weights:   0%|          | 0/16 [00:00<?, ?it/s]Loading weights: 100%|██████████| 16/16 [00:00<00:00, 24800.02it/s]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 2753.98it/s]
+/Users/ajmiraribam/Projects/azaeron_verity/.verity-local/derivative-py313/lib/python3.13/site-packages/peft/tuners/lora/layer.py:2760: UserWarning: fan_in_fan_out is set to False but the target module is `Conv1D`. Setting fan_in_fan_out to True.
+  warnings.warn(
+Loading weights:   0%|          | 0/16 [00:00<?, ?it/s]Loading weights: 100%|██████████| 16/16 [00:00<00:00, 29407.92it/s]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 3216.49it/s]
+Loading weights:   0%|          | 0/16 [00:00<?, ?it/s]Loading weights: 100%|██████████| 16/16 [00:00<00:00, 29472.49it/s]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 2727.12it/s]
+Loading weights:   0%|          | 0/16 [00:00<?, ?it/s]Loading weights: 100%|██████████| 16/16 [00:00<00:00, 25429.66it/s]
+Loading weights:   0%|          | 0/16 [00:00<?, ?it/s]Loading weights: 100%|██████████| 16/16 [00:00<00:00, 27158.59it/s]
+Loading weights:   0%|          | 0/16 [00:00<?, ?it/s]Loading weights: 100%|██████████| 16/16 [00:00<00:00, 27548.79it/s]
+{
+  "purpose": "TEST_ONLY",
+  "quality_evidence": false,
+  "production_approval": "NOT_APPROVED",
+  "full": {
+    "steps": 2,
+    "checkpoint_sha256": "28b8246a8e5b737b932beff96a246bbc01af8a466f36716d50213437fb4406fd",
+    "tokens_processed": 32,
+    "metrics": {
+      "training_loss_first": 2.159660577774048,
+      "training_loss_last": 2.107259750366211,
+      "validation_loss": 2.0653438568115234
+    }
+  },
+  "lora": {
+    "steps": 2,
+    "checkpoint_sha256": "7fa9342aa2ccc8aa717a127af7540b49f6a17c815d73fee4b93e8acdad1515a1",
+    "adapter_sha256": "7fa9342aa2ccc8aa717a127af7540b49f6a17c815d73fee4b93e8acdad1515a1",
+    "merged_checkpoint_sha256": "850d55817a7c5e660ff93d16eb896ea52babadda923f051e8d8ed9db794b475d",
+    "tokens_processed": 32,
+    "metrics": {
+      "training_loss_first": 2.1398353576660156,
+      "training_loss_last": 2.1235814094543457,
+      "validation_loss": 2.1412606239318848
+    }
+  },
+  "reproducible_weights": true,
+  "qlora": "BLOCKED_NO_CUDA_EXECUTION",
+  "bakeoff": {
+    "status": "BLOCKED",
+    "purpose": "TEST_ONLY",
+    "protocol_sha256": "370d9ff5a81110306daea79eff1da5b9ab5d9c62e74f8c6829bdf68e2cb6559a",
+    "results": [
+      {
+        "id": "baseline-0",
+        "sha256": "e444f9b809acae826373f64eca5a1c6d66f00231ea11d2aef4a0627bc870123a"
+      },
+      {
+        "id": "lora-candidate",
+        "sha256": "8d03e252333bce02a518a01ca1ed584f8bd7afe298f1f599fe0bc98b215afc91"
+      },
+      {
+        "id": "baseline-1",
+        "sha256": "4fd487c36e92466986e96834fc8607e9f42154184b7b52e5a7854334ad90b54f"
+      }
+    ],
+    "winner": null,
+    "blockers": [
+      "Independent blinded human reviews, task quality adjudication, release security and production runtime evidence required"
+    ]
+  }
+}

@@ -13,7 +13,7 @@ remain release blockers. The [remediation ledger](docs/verity/REMEDIATION_STATE.
 and [release certification](docs/verity/RELEASE_CERTIFICATION.md) name the
 verified source snapshot, executed gates, and release blockers.
 
-[Get started](#get-started) · [Architecture](#architecture) · [API](#api) ·
+[Get started](#get-started) · [Architecture](#architecture) · [Integration map](docs/verity/INTEGRATION_MAP.md) · [API](#api) ·
 [Security](#security-and-data-boundaries) · [Verification](#verification) ·
 [Operations](#operations) · [Documentation](#documentation)
 

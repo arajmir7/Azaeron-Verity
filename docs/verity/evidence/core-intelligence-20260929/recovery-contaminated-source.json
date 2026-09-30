@@ -1,0 +1,12 @@
+{
+  "status": "FAIL",
+  "phase": "replay-reference-integrity",
+  "source": "verity-core-0929 (integration/browser/load test database)",
+  "snapshot_objects": 162,
+  "restore": "PASS",
+  "post_backup_erasure": "PASS",
+  "failure": "A retained document_versions row references missing tests/c7c46b02-0394-4351-bd54-05c2a24495c7.txt. Test DB fixtures did not populate corresponding object bytes.",
+  "gate_changed": false,
+  "next_action": "Repeat full drill from a separate fresh API-upload-only source database. Preserve failing source/target volumes.",
+  "log": "recovery-restarted-replay.log"
+}

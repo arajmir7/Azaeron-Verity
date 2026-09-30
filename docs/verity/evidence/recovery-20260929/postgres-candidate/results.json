@@ -1,0 +1,28 @@
+[
+  {
+    "image": "verity-pg-debian-candidate:local",
+    "aliases": [
+      "verity-pg-debian-candidate:local"
+    ],
+    "image_id": "sha256:95f6e93297bec159e75c02b02dde4631ca77b1bf972d1007cd8087ab70e8486d",
+    "bytes": 658694829,
+    "gate": "vulnerabilities",
+    "status": "FAIL",
+    "exit_code": 1,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-pg-debian-candidate:local",
+    "aliases": [
+      "verity-pg-debian-candidate:local"
+    ],
+    "image_id": "sha256:95f6e93297bec159e75c02b02dde4631ca77b1bf972d1007cd8087ab70e8486d",
+    "bytes": 658694829,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

@@ -1,0 +1,4 @@
+verity-core-0929-backend: vulnerabilities → FAIL
+verity-core-0929-backend: sbom → PASS
+verity-core-0929-frontend: vulnerabilities → PASS
+verity-core-0929-frontend: sbom → PASS

@@ -1,0 +1,184 @@
+{
+  "result": "PASS",
+  "scope": "Small local synthetic fixture after Docker restart and older test stacks stopped; unchanged latency budgets. Not production soak.",
+  "rows": [
+    {
+      "workload": "analysis",
+      "concurrency": 1,
+      "p95_ms": 16.62,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "analysis",
+      "concurrency": 4,
+      "p95_ms": 52.392,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "analysis",
+      "concurrency": 8,
+      "p95_ms": 95.297,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 1,
+      "p95_ms": 13.637,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 4,
+      "p95_ms": 25.289,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "api_key_read",
+      "concurrency": 8,
+      "p95_ms": 44.41,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 1,
+      "p95_ms": 6.031,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 4,
+      "p95_ms": 23.76,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_list",
+      "concurrency": 8,
+      "p95_ms": 84.036,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 1,
+      "p95_ms": 11.717,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 4,
+      "p95_ms": 50.511,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_read",
+      "concurrency": 8,
+      "p95_ms": 33.018,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 1,
+      "p95_ms": 74.287,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 4,
+      "p95_ms": 135.36,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "document_save",
+      "concurrency": 8,
+      "p95_ms": 261.896,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "job_creation",
+      "concurrency": 1,
+      "p95_ms": 170.662,
+      "limit_ms": 500,
+      "status": "PASS"
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 1,
+      "p95_ms": 15.234,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 4,
+      "p95_ms": 36.613,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "job_poll",
+      "concurrency": 8,
+      "p95_ms": 50.456,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 1,
+      "p95_ms": 53.874,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 4,
+      "p95_ms": 237.656,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "revision_conflict",
+      "concurrency": 8,
+      "p95_ms": 135.083,
+      "limit_ms": 1000,
+      "status": "PASS"
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 1,
+      "p95_ms": 7.384,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 4,
+      "p95_ms": 27.286,
+      "limit_ms": 250,
+      "status": "PASS"
+    },
+    {
+      "workload": "version_history",
+      "concurrency": 8,
+      "p95_ms": 53.724,
+      "limit_ms": 250,
+      "status": "PASS"
+    }
+  ],
+  "completed_jobs": 56,
+  "requests": 284,
+  "threshold_source": "docs/verity/PERFORMANCE.md"
+}

@@ -1,0 +1,57 @@
+ Image verity-commercial-final-chat-verification Pulling 
+ Image verity-commercial-final-chat-verification pull access denied for verity-commercial-final-chat-verification, repository does not exist or may require 'docker login' 
+ Image verity-commercial-final-chat-verification Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 650B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.70kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#3 DONE 0.0s
+
+#4 [internal] load metadata for gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#4 DONE 2.0s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 105B done
+#5 DONE 0.0s
+
+#6 [runtime-base 1/4] FROM docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+#6 resolve docker.io/library/python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 0.0s done
+#6 DONE 0.0s
+
+#7 [runtime-os-upstream 1/1] FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2
+#7 resolve gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 93.35MB 1.7s done
+#8 DONE 1.8s
+
+#9 [verification 2/3] COPY --from=verification-assemble /runtime-root/ /
+#9 CACHED
+
+#10 [verification 3/3] COPY --chown=65532:65532 . .
+#10 DONE 1.3s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 1.5s done
+#11 exporting manifest sha256:1bf3a15bb6bb65f3939c5845394db20ea095c4792c36f4538dd0c1f9fcb9f9da done
+#11 exporting config sha256:d2319145d573fccc594eaeee162b3f27cf9a917cfd19f57316f2fc0b93ae45be done
+#11 exporting attestation manifest sha256:1f0635e9114babf720cf338b7308a85fee6b8e78e1d6b9e9361ee5372dc43dcd 0.0s done
+#11 exporting manifest list sha256:a3418b0057fde18edf9ae2c889f55b04107a12712431a4e079a8b71aaf630123 0.0s done
+#11 naming to docker.io/library/verity-commercial-final-chat-verification:latest done
+#11 unpacking to docker.io/library/verity-commercial-final-chat-verification:latest
+#11 unpacking to docker.io/library/verity-commercial-final-chat-verification:latest 0.6s done
+#11 DONE 2.2s
+
+#12 resolving provenance for metadata file
+#12 DONE 0.1s
+ Image verity-commercial-final-chat-verification Built 
+ Container verity-commercial-final-chat-verification-run-91cf07206393 Creating 
+ Container verity-commercial-final-chat-verification-run-91cf07206393 Created 
+All checks passed!

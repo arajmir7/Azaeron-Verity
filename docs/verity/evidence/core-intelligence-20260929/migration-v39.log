@@ -1,0 +1,5 @@
+ Container verity-core-0929-migrate-run-8d4d66f971a2 Creating 
+ Container verity-core-0929-migrate-run-8d4d66f971a2 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260929_0038 -> 20260929_0039, Hide source-derived chat evidence immediately when erasure is requested.

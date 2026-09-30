@@ -5,8 +5,9 @@ per-domain reports remain separate; no percentage proves authorship.
 """
 
 import math
+from bisect import bisect_left
 
-from .evaluate import classification_metrics
+from .evaluate import classification_metrics, fpr_upper95
 from .policy import PolicyError
 
 
@@ -14,19 +15,21 @@ def operating_thresholds(calibration_scores, calibration_labels):
     if len(calibration_scores) != len(calibration_labels) or not calibration_scores:
         raise PolicyError("invalid_calibration_predictions")
     if any(not math.isfinite(p) or not 0 <= p <= 1 for p in calibration_scores) or any(
-        y not in {0, 1, 2} for y in calibration_labels
+        type(y) is not int or y not in {0, 1, 2} for y in calibration_labels
     ):
         raise PolicyError("invalid_calibration_predictions")
-    human = [
+    human = sorted(
         p for p, y in zip(calibration_scores, calibration_labels, strict=True) if y == 0
-    ]
+    )
     if not human or not any(y != 0 for y in calibration_labels):
         raise PolicyError("calibration_classes_missing")
     # Ties are never split. nextafter(1, +inf) permits honest zero coverage.
     candidates = sorted({0.0, *calibration_scores, math.nextafter(1.0, math.inf)})
     return {
         str(rate): min(
-            t for t in candidates if sum(p >= t for p in human) / len(human) <= rate
+            t
+            for t in candidates
+            if (len(human) - bisect_left(human, t)) / len(human) <= rate
         )
         for rate in [0.001, 0.01, 0.05]
     }
@@ -66,10 +69,15 @@ def detector_report(
     if (
         len(regions) != len(labels)
         or any(len(p) != 3 for p in probabilities)
-        or any(y not in {0, 1, 2} for y in labels)
+        or any(type(y) is not int or y not in {0, 1, 2} for y in labels)
     ):
         raise PolicyError("invalid_detector_predictions")
-    summary = classification_metrics(probabilities, labels, confidence)
+    summary = classification_metrics(
+        probabilities,
+        labels,
+        confidence,
+        accepted_mask=[region in validated_regions for region in regions],
+    )
     scores = [1 - p[0] for p in probabilities]
     summary.update(binary_ranking(scores, labels))
     predictions = [max(range(3), key=p.__getitem__) for p in probabilities]
@@ -117,11 +125,14 @@ def detector_report(
         summary["operating_points"][target] = {
             "threshold_from_calibration": threshold,
             "test_fpr": false / human if human else None,
+            "test_fpr_upper95": fpr_upper95(false, human),
             "test_tpr": true / positive if positive else None,
             "human_examples": human,
             "positive_examples": positive,
             "fpr_resolution": 1 / human if human else None,
             "insufficient_fpr_resolution": not human or 1 / human > float(target),
+            "fpr_bound_meets_target": bool(human)
+            and fpr_upper95(false, human) <= float(target),
         }
     summary["subgroups"] = {
         region: {

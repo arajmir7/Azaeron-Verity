@@ -7,6 +7,7 @@ from pathlib import Path
 from app.modules.model_platform.policy import canonical, digest
 from app.modules.model_platform.train import train
 from app.modules.model_platform.evaluate import evaluate
+from app.modules.model_platform.datasets import Dataset, review_subject
 
 
 def run(root):
@@ -15,17 +16,29 @@ def run(root):
     for family in ["writer", "verifier", "detector", "embed"]:
         work = root / family
         work.mkdir()
-        splits, reviews = {}, {}
-        for split_index, split in enumerate(["train", "calibration", "evaluation"]):
+        splits = {}
+        task = {
+            "writer": "natural_prose",
+            "verifier": "verify",
+            "detector": "classify",
+            "embed": "embed",
+        }[family]
+        for split_index, split in enumerate(
+            ["train", "validation", "calibration", "test", "ood"]
+        ):
             # Program-authored symbols have no imported customer or benchmark text.
             rows = []
             for i in range(12):
                 token = f"{split_index}-{i}"
                 row = {
                     "id": token,
-                    "group": ("ood:" if split == "evaluation" else "") + token,
+                    "group": token,
                     "input": f"Symbol {token}",
                     "target": f"Symbol {token}",
+                    "language": "fixture",
+                    "domain": "numeric_symbols",
+                    "task": task,
+                    "slices": [],
                 }
                 if family == "verifier":
                     row["target"] = [
@@ -35,45 +48,54 @@ def run(root):
                         "uncertain",
                     ][i % 4]
                 if family == "detector":
-                    row["target"] = ["human", "ai", "mixed"][i % 3]
+                    row["target"] = ["HUMAN", "AI", "MIXED"][i % 3]
+                    row["generator_family"] = "TEST_ONLY-" + split
                 rows.append(row)
             source = work / (split + ".jsonl")
             source.write_bytes(b"\n".join(canonical(row) for row in rows) + b"\n")
             splits[split] = {"path": source.name, "sha256": digest(source)}
-            review = work / (split + "-review.json")
-            review.write_bytes(
-                canonical(
-                    {
-                        "subject_sha256": digest(source),
-                        "reviewer": "Program-authored synthetic fixture; TEST ONLY",
-                        "reviewed_at": "2026-09-30",
-                        "source": "model_platform_smoke.py numeric symbols",
-                        "license": "Test fixture authored in this repository",
-                        "commercial_training_rights": True,
-                        "provenance": "PASS",
-                        "pii_review": "PASS",
-                        "copyright_review": "PASS",
-                        "allowed_tasks": [family],
-                        "evidence_reference": "This program generates numeric symbols without external/customer data. TEST_ONLY.",
-                    }
-                )
-            )
-            reviews[split] = {"path": review.name, "sha256": digest(review)}
         manifest = work / "dataset.json"
-        manifest.write_bytes(
+        dataset = Dataset(
+            dataset_id="synthetic-mechanics-" + family,
+            version="2",
+            purpose="TEST_ONLY",
+            source="model_platform_smoke.py numeric symbols",
+            license="Test fixture authored in this repository",
+            commercial_training_permission="GRANTED",
+            derivative_permission="GRANTED",
+            redistribution_permission="PROHIBITED",
+            provenance="Program-generated numeric symbols",
+            acquisition_method="This program; no external/customer text",
+            copyright_review="PASS",
+            pii_review="PASS",
+            language=["fixture"],
+            domain=["numeric_symbols"],
+            quality_tier="TEST_FIXTURE",
+            allowed_model_families=[family],
+            allowed_tasks=[task],
+            contains_customer_content=False,
+            splits=splits,
+            review={"path": "review.json", "sha256": "0" * 64},
+        )
+        review = work / "review.json"
+        review.write_bytes(
             canonical(
                 {
-                    "schema_version": 1,
-                    "dataset_id": "synthetic-mechanics-" + family,
-                    "purpose": "TEST_ONLY",
-                    "source": "model_platform_smoke.py numeric symbols",
-                    "license": "Test fixture authored in this repository",
-                    "allowed_tasks": [family],
-                    "splits": splits,
-                    "reviews": reviews,
+                    "subject_sha256": review_subject(dataset),
+                    "reviewer": "TEST_ONLY program fixture",
+                    "reviewer_kind": "TEST_FIXTURE",
+                    "reviewed_at": "2026-10-01",
+                    "evidence_reference": "Generated symbols, not a human production review",
+                    "rights": "PASS",
+                    "provenance": "PASS",
+                    "copyright": "PASS",
+                    "pii": "PASS",
                 }
             )
         )
+        metadata = dataset.model_dump()
+        metadata["review"]["sha256"] = digest(review)
+        manifest.write_bytes(canonical(metadata))
         config = work / "config.json"
         config.write_bytes(
             canonical(

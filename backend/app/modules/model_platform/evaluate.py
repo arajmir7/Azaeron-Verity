@@ -11,6 +11,7 @@ import statistics
 import time
 
 from .policy import DatasetManifest, PolicyError, canonical, digest
+from .datasets import read_native_dataset
 
 
 def retrieval_metrics(rankings, relevant, k=10):
@@ -32,18 +33,52 @@ def retrieval_metrics(rankings, relevant, k=10):
     }
 
 
-def classification_metrics(probabilities, labels, threshold=0.9):
+def fpr_upper95(false, total):
+    """Conservative Wilson upper bound; zero observations are not zero risk."""
+    if not total:
+        return 1.0
+    rate, z = false / total, 1.96
+    return (
+        rate
+        + z * z / (2 * total)
+        + z * math.sqrt(rate * (1 - rate) / total + z * z / (4 * total * total))
+    ) / (1 + z * z / total)
+
+
+def classification_metrics(probabilities, labels, threshold=0.9, *, accepted_mask=None):
     if not labels or len(probabilities) != len(labels):
         raise PolicyError("empty_or_mismatched_predictions")
+    classes = len(probabilities[0])
+    if (
+        classes < 2
+        or not math.isfinite(threshold)
+        or not 0 <= threshold <= 1
+        or any(type(y) is not int or not 0 <= y < classes for y in labels)
+        or (
+            accepted_mask is not None
+            and (
+                len(accepted_mask) != len(labels)
+                or any(type(value) is not bool for value in accepted_mask)
+            )
+        )
+    ):
+        raise PolicyError("invalid_classification_inputs")
     for values in probabilities:
         if (
-            not all(math.isfinite(v) and 0 <= v <= 1 for v in values)
+            len(values) != classes
+            or not all(
+                type(v) in (int, float) and math.isfinite(v) and 0 <= v <= 1
+                for v in values
+            )
             or abs(sum(values) - 1) > 1e-5
         ):
             raise PolicyError("invalid_probabilities")
     predictions = [max(range(len(p)), key=p.__getitem__) for p in probabilities]
     confidence = [max(p) for p in probabilities]
-    accepted = [c >= threshold for c in confidence]
+    accepted = [
+        c >= threshold and (accepted_mask is None or accepted_mask[i])
+        for i, c in enumerate(confidence)
+    ]
     bins = []
     for b in range(10):
         indices = [i for i, c in enumerate(confidence) if min(int(c * 10), 9) == b]
@@ -61,21 +96,7 @@ def classification_metrics(probabilities, labels, threshold=0.9):
         y == 0 and p != 0 and a
         for y, p, a in zip(labels, predictions, accepted, strict=True)
     )
-    # One-sided conservative Wilson bound (z=1.96); no zero-error certainty claim.
     rate = false / human if human else 1
-    z = 1.96
-    upper = (
-        (
-            (
-                rate
-                + z * z / (2 * human)
-                + z * math.sqrt(rate * (1 - rate) / human + z * z / (4 * human * human))
-            )
-            / (1 + z * z / human)
-        )
-        if human
-        else 1
-    )
     return {
         "accuracy": statistics.mean(
             p == y for p, y in zip(predictions, labels, strict=True)
@@ -86,8 +107,17 @@ def classification_metrics(probabilities, labels, threshold=0.9):
             for values, y in zip(probabilities, labels, strict=True)
         ),
         "coverage": statistics.mean(accepted),
+        "selective_accuracy": (
+            sum(
+                p == y and a
+                for p, y, a in zip(predictions, labels, accepted, strict=True)
+            )
+            / sum(accepted)
+            if any(accepted)
+            else None
+        ),
         "human_fpr": rate,
-        "human_fpr_upper95": upper,
+        "human_fpr_upper95": fpr_upper95(false, human),
         "recall_by_class": {
             str(c): sum(
                 y == c and p == c and a
@@ -111,7 +141,6 @@ def evaluate(
     from .network import load_network, encode, padded, VERIFIER_LABELS, DETECTOR_LABELS
     from .predict import generate
 
-    manifest = DatasetManifest.model_validate_json(dataset.read_bytes())
     training = json.loads((bundle / "training-manifest.json").read_bytes())
     checkpoint_hash = digest(bundle / "checkpoint.safetensors")
     if training["checkpoint_sha256"] != checkpoint_hash or training[
@@ -119,11 +148,12 @@ def evaluate(
     ] != digest(dataset):
         raise PolicyError("evaluation_lineage_mismatch")
     family = training["family"]
-    rows = manifest.load_rows(dataset.parent, family, smoke=smoke)
+    manifest, rows = read_native_dataset(dataset, family, smoke=smoke)
     model = load_network(bundle)
     torch.set_num_threads(1)
     context = model.architecture.context
-    test = rows["evaluation"]
+    test_split = "evaluation" if isinstance(manifest, DatasetManifest) else "test"
+    test = rows[test_split]
     metrics, calibration, durations = {}, None, []
 
     def probabilities(split, temperature):
@@ -159,6 +189,11 @@ def evaluate(
             if ood
             else None
         )
+        if "ood" in rows:
+            metrics["ood_accuracy"] = classification_metrics(
+                probabilities(rows["ood"], temperature),
+                [names.index(row["target"]) for row in rows["ood"]],
+            )["accuracy"]
         calibration = {
             "checkpoint_sha256": checkpoint_hash,
             "split_sha256": manifest.splits["calibration"].sha256,
@@ -195,6 +230,26 @@ def evaluate(
                     >= 0.95
                 )
         if family == "detector":
+            from .detector_metrics import detector_report, operating_thresholds
+
+            cal_probs = probabilities(rows["calibration"], temperature)
+            thresholds = operating_thresholds([1 - p[0] for p in cal_probs], cal_labels)
+            # Region validation is a separate evidence requirement. Neither temperature
+            # fitting nor the presence of a language/domain tag certifies a region.
+            regions = [
+                row.get("language", "unknown") + ":" + row.get("domain", "unknown")
+                for row in test
+            ]
+            metrics["detector_operating_report"] = detector_report(
+                probs,
+                labels,
+                regions,
+                set(),
+                thresholds,
+            )
+            calibration["operating_thresholds"] = thresholds
+            calibration["validated_regions"] = []
+            checks["validated_serving_regions"] = False
             checks.update(
                 low_false_positives=metrics["human_fpr_upper95"] <= 0.01,
                 mixed_recall=metrics["recall_by_class"]["2"] >= 0.9,
@@ -286,7 +341,10 @@ def evaluate(
         "status": "PASS" if all(checks.values()) else "BLOCKED",
         "checkpoint_sha256": checkpoint_hash,
         "dataset_manifest_sha256": digest(dataset),
-        "evaluation_split_sha256": manifest.splits["evaluation"].sha256,
+        "evaluation_split_sha256": manifest.splits[test_split].sha256,
+        "ood_split_sha256": (
+            manifest.splits["ood"].sha256 if "ood" in manifest.splits else None
+        ),
         "family": family,
         "purpose": manifest.purpose,
         "examples": len(test),

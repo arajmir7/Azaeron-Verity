@@ -12,7 +12,16 @@ from typing import Literal
 
 from pydantic import Field
 
-from .policy import Digest, Family, FileRef, PolicyError, StrictModel, canonical, digest
+from .policy import (
+    DatasetManifest,
+    Digest,
+    Family,
+    FileRef,
+    PolicyError,
+    StrictModel,
+    canonical,
+    digest,
+)
 
 SPLITS = {"train", "validation", "calibration", "test", "ood"}
 WRITER_TASKS = {
@@ -233,6 +242,33 @@ def read_dataset(manifest_file: Path, family: Family, *, smoke=False):
         groups.update(split_groups)
         generators.update(split_generators)
         rows[split] = values
+    return manifest, rows
+
+
+def read_native_dataset(manifest_file: Path, family: Family, *, smoke=False):
+    """Native training uses the same production rights gate as derivative training.
+
+    The three-split v1 reader is retained solely for historical TEST_ONLY fixtures.
+    V2 split names and hashes remain intact; only classifier label case is adapted.
+    """
+    metadata = json.loads(manifest_file.read_bytes())
+    if metadata.get("schema_version", 1) == 1:
+        legacy = DatasetManifest.model_validate(metadata)
+        return legacy, legacy.load_rows(manifest_file.parent, family, smoke=smoke)
+    manifest, rows = read_dataset(manifest_file, family, smoke=smoke)
+    labels = {
+        "detector": {"HUMAN": "human", "AI": "ai", "MIXED": "mixed"},
+        "verifier": {
+            name: name
+            for name in ["equivalent", "contradiction", "unsupported", "uncertain"]
+        },
+    }
+    if family in labels:
+        for values in rows.values():
+            for row in values:
+                if row["target"] not in labels[family]:
+                    raise PolicyError("invalid_specialist_training_class")
+                row["target"] = labels[family][row["target"]]
     return manifest, rows
 
 

@@ -1,0 +1,12 @@
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-0","id":"2-0","input":"Symbol 2-0","language":"fixture","slices":[],"target":"HUMAN","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-1","id":"2-1","input":"Symbol 2-1","language":"fixture","slices":[],"target":"AI","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-2","id":"2-2","input":"Symbol 2-2","language":"fixture","slices":[],"target":"MIXED","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-3","id":"2-3","input":"Symbol 2-3","language":"fixture","slices":[],"target":"HUMAN","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-4","id":"2-4","input":"Symbol 2-4","language":"fixture","slices":[],"target":"AI","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-5","id":"2-5","input":"Symbol 2-5","language":"fixture","slices":[],"target":"MIXED","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-6","id":"2-6","input":"Symbol 2-6","language":"fixture","slices":[],"target":"HUMAN","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-7","id":"2-7","input":"Symbol 2-7","language":"fixture","slices":[],"target":"AI","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-8","id":"2-8","input":"Symbol 2-8","language":"fixture","slices":[],"target":"MIXED","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-9","id":"2-9","input":"Symbol 2-9","language":"fixture","slices":[],"target":"HUMAN","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-10","id":"2-10","input":"Symbol 2-10","language":"fixture","slices":[],"target":"AI","task":"classify"}
+{"domain":"numeric_symbols","generator_family":"TEST_ONLY-calibration","group":"2-11","id":"2-11","input":"Symbol 2-11","language":"fixture","slices":[],"target":"MIXED","task":"classify"}

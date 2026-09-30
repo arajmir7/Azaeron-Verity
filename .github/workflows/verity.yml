@@ -27,6 +27,12 @@ jobs:
           TRANSFORMERS_OFFLINE: '1'
           HF_HUB_DISABLE_TELEMETRY: '1'
         run: python backend/scripts/derivative_smoke.py --output /tmp/derivative-smoke
+      - name: Exercise native four-family training with five TEST_ONLY splits
+        env:
+          PYTHONPATH: backend
+          HF_HUB_OFFLINE: '1'
+          TRANSFORMERS_OFFLINE: '1'
+        run: python backend/scripts/model_platform_smoke.py --output /tmp/native-v2-smoke
       - name: Audit isolated derivative dependencies
         run: |
           python -m pip install pip-audit==2.10.1
@@ -40,6 +46,9 @@ jobs:
             /tmp/derivative-smoke/*-run/training-manifest.json
             /tmp/derivative-smoke/bakeoff
             /tmp/derivative-audit.json
+            /tmp/native-v2-smoke/results.json
+            /tmp/native-v2-smoke/*/evaluation.json
+            /tmp/native-v2-smoke/*/bundle/training-manifest.json
           retention-days: 7
   repository:
     runs-on: ubuntu-24.04

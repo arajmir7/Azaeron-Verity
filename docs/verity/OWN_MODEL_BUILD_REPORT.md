@@ -1,5 +1,7 @@
 # Current continuation
 
+**2026-10-01:** [Model-layer audit and hardening](evidence/model-layer-20261001/README.md): native production data now requires the v2 five-split rights gate; detector abstention metrics are consistent and UNCERTAIN responses withhold probabilities. 315 local backend/security tests pass. Four v2 TEST_ONLY training regressions ran; none passed production evaluation. Zero approved models, zero admitted bases and zero rights-cleared production datasets remain. No external AI APIs were used.
+
 See [current release certification](RELEASE_CERTIFICATION.md), [execution state](EXECUTION_STATE.md) and [rights/compute dossiers](evidence/commercial-production-20260930/RIGHTS_AND_COMPUTE.md). The report below is historical native smoke evidence; later LoRA training mechanics are implemented, stable OpenSSL is fixed locally, and a guarded PostgreSQL replacement passes local scan/recovery. No production models or datasets are approved.
 
 # AZAERON AI PLATFORM — BUILD REPORT

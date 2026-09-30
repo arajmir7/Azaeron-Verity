@@ -1,5 +1,11 @@
 # Execution ledger
 
+## 2026-10-01: model-layer hostile review
+
+[Model-layer evidence](evidence/model-layer-20261001/README.md) records the current repository audit, three upstream review candidates, dataset admission blockers, hardware profile, fixes and executed checks. No candidate, dataset or production model was approved. The Mac has 16 GiB unified memory, MPS and no CUDA. The old 411 HIGH / 20 CRITICAL counts below are historical: the latest preceding exact-head hosted run at `6632f2b` passed 12 image scans with zero reported HIGH/CRITICAL findings.
+
+Fixed a native-training bypass of the v2 five-split dataset gate and inconsistent detector metrics after region abstention. UNCERTAIN detector responses now withhold probabilities and the gateway rejects probability leaks and checkpoint substitution. Four native TEST_ONLY training/evaluation regressions execute the new v2 path; their quality evaluations remain BLOCKED. Local checks pass 315 backend/security tests, 197-module mypy and lint. These local tests mount current source into the existing verification image; they are not certification of a newly rebuilt production deployment. Exact-source hosted CI is required for this new patch.
+
 ## 2026-09-30: familiar chat workspace and end-to-end map
 
 The frontend now presents Azaeron AI with a searchable conversation rail, centered empty state, focused composer, compact document actions, saved-chat deep links and model-registry status. Home independently loads documents, conversations and approved-model count, so a failed panel does not hide the others. `docs/verity/INTEGRATION_MAP.md` maps the frozen five product paths and required `/api/v1` routes through same-origin auth, tenant/quota checks, storage/workers and fail-closed private inference.

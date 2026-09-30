@@ -1,0 +1,220 @@
+{
+  "status": "BLOCKED",
+  "approved": 0,
+  "datasets": [
+    {
+      "repository": "databricks/databricks-dolly-15k",
+      "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+      "status": "REVIEW_REQUIRED",
+      "dossier": "databricks--databricks-dolly-15k/bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a/review-dossier.json",
+      "evidence_path": "/Users/ajmiraribam/Projects/azaeron_verity/docs/verity/evidence/commercial-production-20260930/rights-research/databricks--databricks-dolly-15k/bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a/review-dossier.json",
+      "evidence_sha256": "9234a14df0080f5cfe0ea919d2c3be82f6e080bdd23ee164b17cd50b543608e8",
+      "declared_license": "cc-by-sa-3.0",
+      "verified_local_metadata": [
+        {
+          "path": "/Users/ajmiraribam/Projects/azaeron_verity/docs/verity/evidence/commercial-production-20260930/rights-research/databricks--databricks-dolly-15k/bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a/README.md",
+          "sha256": "db06c60090a11b20e79d1933b2f316f781605f07761ff2ae2795d6523e3e960b",
+          "expected_sha256": "db06c60090a11b20e79d1933b2f316f781605f07761ff2ae2795d6523e3e960b",
+          "match": true,
+          "source": "https://huggingface.co/datasets/databricks/databricks-dolly-15k/resolve/bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a/README.md"
+        }
+      ],
+      "payload_inventory": {
+        "databricks-dolly-15k.jsonl": {
+          "publisher_lfs_sha256": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec",
+          "bytes": 13085339,
+          "local_bytes_verified": false
+        }
+      },
+      "production_admission": "BLOCKED",
+      "commercial_review": "NOT FOUND",
+      "weight_bytes_locally_verified": false,
+      "tokenizer_payload_locally_verified": false
+    },
+    {
+      "repository": "OpenAssistant/oasst1",
+      "revision": "fdf72ae0827c1cda404aff25b6603abec9e3399b",
+      "status": "REVIEW_REQUIRED",
+      "dossier": "OpenAssistant--oasst1/fdf72ae0827c1cda404aff25b6603abec9e3399b/review-dossier.json",
+      "evidence_path": "/Users/ajmiraribam/Projects/azaeron_verity/docs/verity/evidence/commercial-production-20260930/rights-research/OpenAssistant--oasst1/fdf72ae0827c1cda404aff25b6603abec9e3399b/review-dossier.json",
+      "evidence_sha256": "8e6c7669fbdefb0161d59ba6756d50ca10cccc1c0b18380457b3e156241d0e36",
+      "declared_license": "apache-2.0",
+      "verified_local_metadata": [
+        {
+          "path": "/Users/ajmiraribam/Projects/azaeron_verity/docs/verity/evidence/commercial-production-20260930/rights-research/OpenAssistant--oasst1/fdf72ae0827c1cda404aff25b6603abec9e3399b/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "expected_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "match": true,
+          "source": "https://huggingface.co/datasets/OpenAssistant/oasst1/resolve/fdf72ae0827c1cda404aff25b6603abec9e3399b/LICENSE"
+        },
+        {
+          "path": "/Users/ajmiraribam/Projects/azaeron_verity/docs/verity/evidence/commercial-production-20260930/rights-research/OpenAssistant--oasst1/fdf72ae0827c1cda404aff25b6603abec9e3399b/README.md",
+          "sha256": "68483ac2fcc2f3f7779f453352363827678070ef35b6d746ccb2ca6958540fff",
+          "expected_sha256": "68483ac2fcc2f3f7779f453352363827678070ef35b6d746ccb2ca6958540fff",
+          "match": true,
+          "source": "https://huggingface.co/datasets/OpenAssistant/oasst1/resolve/fdf72ae0827c1cda404aff25b6603abec9e3399b/README.md"
+        }
+      ],
+      "payload_inventory": {
+        "data/train-00000-of-00001-b42a775f407cee45.parquet": {
+          "publisher_lfs_sha256": "bbfadf5ed1278ba2208c837fdcad865adf65f5df55d80abadab2745db13fcb5e",
+          "bytes": 39516251,
+          "local_bytes_verified": false
+        },
+        "data/validation-00000-of-00001-134b8fd0c89408b6.parquet": {
+          "publisher_lfs_sha256": "24002597bb13a7edd42d92f773762f25e285f72c31a70449393d0ded1dc7b416",
+          "bytes": 2080179,
+          "local_bytes_verified": false
+        }
+      },
+      "production_admission": "BLOCKED",
+      "commercial_review": "NOT FOUND",
+      "weight_bytes_locally_verified": false,
+      "tokenizer_payload_locally_verified": false
+    },
+    {
+      "repository": "HuggingFaceH4/no_robots",
+      "revision": "e6f9a4ac5c37faeb744ba9ecf0473184d7f8105b",
+      "status": "REJECTED",
+      "dossier": "HuggingFaceH4--no_robots/e6f9a4ac5c37faeb744ba9ecf0473184d7f8105b/review-dossier.json",
+      "evidence_path": "/Users/ajmiraribam/Projects/azaeron_verity/docs/verity/evidence/commercial-production-20260930/rights-research/HuggingFaceH4--no_robots/e6f9a4ac5c37faeb744ba9ecf0473184d7f8105b/review-dossier.json",
+      "evidence_sha256": "f63a9efc0573803565d0322f47fc0342a89bf0dc6935fdb9fbfede15776a980b",
+      "declared_license": "cc-by-nc-4.0",
+      "verified_local_metadata": [
+        {
+          "path": "/Users/ajmiraribam/Projects/azaeron_verity/docs/verity/evidence/commercial-production-20260930/rights-research/HuggingFaceH4--no_robots/e6f9a4ac5c37faeb744ba9ecf0473184d7f8105b/README.md",
+          "sha256": "22b642520e082ba1a6c4a93047bd5946aeca099763c6f2d11b59d91e61e79186",
+          "expected_sha256": "22b642520e082ba1a6c4a93047bd5946aeca099763c6f2d11b59d91e61e79186",
+          "match": true,
+          "source": "https://huggingface.co/datasets/HuggingFaceH4/no_robots/resolve/e6f9a4ac5c37faeb744ba9ecf0473184d7f8105b/README.md"
+        }
+      ],
+      "payload_inventory": {
+        "data/test-00000-of-00001.parquet": {
+          "publisher_lfs_sha256": "60707b2636a46e37bb0c1e9ca263a18553f430317b7a53c691676d6a492fc0f2",
+          "bytes": 570905,
+          "local_bytes_verified": false
+        },
+        "data/test_sft-00000-of-00001.parquet": {
+          "publisher_lfs_sha256": "60707b2636a46e37bb0c1e9ca263a18553f430317b7a53c691676d6a492fc0f2",
+          "bytes": 570905,
+          "local_bytes_verified": false
+        },
+        "data/train-00000-of-00001.parquet": {
+          "publisher_lfs_sha256": "76d64120a2ab20eb85d6b22bdced5b1ec638a6213a97004741006745c92489ef",
+          "bytes": 10474682,
+          "local_bytes_verified": false
+        },
+        "data/train_sft-00000-of-00001.parquet": {
+          "publisher_lfs_sha256": "76d64120a2ab20eb85d6b22bdced5b1ec638a6213a97004741006745c92489ef",
+          "bytes": 10474682,
+          "local_bytes_verified": false
+        }
+      },
+      "production_admission": "BLOCKED",
+      "commercial_review": "NOT FOUND",
+      "weight_bytes_locally_verified": false,
+      "tokenizer_payload_locally_verified": false
+    },
+    {
+      "repository": "allenai/Dolci-Instruct-SFT",
+      "revision": "bd3c8f3a9b2cc5a9682e44b96ddd0bb2ff027221",
+      "status": "REJECTED",
+      "dossier": "allenai--Dolci-Instruct-SFT/bd3c8f3a9b2cc5a9682e44b96ddd0bb2ff027221/review-dossier.json",
+      "evidence_path": "/Users/ajmiraribam/Projects/azaeron_verity/docs/verity/evidence/commercial-production-20260930/rights-research/allenai--Dolci-Instruct-SFT/bd3c8f3a9b2cc5a9682e44b96ddd0bb2ff027221/review-dossier.json",
+      "evidence_sha256": "f45747a84d6f257522e92cfd52b8e2edca9b0e2de57defd0746386e0beaafac5",
+      "declared_license": "odc-by",
+      "verified_local_metadata": [
+        {
+          "path": "/Users/ajmiraribam/Projects/azaeron_verity/docs/verity/evidence/commercial-production-20260930/rights-research/allenai--Dolci-Instruct-SFT/bd3c8f3a9b2cc5a9682e44b96ddd0bb2ff027221/README.md",
+          "sha256": "db0307ffbeab4a90bb41cb966fcc2bca09ce3495afcdb8e173c0370287002a5b",
+          "expected_sha256": "db0307ffbeab4a90bb41cb966fcc2bca09ce3495afcdb8e173c0370287002a5b",
+          "match": true,
+          "source": "https://huggingface.co/datasets/allenai/Dolci-Instruct-SFT/resolve/bd3c8f3a9b2cc5a9682e44b96ddd0bb2ff027221/README.md"
+        }
+      ],
+      "payload_inventory": {
+        "data/train-00000-of-00015.parquet": {
+          "publisher_lfs_sha256": "8a671c8118a611338059f931e64defe4817202130c00dc547f109d07c86b84a6",
+          "bytes": 150342005,
+          "local_bytes_verified": false
+        },
+        "data/train-00001-of-00015.parquet": {
+          "publisher_lfs_sha256": "dc9ee27eead3e22df8dab7d6ebc86a01944e00f7a7a8df1174113f69a00c9b97",
+          "bytes": 149881504,
+          "local_bytes_verified": false
+        },
+        "data/train-00002-of-00015.parquet": {
+          "publisher_lfs_sha256": "a3fcbc750bba81fdbc4eee38174e26c19981829b7adf433a54dd2a7542ebc5c2",
+          "bytes": 150825987,
+          "local_bytes_verified": false
+        },
+        "data/train-00003-of-00015.parquet": {
+          "publisher_lfs_sha256": "dec503024ff4b506280b5eb2eb5146bad64ac9c281cebd450870a963b2a3a2aa",
+          "bytes": 150435633,
+          "local_bytes_verified": false
+        },
+        "data/train-00004-of-00015.parquet": {
+          "publisher_lfs_sha256": "a97772d4155e053bca8d5c421c2201eb62d4118fb283f473656dc16492297a03",
+          "bytes": 150220626,
+          "local_bytes_verified": false
+        },
+        "data/train-00005-of-00015.parquet": {
+          "publisher_lfs_sha256": "a715efb45cb3a9b2835b7b06443a5bd20afcecb53ce755bb0851a93a691b79af",
+          "bytes": 150125065,
+          "local_bytes_verified": false
+        },
+        "data/train-00006-of-00015.parquet": {
+          "publisher_lfs_sha256": "8c12b6dfbd3f1205ab5ff8ae2c2cfe09aa22cd8813e3a0a17be18a26beb682ca",
+          "bytes": 150769558,
+          "local_bytes_verified": false
+        },
+        "data/train-00007-of-00015.parquet": {
+          "publisher_lfs_sha256": "15994c99353c65b55900e6f6b62a5441b160420c90fbe92692d42044822ecadd",
+          "bytes": 150019281,
+          "local_bytes_verified": false
+        },
+        "data/train-00008-of-00015.parquet": {
+          "publisher_lfs_sha256": "f63bea09321335759718a04a9eec4a780b8e4b8968036409dfe6709047846250",
+          "bytes": 150609447,
+          "local_bytes_verified": false
+        },
+        "data/train-00009-of-00015.parquet": {
+          "publisher_lfs_sha256": "d402e1749b2ec313fa162a6cb44b18cf896413443b3494ffa3b0d621a4b37d47",
+          "bytes": 106362504,
+          "local_bytes_verified": false
+        },
+        "data/train-00010-of-00015.parquet": {
+          "publisher_lfs_sha256": "5e56730a541f69db586167e9595a8a7907d7946f590aac83e204d8400b479766",
+          "bytes": 96264948,
+          "local_bytes_verified": false
+        },
+        "data/train-00011-of-00015.parquet": {
+          "publisher_lfs_sha256": "ef37c4b7eb68845b7f460a236a2a4d7d7f9c7fe516c5b63048a4ef01e3e7063a",
+          "bytes": 261536939,
+          "local_bytes_verified": false
+        },
+        "data/train-00012-of-00015.parquet": {
+          "publisher_lfs_sha256": "069aca4896a8054702127690cc0cea4c634f84e62703707f1962ec83af7fe0d2",
+          "bytes": 331845759,
+          "local_bytes_verified": false
+        },
+        "data/train-00013-of-00015.parquet": {
+          "publisher_lfs_sha256": "f9e7f3ce84bb64da974ccdb3762d2158d6cc303fdc651868906038fbdc82b72a",
+          "bytes": 252776199,
+          "local_bytes_verified": false
+        },
+        "data/train-00014-of-00015.parquet": {
+          "publisher_lfs_sha256": "83524879c6aefd376b15c52361f642a8bd543c93f22d509f94c842a260dd0b86",
+          "bytes": 659412194,
+          "local_bytes_verified": false
+        }
+      },
+      "production_admission": "BLOCKED",
+      "commercial_review": "NOT FOUND",
+      "weight_bytes_locally_verified": false,
+      "tokenizer_payload_locally_verified": false
+    }
+  ],
+  "unknown_rights": "REJECT"
+}

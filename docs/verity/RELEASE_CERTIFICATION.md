@@ -1,5 +1,7 @@
 # AZAERON VERITY — RELEASE CERTIFICATION
 
+**2026-10-01 model layer — NOT PRODUCTION READY.** The [new audit](evidence/model-layer-20261001/README.md) fixes native dataset-admission and detector abstention defects. It does not supply missing commercial approvals, production data, capable checkpoints, independent human reviews or deployed-model evidence. Current local source passes 315 backend/security tests; preceding hosted platform evidence below does not certify this patch.
+
 **2026-09-30 — NOT PRODUCTION READY.** Current work closes the locally reproduced
 container vulnerabilities and demonstrates a safe logical migration to a controlled
 PostgreSQL 16 image. It does not approve models or certify production operation.

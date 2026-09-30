@@ -121,35 +121,45 @@ def create_runtime(catalog, task, bundle):
                             else decoder.decode(b"", final=True)
                         )
                         if content:
-                            yield "data: " + json.dumps(
-                                {
-                                    "model": record.model_id,
-                                    "choices": [
-                                        {
-                                            "index": 0,
-                                            "delta": {"content": content},
-                                            "finish_reason": None,
-                                        }
-                                    ],
-                                }
-                            ) + "\n\n"
+                            yield (
+                                "data: "
+                                + json.dumps(
+                                    {
+                                        "model": record.model_id,
+                                        "choices": [
+                                            {
+                                                "index": 0,
+                                                "delta": {"content": content},
+                                                "finish_reason": None,
+                                            }
+                                        ],
+                                    }
+                                )
+                                + "\n\n"
+                            )
                         await asyncio.sleep(0)
-                    yield "data: " + json.dumps(
-                        {
-                            "model": record.model_id,
-                            "choices": [
-                                {
-                                    "index": 0,
-                                    "delta": {},
-                                    "finish_reason": "stop" if last == 2 else "length",
-                                }
-                            ],
-                            "usage": {
-                                "prompt_tokens": prompt_count,
-                                "completion_tokens": count,
-                            },
-                        }
-                    ) + "\n\n"
+                    yield (
+                        "data: "
+                        + json.dumps(
+                            {
+                                "model": record.model_id,
+                                "choices": [
+                                    {
+                                        "index": 0,
+                                        "delta": {},
+                                        "finish_reason": (
+                                            "stop" if last == 2 else "length"
+                                        ),
+                                    }
+                                ],
+                                "usage": {
+                                    "prompt_tokens": prompt_count,
+                                    "completion_tokens": count,
+                                },
+                            }
+                        )
+                        + "\n\n"
+                    )
                     yield "data: [DONE]\n\n"
 
             return StreamingResponse(stream(), media_type="text/event-stream")
@@ -221,13 +231,13 @@ def create_runtime(catalog, task, bundle):
             )
             result = {
                 "label": (
-                    "INDETERMINATE"
+                    "UNCERTAIN"
                     if abstained
-                    else ["human", "ai", "mixed"][
+                    else ["HUMAN", "AI", "MIXED"][
                         max(range(3), key=probabilities.__getitem__)
                     ]
                 ),
-                "probabilities": probabilities,
+                "probabilities": None if abstained else probabilities,
                 "abstained": abstained,
                 "checkpoint_sha256": record.lineage.checkpoint_sha256,
                 "calibration_sha256": digest(bundle / "calibration.json"),

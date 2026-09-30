@@ -24,6 +24,7 @@ from .policy import (
     canonical,
     digest,
 )
+from .datasets import read_native_dataset
 
 
 class TrainConfig(StrictModel):
@@ -44,9 +45,8 @@ class TrainConfig(StrictModel):
 def train(config_file: Path, output: Path, *, smoke=False):
     config = TrainConfig.model_validate_json(config_file.read_bytes())
     manifest_path = config.dataset.verify(config_file.parent)
-    manifest = DatasetManifest.model_validate_json(manifest_path.read_bytes())
     # Rights and split validation happens BEFORE importing ML libraries or allocating compute.
-    rows = manifest.load_rows(manifest_path.parent, config.family, smoke=smoke)
+    manifest, rows = read_native_dataset(manifest_path, config.family, smoke=smoke)
     if smoke and manifest.purpose != "TEST_ONLY":
         raise PolicyError("smoke_requires_explicit_test_only_dataset")
     import torch
@@ -127,7 +127,11 @@ def train(config_file: Path, output: Path, *, smoke=False):
         "initialization_sha256": initialization,
         "dataset_manifest_sha256": config.dataset.sha256,
         "dataset_splits": {k: v.sha256 for k, v in manifest.splits.items()},
-        "dataset_reviews": {k: v.sha256 for k, v in manifest.reviews.items()},
+        "dataset_reviews": (
+            {k: v.sha256 for k, v in manifest.reviews.items()}
+            if isinstance(manifest, DatasetManifest)
+            else {"manifest": manifest.review.sha256}
+        ),
         "steps": steps,
         "examples": len(order),
         "code_sha256": code_hash,

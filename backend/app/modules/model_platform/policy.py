@@ -107,6 +107,8 @@ class DatasetManifest(StrictModel):
     def load_rows(self, root: Path, family: Family, *, smoke: bool = False):
         if self.purpose != "PRODUCTION" and not smoke:
             raise PolicyError("test_data_cannot_train_production_model")
+        if self.purpose == "PRODUCTION":
+            raise PolicyError("production_requires_five_split_dataset_v2")
         if family not in self.allowed_tasks or set(self.splits) != {
             "train",
             "calibration",

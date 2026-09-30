@@ -6,8 +6,8 @@ from .policy import Digest, StrictModel
 
 
 class DetectionOutput(StrictModel):
-    label: Literal["human", "ai", "mixed", "INDETERMINATE"]
-    probabilities: list[float] = Field(min_length=3, max_length=3)
+    label: Literal["HUMAN", "AI", "MIXED", "UNCERTAIN"]
+    probabilities: list[float] | None = Field(min_length=3, max_length=3)
     abstained: bool
     checkpoint_sha256: Digest
     calibration_sha256: Digest
@@ -17,17 +17,20 @@ class DetectionOutput(StrictModel):
     def calibrated(self):
         import math
 
+        if self.abstained:
+            if self.label != "UNCERTAIN" or self.probabilities is not None:
+                raise ValueError("Abstention must withhold probabilities")
+            return self
+        if self.label == "UNCERTAIN" or self.probabilities is None:
+            raise ValueError("Accepted labels require calibrated probabilities")
         if (
             any(not math.isfinite(p) or not 0 <= p <= 1 for p in self.probabilities)
             or abs(sum(self.probabilities) - 1) > 1e-5
         ):
             raise ValueError("Invalid class probabilities")
-        if self.abstained != (self.label == "INDETERMINATE"):
-            raise ValueError("Abstention must be explicit")
         if (
-            not self.abstained
-            and self.label
-            != ["human", "ai", "mixed"][
+            self.label
+            != ["HUMAN", "AI", "MIXED"][
                 max(range(3), key=self.probabilities.__getitem__)
             ]
         ):

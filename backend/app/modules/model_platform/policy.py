@@ -161,7 +161,7 @@ class DatasetManifest(StrictModel):
 
 
 class Lineage(StrictModel):
-    classification: Literal["AZAERON_ORIGINAL", "AZAERON_DERIVATIVE"]
+    classification: Literal["AZAERON_NATIVE", "AZAERON_DERIVATIVE"]
     family: Family
     run_id: UUID
     training_steps: int = Field(gt=0)
@@ -172,7 +172,8 @@ class Lineage(StrictModel):
     model_card_sha256: Digest
     code_sha256: Digest
     base_model: str | None = None
-    base_revision: Digest | None = None
+    base_revision: Annotated[str, Field(pattern=r"^[a-f0-9]{40,64}$")] | None = None
+    base_checkpoint_sha256: Digest | None = None
     base_approval_sha256: Digest | None = None
     purpose: Literal["PRODUCTION", "TEST_ONLY"]
 
@@ -181,11 +182,21 @@ class Lineage(StrictModel):
         if self.checkpoint_sha256 == self.initialization_sha256:
             raise ValueError("Unchanged initialization is not an Azaeron model")
         if self.classification == "AZAERON_DERIVATIVE" and not all(
-            [self.base_model, self.base_revision, self.base_approval_sha256]
+            [
+                self.base_model,
+                self.base_revision,
+                self.base_checkpoint_sha256,
+                self.base_approval_sha256,
+            ]
         ):
             raise ValueError("Derivative base lineage and approval are required")
-        if self.classification == "AZAERON_ORIGINAL" and any(
-            [self.base_model, self.base_revision, self.base_approval_sha256]
+        if self.classification == "AZAERON_NATIVE" and any(
+            [
+                self.base_model,
+                self.base_revision,
+                self.base_checkpoint_sha256,
+                self.base_approval_sha256,
+            ]
         ):
             raise ValueError("A base checkpoint must be classified as a derivative")
         return self

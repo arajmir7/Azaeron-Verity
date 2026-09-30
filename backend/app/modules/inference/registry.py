@@ -113,6 +113,24 @@ class AzaeronModelRegistry(BaseModel):
             if m.status == "APPROVED" and m.lineage is not None
         ]
         for lineage in serving:
+            if lineage.family == "writer":
+                for other in serving:
+                    if other.family == "verifier" and (
+                        (
+                            lineage.base_checkpoint_sha256 is not None
+                            and lineage.base_checkpoint_sha256
+                            == other.base_checkpoint_sha256
+                        )
+                        or (
+                            lineage.base_model is not None
+                            and (lineage.base_model, lineage.base_revision)
+                            == (other.base_model, other.base_revision)
+                        )
+                        or lineage.initialization_sha256 == other.initialization_sha256
+                    ):
+                        raise ValueError(
+                            "Writer and Verifier require independent base checkpoints"
+                        )
             if any(
                 other.family != lineage.family
                 and other.checkpoint_sha256 == lineage.checkpoint_sha256

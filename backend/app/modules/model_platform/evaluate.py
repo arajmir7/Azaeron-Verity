@@ -214,6 +214,10 @@ def evaluate(
         durations.append((time.perf_counter() - started) * 1000 / len(test))
         rankings = scores.argsort(dim=-1, descending=True).tolist()
         metrics = retrieval_metrics(rankings, [[i] for i in range(len(test))])
+        for k in [1, 5, 10]:
+            metrics[f"recall_at_{k}"] = retrieval_metrics(
+                rankings, [[i] for i in range(len(test))], k
+            )["recall_at_k"]
         checks = {
             "recall": metrics["recall_at_k"] >= 0.95,
             "mrr": metrics["mrr"] >= 0.9,

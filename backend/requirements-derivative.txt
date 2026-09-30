@@ -1,0 +1,9 @@
+# Isolated candidate experiments. Not included in the application or production runtime.
+torch==2.14.0
+safetensors==0.8.0
+pydantic==2.13.5
+numpy==2.5.3
+transformers==5.17.0
+peft==0.21.1
+accelerate==1.15.0
+psutil==7.2.2

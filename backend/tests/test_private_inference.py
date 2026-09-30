@@ -39,13 +39,15 @@ def approved_model(**changes):
         tokenizer_revision="b" * 40,
         artifacts=artifacts,
         lineage={
-            "classification": "AZAERON_ORIGINAL",
+            "classification": "AZAERON_NATIVE",
             "family": family,
             "purpose": "PRODUCTION",
             "run_id": str(uuid4()),
             "training_steps": 1,
             "checkpoint_sha256": checkpoint,
-            "initialization_sha256": "0" * 64,
+            "initialization_sha256": hashlib.sha256(
+                (family + "-initialization").encode()
+            ).hexdigest(),
             "dataset_manifest_sha256": "1" * 64,
             "training_manifest_sha256": "d" * 64,
             "model_card_sha256": "f" * 64,

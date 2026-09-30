@@ -13,6 +13,13 @@ DIMENSIONS = {
     "factual_preservation",
     "citation_preservation",
     "hallucination_free",
+    "grammar",
+    "clarity",
+    "verbosity_control",
+    "style_adherence",
+    "grounded_summary",
+    "document_qa",
+    "tool_use_correctness",
 }
 
 
@@ -24,9 +31,14 @@ def writer_review(
         data.get("checkpoint_sha256") != checkpoint
         or data.get("dataset_manifest_sha256") != dataset
         or data.get("method") != "blinded_independent_ratings_v1"
+        or data.get("reviewer_kind") != "HUMAN"
+        or data.get("independence_attestation") is not True
+        or not data.get("review_protocol_reference")
     ):
         raise PolicyError("writer_review_lineage_mismatch")
     rows = data.get("ratings", [])
+    if not candidates:
+        raise PolicyError("empty_writer_review")
     seen, reviewers = set(), set()
     values: dict[str, list[float]] = {key: [] for key in DIMENSIONS}
     for row in rows:

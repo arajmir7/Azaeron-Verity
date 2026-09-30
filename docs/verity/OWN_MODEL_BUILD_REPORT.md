@@ -1,5 +1,7 @@
 # AZAERON AI PLATFORM — BUILD REPORT
 
+**Production candidate continuation:** Offline candidate/dataset admission, real full/LoRA SFT and a CUDA-gated QLoRA code path are now implemented. Full/LoRA optimization, reproducibility and a shared bake-off were executed only on fresh TEST_ONLY fixtures. No production candidate, dataset or legal review was invented. See the [candidate program](../../backend/docs/production-model-program.md) and [continuation evidence](evidence/model-bakeoff-20260930/program-status.json). All production models remain NOT APPROVED. The original build evidence below is retained as historical scope.
+
 **2026-09-30 — NOT PRODUCTION READY.** Executable training, evaluation, API and private-serving code is implemented. No production-approved Azaeron model exists. Four newly trained checkpoints are deliberately small, synthetic `TEST_ONLY` artifacts. They demonstrate working optimization, serialization, inference and evaluation mechanics, not useful product intelligence.
 
 | Family | Executed result | Production status |

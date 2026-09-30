@@ -1,0 +1,1 @@
+{"cuda":[],"disk_free_bytes":56616943616,"mac":{"chip_type":"Apple M4","machine_model":"Mac16,12","machine_name":"MacBook Air","number_processors":"proc 10:0:4:6","physical_memory":"16 GB"},"machine":"arm64","memory_available_bytes":4136370176,"memory_total_bytes":17179869184,"mps_available":true,"processor":"arm","python":"3.13.9","system":"Darwin","torch":"2.14.0"}

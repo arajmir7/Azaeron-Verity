@@ -118,7 +118,7 @@ def train(config_file: Path, output: Path, *, smoke=False):
     training = {
         "schema_version": 1,
         "run_id": run_id,
-        "classification": "AZAERON_ORIGINAL",
+        "classification": "AZAERON_NATIVE",
         "family": config.family,
         "tokenizer_sha256": hashlib.sha256(canonical(TOKENIZER) + b"\n").hexdigest(),
         "purpose": manifest.purpose,
@@ -151,7 +151,7 @@ def train(config_file: Path, output: Path, *, smoke=False):
         (output / name).write_bytes(canonical(value) + b"\n")
     (output / "MODEL_CARD.md").write_text(
         f"# Azaeron-Verity-{config.family.title()}\n\n"
-        f"Classification: AZAERON_ORIGINAL. Purpose: {manifest.purpose}.\n\n"
+        f"Classification: AZAERON_NATIVE. Purpose: {manifest.purpose}.\n\n"
         f"Run: {run_id}. Checkpoint SHA-256: {checkpoint_hash}.\n\n"
         "Status: NOT APPROVED. Original byte-token Transformer trained from random initialization. "
         "Training loss is not a quality benchmark. No production capabilities, multilingual coverage, "
@@ -162,7 +162,7 @@ def train(config_file: Path, output: Path, *, smoke=False):
     (output / "lineage.json").write_bytes(
         canonical(
             {
-                "classification": "AZAERON_ORIGINAL",
+                "classification": "AZAERON_NATIVE",
                 "family": config.family,
                 "run_id": run_id,
                 "training_steps": steps,

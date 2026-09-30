@@ -1,0 +1,10 @@
+{
+  "content_sha256": "8ad3083e88bae350e0b43a2115e814200526f8cf8a8f61187caae3b3c6245a9b",
+  "created_at": "2026-09-30T11:34:49.510471+00:00",
+  "document_id": "65f1caf1-af54-45e7-a082-06a23b34ba6c",
+  "result": "PASS",
+  "survivor_content_sha256": "41d8055ea8e940388880a433717a304dec4737b320be85c155a94c387926e517",
+  "survivor_document_id": "ac9ce232-39c5-41b7-9363-8402570131ab",
+  "survivor_version_id": "d4e43ff7-3bef-43c9-bc52-9da935912530",
+  "version_id": "4b6c488f-d893-4e96-88b1-496ff56fa13b"
+}

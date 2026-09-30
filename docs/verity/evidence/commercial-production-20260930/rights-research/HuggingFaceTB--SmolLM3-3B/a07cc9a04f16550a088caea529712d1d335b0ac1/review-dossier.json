@@ -1,0 +1,64 @@
+{
+  "repository": "HuggingFaceTB/SmolLM3-3B",
+  "kind": "models",
+  "role": "writer_candidate",
+  "revision": "a07cc9a04f16550a088caea529712d1d335b0ac1",
+  "captured_at": "2026-09-30T11:38:14.903941+00:00",
+  "primary_api": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM3-3B?blobs=true",
+  "metadata_sha256": "1ec802dec9887bb7e6a966592688814da4b0f9e81d252e648bbcebee770821ae",
+  "declared_license": "apache-2.0",
+  "local_metadata": {
+    "README.md": {
+      "sha256": "24f16f90b883af3618425a589783a944356a7fc2e3cfa69b579c9ff06963e178",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/resolve/a07cc9a04f16550a088caea529712d1d335b0ac1/README.md"
+    },
+    "config.json": {
+      "sha256": "c72b1031274ff4626e434d0019e88e95a767460135db9ee492eb80652b786af1",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/resolve/a07cc9a04f16550a088caea529712d1d335b0ac1/config.json"
+    },
+    "tokenizer_config.json": {
+      "sha256": "59a64b39f05ee0acf7479bbccf99a44d9e481c1a4a494eb03838ae3c35eb29be",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/resolve/a07cc9a04f16550a088caea529712d1d335b0ac1/tokenizer_config.json"
+    }
+  },
+  "unverified_payload_inventory": {
+    "model-00001-of-00002.safetensors": {
+      "publisher_lfs_sha256": "e5eed4113a925264c33e3cdf76cd9f547c06a207ef2270914a7274a2bf685ffd",
+      "bytes": 4966315264,
+      "local_bytes_verified": false
+    },
+    "model-00002-of-00002.safetensors": {
+      "publisher_lfs_sha256": "6c3ad90646457295723e4da5ee8afac47006e20407b122df5174693dd8d68a43",
+      "bytes": 1183919744,
+      "local_bytes_verified": false
+    }
+  },
+  "status": "REVIEW_REQUIRED",
+  "approval": "NOT_APPROVED",
+  "reviewer": null,
+  "blockers": [
+    "Accountable commercial-use/training review NOT FOUND",
+    "Weights NOT ACQUIRED / NOT VERIFIED",
+    "Offline runtime compatibility NOT EXECUTED",
+    "Internal quality comparison NOT EXECUTED"
+  ],
+  "technical_metadata": {
+    "architecture": [
+      "SmolLM3ForCausalLM"
+    ],
+    "text_model_type": "smollm3",
+    "publisher_parameters": 3075098624,
+    "configured_context": 65536,
+    "languages": [
+      "en",
+      "fr",
+      "es",
+      "it",
+      "pt",
+      "zh",
+      "ar",
+      "ru"
+    ],
+    "local_weights_verified": false
+  }
+}

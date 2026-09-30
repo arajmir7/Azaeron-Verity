@@ -1,29 +1,59 @@
 # AZAERON VERITY — RELEASE CERTIFICATION
 
-**2026-09-30 — NOT PRODUCTION READY.** The owned-model platform has executable training, evaluation, public API, private runtime and release-gate code. No production-approved Azaeron model is available. The [owned-model build report](OWN_MODEL_BUILD_REPORT.md) and [implementation/runbook](../../backend/docs/owned-model-platform.md) supersede earlier model-platform status statements.
+**2026-09-30 — NOT PRODUCTION READY.** Current work closes the locally reproduced
+container vulnerabilities and demonstrates a safe logical migration to a controlled
+PostgreSQL 16 image. It does not approve models or certify production operation.
 
-The new training code produced four distinct original checkpoints from random initialization on program-generated **TEST_ONLY** numeric fixtures. Each has safe-tensor weights, a reproducible configuration, training manifest, hashes, tokenizer lineage, evaluation and model card. Independent seeded repeats on PyTorch 2.14 produce identical weights. These tiny models fail the quality/release gates and cannot be promoted; no production checkpoint, approved dataset, real benchmark result or commercial approval was invented. [Exact local paths and hashes](evidence/owned-model-platform-20260930/checkpoint-inventory.json).
+The backend and verification images contain Debian stable security OpenSSL
+`3.5.7-1~deb13u3`, with actual package records and file hashes retained. A refreshed
+Trivy database reports zero HIGH/CRITICAL findings. The PostgreSQL candidate uses
+the pinned official 16.15 Alpine base and hash-verified pgvector 0.8.6 source, runs
+non-root and excludes the unused vulnerable root privilege-switch utility.
+Its scan and SBOM pass. No scanner threshold, CVE waiver, unstable package or fake
+VEX was used. Initial failures are retained in the evidence directory.
 
-The production registry is empty. Chat, Humaniser and detector inference fail closed if approved owned models are absent. Third-party Qwen/MiniLM files remain baselines. Unknown dataset rights block training. Separate model families, independent verification, immutable evidence binding and all eight release gates are enforced. Public document operations retain pinned versions, tenant access and erasure checks. Deterministic workspace overlap remains available with its stated limited coverage.
+The PostgreSQL image refuses implicit bootstrap and unrecognized PGDATA. Primary
+Compose uses a distinct physical volume; existing data requires the
+[logical migration procedure](../../infrastructure/postgres/MIGRATION.md).
+No customer volume was switched, deleted or migrated automatically.
 
-| Executed check | Result and scope |
-| --- | --- |
-| Backend contracts/security/workers | 277 tests PASS; final source recorded by the repository gate. |
-| PostgreSQL/RLS/storage | 34 actual integration tests PASS. |
-| Black, Ruff, mypy | PASS; 191 application modules type checked. |
-| Frontend lint, build, TypeScript | PASS; all 29 browser tests and source stability PASS (11/11 repository gates). |
-| Training/evaluation mechanics | Four families trained twice, 9 optimizer steps each, matching repeated checkpoint hashes. All four quality evaluations BLOCKED. |
-| Training dependency audit | PyTorch 2.10 initially failed two advisories. Upgraded isolated environment and hashed lock to 2.14; final audit has no known findings. |
-| SAST / reviewed secrets | Bandit zero findings; zero unreviewed secrets, existing 48 reviewed fingerprints preserved. |
-| Current application images | Frontend PASS; backend FAIL: one HIGH OpenSSL finding. Both SBOMs PASS. |
-| Prior hosted infrastructure scan | Grafana PASS at `9c730bb`; PostgreSQL remained 102 HIGH / 16 CRITICAL. That preceding scan does not certify this build or newer vulnerability databases. |
+[Current evidence](evidence/commercial-production-20260930/) includes old-image
+backup, new-volume restore, migrations, 34 PostgreSQL/RLS/storage tests, 292 backend
+tests before subsequent dataset hardening, and a clean replay plus second recovery.
+The representative fixture contains documents, versions, provenance, conversations,
+messages, tool calls/results/events, an accepted receipt and a private voice profile.
+Row hashes match after restore. One post-backup account erasure is replayed before
+serving; seven objects are removed, the surviving version hash passes and the erased
+account cannot log in. A second backup/restore preserves the tombstone and both
+surviving object hashes. These are local measurements, not production RPO/RTO.
+A failed replay contaminated by intentionally retained integration-test fixtures is
+preserved and classified; the clean recovery was repeated in entirely new volumes.
 
-[Repository gate results](evidence/owned-model-platform-20260930/gates/results.json), [application image scans](evidence/owned-model-platform-20260930/application-images/results.json), [training dependency audit](evidence/owned-model-platform-20260930/training-dependency-audit-final.json), [Bandit](evidence/owned-model-platform-20260930/bandit.json), [secret gate](evidence/owned-model-platform-20260930/secret-gate.log).
+Dataset hardening additionally requires derivative rights, permitted tasks and
+source/author/document lineage, and rejects cross-split lexical near duplicates.
+The narrow candidate-policy suite passes 21 tests. Full exact-head hosted AMD64
+repository, image, security and derivative-mechanics checks remain pending for this
+snapshot; consult [execution state](EXECUTION_STATE.md) for the final run identity.
 
-The fresh backend scan identifies `CVE-2026-84782` in `libssl3t64 3.5.7-1~deb13u2`. Debian's tracker marks the current trixie/security package vulnerable and lists a fix in unstable `3.6.5-1`; no stable distribution upgrade or security waiver was fabricated. [Debian advisory state](https://security-tracker.debian.org/tracker/CVE-2026-84782). The API's production security gate remains FAIL.
+[Rights and compute dossiers](evidence/commercial-production-20260930/RIGHTS_AND_COMPUTE.md)
+cover three Writer candidates, two proposed independent baselines and specialist
+initializations. No candidate is admitted: commercial review, verified payloads and
+runtime evidence are missing; unsafe artifact forms are rejected. Four real dataset
+sources were researched; none is approved. Noncommercial and unresolved mixed-source
+rights are rejected. Original TEST_ONLY checkpoints remain smoke evidence only.
+No new toy training, external AI inference, strong-baseline result, human rating or
+production model approval was fabricated.
 
-The earlier core-platform load rerun passes 284 requests, zero HTTP errors, 56 completed jobs and all 25 unchanged latency cells. Clean-source recovery passes restore, post-backup erasure replay and survivor object/version hash verification. [Load budgets](evidence/core-intelligence-20260929/load-restarted/budgets.json), [recovery result](evidence/core-intelligence-20260929/recovery-clean/recovery-result.json). These are local non-model measurements from the preceding source, not production SLO, GPU, offsite recovery or model-quality evidence. Failed attempts remain retained. Recovery/smoke containers were stopped with their volumes preserved.
+P0: no confirmed catastrophic issue in this exercised scope. P1: approved data,
+capable production checkpoints, independent human/baseline evaluation, specialist
+derivative/runtime implementation and private serving certification remain absent.
+P2: production soak, GPU measurements, offsite recovery, locale-sensitive migration
+validation and manual accessibility review remain unexecuted. Unexecuted is BLOCKED.
 
-Release remains blocked by reviewed production data, useful trained checkpoints, independent blinded writer ratings, strong-baseline comparisons, approved private model/runtime deployment, production security/load/soak evidence, image vulnerabilities, offsite recovery and manual accessibility review. The native reference runtime has no certified KV/prefix cache or production batching implementation. Fine-tuning an approved third-party base is not implemented; any future result must be declared AZAERON_DERIVATIVE with proven lineage.
+The five-product scope and existing architecture are retained. Required own API
+routes exist; model-backed AI, Humaniser and calibrated Detector remain fail-closed.
+Workspace similarity measures indexed overlap, and Documents retain immutable
+versions. No merge or commercial launch is certified.
 
-**Verdict: Model-platform engineering is implemented and tested within the linked scope. Azaeron's model family and production deployment are NOT APPROVED.** The [execution ledger](EXECUTION_STATE.md) preserves history; [previous certification](evidence/owned-model-platform-20260930/previous-release-certification.md) is historical.
+Historical reports: [previous certification](evidence/commercial-production-20260930/release-certification-before.md),
+[prior hosted exact-head results](evidence/model-bakeoff-20260930/FINAL_REPORT.md).

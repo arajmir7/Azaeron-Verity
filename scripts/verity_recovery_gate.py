@@ -42,6 +42,38 @@ SOURCE_CONFIG = Path(
 ).resolve()
 BUCKET = "azaeron-documents"
 TARGET = os.environ.get("VERITY_RECOVERY_TARGET", "azaeron-verity-dr")
+POSTGRES_IMAGE = os.environ.get("VERITY_RECOVERY_POSTGRES_IMAGE")
+CRITICAL_TABLES = (
+    "documents",
+    "document_versions",
+    "provenance_events",
+    "ai_conversations",
+    "ai_messages",
+    "ai_runs",
+    "ai_tool_calls",
+    "ai_tool_results",
+    "ai_events",
+    "ai_document_attachments",
+    "ai_action_receipts",
+    "ai_voice_profiles",
+)
+
+
+def relational_evidence(config, port):
+    """Hash stored rows, including encrypted payloads, without publishing text."""
+    result = {}
+    with pg_conn(config, port) as db:
+        for table in CRITICAL_TABLES:
+            rows = db.execute(
+                sql.SQL("SELECT row_to_json(t) FROM {} t ORDER BY id").format(
+                    sql.Identifier(table)
+                )
+            ).fetchall()
+            encoded = json.dumps(
+                [row[0] for row in rows], sort_keys=True, separators=(",", ":")
+            ).encode()
+            result[table] = {"count": len(rows), "sha256": digest(encoded)}
+    return result
 
 
 def source_port(service: str, target: int) -> int:
@@ -260,6 +292,158 @@ def fixture():
     )
 
 
+def agent_fixture():
+    """Exercise real local tools and an explicit citation decision, without AI."""
+    state = load(PRIVATE / "fixture.json")
+    if "agent_fixture" in state:
+        raise RuntimeError("Agent fixture already exists; do not seed twice")
+    origin = {"Origin": f"http://localhost:{source_port('frontend', 3000)}"}
+    with httpx.Client(
+        base_url=f"http://localhost:{source_port('backend', 8000)}",
+        headers=origin,
+        timeout=45,
+    ) as api:
+        login = api.post(
+            "/api/v1/auth/login",
+            json={"email": state["email"], "password": state["password"]},
+        )
+        assert login.status_code == 200
+        passage = (
+            "The recovery team records each document version before taking a backup. "
+            "An isolated database receives the logical archive on a new volume. "
+            "The team compares content hashes and checks the relationships between records. "
+            "A separate account retains its document after the first account is erased. "
+            "This purpose written fixture supports an engineering test and makes no research claims. "
+            "A citation decision creates an immutable result that remains linked to its source. "
+            "Restoration includes the conversation, tool invocation, evidence and user decision. "
+            "The checks run before serving begins so deleted data cannot reappear in the application. "
+            "The exercise uses no customer documents and calls no external intelligence service."
+        )
+
+        def upload(name, text):
+            body = text.encode()
+            response = api.post(
+                "/api/v1/documents/upload-request",
+                json={
+                    "filename": name,
+                    "content_type": "text/plain",
+                    "file_size": len(body),
+                },
+            )
+            assert response.status_code == 200
+            slot = response.json()
+            storage(SOURCE_CONFIG, source_port("minio", 9000)).put_object(
+                BUCKET,
+                slot["storage_key"],
+                io.BytesIO(body),
+                len(body),
+                content_type="text/plain",
+            )
+            response = api.post(
+                "/api/v1/documents/upload-confirm",
+                json={
+                    "upload_id": slot["upload_id"],
+                    "storage_key": slot["storage_key"],
+                    "original_filename": name,
+                    "sha256_fingerprint": digest(body),
+                },
+            )
+            assert response.status_code == 200
+            document = response.json()["id"]
+            for _ in range(90):
+                response = api.get(f"/api/v1/documents/{document}/content")
+                if response.status_code == 200:
+                    return {
+                        "document_id": document,
+                        "document_version_id": response.json()["document_version_id"],
+                    }
+                time.sleep(1)
+            raise RuntimeError("Agent recovery document did not process")
+
+        upload("recovery-citation-source.txt", passage + " Source fixture.")
+        target = upload("recovery-citation-target.txt", passage + " Target fixture.")
+        response = api.post(
+            "/api/v1/ai/conversations", json={"title": "Recovery fixture"}
+        )
+        assert response.status_code == 201
+        conversation = response.json()["id"]
+
+        def run(tool):
+            response = api.post(
+                f"/api/v1/ai/conversations/{conversation}/messages",
+                json={
+                    "operation_id": str(uuid4()),
+                    "content": "Run the selected recovery fixture tool.",
+                    "attachments": [target],
+                    "tool": tool,
+                },
+            )
+            assert response.status_code == 202
+            run_id = response.json()["run"]["id"]
+            for _ in range(90):
+                detail = api.get(f"/api/v1/ai/conversations/{conversation}").json()
+                current = next(row for row in detail["runs"] if row["id"] == run_id)
+                if current["status"] == "COMPLETED":
+                    call = next(
+                        row for row in detail["tool_calls"] if row["run_id"] == run_id
+                    )
+                    return next(
+                        row["content"]
+                        for row in detail["tool_results"]
+                        if row["tool_call_id"] == call["id"]
+                    )
+                if current["status"] in ("FAILED", "UNAVAILABLE", "CANCELLED"):
+                    raise RuntimeError(
+                        "Recovery tool failed: " + str(current.get("error_code"))
+                    )
+                time.sleep(1)
+            raise RuntimeError("Recovery tool timed out")
+
+        run({"name": "document.read", **target})
+        analysis = run({"name": "similarity.analyze", **target})
+        match = analysis["analysis"]["matches"]["items"][0]
+        proposal = run(
+            {
+                "name": "similarity.resolve",
+                **target,
+                "match_id": match["id"],
+                "action": "add_citation",
+                "citation": "(Recovery fixture source, 2026)",
+                "rationale": "Record attribution in the isolated recovery test.",
+            }
+        )
+        response = api.post(
+            f"/api/v1/ai/receipts/{proposal['receipt_id']}/decision",
+            json={
+                "decision": "ACCEPTED",
+                "candidate_sha256": proposal["candidate_sha256"],
+            },
+        )
+        assert response.status_code == 200
+        receipt = response.json()
+        profile = api.post(
+            "/api/v1/ai/voice-profiles",
+            json={
+                "name": "Recovery fixture style",
+                "samples": [target],
+                "approved": True,
+            },
+        )
+        assert profile.status_code == 201
+        evidence = {
+            "conversation_id": conversation,
+            "receipt_id": proposal["receipt_id"],
+            "result_version_id": receipt["result_version_id"],
+            "result_sha256": receipt["result_sha256"],
+            "voice_profile_id": profile.json()["id"],
+            "model_executed": False,
+            "result": "PASS",
+        }
+        state["agent_fixture"] = evidence
+        save(PRIVATE / "fixture.json", state)
+        save(PUBLIC / "agent-fixture.json", evidence)
+
+
 def snapshot():
     state = load(PRIVATE / "fixture.json")
     backup = PRIVATE / "backup"
@@ -294,11 +478,27 @@ def snapshot():
                 stdout=handle,
                 timeout=300,
             )
-        state["schema"] = compose(
-            SOURCE_CONFIG, "exec", "-T", "postgres", "psql", "-U", "azaeron",
-            "-d", "azaeron", "-Atc", "SELECT version_num FROM alembic_version",
-            stdout=subprocess.PIPE,
-        ).stdout.decode().strip()
+        state["schema"] = (
+            compose(
+                SOURCE_CONFIG,
+                "exec",
+                "-T",
+                "postgres",
+                "psql",
+                "-U",
+                "azaeron",
+                "-d",
+                "azaeron",
+                "-Atc",
+                "SELECT version_num FROM alembic_version",
+                stdout=subprocess.PIPE,
+            )
+            .stdout.decode()
+            .strip()
+        )
+        state["relations"] = relational_evidence(
+            SOURCE_CONFIG, source_port("postgres", 5432)
+        )
         store = storage(SOURCE_CONFIG, source_port("minio", 9000))
         assert store.bucket_exists(BUCKET)
         # MinIO releases and SDKs report disabled versioning as either an
@@ -364,6 +564,7 @@ def snapshot():
                     (backup / "model-config/registry.json").read_bytes()
                 ),
                 "bucket_versioning": "disabled",
+                "relations": state["relations"],
                 "pause_seconds": round(time.monotonic() - start, 3),
                 "result": "PASS",
             },
@@ -394,6 +595,9 @@ def target_config():
         "backend",
         "celery-worker",
         "frontend",
+        "migrate",
+        "celery-beat",
+        "verification",
     }
     config["services"] = {
         name: value for name, value in services.items() if name in keep
@@ -426,6 +630,12 @@ def target_config():
     )
     for service in config["services"].values():
         service.pop("depends_on", None)
+    if POSTGRES_IMAGE:
+        config["services"]["postgres"]["image"] = POSTGRES_IMAGE
+        config["services"]["postgres"].pop("build", None)
+        config["services"]["postgres"]["environment"][
+            "AZAERON_DATABASE_BOOTSTRAP"
+        ] = "logical-restore"
     for name in ("backend", "celery-worker"):
         for mount in config["services"][name].get("volumes", []):
             if mount.get("target") == "/etc/azaeron/models":
@@ -491,6 +701,19 @@ def restore():
         (backup / "objects.json").read_bytes()
     )
     config = target_config()
+    # Never restore into a pre-existing volume, including a prior failed trial.
+    # Preserve it for diagnosis and select a new target project on retry.
+    for volume in load(config)["volumes"].values():
+        exists = (
+            subprocess.run(
+                ["docker", "volume", "inspect", volume["name"]],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            ).returncode
+            == 0
+        )
+        if exists:
+            raise RuntimeError("Recovery requires entirely new target volumes")
     start = time.monotonic()
     compose(
         config,
@@ -558,6 +781,9 @@ def restore():
             stdin=handle,
             timeout=360,
         )
+    if "relations" in state:
+        assert relational_evidence(config, 15432) == state["relations"]
+    compose(config, "run", "--rm", "--no-deps", "-T", "migrate", timeout=180)
     compose(config, "run", "--rm", "--no-deps", "-T", "minio-init", timeout=120)
     target_store = storage(config, 19700)
     assert target_store.bucket_exists(BUCKET)
@@ -612,6 +838,9 @@ def restore():
             "schema": state["schema"],
             "pre_replay_deleted_account_present": True,
             "api_exposed": False,
+            "relations_verified": state.get("relations", {}),
+            "migrations": "PASS",
+            "postgres_image": load(config)["services"]["postgres"]["image"],
             "result": "PASS",
         },
     )
@@ -942,18 +1171,231 @@ def replay():
     )
 
 
+def second_restore():
+    """Back up the restored candidate and prove another fresh-volume recovery."""
+    first = PRIVATE / "target-compose.json"
+    assert load(PUBLIC / "recovery-result.json")["result"] == "PASS"
+    state = load(PRIVATE / "fixture.json")
+    backup = PRIVATE / "second-backup"
+    backup.mkdir(mode=0o700, exist_ok=False)
+    started = time.monotonic()
+    compose(first, "stop", "backend", "celery-worker", "frontend", timeout=180)
+    expected = relational_evidence(first, 15432)
+    with (backup / "postgres.dump").open("wb") as handle:
+        compose(
+            first,
+            "exec",
+            "-T",
+            "postgres",
+            "pg_dump",
+            "-U",
+            "azaeron",
+            "-d",
+            "azaeron",
+            "-Fc",
+            stdout=handle,
+            timeout=300,
+        )
+    (backup / "postgres.dump").chmod(0o600)
+    store = storage(first, 19700)
+    objects = []
+    for i, item in enumerate(store.list_objects(BUCKET, recursive=True)):
+        response = store.get_object(BUCKET, item.object_name)
+        try:
+            body = response.read()
+            content_type = response.headers.get(
+                "Content-Type", "application/octet-stream"
+            )
+        finally:
+            response.close()
+            response.release_conn()
+        path = backup / f"{i}.bin"
+        path.write_bytes(body)
+        path.chmod(0o600)
+        objects.append(
+            {
+                "key": item.object_name,
+                "file": path.name,
+                "sha256": digest(body),
+                "content_type": content_type,
+            }
+        )
+    save(backup / "objects.json", objects)
+    with pg_conn(first, 15432) as db:
+        tombstones = db.execute(
+            "SELECT row_to_json(t) FROM privacy_erasures t ORDER BY id"
+        ).fetchall()
+    # Retain first volumes and containers; stopping releases only this test's ports.
+    compose(first, "stop", timeout=180)
+    config = load(first)
+    name = config["name"] + "-second"
+    config["name"] = name
+    for key, value in config["volumes"].items():
+        value["name"] = f"{name}_{key}"
+        if (
+            subprocess.run(
+                ["docker", "volume", "inspect", value["name"]],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            ).returncode
+            == 0
+        ):
+            raise RuntimeError("Second restore requires new volumes")
+    for key, value in config["networks"].items():
+        value["name"] = f"{name}_{key}"
+        value["ipam"] = {
+            "config": [
+                {
+                    "subnet": os.environ.get(
+                        "VERITY_SECOND_RESTORE_SUBNET", "172.30.128.0/24"
+                    )
+                }
+            ]
+        }
+    if POSTGRES_IMAGE:
+        config["services"]["postgres"]["image"] = POSTGRES_IMAGE
+    config["services"]["postgres"]["environment"][
+        "AZAERON_DATABASE_BOOTSTRAP"
+    ] = "logical-restore"
+    second = PRIVATE / "second-compose.json"
+    save(second, config)
+    compose(second, "up", "-d", "--no-deps", "--no-build", "postgres", "redis", "minio")
+    for _ in range(60):
+        try:
+            with pg_conn(second, 15432) as db:
+                db.execute("SELECT 1")
+            break
+        except psycopg.OperationalError:
+            time.sleep(1)
+    else:
+        raise RuntimeError("Second PostgreSQL did not start")
+    with pg_conn(second, 15432) as db:
+        db.execute(
+            sql.SQL("CREATE ROLE azaeron_app LOGIN PASSWORD {}").format(
+                sql.Literal(
+                    config["services"]["migrate"]["environment"]["APP_DB_PASSWORD"]
+                )
+            )
+        )
+    with (backup / "postgres.dump").open("rb") as handle:
+        compose(
+            second,
+            "exec",
+            "-T",
+            "postgres",
+            "pg_restore",
+            "-U",
+            "azaeron",
+            "-d",
+            "azaeron",
+            "--exit-on-error",
+            stdin=handle,
+            timeout=360,
+        )
+    assert relational_evidence(second, 15432) == expected
+    compose(second, "run", "--rm", "--no-deps", "-T", "migrate")
+    compose(second, "run", "--rm", "--no-deps", "-T", "minio-init")
+    restored = storage(second, 19700)
+    for item in objects:
+        body = (backup / item["file"]).read_bytes()
+        assert digest(body) == item["sha256"]
+        restored.put_object(
+            BUCKET,
+            item["key"],
+            io.BytesIO(body),
+            len(body),
+            content_type=item["content_type"],
+        )
+        response = restored.get_object(BUCKET, item["key"])
+        try:
+            assert digest(response.read()) == item["sha256"]
+        finally:
+            response.close()
+            response.release_conn()
+    with pg_conn(second, 15432) as db:
+        assert (
+            db.execute(
+                "SELECT row_to_json(t) FROM privacy_erasures t ORDER BY id"
+            ).fetchall()
+            == tombstones
+        )
+        assert (
+            db.execute(
+                "SELECT count(*) FROM users WHERE id=%s", (state["user_id"],)
+            ).fetchone()[0]
+            == 0
+        )
+        assert (
+            db.execute(
+                "SELECT count(*) FROM users WHERE id=%s", (state["survivor_user_id"],)
+            ).fetchone()[0]
+            == 1
+        )
+    compose(
+        second,
+        "up",
+        "-d",
+        "--no-deps",
+        "--no-build",
+        "backend",
+        "celery-worker",
+        "frontend",
+    )
+    for _ in range(90):
+        try:
+            if (
+                httpx.get("http://localhost:19710/health/ready", timeout=3).status_code
+                == 200
+            ):
+                break
+        except httpx.HTTPError:
+            pass
+        time.sleep(1)
+    else:
+        raise RuntimeError("Second restored application did not become ready")
+    save(
+        PUBLIC / "second-restore.json",
+        {
+            "result": "PASS",
+            "postgres_image": config["services"]["postgres"]["image"],
+            "seconds": round(time.monotonic() - started, 3),
+            "relations": expected,
+            "dump_sha256": digest((backup / "postgres.dump").read_bytes()),
+            "object_count": len(objects),
+            "object_hashes_verified": True,
+            "tombstones_preserved": len(tombstones),
+            "erased_account_absent": True,
+            "surviving_account_present": True,
+            "api_ready": True,
+            "volumes": [v["name"] for v in config["volumes"].values()],
+            "production_rpo_rto_certified": False,
+        },
+    )
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "phase", choices=["prepare", "snapshot", "restore", "erase", "replay"]
+        "phase",
+        choices=[
+            "prepare",
+            "agents",
+            "snapshot",
+            "restore",
+            "erase",
+            "replay",
+            "second",
+        ],
     )
     phase = parser.parse_args().phase
     PUBLIC.mkdir(parents=True, exist_ok=True)
     {
         "prepare": fixture,
+        "agents": agent_fixture,
         "snapshot": snapshot,
         "restore": restore,
         "erase": erase,
         "replay": replay,
+        "second": second_restore,
     }[phase]()
     print(phase, "PASS")

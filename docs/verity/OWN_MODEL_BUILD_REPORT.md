@@ -1,3 +1,7 @@
+# Current continuation
+
+See [current release certification](RELEASE_CERTIFICATION.md), [execution state](EXECUTION_STATE.md) and [rights/compute dossiers](evidence/commercial-production-20260930/RIGHTS_AND_COMPUTE.md). The report below is historical native smoke evidence; later LoRA training mechanics are implemented, stable OpenSSL is fixed locally, and a guarded PostgreSQL replacement passes local scan/recovery. No production models or datasets are approved.
+
 # AZAERON AI PLATFORM — BUILD REPORT
 
 **Production candidate continuation:** Offline candidate/dataset admission, real full/LoRA SFT and a CUDA-gated QLoRA code path are now implemented. Full/LoRA optimization, reproducibility and a shared bake-off were executed only on fresh TEST_ONLY fixtures. No production candidate, dataset or legal review was invented. See the [candidate program](../../backend/docs/production-model-program.md) and [continuation evidence](evidence/model-bakeoff-20260930/program-status.json). All production models remain NOT APPROVED. The original build evidence below is retained as historical scope.

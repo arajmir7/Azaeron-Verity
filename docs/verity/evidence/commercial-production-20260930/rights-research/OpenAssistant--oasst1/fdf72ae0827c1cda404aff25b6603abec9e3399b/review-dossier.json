@@ -1,0 +1,40 @@
+{
+  "repository": "OpenAssistant/oasst1",
+  "kind": "datasets",
+  "role": "human_conversation_candidate",
+  "revision": "fdf72ae0827c1cda404aff25b6603abec9e3399b",
+  "captured_at": "2026-09-30T11:38:23.713147+00:00",
+  "primary_api": "https://huggingface.co/api/datasets/OpenAssistant/oasst1?blobs=true",
+  "metadata_sha256": "984d31407a11a2d49ef775df638e716e0ced0441bdf07afa7b1d2ea95a3e10be",
+  "declared_license": "apache-2.0",
+  "local_metadata": {
+    "LICENSE": {
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "source": "https://huggingface.co/datasets/OpenAssistant/oasst1/resolve/fdf72ae0827c1cda404aff25b6603abec9e3399b/LICENSE"
+    },
+    "README.md": {
+      "sha256": "68483ac2fcc2f3f7779f453352363827678070ef35b6d746ccb2ca6958540fff",
+      "source": "https://huggingface.co/datasets/OpenAssistant/oasst1/resolve/fdf72ae0827c1cda404aff25b6603abec9e3399b/README.md"
+    }
+  },
+  "unverified_payload_inventory": {
+    "data/train-00000-of-00001-b42a775f407cee45.parquet": {
+      "publisher_lfs_sha256": "bbfadf5ed1278ba2208c837fdcad865adf65f5df55d80abadab2745db13fcb5e",
+      "bytes": 39516251,
+      "local_bytes_verified": false
+    },
+    "data/validation-00000-of-00001-134b8fd0c89408b6.parquet": {
+      "publisher_lfs_sha256": "24002597bb13a7edd42d92f773762f25e285f72c31a70449393d0ded1dc7b416",
+      "bytes": 2080179,
+      "local_bytes_verified": false
+    }
+  },
+  "status": "REVIEW_REQUIRED",
+  "approval": "NOT_APPROVED",
+  "reviewer": null,
+  "blockers": [
+    "Accountable rights review NOT FOUND",
+    "Payload bytes NOT ACQUIRED / NOT VERIFIED",
+    "PII/copyright and upstream provenance review NOT COMPLETE"
+  ]
+}

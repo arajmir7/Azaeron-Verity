@@ -1,0 +1,60 @@
+{
+  "api_exposed": false,
+  "migrations": "PASS",
+  "postgres_image": "sha256:1e1c73b145e5cc63bb3c0668f80b24c8ecc525ea243fc0a633ba1518359acf62",
+  "pre_replay_deleted_account_present": true,
+  "relations_verified": {
+    "ai_action_receipts": {
+      "count": 1,
+      "sha256": "7cc971113c05f75c04b96f734815358d333630d3703a1f63d0e2ab42fa58f9c4"
+    },
+    "ai_conversations": {
+      "count": 1,
+      "sha256": "ccff8e87ceab6381c02895a151d71343d424f3097ec733b9cd0dd41f7b2f4893"
+    },
+    "ai_document_attachments": {
+      "count": 2,
+      "sha256": "90eb91fc4cdc3d4150951547db83dd22eac22d9018b8df3bb2b00e1a2df93d1e"
+    },
+    "ai_events": {
+      "count": 15,
+      "sha256": "06d652acedb6974329b8ee7651c79a53ccb2bdde719a9216c859b464efe7abff"
+    },
+    "ai_messages": {
+      "count": 4,
+      "sha256": "07a5e18c9f29c30890ba4e0b5d19f3d6b8193bd6b143c138d11c29701fe85d0e"
+    },
+    "ai_runs": {
+      "count": 3,
+      "sha256": "257a38ac21c090644b2b44a2e867696719e40bb4faa112a00d6840e00ae8636b"
+    },
+    "ai_tool_calls": {
+      "count": 3,
+      "sha256": "ac192275962c0bdc0fb2ee291fb3197888b442bde473219548943b6615c97f7b"
+    },
+    "ai_tool_results": {
+      "count": 3,
+      "sha256": "ddb4287aaa3763c9fe2cb9a9b0aa5e6077badcc4f08e805816de07d74ce56c98"
+    },
+    "ai_voice_profiles": {
+      "count": 1,
+      "sha256": "72b1fac2e3e6fff80ffdaebbb6b056d651757ade158427747756a362299879b5"
+    },
+    "document_versions": {
+      "count": 5,
+      "sha256": "cd30bb85e2c6f263cfee28663dcfe13ba72445a0a2660a169bfefe8eb60199af"
+    },
+    "documents": {
+      "count": 4,
+      "sha256": "e4ce874ce2f270caa6fd08db05d97f9365b0fbf1ed6ad53d05e8fb1dc111a950"
+    },
+    "provenance_events": {
+      "count": 10,
+      "sha256": "a0bef186f0f748406857e9073fea12294deccad37f881ca3a8715ebe4d49a022"
+    }
+  },
+  "restore_seconds": 6.009,
+  "restored_object_count": 9,
+  "result": "PASS",
+  "schema": "20260929_0039"
+}

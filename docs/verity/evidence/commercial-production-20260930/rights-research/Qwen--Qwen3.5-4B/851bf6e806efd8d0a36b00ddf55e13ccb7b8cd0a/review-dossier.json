@@ -1,0 +1,59 @@
+{
+  "repository": "Qwen/Qwen3.5-4B",
+  "kind": "models",
+  "role": "writer_candidate",
+  "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "captured_at": "2026-09-30T11:38:13.462674+00:00",
+  "primary_api": "https://huggingface.co/api/models/Qwen/Qwen3.5-4B?blobs=true",
+  "metadata_sha256": "658c2d5df22334d889f868a33b573e7c89cfbc8ba4f63e65c382f551d39e4c3e",
+  "declared_license": "apache-2.0",
+  "local_metadata": {
+    "LICENSE": {
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+      "source": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/LICENSE"
+    },
+    "README.md": {
+      "sha256": "1406be1b6b8fd8a6545870da516912804756593628a1d0fb0a7965211e82a7bb",
+      "source": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/README.md"
+    },
+    "config.json": {
+      "sha256": "ddc63e1c717afa86c865bb5e01313d89d72bb53b97ad4a8a03ba8510c0621670",
+      "source": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/config.json"
+    },
+    "tokenizer_config.json": {
+      "sha256": "316230d6a809701f4db5ea8f8fc862bc3a6f3229c937c174e674ff3ca0a64ac8",
+      "source": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/tokenizer_config.json"
+    }
+  },
+  "unverified_payload_inventory": {
+    "model.safetensors-00001-of-00002.safetensors": {
+      "publisher_lfs_sha256": "26a93f066e1916adb13453dae5a0c707c0fbc71299ed98779571a907b8e74c61",
+      "bytes": 5329398688,
+      "local_bytes_verified": false
+    },
+    "model.safetensors-00002-of-00002.safetensors": {
+      "publisher_lfs_sha256": "cb544bd9bfae93dc59b0f22b292f5933573854a7f9b97835c67060d7d910e188",
+      "bytes": 3990429408,
+      "local_bytes_verified": false
+    }
+  },
+  "status": "REVIEW_REQUIRED",
+  "approval": "NOT_APPROVED",
+  "reviewer": null,
+  "blockers": [
+    "Accountable commercial-use/training review NOT FOUND",
+    "Weights NOT ACQUIRED / NOT VERIFIED",
+    "Offline runtime compatibility NOT EXECUTED",
+    "Internal quality comparison NOT EXECUTED"
+  ],
+  "technical_metadata": {
+    "architecture": [
+      "Qwen3_5ForConditionalGeneration"
+    ],
+    "text_model_type": "qwen3_5_text",
+    "publisher_parameters": 4659865088,
+    "configured_context": 262144,
+    "languages": null,
+    "local_weights_verified": false
+  }
+}

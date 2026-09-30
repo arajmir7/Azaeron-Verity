@@ -39,7 +39,9 @@ as unavailable; it never silently substitutes a hosted model. The empty
 [model registry](config/models/registry.json) is intentional. Model weights,
 commercial-use approval, evaluation evidence, and suitable private serving
 infrastructure must be supplied before model-backed capabilities can be enabled.
-Voice profiles are not currently available.
+Private voice profiles store approved sample references and style statistics;
+they do not train a global model. Model-backed style rewriting remains unavailable
+until an approved Writer and independent Verifier are deployed.
 
 The [academic writing product benchmark](docs/verity/PRODUCT_BENCHMARK.md)
 records the bounded comparison behind the input-first workflow and explains why
@@ -98,11 +100,9 @@ See the [architecture map](ARCHITECTURE.md),
   pinned upstream source using digest-pinned build and runtime bases. Registry
   credentials are not needed to pull the former Quay image references.
 
-The documented verification environment has exercised Linux ARM64 on an Apple Silicon
-host. A hosted Linux AMD64 run executed the repository suite and security audits,
-but failed while exporting images for the scanner; the corrected source still
-needs its own hosted run. Optional
-ML dependencies have not been certified.
+Local verification uses Linux ARM64 on Apple Silicon; hosted gates use Linux
+AMD64. See [execution state](docs/verity/EXECUTION_STATE.md) for the exact tested
+commit and current results. Repository tests do not certify model quality.
 Docker needs enough allocated memory for PostgreSQL, object storage, API, and workers;
 private model serving has a separate, model-specific hardware requirement.
 
@@ -119,7 +119,7 @@ python3 backend/scripts/prepare_slice0_compose.py \
   --port-offset 1800 \
   --output /tmp/verity-local.json
 
-docker compose -f /tmp/verity-local.json build backend celery-worker migrate frontend
+docker compose -f /tmp/verity-local.json build postgres backend celery-worker celery-beat migrate frontend minio minio-init
 
 docker compose -f /tmp/verity-local.json up -d \
   --wait --wait-timeout 180 backend celery-worker frontend
@@ -128,6 +128,10 @@ docker compose -f /tmp/verity-local.json up -d \
 The generator creates separate project names, networks, and volumes. It writes the
 resolved configuration with owner-only permissions; that file contains development
 configuration and must not be committed. It does not start a model runtime.
+
+Existing databases require the [logical migration procedure](infrastructure/postgres/MIGRATION.md).
+The controlled PostgreSQL image refuses implicit initialization and unrecognized
+PGDATA; the primary Compose configuration uses a new physical volume name.
 
 | Local surface | Address |
 | --- | --- |

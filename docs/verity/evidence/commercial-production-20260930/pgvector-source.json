@@ -1,0 +1,7 @@
+{
+  "repository": "https://github.com/pgvector/pgvector",
+  "version": "0.8.6",
+  "revision": "8ee86c96f0fd72390f890aa8a336fda6d3ab4c6c",
+  "archive_url": "https://codeload.github.com/pgvector/pgvector/tar.gz/8ee86c96f0fd72390f890aa8a336fda6d3ab4c6c",
+  "archive_sha256": "d076a3098010905fd60256649327809651f6288327db6413f0938305f62ea299"
+}

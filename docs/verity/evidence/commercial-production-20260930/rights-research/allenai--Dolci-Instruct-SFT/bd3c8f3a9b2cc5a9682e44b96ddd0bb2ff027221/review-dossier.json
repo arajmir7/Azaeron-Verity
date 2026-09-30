@@ -1,0 +1,102 @@
+{
+  "repository": "allenai/Dolci-Instruct-SFT",
+  "kind": "datasets",
+  "role": "mixed_source_rights_exclusion_check",
+  "revision": "bd3c8f3a9b2cc5a9682e44b96ddd0bb2ff027221",
+  "captured_at": "2026-09-30T11:38:25.102559+00:00",
+  "primary_api": "https://huggingface.co/api/datasets/allenai/Dolci-Instruct-SFT?blobs=true",
+  "metadata_sha256": "90931db6665bd1a7d3f5059feaefa5b5dfb83dc3c987bf2046288247873114bd",
+  "declared_license": "odc-by",
+  "local_metadata": {
+    "README.md": {
+      "sha256": "db0307ffbeab4a90bb41cb966fcc2bca09ce3495afcdb8e173c0370287002a5b",
+      "source": "https://huggingface.co/datasets/allenai/Dolci-Instruct-SFT/resolve/bd3c8f3a9b2cc5a9682e44b96ddd0bb2ff027221/README.md"
+    }
+  },
+  "unverified_payload_inventory": {
+    "data/train-00000-of-00015.parquet": {
+      "publisher_lfs_sha256": "8a671c8118a611338059f931e64defe4817202130c00dc547f109d07c86b84a6",
+      "bytes": 150342005,
+      "local_bytes_verified": false
+    },
+    "data/train-00001-of-00015.parquet": {
+      "publisher_lfs_sha256": "dc9ee27eead3e22df8dab7d6ebc86a01944e00f7a7a8df1174113f69a00c9b97",
+      "bytes": 149881504,
+      "local_bytes_verified": false
+    },
+    "data/train-00002-of-00015.parquet": {
+      "publisher_lfs_sha256": "a3fcbc750bba81fdbc4eee38174e26c19981829b7adf433a54dd2a7542ebc5c2",
+      "bytes": 150825987,
+      "local_bytes_verified": false
+    },
+    "data/train-00003-of-00015.parquet": {
+      "publisher_lfs_sha256": "dec503024ff4b506280b5eb2eb5146bad64ac9c281cebd450870a963b2a3a2aa",
+      "bytes": 150435633,
+      "local_bytes_verified": false
+    },
+    "data/train-00004-of-00015.parquet": {
+      "publisher_lfs_sha256": "a97772d4155e053bca8d5c421c2201eb62d4118fb283f473656dc16492297a03",
+      "bytes": 150220626,
+      "local_bytes_verified": false
+    },
+    "data/train-00005-of-00015.parquet": {
+      "publisher_lfs_sha256": "a715efb45cb3a9b2835b7b06443a5bd20afcecb53ce755bb0851a93a691b79af",
+      "bytes": 150125065,
+      "local_bytes_verified": false
+    },
+    "data/train-00006-of-00015.parquet": {
+      "publisher_lfs_sha256": "8c12b6dfbd3f1205ab5ff8ae2c2cfe09aa22cd8813e3a0a17be18a26beb682ca",
+      "bytes": 150769558,
+      "local_bytes_verified": false
+    },
+    "data/train-00007-of-00015.parquet": {
+      "publisher_lfs_sha256": "15994c99353c65b55900e6f6b62a5441b160420c90fbe92692d42044822ecadd",
+      "bytes": 150019281,
+      "local_bytes_verified": false
+    },
+    "data/train-00008-of-00015.parquet": {
+      "publisher_lfs_sha256": "f63bea09321335759718a04a9eec4a780b8e4b8968036409dfe6709047846250",
+      "bytes": 150609447,
+      "local_bytes_verified": false
+    },
+    "data/train-00009-of-00015.parquet": {
+      "publisher_lfs_sha256": "d402e1749b2ec313fa162a6cb44b18cf896413443b3494ffa3b0d621a4b37d47",
+      "bytes": 106362504,
+      "local_bytes_verified": false
+    },
+    "data/train-00010-of-00015.parquet": {
+      "publisher_lfs_sha256": "5e56730a541f69db586167e9595a8a7907d7946f590aac83e204d8400b479766",
+      "bytes": 96264948,
+      "local_bytes_verified": false
+    },
+    "data/train-00011-of-00015.parquet": {
+      "publisher_lfs_sha256": "ef37c4b7eb68845b7f460a236a2a4d7d7f9c7fe516c5b63048a4ef01e3e7063a",
+      "bytes": 261536939,
+      "local_bytes_verified": false
+    },
+    "data/train-00012-of-00015.parquet": {
+      "publisher_lfs_sha256": "069aca4896a8054702127690cc0cea4c634f84e62703707f1962ec83af7fe0d2",
+      "bytes": 331845759,
+      "local_bytes_verified": false
+    },
+    "data/train-00013-of-00015.parquet": {
+      "publisher_lfs_sha256": "f9e7f3ce84bb64da974ccdb3762d2158d6cc303fdc651868906038fbdc82b72a",
+      "bytes": 252776199,
+      "local_bytes_verified": false
+    },
+    "data/train-00014-of-00015.parquet": {
+      "publisher_lfs_sha256": "83524879c6aefd376b15c52361f642a8bd543c93f22d509f94c842a260dd0b86",
+      "bytes": 659412194,
+      "local_bytes_verified": false
+    }
+  },
+  "status": "REJECTED",
+  "approval": "NOT_APPROVED",
+  "reviewer": null,
+  "blockers": [
+    "Accountable rights review NOT FOUND",
+    "Payload bytes NOT ACQUIRED / NOT VERIFIED",
+    "PII/copyright and upstream provenance review NOT COMPLETE",
+    "Noncommercial, mixed, or unknown rights cannot enter training"
+  ]
+}

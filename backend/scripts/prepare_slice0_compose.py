@@ -36,6 +36,10 @@ def main() -> None:
     if args.project == config.get("name"):
         parser.error("The verification project must differ from the primary project")
     config["name"] = args.project
+    # Isolated tests always create their own volumes, never the primary PGDATA.
+    config["services"]["postgres"]["environment"][
+        "AZAERON_DATABASE_BOOTSTRAP"
+    ] = "new-install"
     for name, service in config["services"].items():
         service.pop("container_name", None)
         if service.get("build"):

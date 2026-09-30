@@ -1,0 +1,50 @@
+{
+  "repository": "Qwen/Qwen3-Embedding-0.6B",
+  "kind": "models",
+  "role": "embed_initialization_candidate",
+  "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+  "captured_at": "2026-09-30T11:38:20.325121+00:00",
+  "primary_api": "https://huggingface.co/api/models/Qwen/Qwen3-Embedding-0.6B?blobs=true",
+  "metadata_sha256": "aea25da6ab440a4f64d06c206eeecd6e7be1e503550dd766d9f4a50d622caf3f",
+  "declared_license": "apache-2.0",
+  "local_metadata": {
+    "README.md": {
+      "sha256": "c34d9b7e5a267ad3fdd13227a253686bc90844ff4744a2a6a86c7c905e3d06f3",
+      "source": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/README.md"
+    },
+    "config.json": {
+      "sha256": "b5bf1f51fc45be473a54718cef92448d90a1be001bf9b9a44b8c7f10a19feaa9",
+      "source": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/config.json"
+    },
+    "tokenizer_config.json": {
+      "sha256": "253153d0738ceb4c668d2eff957714dd2bea0b56de772a9fdccd96cbf517e6a0",
+      "source": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/tokenizer_config.json"
+    }
+  },
+  "unverified_payload_inventory": {
+    "model.safetensors": {
+      "publisher_lfs_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd",
+      "bytes": 1191586416,
+      "local_bytes_verified": false
+    }
+  },
+  "status": "REVIEW_REQUIRED",
+  "approval": "NOT_APPROVED",
+  "reviewer": null,
+  "blockers": [
+    "Accountable commercial-use/training review NOT FOUND",
+    "Weights NOT ACQUIRED / NOT VERIFIED",
+    "Offline runtime compatibility NOT EXECUTED",
+    "Internal quality comparison NOT EXECUTED"
+  ],
+  "technical_metadata": {
+    "architecture": [
+      "Qwen3ForCausalLM"
+    ],
+    "text_model_type": "qwen3",
+    "publisher_parameters": 595776512,
+    "configured_context": 32768,
+    "languages": null,
+    "local_weights_verified": false
+  }
+}

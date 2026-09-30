@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import shutil
 from typing import Literal
 
@@ -59,6 +60,7 @@ class Dataset(StrictModel):
     source: str = Field(min_length=1)
     license: str = Field(min_length=1)
     commercial_training_permission: Literal["GRANTED"]
+    derivative_permission: Literal["GRANTED", "UNKNOWN"] = "UNKNOWN"
     redistribution_permission: Literal["GRANTED", "PROHIBITED"]
     provenance: str = Field(min_length=1)
     acquisition_method: str = Field(min_length=1)
@@ -68,6 +70,7 @@ class Dataset(StrictModel):
     domain: list[str] = Field(min_length=1)
     quality_tier: Literal["CURATED", "GOLD", "TEST_FIXTURE"]
     allowed_model_families: list[Family] = Field(min_length=1)
+    allowed_tasks: list[str] = Field(default_factory=list)
     contains_customer_content: Literal[False]
     splits: dict[str, FileRef]
     review: FileRef
@@ -95,6 +98,65 @@ class Example(StrictModel):
     task: str = Field(min_length=1)
     slices: list[str]
     generator_family: str | None = None
+    source_id: str | None = None
+    author_id: str | None = None
+    document_id: str | None = None
+    synthetic_parent_id: str | None = None
+    derived_from: list[str] = Field(default_factory=list)
+
+
+class LeakageIndex:
+    """Exact cross-split 5-word shingle Jaccard check, with a fail-closed bound.
+
+    The bound prevents an unbounded review process; larger corpora must use
+    independently reviewed shards, never silently skip duplicate inspection.
+    This detects lexical near duplicates, not all semantic paraphrases.
+    """
+
+    def __init__(self):
+        self.rows: list[tuple[str, set[bytes]]] = []
+        self.postings: dict[bytes, set[int]] = {}
+        self.lineage: dict[tuple[str, str], str] = {}
+        self.shingle_count = 0
+
+    def add(self, row, split):
+        keys = [
+            ("source", row.source_id),
+            ("author", row.author_id),
+            ("document", row.document_id),
+            ("lineage", row.id),
+            ("lineage", row.synthetic_parent_id),
+            *[("lineage", parent) for parent in row.derived_from],
+        ]
+        for kind, value in keys:
+            if value and self.lineage.setdefault((kind, value), split) != split:
+                raise PolicyError("derived_or_author_lineage_split_leakage")
+        words = re.findall(r"\w+", row.input.casefold())
+        if len(words) < 10:
+            return  # Existing exact normalized-input checks cover short fixtures.
+        shingles = {
+            hashlib.blake2b(
+                " ".join(words[i : i + 5]).encode(), digest_size=16
+            ).digest()
+            for i in range(len(words) - 4)
+        }
+        self.shingle_count += len(shingles)
+        if self.shingle_count > 2_000_000:
+            raise PolicyError("near_duplicate_review_capacity_exceeded")
+        candidates = set()
+        for value in shingles:
+            candidates.update(self.postings.get(value, ()))
+        for index in candidates:
+            other_split, other = self.rows[index]
+            if (
+                other_split != split
+                and len(shingles & other) / len(shingles | other) >= 0.8
+            ):
+                raise PolicyError("near_duplicate_split_leakage")
+        index = len(self.rows)
+        self.rows.append((split, shingles))
+        for value in shingles:
+            self.postings.setdefault(value, set()).add(index)
 
 
 def review_subject(manifest: Dataset) -> str:
@@ -112,6 +174,10 @@ def read_dataset(manifest_file: Path, family: Family, *, smoke=False):
         raise PolicyError("dataset_purpose_or_family_mismatch")
     if set(manifest.splits) != SPLITS:
         raise PolicyError("five_independent_splits_required")
+    if not smoke and (
+        manifest.derivative_permission != "GRANTED" or not manifest.allowed_tasks
+    ):
+        raise PolicyError("dataset_derivative_rights_and_tasks_required")
     review = DatasetReview.model_validate_json(
         manifest.review.verify(manifest_file.parent).read_bytes()
     )
@@ -122,6 +188,7 @@ def read_dataset(manifest_file: Path, family: Family, *, smoke=False):
     ):
         raise PolicyError("human_dataset_review_required")
     rows, ids, inputs, groups, generators = {}, set(), set(), set(), set()
+    leakage = LeakageIndex()
     for split, ref in manifest.splits.items():
         path = ref.verify(manifest_file.parent)
         if path.stat().st_size > 256 * 1024**2:
@@ -130,6 +197,12 @@ def read_dataset(manifest_file: Path, family: Family, *, smoke=False):
         with path.open() as stream:
             for line in stream:
                 row = Example.model_validate_json(line)
+                if not smoke and (
+                    not all((row.source_id, row.author_id, row.document_id))
+                    or row.task not in manifest.allowed_tasks
+                ):
+                    raise PolicyError("example_lineage_and_task_review_required")
+                leakage.add(row, split)
                 key = hashlib.sha256(
                     " ".join(row.input.casefold().split()).encode()
                 ).hexdigest()

@@ -1,4 +1,17 @@
-FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 AS runtime-os
+FROM gcr.io/distroless/base-debian13:nonroot@sha256:0896741ba5bafd3ac87ea025a5f578952f2d238ddc3614cb368acc983a687aa2 AS runtime-os-upstream
+
+FROM python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 AS runtime-security
+# Stable trixie-security DSA-6531-1. Retain actual package records in the
+# final distroless image; do not suppress scanner findings or use unstable.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       libssl3t64=3.5.7-1~deb13u3 openssl-provider-legacy=3.5.7-1~deb13u3 \
+    && rm -rf /var/lib/apt/lists/*
+COPY scripts/runtime_security_overlay.py /runtime_security_overlay.py
+RUN python /runtime_security_overlay.py
+
+FROM runtime-os-upstream AS runtime-os
+COPY --from=runtime-security /security-overlay/ /
 
 FROM python:3.12-slim-trixie@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 AS runtime-base
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_DISABLE_PIP_VERSION_CHECK=1

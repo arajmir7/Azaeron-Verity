@@ -1,0 +1,47 @@
+{
+  "repository": "HuggingFaceH4/no_robots",
+  "kind": "datasets",
+  "role": "noncommercial_exclusion_check",
+  "revision": "e6f9a4ac5c37faeb744ba9ecf0473184d7f8105b",
+  "captured_at": "2026-09-30T11:38:24.266771+00:00",
+  "primary_api": "https://huggingface.co/api/datasets/HuggingFaceH4/no_robots?blobs=true",
+  "metadata_sha256": "758c9946d90949b4eb990305ab6433358919802a6172e510959688ed2365a7d2",
+  "declared_license": "cc-by-nc-4.0",
+  "local_metadata": {
+    "README.md": {
+      "sha256": "22b642520e082ba1a6c4a93047bd5946aeca099763c6f2d11b59d91e61e79186",
+      "source": "https://huggingface.co/datasets/HuggingFaceH4/no_robots/resolve/e6f9a4ac5c37faeb744ba9ecf0473184d7f8105b/README.md"
+    }
+  },
+  "unverified_payload_inventory": {
+    "data/test-00000-of-00001.parquet": {
+      "publisher_lfs_sha256": "60707b2636a46e37bb0c1e9ca263a18553f430317b7a53c691676d6a492fc0f2",
+      "bytes": 570905,
+      "local_bytes_verified": false
+    },
+    "data/test_sft-00000-of-00001.parquet": {
+      "publisher_lfs_sha256": "60707b2636a46e37bb0c1e9ca263a18553f430317b7a53c691676d6a492fc0f2",
+      "bytes": 570905,
+      "local_bytes_verified": false
+    },
+    "data/train-00000-of-00001.parquet": {
+      "publisher_lfs_sha256": "76d64120a2ab20eb85d6b22bdced5b1ec638a6213a97004741006745c92489ef",
+      "bytes": 10474682,
+      "local_bytes_verified": false
+    },
+    "data/train_sft-00000-of-00001.parquet": {
+      "publisher_lfs_sha256": "76d64120a2ab20eb85d6b22bdced5b1ec638a6213a97004741006745c92489ef",
+      "bytes": 10474682,
+      "local_bytes_verified": false
+    }
+  },
+  "status": "REJECTED",
+  "approval": "NOT_APPROVED",
+  "reviewer": null,
+  "blockers": [
+    "Accountable rights review NOT FOUND",
+    "Payload bytes NOT ACQUIRED / NOT VERIFIED",
+    "PII/copyright and upstream provenance review NOT COMPLETE",
+    "Noncommercial, mixed, or unknown rights cannot enter training"
+  ]
+}

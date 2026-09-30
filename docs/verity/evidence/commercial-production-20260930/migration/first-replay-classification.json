@@ -1,0 +1,6 @@
+{
+  "status": "FAIL",
+  "cause": "Concurrency integration tests intentionally retain immutable versions with fake in-memory object paths. They must execute in a separate contract-test database, not the recovery dataset.",
+  "customer_data_involved": false,
+  "remediation": "Retain failed volumes and logs; restore original verified backup into fresh guarded image volumes and replay erasures without test fixture contamination."
+}

@@ -1,13 +1,15 @@
 services:
   postgres:
-    # PostgreSQL 16 preserves the established /var/lib/postgresql/data volume
-    # layout. PostgreSQL 18 requires a different parent mount path.
-    image: pgvector/pgvector:pg16@sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b
+    # Changed image family: NEW volume only. Existing installations must follow
+    # infrastructure/postgres/MIGRATION.md; never reuse the legacy PGDATA volume.
+    build:
+      context: ./infrastructure/postgres
     container_name: azaeron-postgres
     environment:
       POSTGRES_USER: azaeron
       POSTGRES_PASSWORD: ${DB_PASSWORD:-azaeron_dev_password}
       POSTGRES_DB: azaeron
+      AZAERON_DATABASE_BOOTSTRAP: ${AZAERON_DATABASE_BOOTSTRAP:-}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backend/scripts/init-pgvector.sql:/docker-entrypoint-initdb.d/02-init-pgvector.sql
@@ -371,6 +373,7 @@ services:
 
 volumes:
   postgres_data:
+    name: azaeron_verity_postgres16_secure_data
   redis_data:
   minio_data:
   prometheus_data:

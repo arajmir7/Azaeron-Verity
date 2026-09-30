@@ -1,0 +1,31 @@
+{
+  "repository": "databricks/databricks-dolly-15k",
+  "kind": "datasets",
+  "role": "human_instruction_candidate",
+  "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+  "captured_at": "2026-09-30T11:38:22.514805+00:00",
+  "primary_api": "https://huggingface.co/api/datasets/databricks/databricks-dolly-15k?blobs=true",
+  "metadata_sha256": "7ceb17ce5a96120ae354819f45d090a5c79158012a8daeb8b808db2f083d7043",
+  "declared_license": "cc-by-sa-3.0",
+  "local_metadata": {
+    "README.md": {
+      "sha256": "db06c60090a11b20e79d1933b2f316f781605f07761ff2ae2795d6523e3e960b",
+      "source": "https://huggingface.co/datasets/databricks/databricks-dolly-15k/resolve/bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a/README.md"
+    }
+  },
+  "unverified_payload_inventory": {
+    "databricks-dolly-15k.jsonl": {
+      "publisher_lfs_sha256": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec",
+      "bytes": 13085339,
+      "local_bytes_verified": false
+    }
+  },
+  "status": "REVIEW_REQUIRED",
+  "approval": "NOT_APPROVED",
+  "reviewer": null,
+  "blockers": [
+    "Accountable rights review NOT FOUND",
+    "Payload bytes NOT ACQUIRED / NOT VERIFIED",
+    "PII/copyright and upstream provenance review NOT COMPLETE"
+  ]
+}

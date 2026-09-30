@@ -15,6 +15,8 @@ from app.modules.model_platform.datasets import (
     DatasetReview,
     read_dataset,
     review_subject,
+    Example,
+    LeakageIndex,
 )
 from app.modules.model_platform.derivative import DerivativeConfig
 from app.modules.model_platform.detector_metrics import (
@@ -195,6 +197,65 @@ def test_dataset_reviews_bound_and_customer_data_rejected(tmp_path):
         Dataset.model_validate(
             {**manifest.model_dump(), "contains_customer_content": True}
         )
+
+
+@pytest.mark.parametrize(
+    "field", ["source_id", "author_id", "document_id", "synthetic_parent_id"]
+)
+def test_multi_axis_lineage_leakage_rejected(field):
+    index = LeakageIndex()
+    row = dict(
+        id="a",
+        group="a",
+        input="original",
+        target="HUMAN",
+        language="en",
+        domain="fixture",
+        task="classify",
+        slices=[],
+        **{field: "shared"},
+    )
+    index.add(Example.model_validate(row), "train")
+    with pytest.raises(PolicyError, match="lineage_split_leakage"):
+        index.add(
+            Example.model_validate({**row, "id": "b", "input": "independent wording"}),
+            "test",
+        )
+
+
+def test_near_duplicate_and_derived_lineage_rejected():
+    index = LeakageIndex()
+    text = " ".join("word" + str(i) for i in range(80))
+    row = dict(
+        id="a",
+        group="a",
+        input=text,
+        target="HUMAN",
+        language="en",
+        domain="fixture",
+        task="classify",
+        slices=[],
+    )
+    index.add(Example.model_validate(row), "train")
+    with pytest.raises(PolicyError, match="near_duplicate"):
+        index.add(
+            Example.model_validate({**row, "id": "b", "input": text + " new ending"}),
+            "ood",
+        )
+    with pytest.raises(PolicyError, match="lineage_split_leakage"):
+        index.add(
+            Example.model_validate(
+                {**row, "id": "c", "input": "unrelated", "derived_from": ["a"]}
+            ),
+            "test",
+        )
+
+
+def test_production_dataset_missing_derivative_rights_fails_before_review(tmp_path):
+    manifest = dataset_fixture(tmp_path).model_copy(update={"purpose": "PRODUCTION"})
+    path = save_dataset(tmp_path, manifest)
+    with pytest.raises(PolicyError, match="derivative_rights"):
+        read_dataset(path, "detector")
 
 
 def test_gpu_plan_blocks_oversized_training():

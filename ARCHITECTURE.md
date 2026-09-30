@@ -1,6 +1,6 @@
 # AZAERON VERITY architecture map
 
-Updated September 29, 2026. The [private agent core](backend/docs/private-agent-core.md) records the CREATE → VERIFY → PROVE implementation and its model/corpus boundaries. The [remediation ledger](docs/verity/REMEDIATION_STATE.md)
+Updated September 30, 2026. The [private agent core](backend/docs/private-agent-core.md) records the CREATE → VERIFY → PROVE implementation and its model/corpus boundaries. The [remediation ledger](docs/verity/REMEDIATION_STATE.md)
 and [release decision](docs/verity/RELEASE_CERTIFICATION.md) record current checks
 and blockers; [execution history](docs/verity/EXECUTION_STATE.md) preserves the
 earlier September 20 snapshot. This map records implemented components and
@@ -10,6 +10,12 @@ The authoritative parser/version contract is in
 [backend/docs/document-intelligence-core.md](backend/docs/document-intelligence-core.md);
 its command outputs and version-isolation gate are in
 [docs/verification/document-intelligence/](docs/verification/document-intelligence/).
+
+## Owned model platform
+
+[Owned-model architecture and runbook](backend/docs/owned-model-platform.md) describes the separate Writer, Verifier, Detector and Embed trainers, original byte-token models, rights-reviewed dataset manifests, held-out evaluations, checkpoint lineage, registry promotion and native private runtime. Only synthetic `TEST_ONLY` checkpoints have been trained; none is approved. Existing Qwen/MiniLM assets remain third-party baselines. Production routes fail closed against the empty approved registry.
+
+The public AI contract adds chat/stream, humanize, detect, version-pinned document summarize/ask and plagiarism/check beside jobs/models/usage. Authentication, scoped API keys, quota/idempotency, source erasure and independent verification remain inside Azaeron. Document Q&A uses bounded owned-model retrieval. [Platform evidence](docs/verity/evidence/owned-model-platform-20260930/) distinguishes executable mechanics from unproven production quality.
 
 ## Runtime and trust boundaries
 

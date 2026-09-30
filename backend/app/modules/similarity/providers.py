@@ -35,11 +35,11 @@ class LocalEmbeddingProvider:
 
     dimension = 384
 
-    def __init__(self, path: str):
+    def __init__(self, path: str, *, baseline: bool = False):
         self.model = None
         self.model_id = None
         self.reason = "The configured local embedding asset is unavailable."
-        if settings.ENVIRONMENT == "production":
+        if not baseline or settings.ENVIRONMENT == "production":
             self.reason = "No production-approved embedding model is registered; semantic verification is unavailable."
             return
         folder = Path(path)

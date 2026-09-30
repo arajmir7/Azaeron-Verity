@@ -18,6 +18,8 @@ class PublicModel(BaseModel):
     languages: list[str]
     context_limit: int
     license: str
+    classification: str
+    family: str
 
 
 class ModelList(BaseModel):
@@ -28,7 +30,11 @@ class ModelList(BaseModel):
 @router.get("/models", response_model=ModelList)
 async def models(user: User = Depends(get_current_user)) -> ModelList:
     try:
-        approved = [m for m in registry().models if m.status == "APPROVED"]
+        approved = [
+            m
+            for m in registry().models
+            if m.status == "APPROVED" and m.lineage is not None
+        ]
     except InferenceUnavailable:
         approved = []
     return ModelList(
@@ -40,6 +46,12 @@ async def models(user: User = Depends(get_current_user)) -> ModelList:
                 languages=m.languages,
                 context_limit=m.context_limit,
                 license=m.license,
+                classification=m.lineage.classification if m.lineage else "UNAVAILABLE",
+                family=(
+                    "Azaeron-Verity-" + m.lineage.family.title()
+                    if m.lineage
+                    else "UNAVAILABLE"
+                ),
             )
             for m in approved
         ],

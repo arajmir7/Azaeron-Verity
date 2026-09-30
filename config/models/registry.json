@@ -10,7 +10,12 @@
     "owned_hardware_runtime_cuda_and_quantization",
     "versioned_licensed_evaluation_datasets",
     "quality_latency_memory_concurrency_and_cost_results",
-    "independent_release_approval"
+    "independent_release_approval",
+    "azaeron_controlled_training_new_checkpoint",
+    "rights_reviewed_task_scoped_dataset",
+    "original_or_derivative_lineage",
+    "eight_checkpoint_bound_promotion_gates",
+    "independent_specialist_checkpoint_hashes"
   ],
   "status": "BLOCKED_NO_APPROVED_MODELS",
   "models": [],

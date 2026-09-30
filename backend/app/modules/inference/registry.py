@@ -8,6 +8,7 @@ from pathlib import Path, PurePosixPath
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
+from app.modules.model_platform.policy import FAMILY_TASKS, Lineage, ReleaseApproval
 
 Task = Literal[
     "chat", "summarize", "refine", "extract", "classify", "embed", "rerank", "verify"
@@ -34,7 +35,9 @@ class ModelRecord(BaseModel):
     approval_reference: str | None = None
     evaluation_sha256: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
     context_limit: int = Field(ge=256, le=2_000_000)
-    runtime: Literal["vllm"] = "vllm"
+    runtime: Literal["vllm", "azaeron-native"] = "vllm"
+    lineage: Lineage | None = None
+    release: ReleaseApproval | None = None
     runtime_image: str = Field(pattern=r"^[^\s]+@sha256:[a-f0-9]{64}$")
     quantization: str = Field(min_length=1)
     tasks: list[Task] = Field(min_length=1)
@@ -58,6 +61,34 @@ class ModelRecord(BaseModel):
             and self.evaluation_sha256
         ):
             raise ValueError("Approval requires commercial-use and evaluation evidence")
+        if self.status == "APPROVED":
+            if (
+                not self.lineage
+                or not self.release
+                or self.lineage.purpose != "PRODUCTION"
+            ):
+                raise ValueError(
+                    "Approved serving requires Azaeron production training lineage"
+                )
+            lineage, release = self.lineage, self.release
+            if not set(self.tasks) <= FAMILY_TASKS[lineage.family]:
+                raise ValueError(
+                    "Task does not belong to this specialized model family"
+                )
+            if release.checkpoint_sha256 != lineage.checkpoint_sha256:
+                raise ValueError("Release approval does not cover this checkpoint")
+            required = {
+                "checkpoint.safetensors": lineage.checkpoint_sha256,
+                "training-manifest.json": lineage.training_manifest_sha256,
+                "MODEL_CARD.md": lineage.model_card_sha256,
+            }
+            required.update(
+                {v.evidence.path: v.evidence.sha256 for v in release.gates.values()}
+            )
+            if any(self.artifacts.get(k) != v for k, v in required.items()):
+                raise ValueError("Owned model evidence must be in the hashed bundle")
+            if self.evaluation_sha256 != release.gates["evaluation"].evidence.sha256:
+                raise ValueError("Evaluation evidence mismatch")
         return self
 
 
@@ -76,6 +107,20 @@ class AzaeronModelRegistry(BaseModel):
             raise ValueError("Model IDs must be unique")
         if any(value not in identifiers for value in self.routes.values()):
             raise ValueError("Route references an unknown model")
+        serving = [
+            m.lineage
+            for m in self.models
+            if m.status == "APPROVED" and m.lineage is not None
+        ]
+        for lineage in serving:
+            if any(
+                other.family != lineage.family
+                and other.checkpoint_sha256 == lineage.checkpoint_sha256
+                for other in serving
+            ):
+                raise ValueError(
+                    "Independent specialist families require different trained checkpoints"
+                )
         return self
 
     @classmethod

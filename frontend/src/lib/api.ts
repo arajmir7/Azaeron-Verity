@@ -340,7 +340,7 @@ export interface UsageSummary {
   limits: { task: string; limit: number; reserved: number; committed: number }[];
 }
 
-export type ApiKeyScope = "text:analyze" | "text:refine" | "text:verify" | "documents:read" | "documents:write" | "usage:read";
+export type ApiKeyScope = "text:analyze" | "text:refine" | "text:verify" | "documents:read" | "documents:write" | "usage:read" | "ai:chat";
 export interface ApiKeyMetadata {
   id: string; name: string; key_prefix: string; scopes: ApiKeyScope[];
   user_id: string; organization_id: string; created_at: string;

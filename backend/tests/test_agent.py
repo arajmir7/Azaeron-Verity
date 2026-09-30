@@ -175,10 +175,39 @@ async def test_closed_tool_schema_and_persistent_search_receipt(client):
 
 def streaming_gateway(frames, capture=None):
     model = approved_model(tasks=["chat"])
-    registry = AzaeronModelRegistry(models=[model], routes={"chat": model.model_id})
+    verifier = approved_model(
+        model_id="fixture-verifier", revision="c" * 40, tasks=["verify"]
+    )
+    registry = AzaeronModelRegistry(
+        models=[model, verifier],
+        routes={"chat": model.model_id, "verify": verifier.model_id},
+    )
 
     async def transport(request):
         payload = json.loads(request.content)
+        if payload["model"] == verifier.model_id:
+            return httpx.Response(
+                200,
+                json={
+                    "model": verifier.model_id,
+                    "choices": [
+                        {
+                            "finish_reason": "stop",
+                            "message": {
+                                "content": json.dumps(
+                                    {
+                                        "equivalent": True,
+                                        "contradiction": False,
+                                        "unsupported_additions": False,
+                                        "uncertain": False,
+                                    }
+                                )
+                            },
+                        }
+                    ],
+                    "usage": {"prompt_tokens": 12, "completion_tokens": 8},
+                },
+            )
         assert payload["stream"] is True and "tools" not in payload
         if capture is not None:
             capture.append(payload)
@@ -417,6 +446,8 @@ async def test_running_generation_stops_on_cancellation(client, monkeypatch):
     entered, stopped = asyncio.Event(), asyncio.Event()
 
     class BlockingTestRuntime:
+        router = streaming_gateway(stream_frames()).router
+
         async def run(self, *args, **kwargs):
             entered.set()
             try:

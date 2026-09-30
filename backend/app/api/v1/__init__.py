@@ -26,9 +26,11 @@ from app.api.v1 import (
     privacy,
     usage,
     telemetry,
+    model_platform,
 )
 
 api_router = APIRouter(prefix="/v1")
+api_router.include_router(model_platform.router)
 api_router.include_router(ai.router)
 api_router.include_router(usage.router)
 api_router.include_router(telemetry.router)

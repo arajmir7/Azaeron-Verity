@@ -46,6 +46,8 @@ def source_manifest() -> dict[str, str]:
         "backend/requirements.lock",
         "backend/requirements-dev.txt",
         "backend/requirements-dev.lock",
+        "backend/requirements-training.txt",
+        "backend/requirements-training-macos.lock",
         "frontend/next.config.ts",
         "backend/Dockerfile",
         "frontend/package.json",

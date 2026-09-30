@@ -52,9 +52,11 @@ def run_view(run):
 async def authorize(db, org, actor, *, family=None, version=None):
     await require_member_permission(db, org, actor, Permission.EDITORIAL_WRITE)
     user = await db.scalar(
-        select(User).where(
+        select(User)
+        .where(
             User.id == actor, User.is_active.is_(True), User.erasure_pending.is_(False)
         )
+        .execution_options(populate_existing=True)
     )
     workspace = await db.scalar(
         select(Organization.id).where(

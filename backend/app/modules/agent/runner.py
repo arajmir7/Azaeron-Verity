@@ -208,7 +208,9 @@ async def execute_run(run_id, org, actor, *, session_factory=AsyncSessionLocal):
                 )
                 await db.commit()
                 await apply_tenant_context(db, org, actor)
-                response = await gateway().run(
+                private = gateway()
+                private.router.route("verify")
+                response = await private.run(
                     AzaeronInferenceJob(
                         operation_id=UUID(run_id),
                         organization_id=UUID(org),
@@ -219,9 +221,25 @@ async def execute_run(run_id, org, actor, *, session_factory=AsyncSessionLocal):
                     on_delta=delta,
                 )
                 await delta("", flush=True)
+                from app.modules.inference.support import assess_support
+
+                verification = await assess_support(
+                    private,
+                    response,
+                    {
+                        "operation_id": UUID(run_id),
+                        "organization_id": UUID(org),
+                        "user_id": UUID(actor),
+                    },
+                    context,
+                    mode="answer_support",
+                )
+                if verification["outcome"] != "VERIFIED":
+                    raise InferenceUnavailable("independent_verification_rejected")
                 run.model_evidence = response.model_dump(
                     mode="json", exclude={"output"}
                 )
+                run.model_evidence["verification"] = verification
                 return {"text": response.output, "model_evidence": run.model_evidence}
 
             with collect_model_calls() as collected:

@@ -1,5 +1,50 @@
 # Execution ledger
 
+## 2026-09-30: owned model family and public API continuation
+
+Added executable original-model training for Writer, Verifier, Detector and Embed; rights/hash/split validation; held-out evaluation and blinded writer-review aggregation; safe checkpoints and lineage/model cards; eight-gate promotion; private native runtime and specialist gateway protocols; public customer API routes with quota, scoped keys and independent verification. Four tiny synthetic models trained for nine optimizer steps each. Repeated seeded runs produced identical hashes. They are TEST_ONLY and NOT APPROVED; the production registry remains empty. Existing third-party checkpoints have not been renamed or promoted. See [runbook](../../backend/docs/owned-model-platform.md) and [current build report](OWN_MODEL_BUILD_REPORT.md).
+
+The original full-suite invocation omitted its test CORS override and failed 19 cookie-origin checks. The corrected invocation passes 277 tests, with type checking across 191 modules. The optional training dependency audit initially found two PyTorch 2.10 advisories; the isolated environment was upgraded to 2.14 and the final audit reports no known findings. Both old and corrected results are retained. Final repository gates are recorded separately in platform evidence.
+
+The preceding `9c730bb` hosted run passed all 11 repository gates and Grafana image security. PostgreSQL remains at 102 HIGH / 16 CRITICAL findings. Local load rerun passed 284 requests, zero HTTP errors, 56 completed jobs and all 25 unchanged latency budgets. Clean-source backup/restore, erasure and replay passed with a surviving version hash verified; a prior contaminated test database correctly failed missing-object integrity. Task-created recovery and Grafana smoke containers were stopped, with volumes retained. These operational measurements predate the new owned-model source and do not certify a production model deployment.
+
+## 2026-09-30: private agent core and evidence-backed certification
+
+The current implementation adds forced-RLS agent conversations/messages/runs/tools/attachments/receipts, actor-private history, strict user-selected tools, private SSE validation/replay/cancellation, exact-candidate approval, MeaningLock orchestration, owned approved VoiceLock statistics, receipt-backed similarity resolution and offline rights-gated indexing. Intake and contextual editor controls remain inside the frozen five-product navigation. See [architecture](../../backend/docs/private-agent-core.md) and [attack coverage](CORE_ATTACK_MATRIX.md).
+
+The completed hosted AMD64 run at `4bcc572` passes all 11 repository gates (268 backend, 34 actual PostgreSQL/RLS/storage, 29 browser tests), dependency audits, Bandit and the reviewed-secret gate. All 12 distinct image scans and SBOMs executed; vulnerabilities fail on Grafana and PostgreSQL (114 HIGH / 16 CRITICAL). No waiver or weakened gate was added. A subsequent one-line accessible chat-log correction is undergoing exact-commit CI at `e989e17`.
+
+The main working branch/index and all pre-existing edits were preserved. Source snapshots were created on `codex/private-agent-core-20260929` using an isolated index and pushed for requested hosted verification. No merge or production deployment occurred. Earlier failing test attempts remain in the evidence directory.
+
+Migration through `20260929_0039` passes fresh, downgrade/re-upgrade, preservation and accounting guards. Local load failed: 284 requests, five HTTP 500s, all 25 latency cells above unchanged budgets, and a Docker sampler timeout under sustained VM memory pressure. Three recovery preparation attempts failed (processing timeouts, then a server disconnect after scoped worker restart), so restore/replay remain BLOCKED. Stopping only the task-created `verity-core-0929` stack was attempted, but the local Docker socket became unavailable. Cleanup is unconfirmed; no volumes were removed and no other project was targeted. Private evidence is retained. The current [certification](RELEASE_CERTIFICATION.md) records the final statuses and limits; historical PASS results below do not certify changed sources or production operations.
+
+Model-dependent quality remains BLOCKED: no approved models, independent deployed verifier, licensed evaluation data or calibrated owned classifier. Internal private embedding/reranking transport and public semantic retrieval are also incomplete. Production load/soak, live model egress, offsite recovery, production mail, manual screen-reader/zoom and full deployment authorization/quota/retention audit remain BLOCKED. **NOT PRODUCTION READY.**
+
+## Historical execution records
+
+## 2026-09-29: executor recovery and isolated candidate verification
+
+The failing command runner was caused by a misspelled workspace path. The
+actual repository is `/Users/ajmiraribam/Projects/azaeron_verity`; HEAD at
+recovery was `69fc08d`. The pre-existing diff and untracked-file list were
+saved under `/tmp/azaeron_unverified_recovery.patch` and
+`/tmp/azaeron_untracked_recovery.txt` before further edits. Existing project
+volumes and user-owned untracked evidence remain in place.
+
+The isolated `verity-recover-0929` stack builds and runs the candidate backend,
+verification, Jaeger and Grafana images. [All 11 repository gates](evidence/recovery-20260929/gates/results.json)
+pass, including 251 unit/security/worker tests, 30 actual PostgreSQL/RLS tests
+and 27 browser tests. The [full 15-image scan and SBOM inventory](evidence/recovery-20260929/images/results.json)
+passes for 13 vulnerability scans and all 15 SBOMs. Grafana retains 12 HIGH
+findings; the unchanged Debian PostgreSQL image retains 102 HIGH and 16
+CRITICAL findings. No suppression was added. A disposable same-family Debian
+PostgreSQL update candidate still has 99 HIGH and 16 CRITICAL findings, so no
+data-layer image switch was made. Grafana's Jaeger v3 datasource health and
+trace query pass, and a Jaeger trace survives restart ([smoke result](evidence/recovery-20260929/runtime-smoke.json)).
+
+This candidate is **uncommitted and not production ready**. The required image
+gate is red; no exact-commit hosted CI has tested it, and no push has occurred.
+
 ## 2026-09-29: hosted image-gate infrastructure correction
 
 [Hosted run 36510870667](https://github.com/arajmir7/Azaeron-Verity/actions/runs/36510870667)

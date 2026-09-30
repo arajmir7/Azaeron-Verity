@@ -1,0 +1,56 @@
+{
+  "commit": "f49fbef3948c65a7f6d8c7a565d6a56107a23f3d",
+  "run_id": 36679218534,
+  "derivative_mechanics": "PASS",
+  "repository_gates": [
+    [
+      "backend-format",
+      "PASS"
+    ],
+    [
+      "backend-lint",
+      "PASS"
+    ],
+    [
+      "backend-typecheck",
+      "PASS"
+    ],
+    [
+      "unit-security-worker-contract",
+      "PASS"
+    ],
+    [
+      "postgres-rls",
+      "PASS"
+    ],
+    [
+      "frontend-lint",
+      "PASS"
+    ],
+    [
+      "compose",
+      "PASS"
+    ],
+    [
+      "frontend-build",
+      "PASS"
+    ],
+    [
+      "frontend-typecheck",
+      "PASS"
+    ],
+    [
+      "browser",
+      "PASS"
+    ],
+    [
+      "source-stability",
+      "PASS"
+    ]
+  ],
+  "exact_source_files_match": true,
+  "workflow_status": "FAIL",
+  "failure": "New brace-expansion npm advisories",
+  "image_scan": "NOT_RUN_AFTER_DEPENDENCY_GATE_FAILURE",
+  "sbom": "NOT_RUN_AFTER_DEPENDENCY_GATE_FAILURE"
+}

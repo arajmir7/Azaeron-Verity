@@ -14,6 +14,7 @@ from app.core.config import Settings
 from app.modules.inference.dev_mlx import (
     DevMlxGateway,
     MODEL_ID,
+    _grounded_drift,
     _omit_document_commands,
 )
 from app.modules.inference.gateway import AzaeronInferenceJob
@@ -162,6 +163,22 @@ async def test_dev_document_command_filter_preserves_facts_and_input_hash():
     result = await gateway.run(job(text=original))
     assert captured[0]["messages"][1]["content"] == sanitized
     assert result.input_sha256 == hashlib.sha256(original.encode()).hexdigest()
+
+
+@pytest.mark.asyncio
+async def test_dev_grounded_guard_rejects_novel_dates_and_quantities():
+    source = "Report R6: On 6 August 2024, Dr. Omar Das recorded 22 visits."
+    assert _grounded_drift(source, "On 8 June 2024, 22 visits were recorded.")
+    assert _grounded_drift(source, "On 6 August 2024, 23 visits were recorded.")
+    assert not _grounded_drift(source, "On August 6, 2024, 22 visits were recorded.")
+    private = DevMlxGateway(
+        "http://127.0.0.1:8080",
+        transport=local_transport(content="On 8 June 2024, 22 visits were recorded."),
+    )
+    with pytest.raises(InferenceUnavailable, match="dev_grounded_fact_drift"):
+        await private.run(
+            job(task="summarize", text=json.dumps({"untrusted_document": source}))
+        )
 
 
 @pytest.mark.asyncio

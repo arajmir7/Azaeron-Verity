@@ -22,6 +22,7 @@ export default function DashboardPage() {
   const [documents, setDocuments] = useState<Resource<DocumentRecord[]>>({ value: [], state: "loading" });
   const [chats, setChats] = useState<Resource<Chat[]>>({ value: [], state: "loading" });
   const [models, setModels] = useState<Resource<number>>({ value: 0, state: "loading" });
+  const [localPreview, setLocalPreview] = useState(false);
   const [revision, setRevision] = useState(0);
   const retry = useCallback(() => setRevision((value) => value + 1), []);
 
@@ -32,7 +33,7 @@ export default function DashboardPage() {
     // Independent panels preserve useful results when another service is unavailable.
     void api.getDocuments(1).then((result) => { if (alive) setDocuments({ value: result.items.slice(0, 5), state: "ready" }); }).catch((reason) => { if (alive) setDocuments({ value: [], ...failure(reason) }); });
     void api.getConversations().then((result) => { if (alive) setChats({ value: result.items.slice(0, 4), state: "ready" }); }).catch((reason) => { if (alive) setChats({ value: [], ...failure(reason) }); });
-    void api.getModels().then((result) => { if (alive) setModels({ value: result.models.length, state: "ready" }); }).catch((reason) => { if (alive) setModels({ value: 0, ...failure(reason) }); });
+    void api.getModels().then((result) => { if (alive) { setModels({ value: result.models.length, state: "ready" }); setLocalPreview(result.status === "DEV_ONLY_LOCAL_MODEL_AVAILABLE"); } }).catch((reason) => { if (alive) { setModels({ value: 0, ...failure(reason) }); setLocalPreview(false); } });
     return () => { alive = false; };
   }, [currentOrg, revision]);
 
@@ -47,7 +48,7 @@ export default function DashboardPage() {
     <section aria-labelledby="start-title" className="home-tools">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2"><h2 id="start-title" className="text-sm font-semibold text-slate-900 dark:text-white">Your writing toolkit</h2><span className="text-xs text-slate-600 dark:text-slate-400">Five tools. One connected workflow.</span></div>
       <div className="tool-grid">{actions.map(({ href, label, detail, icon: Icon }, index) => <Link key={href} href={href} className="tool-tile"><div className="flex items-center justify-between"><span className="tool-icon"><Icon size={20} aria-hidden="true" /></span><span className="tool-number" aria-hidden="true">0{index + 1}</span></div><h3>{label}</h3><p>{detail}</p><ArrowUpRight className="tool-arrow" size={17} aria-hidden="true" /></Link>)}</div>
-      <div className="model-availability"><span className="availability-marker" aria-hidden="true" /><p>{models.state === "loading" ? "Checking model approval status…" : models.state !== "ready" ? "Model status could not be confirmed. Generation remains subject to approval checks." : models.value === 0 ? "AI generation is unavailable: no approved models are registered. You can still edit documents and review recorded evidence." : `${models.value} approved model${models.value === 1 ? "" : "s"} registered. Each request also checks task support and private runtime availability.`}</p>{models.state === "error" && <button onClick={retry} className="shrink-0 text-xs font-semibold underline">Retry status</button>}</div>
+      <div className="model-availability"><span className="availability-marker" aria-hidden="true" /><p>{models.state === "loading" ? "Checking model approval status…" : models.state !== "ready" ? "Model status could not be confirmed. Generation remains subject to approval checks." : localPreview ? "Local AI preview is available for chat and writing. Its third-party model outputs are unverified and are not approved for production." : models.value === 0 ? "AI generation is unavailable: no approved models are registered. You can still edit documents and review recorded evidence." : `${models.value} approved model${models.value === 1 ? "" : "s"} registered. Each request also checks task support and private runtime availability.`}</p>{models.state === "error" && <button onClick={retry} className="shrink-0 text-xs font-semibold underline">Retry status</button>}</div>
     </section>
     <div className="grid min-w-0 gap-5 xl:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
       <Panel title="Recent documents" eyebrow="Continue your work" action={<Link href="/documents" className={linkStyle}>View all <ArrowRight size={14} aria-hidden="true" /></Link>}>

@@ -64,6 +64,8 @@ async def verify(
     async def execute():
         try:
             private = gateway()
+            if getattr(private, "dev_only", False):
+                private = None
         except InferenceUnavailable:
             private = None
         return await verify_text(
@@ -101,15 +103,17 @@ async def refine(
     async def execute():
         try:
             private = gateway()
-            # Do not spend a rewrite call when independent verification cannot run.
-            writer, verifier = private.router.route("refine"), private.router.route(
-                "verify"
-            )
-            if (
-                writer.revision == verifier.revision
-                or writer.model_id == verifier.model_id
-            ):
-                raise InferenceUnavailable("independent_verifier_required")
+            dev_only = getattr(private, "dev_only", False)
+            if not dev_only:
+                # Production rewrites require a separate approved verifier.
+                writer, verifier = private.router.route("refine"), private.router.route(
+                    "verify"
+                )
+                if (
+                    writer.revision == verifier.revision
+                    or writer.model_id == verifier.model_id
+                ):
+                    raise InferenceUnavailable("independent_verifier_required")
             result = await private.run(
                 AzaeronInferenceJob(
                     operation_id=data.operation_id,
@@ -134,7 +138,7 @@ async def refine(
             operation_id=data.operation_id,
             organization_id=UUID(organization_id),
             user_id=UUID(str(user.id)),
-            gateway=private,
+            gateway=None if dev_only else private,
             writing_model_id=result.model_id,
             writing_model_revision=result.model_revision,
         )

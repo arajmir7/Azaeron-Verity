@@ -1,6 +1,7 @@
 """Deployment configuration: disabled means unavailable, never simulated output."""
 
 import ssl
+from typing import Any
 
 from app.core.config import settings
 from app.modules.inference.gateway import AzaeronInferenceGateway
@@ -11,7 +12,15 @@ def registry() -> AzaeronModelRegistry:
     return AzaeronModelRegistry.load(settings.MODEL_REGISTRY_PATH)
 
 
-def gateway() -> AzaeronInferenceGateway:
+def gateway() -> Any:
+    if settings.DEV_MLX_ENABLED:
+        if settings.ENVIRONMENT != "development" or settings.INFERENCE_ENABLED:
+            raise InferenceUnavailable("dev_runtime_forbidden")
+        from app.modules.inference.dev_mlx import DevMlxGateway
+
+        return DevMlxGateway(
+            settings.DEV_MLX_ENDPOINT, model_id=settings.DEV_MLX_MODEL_ID
+        )
     if not settings.INFERENCE_ENABLED:
         raise InferenceUnavailable("blocked_by_external_infrastructure")
     catalog = registry()

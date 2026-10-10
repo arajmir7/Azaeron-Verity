@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "arithmetic_exact": true,
+    "rewrite_deterministic_invariants": true,
+    "summary_retains_test_facts": true,
+    "document_answer_uses_source": true
+  },
+  "passed": 4,
+  "total": 4,
+  "mlx_latency_ms_median": 1386.5,
+  "baseline": "local qwen2.5-coder:7b via Ollama, benchmark-only",
+  "baseline_latency_ms_median": 1527.5,
+  "limitations": [
+    "Four synthetic smoke items only; no blinded human quality review.",
+    "One locally available coding model is a task-mismatched baseline.",
+    "Latencies are single samples with different model caches and tokenizers; no performance ranking.",
+    "No approved checkpoint or independent verifier; all generated text remains unverified."
+  ]
+}

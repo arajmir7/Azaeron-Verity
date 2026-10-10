@@ -4,9 +4,56 @@ import asyncio
 import hashlib
 import json
 import re
+from typing import TypedDict
 
 from app.modules.inference.gateway import AzaeronInferenceJob
 from app.modules.inference.registry import InferenceUnavailable
+
+
+class DevChunk(TypedDict):
+    start: int
+    end: int
+    text: str
+
+
+def dev_document_context(question: str, source: str):
+    """Auditable lexical-only retrieval for the unapproved local chat adapter."""
+    size = 1200
+    chunks: list[DevChunk] = [
+        {
+            "start": start,
+            "end": min(len(source), start + size),
+            "text": source[start : start + size],
+        }
+        for start in range(0, len(source), size)
+    ]
+    words = set(re.findall(r"\w+", question.casefold()))
+    selected = sorted(
+        sorted(
+            chunks,
+            key=lambda c: (
+                -len(words & set(re.findall(r"\w+", c["text"].casefold()))),
+                c["start"],
+            ),
+        )[:4],
+        key=lambda c: c["start"],
+    )
+    context = "\n\n".join(
+        f"[source offsets {c['start']}:{c['end']}]\n{c['text']}" for c in selected
+    )
+    return context, {
+        "method": "dev-only-lexical-v1",
+        "total_chunks": len(chunks),
+        "limited_coverage": len(selected) < len(chunks),
+        "passages": [
+            {
+                "start": c["start"],
+                "end": c["end"],
+                "sha256": hashlib.sha256(c["text"].encode()).hexdigest(),
+            }
+            for c in selected
+        ],
+    }
 
 
 async def document_context(private, identity, question, source):

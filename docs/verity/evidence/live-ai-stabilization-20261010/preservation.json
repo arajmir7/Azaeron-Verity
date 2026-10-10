@@ -1,0 +1,27 @@
+{
+  "captured_utc": "2026-10-10T12:04:45.941755+00:00",
+  "original_branch": "main",
+  "original_head": "69fc08df86d886a16d56bdac3158df4220bd8b2d",
+  "original_status_entries": 127,
+  "original_staged_entries": 0,
+  "original_tracked_untracked_files": 3191,
+  "backup_archive": "/Users/ajmiraribam/Projects/.azaeron-preservation/20261010T120150Z/repository.tar.gz",
+  "backup_sha256": "43d2c7aa7bffff3ab749e1e1c2572e8fd4db25502f3ef4d77f710c21f869f4b5",
+  "restoration_verified_files": 3223,
+  "restoration_status_identical": true,
+  "pr_1_head": "37c3c1190ce06408fd46a92985d77b7d2bc79eb8",
+  "pr_1_base": "69fc08df86d886a16d56bdac3158df4220bd8b2d",
+  "pr_1_state": "OPEN DRAFT",
+  "pr_1_checks": "repository and derivative-mechanics SUCCESS at PR head; does not apply to integration branch",
+  "comparison": {
+    "matching_pr_files": 2858,
+    "changed_pr_files": 17,
+    "missing_pr_files": 0,
+    "new_files": 316
+  },
+  "isolated_branch": "codex/live-mlx-stabilization-20261010",
+  "isolated_worktree": "/Users/ajmiraribam/Projects/azaeron_verity_live_mlx",
+  "copied_integration_files_hash_verified": 37,
+  "original_worktree_untouched": true,
+  "ignored_large_quarantine_excluded_from_backup": ".verity-local/production-review-quarantine"
+}

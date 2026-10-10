@@ -1,0 +1,47 @@
+{
+  "checked_at_utc": "2026-10-10T11:14:32.256542+00:00",
+  "upstream": "Qwen/Qwen3-4B-MLX-4bit",
+  "snapshot_revision": "52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495",
+  "files": {
+    "model.safetensors": {
+      "sha256": "e56a94b846a2dce7d1cc154ce58b9cfc4b8d99e8ffb74bfe256a265f4cbc7fb9",
+      "bytes": 2137326367,
+      "path": "/Users/ajmiraribam/.cache/huggingface/hub/models--Qwen--Qwen3-4B-MLX-4bit/snapshots/52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495/model.safetensors"
+    },
+    "config.json": {
+      "sha256": "76eae114d67a444c7296be7a6bc0409ecc15c340e113f1bac7572cb7d0928b6f",
+      "bytes": 988,
+      "path": "/Users/ajmiraribam/.cache/huggingface/hub/models--Qwen--Qwen3-4B-MLX-4bit/snapshots/52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495/config.json"
+    },
+    "tokenizer.json": {
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+      "bytes": 11422654,
+      "path": "/Users/ajmiraribam/.cache/huggingface/hub/models--Qwen--Qwen3-4B-MLX-4bit/snapshots/52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495/tokenizer.json"
+    },
+    "tokenizer_config.json": {
+      "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+      "bytes": 9732,
+      "path": "/Users/ajmiraribam/.cache/huggingface/hub/models--Qwen--Qwen3-4B-MLX-4bit/snapshots/52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495/tokenizer_config.json"
+    },
+    "merges.txt": {
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+      "bytes": 1671853,
+      "path": "/Users/ajmiraribam/.cache/huggingface/hub/models--Qwen--Qwen3-4B-MLX-4bit/snapshots/52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495/merges.txt"
+    },
+    "vocab.json": {
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "bytes": 2776833,
+      "path": "/Users/ajmiraribam/.cache/huggingface/hub/models--Qwen--Qwen3-4B-MLX-4bit/snapshots/52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495/vocab.json"
+    }
+  },
+  "runtime_identity_attested": false,
+  "license": {
+    "source": "https://huggingface.co/Qwen/Qwen3-4B-MLX-4bit/resolve/52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495/LICENSE",
+    "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "path": "docs/verity/evidence/dev-mlx-20261010/upstream-LICENSE.txt",
+    "git_blob_sha1": "6634c8cc3133b3848ec74b9f275acaaa1ea618ab",
+    "matches_snapshot_git_blob": true
+  },
+  "runtime_package": "mlx-lm==0.32.0",
+  "upstream_model_card": "https://huggingface.co/Qwen/Qwen3-4B-MLX-4bit/tree/52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495"
+}

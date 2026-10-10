@@ -41,6 +41,7 @@ export default function WritePage({ mode = "editor" }: { mode?: "editor" | "huma
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [aiOpen, setAiOpen] = useState(false);
+  const [localPreview, setLocalPreview] = useState(false);
   const [online, setOnline] = useState(true);
   const [title, setTitle] = useState("");
   const [history, setHistory] = useState<{ undo: string[]; redo: string[] }>({ undo: [], redo: [] });
@@ -112,6 +113,14 @@ export default function WritePage({ mode = "editor" }: { mode?: "editor" | "huma
     update(); window.addEventListener("online", update); window.addEventListener("offline", update);
     return () => { window.removeEventListener("online", update); window.removeEventListener("offline", update); };
   }, []);
+
+  useEffect(() => {
+    let active = true;
+    void api.getModels().then((result) => {
+      if (active) setLocalPreview(result.status === "DEV_ONLY_LOCAL_MODEL_AVAILABLE");
+    }).catch(() => { if (active) setLocalPreview(false); });
+    return () => { active = false; };
+  }, [currentOrg?.id, user?.id]);
 
   useEffect(() => {
     const warn = (event: BeforeUnloadEvent) => { if (dirty) event.preventDefault(); };
@@ -250,7 +259,7 @@ export default function WritePage({ mode = "editor" }: { mode?: "editor" | "huma
   };
 
   if (loading) return <LoadingState label="Loading document…" rows={4} />;
-  return <div className="max-w-6xl"><PageHeader eyebrow={mode === "humaniser" ? "AI Humaniser" : "Document Editor"} title={mode === "humaniser" ? "Make your writing clearer" : "Edit your document"} description={mode === "humaniser" ? "Compare your original with suggested edits. Generative rewriting is unavailable until an approved private model is deployed; these are limited editorial rules." : "Work on a draft, review suggested edits, and save a new version without losing the original."} />
+  return <div className="max-w-6xl"><PageHeader eyebrow={mode === "humaniser" ? "AI Humaniser" : "Document Editor"} title={mode === "humaniser" ? "Make your writing clearer" : "Edit your document"} description={mode === "humaniser" ? localPreview ? "Use Humanise with AI on a saved version to review a local model candidate. MeaningLock checks protected facts; independent verification is unavailable." : "Compare your original with suggested edits. Generative rewriting is unavailable until an approved private model is deployed; these are limited editorial rules." : "Work on a draft, review suggested edits, and save a new version without losing the original."} />
     <DocumentIntake onReady={(attachment) => { void api.getDocuments().then((list) => setDocuments(list.items)); setDocumentId(attachment.document_id); void loadVersion(attachment.document_id, attachment.document_version_id, false); }} />
     {error && <div className="mb-5"><ErrorState message={error} /></div>}
     {!documents.length ? <Panel title="Start with a document"><Link href={`/check?next=${mode === "humaniser" ? "humaniser" : "editor"}`} className={primary}>Create or import a document</Link></Panel> : <>
@@ -269,9 +278,9 @@ export default function WritePage({ mode = "editor" }: { mode?: "editor" | "huma
       <div className={`grid items-start gap-5 ${aiOpen ? "xl:grid-cols-[minmax(0,1fr)_minmax(340px,0.8fr)]" : ""}`}><div className={`grid gap-5 ${aiOpen ? "" : "lg:grid-cols-2"}`}>
         <Panel title="Your draft" description="Mechanical editing. Draft recovery lasts up to 24 hours in this tab and is cleared on sign-out.">
           <textarea aria-label="Draft text" value={text} readOnly={!!busy} onChange={(event) => updateText(event.target.value)} onSelect={(event) => { const input = event.currentTarget; setSelection({ start: Array.from(input.value.slice(0, input.selectionStart)).length, end: Array.from(input.value.slice(0, input.selectionEnd)).length }); }} onKeyDown={(event) => { if (busy || !(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "z") return; event.preventDefault(); if (event.shiftKey) redo(); else undo(); }} className="min-h-80 w-full resize-y rounded-lg border border-slate-300 bg-slate-50 p-3 text-sm leading-6 text-slate-900 focus:outline-2 focus:outline-indigo-600 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-100" />
-          {selection.end > selection.start && <div className="mt-3 rounded-lg border border-slate-200 p-3 dark:border-slate-700" aria-label="Selection actions"><p className="mb-2 text-xs text-slate-600 dark:text-slate-300">Selected passage · limited editorial rules</p><div className="flex flex-wrap gap-2">{[{ label: "Improve selection", types: ["grammar", "clarity", "concision", "tone", "structure"] }, { label: "Shorten", types: ["concision"] }, { label: "Simplify", types: ["clarity"] }, { label: "Professionalise", types: ["tone"] }].map((action) => <button key={action.label} className={button} disabled={!!busy || !online || !versionId} onClick={() => void improveSelection(action.types)}>{action.label}</button>)}</div><p className="mt-2 text-xs text-slate-600 dark:text-slate-300">Humanise and Expand are unavailable until an approved private model is deployed.</p></div>}
+          {selection.end > selection.start && <div className="mt-3 rounded-lg border border-slate-200 p-3 dark:border-slate-700" aria-label="Selection actions"><p className="mb-2 text-xs text-slate-600 dark:text-slate-300">Selected passage · limited editorial rules</p><div className="flex flex-wrap gap-2">{[{ label: "Improve selection", types: ["grammar", "clarity", "concision", "tone", "structure"] }, { label: "Shorten", types: ["concision"] }, { label: "Simplify", types: ["clarity"] }, { label: "Professionalise", types: ["tone"] }].map((action) => <button key={action.label} className={button} disabled={!!busy || !online || !versionId} onClick={() => void improveSelection(action.types)}>{action.label}</button>)}</div><p className="mt-2 text-xs text-slate-600 dark:text-slate-300">{localPreview ? "For a local AI candidate, save this version and choose Humanise with AI. The result requires your review." : "Humanise and Expand are unavailable until an approved private model is deployed."}</p></div>}
           <div className="mt-3 text-xs text-slate-500">{text.trim() ? text.trim().split(/\s+/u).length : 0} words · {dirty ? "Unsaved changes" : "Saved version"}</div>
-          <div className="mt-4 flex flex-wrap gap-2"><button className={button} disabled={dirty || !!busy || !versionId} onClick={() => setAiOpen((value) => !value)}>Ask AI</button><button className={primary} disabled={!!busy || !online || !versionId || !text.trim()} onClick={() => void refine()}>Improve draft</button><button className={button} disabled={!!busy || !online || !versionId || !dirty || !text.trim()} onClick={() => void save(false)}>Save draft</button><button className={button} disabled={!!busy || !history.undo.length} onClick={undo}>Undo</button><button className={button} disabled={!!busy || !history.redo.length} onClick={redo}>Redo</button><button className={button} disabled={!text} onClick={downloadDraft}>Download draft</button></div>
+          <div className="mt-4 flex flex-wrap gap-2"><button className={button} disabled={dirty || !!busy || !versionId} onClick={() => setAiOpen((value) => !value)}>{mode === "humaniser" && localPreview ? "Humanise with AI" : "Ask AI"}</button><button className={primary} disabled={!!busy || !online || !versionId || !text.trim()} onClick={() => void refine()}>Improve draft</button><button className={button} disabled={!!busy || !online || !versionId || !dirty || !text.trim()} onClick={() => void save(false)}>Save draft</button><button className={button} disabled={!!busy || !history.undo.length} onClick={undo}>Undo</button><button className={button} disabled={!!busy || !history.redo.length} onClick={redo}>Redo</button><button className={button} disabled={!text} onClick={downloadDraft}>Download draft</button></div>
         </Panel>
         <Panel title="Reviewable editorial pass" description="The candidate remains separate until you accept it.">
           <div aria-label="Candidate text" className="min-h-80 whitespace-pre-wrap break-words rounded-lg border border-slate-300 bg-slate-50 p-3 text-sm leading-6 text-slate-800 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-200">{result ? candidate : "Your revision will appear here after the editorial pass."}</div>

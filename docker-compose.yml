@@ -132,6 +132,9 @@ services:
       - SMTP_USERNAME=${SMTP_USERNAME:-}
       - SMTP_PASSWORD=${SMTP_PASSWORD:-}
       - INFERENCE_ENABLED=${INFERENCE_ENABLED:-false}
+      - DEV_MLX_ENABLED=${DEV_MLX_ENABLED:-false}
+      - DEV_MLX_ENDPOINT=${DEV_MLX_ENDPOINT:-http://host.docker.internal:8080}
+      - DEV_MLX_CONTAINER_HOST=true
       - INFERENCE_ENDPOINT=${INFERENCE_ENDPOINT:-https://inference-runtime:8000}
       - INFERENCE_VERIFY_ENDPOINT=${INFERENCE_VERIFY_ENDPOINT:-https://verification-runtime:8000}
       - INFERENCE_CA_FILE=${INFERENCE_CA_FILE:-}
@@ -204,6 +207,9 @@ services:
       - SMTP_USERNAME=${SMTP_USERNAME:-}
       - SMTP_PASSWORD=${SMTP_PASSWORD:-}
       - INFERENCE_ENABLED=${INFERENCE_ENABLED:-false}
+      - DEV_MLX_ENABLED=${DEV_MLX_ENABLED:-false}
+      - DEV_MLX_ENDPOINT=${DEV_MLX_ENDPOINT:-http://host.docker.internal:8080}
+      - DEV_MLX_CONTAINER_HOST=true
       - INFERENCE_ENDPOINT=${INFERENCE_ENDPOINT:-https://inference-runtime:8000}
       - INFERENCE_VERIFY_ENDPOINT=${INFERENCE_VERIFY_ENDPOINT:-https://verification-runtime:8000}
       - INFERENCE_CA_FILE=${INFERENCE_CA_FILE:-}
@@ -279,7 +285,7 @@ services:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-}
       - API_URL=http://backend:8000
     ports:
-      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:${AZAERON_FRONTEND_PORT:-3000}:3000"
     depends_on:
       backend:
         condition: service_healthy

@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/ajmiraribam/Projects/azaeron_verity/backend
+configfile: pytest.ini
+plugins: platformdirs-4.12.4, asyncio-1.4.0, Faker-30.0.0, anyio-4.15.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 1 item
+
+backend/tests/test_dev_mlx_live.py .                                     [100%]
+
+============================== 1 passed in 4.57s ===============================

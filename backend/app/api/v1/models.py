@@ -3,10 +3,11 @@
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
+from app.core.config import settings
 from app.core.dependencies import get_current_user
 from app.modules.auth.models import User
 from app.modules.inference.registry import InferenceUnavailable
-from app.modules.inference.service import registry
+from app.modules.inference.service import gateway, registry
 
 router = APIRouter(tags=["Models"])
 
@@ -37,6 +38,21 @@ async def models(user: User = Depends(get_current_user)) -> ModelList:
         ]
     except InferenceUnavailable:
         approved = []
+    status = (
+        "APPROVED_MODELS_REGISTERED"
+        if approved
+        else "BLOCKED_BY_EXTERNAL_INFRASTRUCTURE"
+    )
+    if settings.ENVIRONMENT == "development" and settings.DEV_MLX_ENABLED:
+        try:
+            available = (await gateway().health())["status"] == "AVAILABLE"
+        except InferenceUnavailable:
+            available = False
+        status = (
+            "DEV_ONLY_LOCAL_MODEL_AVAILABLE"
+            if available
+            else "DEV_ONLY_LOCAL_MODEL_UNAVAILABLE"
+        )
     return ModelList(
         models=[
             PublicModel(
@@ -55,9 +71,5 @@ async def models(user: User = Depends(get_current_user)) -> ModelList:
             )
             for m in approved
         ],
-        status=(
-            "APPROVED_MODELS_REGISTERED"
-            if approved
-            else "BLOCKED_BY_EXTERNAL_INFRASTRUCTURE"
-        ),
+        status=status,
     )

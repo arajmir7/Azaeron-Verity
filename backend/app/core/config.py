@@ -26,6 +26,11 @@ class Settings(BaseSettings):
     INFERENCE_ENDPOINT: str = "https://inference-runtime:8000"
     INFERENCE_VERIFY_ENDPOINT: str = "https://verification-runtime:8000"
     INFERENCE_MODEL_ENDPOINTS: dict[str, str] = {}
+    # Explicit local-development escape hatch; never an approved model route.
+    DEV_MLX_ENABLED: bool = False
+    DEV_MLX_ENDPOINT: str = "http://127.0.0.1:8080"
+    DEV_MLX_MODEL_ID: str = "Qwen/Qwen3-4B-MLX-4bit"
+    DEV_MLX_CONTAINER_HOST: bool = False
     IDENTITY_ENCRYPTION_KEY: str | None = None
     USAGE_ENCRYPTION_KEY: str | None = None
     EMAIL_ENABLED: bool = False
@@ -211,6 +216,27 @@ class Settings(BaseSettings):
     def validate_production_secrets(self):
         if not self.ZERO_EXTERNAL_AI_API:
             raise ValueError("ZERO_EXTERNAL_AI_API must remain true")
+        if self.DEV_MLX_ENABLED:
+            parsed = urlsplit(self.DEV_MLX_ENDPOINT)
+            allowed_host = (
+                "host.docker.internal" if self.DEV_MLX_CONTAINER_HOST else "127.0.0.1"
+            )
+            if self.ENVIRONMENT != "development" or self.INFERENCE_ENABLED:
+                raise ValueError(
+                    "DEV_MLX requires development and disabled production inference"
+                )
+            if (
+                parsed.scheme != "http"
+                or parsed.hostname != allowed_host
+                or parsed.port != 8080
+                or parsed.username
+                or parsed.password
+                or parsed.path not in {"", "/"}
+                or parsed.query
+                or parsed.fragment
+                or self.DEV_MLX_MODEL_ID != "Qwen/Qwen3-4B-MLX-4bit"
+            ):
+                raise ValueError("DEV_MLX endpoint or model identity is forbidden")
         insecure = (
             "azaeron-super-secret-key",
             "azaeron-refresh-secret-key",

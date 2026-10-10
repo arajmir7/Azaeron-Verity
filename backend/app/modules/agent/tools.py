@@ -2,6 +2,7 @@
 
 import difflib
 import json
+from typing import Any
 from uuid import UUID
 
 from fastapi import HTTPException
@@ -144,7 +145,14 @@ async def execute_tool(db, run, tool):
             await db.commit()
             await apply_tenant_context(db, run.organization_id, run.user_id)
             private = gateway()
-            private.router.route("verify")
+            from app.modules.inference.registry import InferenceUnavailable
+
+            dev_only = getattr(private, "dev_only", False)
+            if dev_only:
+                if len(original.encode()) > 12_000:
+                    raise InferenceUnavailable("dev_document_summary_limit")
+            else:
+                private.router.route("verify")
             result = await private.run(
                 AzaeronInferenceJob(
                     operation_id=UUID(run.id),
@@ -156,20 +164,25 @@ async def execute_tool(db, run, tool):
             )
             run.model_evidence = result.model_dump(mode="json", exclude={"output"})
             from app.modules.inference.support import assess_support
-            from app.modules.inference.registry import InferenceUnavailable
 
-            verification = await assess_support(
-                private,
-                result,
-                {
-                    "operation_id": UUID(run.id),
-                    "organization_id": UUID(run.organization_id),
-                    "user_id": UUID(run.user_id),
-                },
-                original,
-            )
-            if verification["outcome"] != "VERIFIED":
-                raise InferenceUnavailable("independent_verification_rejected")
+            if dev_only:
+                verification: dict[str, Any] = {
+                    "outcome": "UNAVAILABLE",
+                    "reason": "independent_verifier_not_approved",
+                }
+            else:
+                verification = await assess_support(
+                    private,
+                    result,
+                    {
+                        "operation_id": UUID(run.id),
+                        "organization_id": UUID(run.organization_id),
+                        "user_id": UUID(run.user_id),
+                    },
+                    original,
+                )
+                if verification["outcome"] != "VERIFIED":
+                    raise InferenceUnavailable("independent_verification_rejected")
             run.model_evidence["verification"] = verification
             return {
                 **identity,
@@ -323,7 +336,7 @@ async def execute_tool(db, run, tool):
             organization_id=UUID(run.organization_id),
             user_id=UUID(run.user_id),
             locked_spans=locked,
-            gateway=private,
+            gateway=None if getattr(private, "dev_only", False) else private,
             writing_model_id=result.model_id,
             writing_model_revision=result.model_revision,
         )
@@ -429,7 +442,7 @@ async def execute_tool(db, run, tool):
                 operation_id=UUID(run.id),
                 organization_id=UUID(run.organization_id),
                 user_id=UUID(run.user_id),
-                gateway=private,
+                gateway=None if getattr(private, "dev_only", False) else private,
                 writing_model_id=result.model_id,
                 writing_model_revision=result.model_revision,
             )

@@ -195,12 +195,33 @@ async def execute_run(run_id, org, actor, *, session_factory=AsyncSessionLocal):
                         .limit(12)
                     )
                 ).all()
+                private = gateway()
+                retrieval = []
+                if getattr(private, "dev_only", False):
+                    from app.modules.model_platform.retrieval import (
+                        dev_document_context,
+                    )
+
+                    bounded = []
+                    for document in documents[:2]:
+                        content, evidence = dev_document_context(
+                            data.content, document["untrusted_content"]
+                        )
+                        bounded.append({**document, "untrusted_content": content})
+                        retrieval.append(
+                            {"version_id": document["version_id"], **evidence}
+                        )
+                    documents = bounded
                 context = json.dumps(
                     {
                         "current_request": data.content,
                         "untrusted_history": [
                             {"role": msg.role, "text": msg.content}
-                            for msg in reversed(history)
+                            for msg in reversed(
+                                history[-4:]
+                                if getattr(private, "dev_only", False)
+                                else history
+                            )
                         ],
                         "untrusted_documents": documents,
                     },
@@ -208,8 +229,8 @@ async def execute_run(run_id, org, actor, *, session_factory=AsyncSessionLocal):
                 )
                 await db.commit()
                 await apply_tenant_context(db, org, actor)
-                private = gateway()
-                private.router.route("verify")
+                if not getattr(private, "dev_only", False):
+                    private.router.route("verify")
                 response = await private.run(
                     AzaeronInferenceJob(
                         operation_id=UUID(run_id),
@@ -223,23 +244,31 @@ async def execute_run(run_id, org, actor, *, session_factory=AsyncSessionLocal):
                 await delta("", flush=True)
                 from app.modules.inference.support import assess_support
 
-                verification = await assess_support(
-                    private,
-                    response,
-                    {
-                        "operation_id": UUID(run_id),
-                        "organization_id": UUID(org),
-                        "user_id": UUID(actor),
-                    },
-                    context,
-                    mode="answer_support",
-                )
-                if verification["outcome"] != "VERIFIED":
-                    raise InferenceUnavailable("independent_verification_rejected")
+                if getattr(private, "dev_only", False):
+                    verification = {
+                        "outcome": "UNAVAILABLE",
+                        "reason": "independent_verifier_not_approved",
+                    }
+                else:
+                    verification = await assess_support(
+                        private,
+                        response,
+                        {
+                            "operation_id": UUID(run_id),
+                            "organization_id": UUID(org),
+                            "user_id": UUID(actor),
+                        },
+                        context,
+                        mode="answer_support",
+                    )
+                    if verification["outcome"] != "VERIFIED":
+                        raise InferenceUnavailable("independent_verification_rejected")
                 run.model_evidence = response.model_dump(
                     mode="json", exclude={"output"}
                 )
                 run.model_evidence["verification"] = verification
+                if retrieval:
+                    run.model_evidence["retrieval"] = retrieval
                 return {"text": response.output, "model_evidence": run.model_evidence}
 
             with collect_model_calls() as collected:

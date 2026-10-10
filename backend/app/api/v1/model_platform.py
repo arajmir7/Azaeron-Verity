@@ -100,7 +100,7 @@ async def reauthorize(db, user):
 def unavailable(error):
     return HTTPException(
         503,
-        {"code": error.code, "message": "An approved Azaeron model is unavailable."},
+        {"code": error.code, "message": "Private inference is unavailable."},
     )
 
 
@@ -113,7 +113,9 @@ def independent(private, task):
 async def generate_verified(
     private, data, user, *, task="chat", source=None, on_delta=None
 ):
-    independent(private, task)
+    dev_only = getattr(private, "dev_only", False)
+    if not dev_only:
+        independent(private, task)
     identity = dict(
         operation_id=data.operation_id,
         organization_id=UUID(str(user.current_organization_id)),
@@ -135,6 +137,21 @@ async def generate_verified(
         ),
         on_delta=on_delta,
     )
+    if dev_only:
+        return {
+            "operation_id": str(data.operation_id),
+            "result": result.model_dump(mode="json"),
+            "verification": {
+                "outcome": "UNAVAILABLE",
+                "model_id": None,
+                "model_revision": None,
+                "reason": "independent_verifier_not_approved",
+            },
+            "accepted": False,
+            "limitations": [
+                "DEV_ONLY third-party model output; factual and semantic claims are unverified."
+            ],
+        }
     review = await private.run(
         AzaeronInferenceJob(
             **identity,
@@ -219,7 +236,8 @@ async def chat_stream(
     await EntitlementService(db).require_write(organization_id, len(data.text))
     try:
         private = gateway()
-        independent(private, "chat")
+        if not getattr(private, "dev_only", False):
+            independent(private, "chat")
     except InferenceUnavailable as error:
         raise unavailable(error) from None
 
@@ -360,18 +378,27 @@ async def document_generation(document_id, data, user, db, task):
             private = gateway()
             context, retrieval = source, None
             if task == "chat":
-                from app.modules.model_platform.retrieval import document_context
+                if getattr(private, "dev_only", False):
+                    from app.modules.model_platform.retrieval import (
+                        dev_document_context,
+                    )
 
-                context, retrieval = await document_context(
-                    private,
-                    {
-                        "operation_id": data.operation_id,
-                        "organization_id": UUID(str(user.current_organization_id)),
-                        "user_id": UUID(str(user.id)),
-                    },
-                    data.text,
-                    source,
-                )
+                    context, retrieval = dev_document_context(data.text, source)
+                else:
+                    from app.modules.model_platform.retrieval import document_context
+
+                    context, retrieval = await document_context(
+                        private,
+                        {
+                            "operation_id": data.operation_id,
+                            "organization_id": UUID(str(user.current_organization_id)),
+                            "user_id": UUID(str(user.id)),
+                        },
+                        data.text,
+                        source,
+                    )
+            elif getattr(private, "dev_only", False) and len(source.encode()) > 12_000:
+                raise InferenceUnavailable("dev_document_summary_limit")
             result = await generate_verified(
                 private, data, user, task=task, source=context
             )

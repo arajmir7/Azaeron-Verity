@@ -1,0 +1,9 @@
+{
+  "measured_at_utc": "2026-10-10T11:20:00.129159+00:00",
+  "server_pid": 29580,
+  "physical_footprint_mb": 2661,
+  "physical_footprint_peak_mb": 2941,
+  "system_swap": "vm.swapusage: total = 14336.00M  used = 12726.31M  free = 1609.69M  (encrypted)",
+  "system_free_percent": "System-wide memory free percentage: 28%",
+  "limitations": "Footprint is the MLX server process, not a cold-start delta or isolated GPU allocation. System swap includes other workloads."
+}

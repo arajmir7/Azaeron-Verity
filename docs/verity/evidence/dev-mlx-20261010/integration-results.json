@@ -1,0 +1,76 @@
+{
+  "captured_utc": "2026-10-10T11:52:55.403898+00:00",
+  "git_head": "69fc08df86d886a16d56bdac3158df4220bd8b2d",
+  "worktree_clean": false,
+  "deployment": "DEV_ONLY localhost",
+  "approved_registry_models": 0,
+  "external_ai_inference_apis": 0,
+  "frontend_url": "http://127.0.0.1:14710/ai",
+  "runtime_endpoint_from_containers": "http://host.docker.internal:8080",
+  "services": {
+    "backend": {
+      "state": "running",
+      "health": "healthy",
+      "ports": "127.0.0.1:8000->8000/tcp",
+      "image": "azaeron_verity-backend"
+    },
+    "celery-worker": {
+      "state": "running",
+      "health": "healthy",
+      "ports": "8000/tcp",
+      "image": "azaeron_verity-celery-worker"
+    },
+    "frontend": {
+      "state": "running",
+      "health": "healthy",
+      "ports": "127.0.0.1:14710->3000/tcp",
+      "image": "azaeron_verity-frontend"
+    },
+    "minio": {
+      "state": "running",
+      "health": "healthy",
+      "ports": "127.0.0.1:9000-9001->9000-9001/tcp",
+      "image": "sha256:abe1413802cf3bc07c6579019be28eafc6bbdad872c26dda0ef642e3d261312d"
+    },
+    "postgres": {
+      "state": "running",
+      "health": "healthy",
+      "ports": "5432/tcp",
+      "image": "sha256:9c1496836e97b2c0d5e28780807a2da491189fc0f2f31052cbea9848d0570c97"
+    },
+    "redis": {
+      "state": "running",
+      "health": "healthy",
+      "ports": "6379/tcp",
+      "image": "redis:7.4-alpine@sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499"
+    }
+  },
+  "source_sha256": {
+    "backend/app/core/config.py": "15eeb8d0a083c7d83ae898edaa3aacc3ccea27ea1052a5c0349f6e79c4c59030",
+    "backend/app/modules/inference/dev_mlx.py": "6666e93d1c7865cadca20d9c320cc5e9e0fff6ee34b1e19005ed5ac871a8a9f0",
+    "backend/app/modules/inference/service.py": "468ce235f9db94867cc0e00fe889f2e0089f5992dd26e077644a86b0de3a47f7",
+    "backend/app/api/v1/models.py": "ed6cb76cd08699786b352f641e68f8363ca85d31f8dce05413df35772cf79b0f",
+    "backend/app/api/v1/model_platform.py": "2d0639a79005406a210896e35787bf2806deaca3ad295630cd92f54c0f0e1d57",
+    "backend/app/api/v1/text.py": "2a240ad553b3f9d0abba5740a0fe06eaf46623a4466cf611541c3cbd0247cc64",
+    "backend/app/modules/agent/runner.py": "148fc6147a501c9445063df8128203ceee1d4b48e80b47d843b6468936c915c4",
+    "backend/app/modules/agent/tools.py": "d448389f3e29781c64111d95e19132c20ea6d5f51ca94c5f0eab6b62ff992121",
+    "backend/app/modules/model_platform/retrieval.py": "b6aa5ab03b923b164301ec0c407187c15fbe241814078c4a1ec1278d974f6fba",
+    "frontend/src/components/agent-panel.tsx": "9b65572d6bec561c6c220d08f0fad6c0e8214e73813184fbc2f7f68c378a2996",
+    "frontend/src/app/(dashboard)/write/page.tsx": "3596da3f1c364c1b3b6196214037bb0eba898a239153896f101b06422f4f2ce5",
+    "frontend/src/app/(dashboard)/dashboard/page.tsx": "f41bb048a7ba116a0a4032143d6aa3ee9008d882774b0bdf172d29ad6fd2028c",
+    "docker-compose.yml": "6fb9a2c3f854d161a2d1e78ca5fa7cc96ee0b19325658aa7bf7a2e482619bf59"
+  },
+  "tests": {
+    "backend_suite": "322 passed, 35 skipped",
+    "focused_api": "16 passed",
+    "live_asgi": "1 passed",
+    "browser_e2e": "1 passed",
+    "mypy": "198 source files; no issues",
+    "frontend_lint": "pass",
+    "frontend_typecheck": "pass",
+    "frontend_container_build": "pass",
+    "backend_unit_final": "322 passed, 1 skipped; verification image built from final source",
+    "browser_suite": "19 passed, 12 skipped",
+    "verification_image_build": "pass"
+  }
+}

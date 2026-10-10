@@ -67,7 +67,7 @@ def footprint(pid: int) -> dict:
         lines = [
             line.strip()
             for line in completed.stdout.splitlines()
-            if "physical footprint" in line.casefold()
+            if line.strip().startswith(("phys_footprint:", "phys_footprint_peak:"))
         ]
         return {"status": "measured", "lines": lines[:4]}
     except (OSError, subprocess.SubprocessError):

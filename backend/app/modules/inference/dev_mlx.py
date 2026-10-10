@@ -205,7 +205,8 @@ class DevMlxGateway:
             raise InferenceUnavailable("dev_runtime_endpoint_forbidden")
         self.endpoint = endpoint.rstrip("/")
         parsed_port = urlsplit(self.endpoint).port
-        assert parsed_port is not None
+        if parsed_port is None:
+            raise InferenceUnavailable("dev_runtime_endpoint_forbidden")
         self.port: int = parsed_port
         self.model_id = model_id
         self.timeout = timeout

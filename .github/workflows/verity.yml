@@ -71,6 +71,12 @@ jobs:
         run: docker compose -f /tmp/verity-ci.json --profile verification build postgres redis backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger grafana mailpit
       - name: Migrate and wait for dependencies
         run: docker compose -f /tmp/verity-ci.json up -d --wait --wait-timeout 180 backend celery-worker frontend jaeger otel-collector prometheus
+      - name: Verify specification, API, schema and migration contracts
+        run: |
+          python -m unittest discover -s scripts/tests -p 'test_verity_spec_gate.py'
+          curl --fail --silent --show-error http://localhost:9700/api/openapi.json -o /tmp/verity-ci-openapi.json
+          docker compose -f /tmp/verity-ci.json exec -T postgres psql -U azaeron -d azaeron -X -q -t -A -f - < scripts/verity_schema_catalog.sql > /tmp/verity-ci-schema.json
+          python scripts/verity_spec_gate.py --openapi /tmp/verity-ci-openapi.json --schema /tmp/verity-ci-schema.json | tee /tmp/verity-ci-spec-gate.json
       - name: Execute repository gate including live browser and PostgreSQL tests
         run: python scripts/verity_gate.py --compose /tmp/verity-ci.json --browser-url http://localhost:4700 --output docs/verity/evidence/ci
       - name: Install security scanners

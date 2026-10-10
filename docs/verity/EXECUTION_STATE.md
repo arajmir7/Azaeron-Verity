@@ -1,5 +1,11 @@
 # Execution ledger
 
+## 2026-10-11: authoritative specifications and live contract gate
+
+An isolated worktree based on `3c583aa` preserves the dirty primary worktree and working DEV_ONLY MLX branch. Six [production specifications](specs/01-PRD.md), [22-row traceability](specs/traceability.json), [ADR](adr/0001-private-model-release-states.md) and PR review template now govern the existing five product paths. The [source audit](evidence/spec-driven-20261011/README.md) reconciles older no-inference documentation with actual DEV_ONLY MLX and records 104 API operations, 55 PostgreSQL tables, 44 forced-RLS tables, 11 global/control tables and migration head `20260929_0039`.
+
+The new executable spec gate compares actual OpenAPI and migrated database metadata against reviewed structural fingerprints; checks the Alembic graph and every requirement-to-code/test link; and is wired into exact-commit CI before the existing repository/security gates. Local mutation tests and a live API/PostgreSQL check pass. This does **not** promote any model or close upstream dependency/image findings. The previous exact-commit workflow still failed five frontend dev dependency HIGHs, and four infrastructure images retained 28 HIGH findings; new source needs its own hosted run. Model rights, independent review and production runtime remain BLOCKED.
+
 ## 2026-10-01: model-layer hostile review
 
 [Model-layer evidence](evidence/model-layer-20261001/README.md) records the current repository audit, three upstream review candidates, dataset admission blockers, hardware profile, fixes and executed checks. No candidate, dataset or production model was approved. The Mac has 16 GiB unified memory, MPS and no CUDA. The old 411 HIGH / 20 CRITICAL counts below are historical: the latest preceding exact-head hosted run at `6632f2b` passed 12 image scans with zero reported HIGH/CRITICAL findings.

@@ -1,0 +1,15 @@
+{
+  "source_command": "npm audit --prefix frontend --json",
+  "high": 5,
+  "critical": 0,
+  "packages": [
+    "@next/eslint-plugin-next",
+    "braces",
+    "eslint-config-next",
+    "fast-glob",
+    "micromatch"
+  ],
+  "advisory": "GHSA-vfj7-8cjw-p6xm",
+  "patched_version_available": false,
+  "status": "FAIL"
+}

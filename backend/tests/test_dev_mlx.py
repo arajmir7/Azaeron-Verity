@@ -151,6 +151,47 @@ async def test_dev_transport_fails_closed_on_model_swap_limits_and_cancellation(
         await failed_gateway.run(job())
 
 
+@pytest.mark.asyncio
+async def test_dev_stream_cancellation_releases_slot_and_recovers():
+    entered = asyncio.Event()
+
+    class HangingStream(httpx.AsyncByteStream):
+        async def __aiter__(self):
+            frame = {
+                "model": MODEL_ID,
+                "choices": [
+                    {
+                        "index": 0,
+                        "delta": {"content": "Visible response"},
+                        "finish_reason": None,
+                    }
+                ],
+            }
+            yield ("data: " + json.dumps(frame) + "\n\n").encode()
+            await asyncio.Event().wait()
+
+    async def handle(request):
+        if request.url.path == "/v1/models":
+            return httpx.Response(200, json={"data": [{"id": MODEL_ID}]})
+        return httpx.Response(200, stream=HangingStream())
+
+    async def on_delta(_content):
+        entered.set()
+
+    stalled = DevMlxGateway(
+        "http://127.0.0.1:8080", transport=httpx.MockTransport(handle)
+    )
+    running = asyncio.create_task(stalled.run(job(), on_delta=on_delta))
+    await asyncio.wait_for(entered.wait(), 1)
+    running.cancel()
+    with pytest.raises(asyncio.CancelledError):
+        await running
+
+    recovered = DevMlxGateway("http://127.0.0.1:8080", transport=local_transport())
+    result = await asyncio.wait_for(recovered.run(job()), 1)
+    assert result.output == "Public"
+
+
 def test_dev_transport_cannot_enable_in_production_or_use_remote_host():
     with pytest.raises(ValidationError, match="DEV_MLX requires development"):
         Settings(_env_file=None, ENVIRONMENT="production", DEV_MLX_ENABLED=True)

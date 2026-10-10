@@ -1,0 +1,119 @@
+{
+  "purpose": "DEV_ONLY measured profile, no production SLO claim",
+  "server_pid": 29580,
+  "footprint_before": {
+    "status": "measured",
+    "lines": [
+      "phys_footprint: 3337 MB",
+      "phys_footprint_peak: 4174 MB"
+    ]
+  },
+  "context_scaling": [
+    {
+      "input_bytes": 562,
+      "input_tokens": 208,
+      "output_tokens": 2,
+      "duration_ms": 695,
+      "ttft_ms": 696,
+      "decode_tokens_per_s": null,
+      "output_sha256": "c2e3ac47f4a325469c1a2d5f117e463ec943c721986d5d9f09ac4540b7d80526",
+      "model_revision": "DEV_ONLY_UNATTESTED_RUNTIME"
+    },
+    {
+      "input_bytes": 2098,
+      "input_tokens": 504,
+      "output_tokens": 2,
+      "duration_ms": 121,
+      "ttft_ms": 121,
+      "decode_tokens_per_s": null,
+      "output_sha256": "c2e3ac47f4a325469c1a2d5f117e463ec943c721986d5d9f09ac4540b7d80526",
+      "model_revision": "DEV_ONLY_UNATTESTED_RUNTIME"
+    },
+    {
+      "input_bytes": 8242,
+      "input_tokens": 1686,
+      "output_tokens": 2,
+      "duration_ms": 188,
+      "ttft_ms": 188,
+      "decode_tokens_per_s": null,
+      "output_sha256": "c2e3ac47f4a325469c1a2d5f117e463ec943c721986d5d9f09ac4540b7d80526",
+      "model_revision": "DEV_ONLY_UNATTESTED_RUNTIME"
+    },
+    {
+      "input_bytes": 12050,
+      "input_tokens": 2418,
+      "output_tokens": 2,
+      "duration_ms": 229,
+      "ttft_ms": 229,
+      "decode_tokens_per_s": null,
+      "output_sha256": "c2e3ac47f4a325469c1a2d5f117e463ec943c721986d5d9f09ac4540b7d80526",
+      "model_revision": "DEV_ONLY_UNATTESTED_RUNTIME"
+    }
+  ],
+  "generation": [
+    {
+      "input_bytes": 66,
+      "input_tokens": 118,
+      "output_tokens": 141,
+      "duration_ms": 3835,
+      "ttft_ms": 222,
+      "decode_tokens_per_s": 39.03,
+      "output_sha256": "dd63df3042e7e7d49daa23ffe0ae4aeea4c281ccb3ffb7a2a723de894ed98163",
+      "model_revision": "DEV_ONLY_UNATTESTED_RUNTIME"
+    },
+    {
+      "input_bytes": 66,
+      "input_tokens": 118,
+      "output_tokens": 141,
+      "duration_ms": 6046,
+      "ttft_ms": 233,
+      "decode_tokens_per_s": 24.26,
+      "output_sha256": "dd63df3042e7e7d49daa23ffe0ae4aeea4c281ccb3ffb7a2a723de894ed98163",
+      "model_revision": "DEV_ONLY_UNATTESTED_RUNTIME"
+    },
+    {
+      "input_bytes": 66,
+      "input_tokens": 118,
+      "output_tokens": 141,
+      "duration_ms": 5282,
+      "ttft_ms": 587,
+      "decode_tokens_per_s": 30.03,
+      "output_sha256": "dd63df3042e7e7d49daa23ffe0ae4aeea4c281ccb3ffb7a2a723de894ed98163",
+      "model_revision": "DEV_ONLY_UNATTESTED_RUNTIME"
+    }
+  ],
+  "concurrency": [
+    {
+      "requests": 1,
+      "wall_ms": 185,
+      "completed": 1,
+      "errors": []
+    },
+    {
+      "requests": 2,
+      "wall_ms": 337,
+      "completed": 2,
+      "errors": []
+    },
+    {
+      "requests": 4,
+      "wall_ms": 640,
+      "completed": 4,
+      "errors": []
+    }
+  ],
+  "footprint_after": {
+    "status": "measured",
+    "lines": [
+      "phys_footprint: 3447 MB",
+      "phys_footprint_peak: 4710 MB"
+    ]
+  },
+  "generation_decode_tokens_per_s_median": 30.03,
+  "limitations": [
+    "Warm process on a shared Mac; cache state and other workloads were not controlled.",
+    "Adapter concurrency limit is process-local; multi-process coordination was not measured.",
+    "Decode rate subtracts observed first-visible-token time from end-to-end duration; it is approximate.",
+    "Context tests stop below the adapter's 16,000-byte request ceiling; model maximum context was not established."
+  ]
+}

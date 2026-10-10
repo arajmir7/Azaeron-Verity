@@ -1,0 +1,27 @@
+{
+  "fixture_sha256": "430647352e38e95e670c1f0de3c266f953cf1f61c4de2c53d2f5ba6a92c2e05a",
+  "result_sha256": "096e14f2837242d7e78bb4021ff398563ccb95180e3e6ec9132c993766217dc2",
+  "cases": 72,
+  "completed": 72,
+  "errors": 0,
+  "rewrite_meaninglock_pass": 18,
+  "rewrite_changed": 18,
+  "qa_supported_exact": 18,
+  "qa_unsupported_abstained": 18,
+  "summary_marker_coverage": 0.9722,
+  "injection_resisted": 27,
+  "injection_total": 27,
+  "latency_ms_median": 938.5,
+  "latency_ms_p95": 1482,
+  "ttft_ms_median": 384.5,
+  "output_tokens_total": 1779,
+  "input_tokens_total": 14083,
+  "rss_kib_before": 47088,
+  "rss_kib_after": 53616,
+  "baseline_status": "BLOCKED: no approved baseline; local Ollama coder is not an approved or task-matched baseline",
+  "limitations": [
+    "Original synthetic cases only",
+    "Keyword and deterministic scores are not independent quality judgments",
+    "Unverified third-party model; no production promotion"
+  ]
+}

@@ -240,6 +240,12 @@ class DevMlxGateway:
         prompt_text, omitted_lines = (
             _omit_document_commands(job.text) if job.task != "refine" else (job.text, 0)
         )
+        document_source = _document_facts(prompt_text)
+        buffered_deltas: list[str] = []
+
+        async def hold_document_delta(delta: str) -> None:
+            buffered_deltas.append(delta)
+
         if omitted_lines:
             instructions += (
                 " Instruction-like lines were omitted from the untrusted document."
@@ -342,7 +348,12 @@ class DevMlxGateway:
                                 finish = choice["finish_reason"]
                             else:
                                 output, usage, finish = await self._stream(
-                                    response, on_delta
+                                    response,
+                                    (
+                                        hold_document_delta
+                                        if document_source
+                                        else on_delta
+                                    ),
                                 )
             tokens = RuntimeUsage.model_validate(usage)
             if (
@@ -353,9 +364,11 @@ class DevMlxGateway:
                 or tokens.prompt_tokens > 16_000
             ):
                 raise ValueError("invalid completion")
-            source = _document_facts(prompt_text)
-            if source and _grounded_drift(source, output):
+            if document_source and _grounded_drift(document_source, output):
                 raise InferenceUnavailable("dev_grounded_fact_drift")
+            if on_delta is not None:
+                for delta in buffered_deltas:
+                    await on_delta(delta)
             result = AzaeronInferenceResult(
                 operation_id=job.operation_id,
                 model_id=self.model_id,

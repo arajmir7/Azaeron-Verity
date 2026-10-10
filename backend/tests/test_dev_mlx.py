@@ -62,7 +62,7 @@ def local_transport(*, stream=False, model=MODEL_ID, content="Public", capture=N
                     "choices": [
                         {
                             "index": 0,
-                            "delta": {"content": "nk>private</think>Public"},
+                            "delta": {"content": "nk>private</think>" + content},
                             "finish_reason": "stop",
                         }
                     ],
@@ -181,6 +181,35 @@ async def test_dev_grounded_guard_rejects_novel_dates_and_quantities():
         await private.run(
             job(task="summarize", text=json.dumps({"untrusted_document": source}))
         )
+
+
+@pytest.mark.asyncio
+async def test_dev_grounded_stream_only_releases_validated_output():
+    source = "Report R6: On 6 August 2024, Dr. Omar Das recorded 22 visits."
+    prompt = json.dumps({"untrusted_document": source})
+    chunks = []
+
+    async def delta(text):
+        chunks.append(text)
+
+    bad = DevMlxGateway(
+        "http://127.0.0.1:8080",
+        transport=local_transport(
+            stream=True, content="On 8 June 2024, 22 visits were recorded."
+        ),
+    )
+    with pytest.raises(InferenceUnavailable, match="dev_grounded_fact_drift"):
+        await bad.run(job(task="summarize", text=prompt), on_delta=delta)
+    assert chunks == []
+
+    good = DevMlxGateway(
+        "http://127.0.0.1:8080",
+        transport=local_transport(
+            stream=True, content="On 6 August 2024, 22 visits were recorded."
+        ),
+    )
+    result = await good.run(job(task="summarize", text=prompt), on_delta=delta)
+    assert result.output == "".join(chunks)
 
 
 @pytest.mark.asyncio

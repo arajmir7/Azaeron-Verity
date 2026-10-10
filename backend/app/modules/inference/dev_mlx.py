@@ -22,7 +22,7 @@ from app.modules.inference.gateway import (
 from app.modules.inference.registry import InferenceUnavailable
 
 MODEL_ID = "Qwen/Qwen3-4B-MLX-4bit"
-PROMPT_VERSION = "dev-mlx-qwen3-no-thinking-4"
+PROMPT_VERSION = "dev-mlx-qwen3-no-thinking-5"
 _SLOTS = asyncio.Semaphore(1)  # Shared across requests on a 16 GB development host.
 _DOCUMENT_COMMAND = re.compile(
     r"(?:^\s*(?:untrusted note|system|developer|assistant|tool)\s*:)"
@@ -236,7 +236,10 @@ class DevMlxGateway:
             raise InferenceUnavailable("dev_request_limit")
         started = time.monotonic()
         instructions = TASK_INSTRUCTIONS[job.task]
-        prompt_text, omitted_lines = _omit_document_commands(job.text)
+        # A rewrite's source is the user's exact text, even when it resembles JSON.
+        prompt_text, omitted_lines = (
+            _omit_document_commands(job.text) if job.task != "refine" else (job.text, 0)
+        )
         if omitted_lines:
             instructions += (
                 " Instruction-like lines were omitted from the untrusted document."

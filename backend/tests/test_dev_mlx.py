@@ -163,6 +163,8 @@ async def test_dev_document_command_filter_preserves_facts_and_input_hash():
     result = await gateway.run(job(text=original))
     assert captured[0]["messages"][1]["content"] == sanitized
     assert result.input_sha256 == hashlib.sha256(original.encode()).hexdigest()
+    await gateway.run(job(task="refine", text=original))
+    assert captured[1]["messages"][1]["content"] == original
 
 
 @pytest.mark.asyncio

@@ -1,0 +1,28 @@
+[
+  {
+    "image": "azaeron-mailpit:1.31.4-patched",
+    "aliases": [
+      "azaeron-mailpit:1.31.4-patched"
+    ],
+    "image_id": "sha256:456b3ba66d92f5572ae4ee1bd157682f331c2ec4e174db132c3098e4746aa687",
+    "bytes": 58953114,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "azaeron-mailpit:1.31.4-patched",
+    "aliases": [
+      "azaeron-mailpit:1.31.4-patched"
+    ],
+    "image_id": "sha256:456b3ba66d92f5572ae4ee1bd157682f331c2ec4e174db132c3098e4746aa687",
+    "bytes": 58953114,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

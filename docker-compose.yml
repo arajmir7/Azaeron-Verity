@@ -301,7 +301,10 @@ services:
   mailpit:
     # Development-only local sink. Production uses self-controlled SMTP.
     profiles: ["mail"]
-    image: axllent/mailpit:v1.31.2@sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d
+    image: azaeron-mailpit:1.31.4-patched
+    build:
+      context: ./infrastructure/mailpit-source
+      dockerfile: Dockerfile
     user: "65532:65532"
     read_only: true
     cap_drop: ["ALL"]
@@ -309,6 +312,7 @@ services:
     environment:
       MP_DATABASE: /tmp/mailpit.db
       MP_MAX_MESSAGES: "100"
+      MP_DISABLE_VERSION_CHECK: "true"
     tmpfs: ["/tmp:uid=65532,gid=65532,size=128m"]
     ports:
       - "127.0.0.1:8025:8025"

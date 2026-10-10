@@ -1,0 +1,219 @@
+{
+  "policy": "All current Compose image IDs must have executed vulnerability and SBOM evidence. Unchanged image IDs reuse prior scans; patched IDs use new scans. No exceptions.",
+  "checks": [
+    {
+      "current_image": "axllent/mailpit:v1.31.2@sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d",
+      "image_id": "sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d",
+      "gate": "vulnerabilities",
+      "status": "FAIL",
+      "evidence": "images-buffered/image-6-vulnerabilities.json"
+    },
+    {
+      "current_image": "axllent/mailpit:v1.31.2@sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d",
+      "image_id": "sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-6-sbom.json"
+    },
+    {
+      "current_image": "otel/opentelemetry-collector-contrib:0.161.0@sha256:fd328de2552466ad78385e1b1289c3f2402b1c45f265b252aab1955b42845ac1",
+      "image_id": "sha256:fd328de2552466ad78385e1b1289c3f2402b1c45f265b252aab1955b42845ac1",
+      "gate": "vulnerabilities",
+      "status": "FAIL",
+      "evidence": "images-buffered/image-10-vulnerabilities.json"
+    },
+    {
+      "current_image": "otel/opentelemetry-collector-contrib:0.161.0@sha256:fd328de2552466ad78385e1b1289c3f2402b1c45f265b252aab1955b42845ac1",
+      "image_id": "sha256:fd328de2552466ad78385e1b1289c3f2402b1c45f265b252aab1955b42845ac1",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-10-sbom.json"
+    },
+    {
+      "current_image": "prom/prometheus:v3.15.0@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e",
+      "image_id": "sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e",
+      "gate": "vulnerabilities",
+      "status": "FAIL",
+      "evidence": "images-buffered/image-12-vulnerabilities.json"
+    },
+    {
+      "current_image": "prom/prometheus:v3.15.0@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e",
+      "image_id": "sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-12-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-backend",
+      "image_id": "sha256:6651069adb8e82c26af5de886f83263ae72522ef7d1e457e05c427015463a399",
+      "gate": "vulnerabilities",
+      "status": "PASS",
+      "evidence": "images-buffered/image-0-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-backend",
+      "image_id": "sha256:6651069adb8e82c26af5de886f83263ae72522ef7d1e457e05c427015463a399",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-0-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-celery-beat",
+      "image_id": "sha256:99fe3ba9960a3ba2174a4506b06f261881139dca608fa7424cbaa709552fafc9",
+      "gate": "vulnerabilities",
+      "status": "PASS",
+      "evidence": "images-buffered/image-1-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-celery-beat",
+      "image_id": "sha256:99fe3ba9960a3ba2174a4506b06f261881139dca608fa7424cbaa709552fafc9",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-1-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-celery-worker",
+      "image_id": "sha256:d6d5ed74b3aa09593ad2e707ac2ec0931d2b8aef88bef15d947e2d6af550c637",
+      "gate": "vulnerabilities",
+      "status": "PASS",
+      "evidence": "images-buffered/image-2-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-celery-worker",
+      "image_id": "sha256:d6d5ed74b3aa09593ad2e707ac2ec0931d2b8aef88bef15d947e2d6af550c637",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-2-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-frontend",
+      "image_id": "sha256:d1b0a787ce81347d1b86199a8185e30c578abbc0e11b0bf5e380e43edc16c414",
+      "gate": "vulnerabilities",
+      "status": "PASS",
+      "evidence": "images-buffered/image-3-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-frontend",
+      "image_id": "sha256:d1b0a787ce81347d1b86199a8185e30c578abbc0e11b0bf5e380e43edc16c414",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-3-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-grafana",
+      "image_id": "sha256:57bb6f0e13bbc8371d2f39ac1e2169150cb3278e3edacd749591f075cb0ff44b",
+      "gate": "vulnerabilities",
+      "status": "FAIL",
+      "evidence": "patch-scans/image-3-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-grafana",
+      "image_id": "sha256:57bb6f0e13bbc8371d2f39ac1e2169150cb3278e3edacd749591f075cb0ff44b",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "patch-scans/image-3-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-jaeger",
+      "image_id": "sha256:8ffb55d557f3f8526723e41473a9da1e2171ed66d9e0023c578f672bdcc3f0c2",
+      "gate": "vulnerabilities",
+      "status": "FAIL",
+      "evidence": "images-buffered/image-5-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-jaeger",
+      "image_id": "sha256:8ffb55d557f3f8526723e41473a9da1e2171ed66d9e0023c578f672bdcc3f0c2",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-5-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-migrate",
+      "image_id": "sha256:26fdcb871b23889147fb8a9dd899e4d738880aa722d0ac1be57c864b48420a1f",
+      "gate": "vulnerabilities",
+      "status": "PASS",
+      "evidence": "images-buffered/image-7-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-migrate",
+      "image_id": "sha256:26fdcb871b23889147fb8a9dd899e4d738880aa722d0ac1be57c864b48420a1f",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-7-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-minio",
+      "image_id": "sha256:ba2b6ca7d60f1e87653812a105a55a02735644bca2d201b56bea9e9ccfc76317",
+      "gate": "vulnerabilities",
+      "status": "PASS",
+      "evidence": "patch-scans/image-1-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-minio",
+      "image_id": "sha256:ba2b6ca7d60f1e87653812a105a55a02735644bca2d201b56bea9e9ccfc76317",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "patch-scans/image-1-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-minio-init",
+      "image_id": "sha256:5e0f720c162c4de0cfe332f53ef41a84662c3327dd81f12d8ceca72b57e894f0",
+      "gate": "vulnerabilities",
+      "status": "PASS",
+      "evidence": "patch-scans/image-2-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-minio-init",
+      "image_id": "sha256:5e0f720c162c4de0cfe332f53ef41a84662c3327dd81f12d8ceca72b57e894f0",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "patch-scans/image-2-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-postgres",
+      "image_id": "sha256:6224e07c7185460f11c5dc6095f3305141154d54fa02edeedeb1bee1563062e2",
+      "gate": "vulnerabilities",
+      "status": "PASS",
+      "evidence": "images-buffered/image-11-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-postgres",
+      "image_id": "sha256:6224e07c7185460f11c5dc6095f3305141154d54fa02edeedeb1bee1563062e2",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-11-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-redis",
+      "image_id": "sha256:481cbd573a846bc345a6d5a7674d95800b85994a79892a32888ebf3ef4c64ea7",
+      "gate": "vulnerabilities",
+      "status": "PASS",
+      "evidence": "patch-scans/image-0-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-redis",
+      "image_id": "sha256:481cbd573a846bc345a6d5a7674d95800b85994a79892a32888ebf3ef4c64ea7",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "patch-scans/image-0-sbom.json"
+    },
+    {
+      "current_image": "verity-mlx-check-verification",
+      "image_id": "sha256:24034d558a5bd0e0eefa651ce4026dfb75edf2b6e9237f2638f090b6d08bee40",
+      "gate": "vulnerabilities",
+      "status": "PASS",
+      "evidence": "images-buffered/image-14-vulnerabilities.json"
+    },
+    {
+      "current_image": "verity-mlx-check-verification",
+      "image_id": "sha256:24034d558a5bd0e0eefa651ce4026dfb75edf2b6e9237f2638f090b6d08bee40",
+      "gate": "sbom",
+      "status": "PASS",
+      "evidence": "images-buffered/image-14-sbom.json"
+    }
+  ],
+  "counts": {
+    "HIGH": 32
+  },
+  "status": "FAIL"
+}

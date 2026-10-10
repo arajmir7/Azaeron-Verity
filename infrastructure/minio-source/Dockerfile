@@ -1,6 +1,6 @@
 # The archived MinIO community releases are fetched from their immutable
 # upstream Git commits. BuildKit checks the archive bytes before extraction.
-FROM golang:1.26.8-alpine3.24@sha256:8ac98ca534ac3f51e1f420a1dd2c15e74c75cfa0f23f3ad27eb5d7236c349a0c AS server-build
+FROM golang:1.26.9-alpine3.24@sha256:3082400e369fa24d5fc60bca20edab3f6d604e0c5a690ec66b295eff4dd87ade AS server-build
 WORKDIR /src
 ADD --checksum=sha256:09ffb1ddfa9636348f8d029f9680bb086840dccf9d34370e8462151d28e95f97 https://codeload.github.com/minio/minio/tar.gz/5aebb3970e132ca231508152c0333cb223c83d70 /tmp/source.tgz
 RUN tar -xzf /tmp/source.tgz --strip-components=1 && rm /tmp/source.tgz
@@ -9,20 +9,20 @@ RUN --mount=type=cache,target=/go/pkg/mod \
     go get github.com/apache/thrift@v0.24.0 github.com/buger/jsonparser@v1.1.2 \
       github.com/go-jose/go-jose/v4@v4.1.4 github.com/prometheus/prometheus@v0.311.3 \
       github.com/rabbitmq/amqp091-go@v1.13.0 \
-      golang.org/x/crypto@v0.55.0 google.golang.org/grpc@v1.83.2 \
+      golang.org/x/crypto@v0.57.0 golang.org/x/net@v0.60.0 google.golang.org/grpc@v1.83.2 \
     && go mod download && go mod verify
 RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build \
     go build -mod=mod -trimpath -tags kqueue -ldflags='-s -w' -o /out/minio . \
     && go mod verify
 
-FROM golang:1.26.8-alpine3.24@sha256:8ac98ca534ac3f51e1f420a1dd2c15e74c75cfa0f23f3ad27eb5d7236c349a0c AS client-build
+FROM golang:1.26.9-alpine3.24@sha256:3082400e369fa24d5fc60bca20edab3f6d604e0c5a690ec66b295eff4dd87ade AS client-build
 WORKDIR /src
 ADD --checksum=sha256:4cea8ed209c8f96e59ea1a5cc4901019b54c2be6d6f5f16c6749ea8bdcf4172e https://codeload.github.com/minio/mc/tar.gz/d6541ea280b73a834b64d4097e21f2be77676104 /tmp/source.tgz
 RUN tar -xzf /tmp/source.tgz --strip-components=1 && rm /tmp/source.tgz
 ENV CGO_ENABLED=0 GOTOOLCHAIN=local
 RUN --mount=type=cache,target=/go/pkg/mod \
     go get github.com/prometheus/prometheus@v0.311.3 \
-      golang.org/x/crypto@v0.55.0 google.golang.org/grpc@v1.83.2 \
+      golang.org/x/crypto@v0.57.0 golang.org/x/net@v0.60.0 google.golang.org/grpc@v1.83.2 \
     && go mod tidy && go mod download && go mod verify
 RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build \
     go build -trimpath -tags kqueue -ldflags='-s -w' -o /out/mc .

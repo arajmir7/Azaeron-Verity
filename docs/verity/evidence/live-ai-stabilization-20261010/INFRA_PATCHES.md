@@ -1,0 +1,9 @@
+# Executed infrastructure security fixes
+
+The same immutable MinIO server/client source revisions were rebuilt with digest-pinned Go 1.26.9 and explicit `golang.org/x/net` 0.60.0 / `golang.org/x/crypto` 0.57.0. Go 1.26.9 is a stable [security release](https://go.dev/doc/devel/release#go1.26.0). The first build correctly failed because x/net 0.60.0 requires x/crypto 0.57.0; its log is retained. The corrected builds passed `go mod verify` and compilation. Both final images pass the executed vulnerability and SBOM gates.
+
+Redis retains its original digest-pinned 7.4 Alpine image, binary and entrypoint. The custom build installs only stable Alpine 3.21 `libcrypto3=3.3.7-r2` and `libssl3=3.3.7-r2`; an ephemeral `apk policy` query confirmed those versions in the existing stable repository. Its final image passes vulnerability and SBOM scans. CI explicitly builds this image before using it.
+
+The signed [Grafana Jaeger datasource 13.0.5 release](https://github.com/grafana/grafana-jaeger-datasource/releases/tag/v13.0.5) replaces 13.0.4. Both architecture archives retain the upstream SHA256 values and complete signed manifests. Grafana `/api/health` reports database OK; the Jaeger and Prometheus plugins register without invalid-signature messages. Its current binaries still produce twelve HIGH Go findings, so the Grafana vulnerability gate remains FAIL.
+
+`patch-scans/results.json` records the executed new-image scans. `final-image-coverage.json` binds every current Compose image ID to vulnerability and SBOM evidence, reusing prior scans only for unchanged IDs. All fifteen images have coverage; three patched images close ten HIGH findings. Five images still fail with 32 HIGH / 0 CRITICAL findings: Grafana 12, Prometheus 8, Jaeger 4, Mailpit 4, OpenTelemetry collector 4. No exceptions or ignored vulnerabilities were introduced. These security fixes do not grant model or production approval.

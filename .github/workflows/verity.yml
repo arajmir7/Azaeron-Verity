@@ -68,6 +68,7 @@ jobs:
       - name: Prepare an isolated runtime
         run: python backend/scripts/prepare_slice0_compose.py --project verity-ci --identity-mail --port-offset 1700 --output /tmp/verity-ci.json
       - name: Build runtime and verification images
+        id: runtime_build
         run: docker compose -f /tmp/verity-ci.json --profile verification build postgres redis backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger grafana mailpit
       - name: Migrate and wait for dependencies
         run: docker compose -f /tmp/verity-ci.json up -d --wait --wait-timeout 180 backend celery-worker frontend jaeger otel-collector prometheus
@@ -80,18 +81,23 @@ jobs:
       - name: Execute repository gate including live browser and PostgreSQL tests
         run: python scripts/verity_gate.py --compose /tmp/verity-ci.json --browser-url http://localhost:4700 --output docs/verity/evidence/ci
       - name: Install security scanners
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: python -m pip install pip-audit==2.10.1 bandit==1.9.4 detect-secrets==1.5.0
       - name: Dependency audits
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: |
           python -m pip_audit -r backend/requirements-dev.lock --no-deps --disable-pip
           npm audit --prefix frontend
       - name: SAST and source secret gate
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: |
           python -m bandit -r backend/app
           python scripts/verity_secret_gate.py
       - name: Export frontend SBOM
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: npm --prefix frontend sbom --sbom-format cyclonedx > docs/verity/evidence/ci/frontend.cdx.json
       - name: Reclaim build cache before image scans
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: |
           df -h / /tmp
           docker system df
@@ -99,8 +105,10 @@ jobs:
           df -h / /tmp
           docker system df
       - name: Pull pinned infrastructure images for security coverage
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: docker compose -f /tmp/verity-ci.json --profile '*' pull --ignore-buildable
       - name: Scan every Compose image and generate SBOMs
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: python scripts/verity_image_gate.py --compose /tmp/verity-ci.json --output docs/verity/evidence/ci/images
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()

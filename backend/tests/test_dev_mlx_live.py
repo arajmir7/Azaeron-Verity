@@ -25,7 +25,11 @@ pytestmark = pytest.mark.skipif(
 @pytest.mark.asyncio
 async def test_live_authenticated_chat_rewrite_summary_and_qa(client, monkeypatch):
     monkeypatch.setattr(settings, "DEV_MLX_ENABLED", True)
-    monkeypatch.setattr(settings, "DEV_MLX_ENDPOINT", "http://127.0.0.1:8080")
+    monkeypatch.setattr(
+        settings,
+        "DEV_MLX_ENDPOINT",
+        os.getenv("AZAERON_LIVE_MLX_ENDPOINT", "http://127.0.0.1:8080"),
+    )
     auth, organization_id = await owner(client)
 
     async def post(path, text, **extra):

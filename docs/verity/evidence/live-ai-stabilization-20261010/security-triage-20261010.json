@@ -1,0 +1,257 @@
+{
+  "source_commit": "a41a14786984f56e08b3de8847bed48f685a82d3",
+  "runtime_finding_status": "FAIL",
+  "total_image_high": 32,
+  "images": [
+    {
+      "image": "axllent/mailpit:v1.31.2@sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d",
+      "image_id": "sha256:74d609a42ec279aa63c6b4622a6fa9b5408d1ad5b1d76a1c4be40a265ce0863d",
+      "scan": "images-buffered/image-6-vulnerabilities.json",
+      "high_count": 4,
+      "findings": [
+        {
+          "id": "CVE-2026-78669",
+          "package": "golang.org/x/net",
+          "installed": "v0.59.0",
+          "fixed": "0.60.0"
+        },
+        {
+          "id": "CVE-2026-78667",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-97031",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        }
+      ]
+    },
+    {
+      "image": "otel/opentelemetry-collector-contrib:0.161.0@sha256:fd328de2552466ad78385e1b1289c3f2402b1c45f265b252aab1955b42845ac1",
+      "image_id": "sha256:fd328de2552466ad78385e1b1289c3f2402b1c45f265b252aab1955b42845ac1",
+      "scan": "images-buffered/image-10-vulnerabilities.json",
+      "high_count": 4,
+      "findings": [
+        {
+          "id": "CVE-2026-78669",
+          "package": "golang.org/x/net",
+          "installed": "v0.58.0",
+          "fixed": "0.60.0"
+        },
+        {
+          "id": "CVE-2026-78667",
+          "package": "stdlib",
+          "installed": "v1.26.8",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "stdlib",
+          "installed": "v1.26.8",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-97031",
+          "package": "stdlib",
+          "installed": "v1.26.8",
+          "fixed": "1.26.9, 1.27.2"
+        }
+      ]
+    },
+    {
+      "image": "prom/prometheus:v3.15.0@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e",
+      "image_id": "sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e",
+      "scan": "images-buffered/image-12-vulnerabilities.json",
+      "high_count": 8,
+      "findings": [
+        {
+          "id": "CVE-2026-78669",
+          "package": "golang.org/x/net",
+          "installed": "v0.58.0",
+          "fixed": "0.60.0"
+        },
+        {
+          "id": "CVE-2026-78667",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-97031",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "golang.org/x/net",
+          "installed": "v0.58.0",
+          "fixed": "0.60.0"
+        },
+        {
+          "id": "CVE-2026-78667",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-97031",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        }
+      ]
+    },
+    {
+      "image": "verity-mlx-check-grafana",
+      "image_id": "sha256:57bb6f0e13bbc8371d2f39ac1e2169150cb3278e3edacd749591f075cb0ff44b",
+      "scan": "patch-scans/image-3-vulnerabilities.json",
+      "high_count": 12,
+      "findings": [
+        {
+          "id": "CVE-2026-78669",
+          "package": "golang.org/x/net",
+          "installed": "v0.58.0",
+          "fixed": "0.60.0"
+        },
+        {
+          "id": "CVE-2026-78667",
+          "package": "stdlib",
+          "installed": "v1.26.6",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "stdlib",
+          "installed": "v1.26.6",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-97031",
+          "package": "stdlib",
+          "installed": "v1.26.6",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "golang.org/x/net",
+          "installed": "v0.58.0",
+          "fixed": "0.60.0"
+        },
+        {
+          "id": "CVE-2026-78667",
+          "package": "stdlib",
+          "installed": "v1.26.7",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "stdlib",
+          "installed": "v1.26.7",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-97031",
+          "package": "stdlib",
+          "installed": "v1.26.7",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "golang.org/x/net",
+          "installed": "v0.59.0",
+          "fixed": "0.60.0"
+        },
+        {
+          "id": "CVE-2026-78667",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-97031",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        }
+      ]
+    },
+    {
+      "image": "verity-mlx-check-jaeger",
+      "image_id": "sha256:8ffb55d557f3f8526723e41473a9da1e2171ed66d9e0023c578f672bdcc3f0c2",
+      "scan": "images-buffered/image-5-vulnerabilities.json",
+      "high_count": 4,
+      "findings": [
+        {
+          "id": "CVE-2026-78669",
+          "package": "golang.org/x/net",
+          "installed": "v0.58.0",
+          "fixed": "0.60.0"
+        },
+        {
+          "id": "CVE-2026-78667",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        },
+        {
+          "id": "CVE-2026-97031",
+          "package": "stdlib",
+          "installed": "v1.27.1",
+          "fixed": "1.26.9, 1.27.2"
+        }
+      ]
+    }
+  ],
+  "frontend_audit": {
+    "high": 5,
+    "chain": "eslint-config-next@16.3.8 -> @next/eslint-plugin-next@16.3.8 -> fast-glob@3.3.1 -> micromatch@4.0.8 -> braces@3.0.3",
+    "advisory": "GHSA-vfj7-8cjw-p6xm",
+    "runtime_dependency_reachable": false,
+    "evidence": "npm audit --omit=dev reports 0; Next standalone runtime Docker stage copies no node_modules from lint/build toolchain; full npm audit remains FAIL",
+    "production_release_decision": "BLOCKED; no suppression or waiver"
+  },
+  "unfixed_reason": "32 existing HIGH findings remain in pinned observability and mail test images; fixed Go/toolchain and x/net versions are listed per finding; prior MinIO/Redis fixes are preserved.",
+  "mailpit_latest_candidate": {
+    "version": "v1.31.4",
+    "upstream_published_utc": "2026-10-03T04:36:58Z",
+    "digest": "sha256:b68349e3a014b90c5610bfb26b2ae36f3892d7b8cf25ee140c6c71c98d2fcf48",
+    "vulnerability_status": "FAIL",
+    "high_count": 4,
+    "decision": "NOT ADOPTED; same four HIGH findings as current v1.31.2",
+    "evidence": "mailpit-1.31.4-candidate-scan/results.json"
+  }
+}

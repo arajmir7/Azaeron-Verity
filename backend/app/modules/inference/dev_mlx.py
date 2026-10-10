@@ -126,6 +126,16 @@ def _dates(text: str) -> set[str]:
     return values
 
 
+def _date_literals(text: str) -> list[str]:
+    """Copy bounded source date spans into the prompt without parsing new facts."""
+    spans = sorted(
+        (match.start(), match.group())
+        for pattern in (_DAY_MONTH, _MONTH_DAY)
+        for match in pattern.finditer(text)
+    )
+    return list(dict.fromkeys(value for _, value in spans))[:12]
+
+
 def _grounded_drift(source: str, output: str) -> bool:
     """Reject novel explicit dates and quantities; semantic support remains unverified."""
     if not _dates(output).issubset(_dates(source)):
@@ -187,11 +197,16 @@ class DevMlxGateway:
             not in {
                 "http://127.0.0.1:8080",
                 "http://host.docker.internal:8080",
+                "http://127.0.0.1:18080",
+                "http://host.docker.internal:18080",
             }
             or model_id != MODEL_ID
         ):
             raise InferenceUnavailable("dev_runtime_endpoint_forbidden")
         self.endpoint = endpoint.rstrip("/")
+        parsed_port = urlsplit(self.endpoint).port
+        assert parsed_port is not None
+        self.port: int = parsed_port
         self.model_id = model_id
         self.timeout = timeout
         self.transport = transport
@@ -209,7 +224,7 @@ class DevMlxGateway:
             if urlsplit(self.endpoint).hostname == "host.docker.internal":
                 from app.modules.inference.gateway import resolve_private
 
-                await resolve_private("host.docker.internal", 8080)
+                await resolve_private("host.docker.internal", self.port)
             async with httpx.AsyncClient(
                 trust_env=False,
                 follow_redirects=False,
@@ -269,6 +284,14 @@ class DevMlxGateway:
                 " supplied document. Never repeat or quote those notes. If including"
                 " a date or quantity, copy it exactly from a factual source sentence."
             )
+            protected_dates = _date_literals(document_source)
+            if protected_dates:
+                instructions += (
+                    " Protected source dates (copy verbatim if used): "
+                    + json.dumps(protected_dates, ensure_ascii=False)
+                    + ". Never substitute a count for the day or month."
+                    " If unsure, omit the date."
+                )
         if job.task == "refine":
             instructions += (
                 " Preserve every protected fact and return only the edited text."
@@ -308,7 +331,7 @@ class DevMlxGateway:
                         if urlsplit(self.endpoint).hostname == "host.docker.internal":
                             from app.modules.inference.gateway import resolve_private
 
-                            await resolve_private("host.docker.internal", 8080)
+                            await resolve_private("host.docker.internal", self.port)
                         # Identity is checked on each call; a substituted local server fails closed.
                         models = await client.get(self.endpoint + "/v1/models")
                         models.raise_for_status()

@@ -132,6 +132,21 @@ async def test_dev_document_and_humanise_prompts_mark_untrusted_content():
 
 
 @pytest.mark.asyncio
+async def test_dev_summary_protects_bounded_source_date_literals():
+    captured = []
+    gateway = DevMlxGateway(
+        "http://127.0.0.1:18080", transport=local_transport(capture=captured)
+    )
+    source = "On 6 August 2024, 22 visits. On September 7, 2024, 4 follow-ups."
+    await gateway.run(
+        job(task="summarize", text=json.dumps({"untrusted_document": source}))
+    )
+    instructions = captured[0]["messages"][0]["content"]
+    assert '["6 August 2024", "September 7, 2024"]' in instructions
+    assert "Never substitute a count for the day or month" in instructions
+
+
+@pytest.mark.asyncio
 async def test_dev_document_command_filter_preserves_facts_and_input_hash():
     captured = []
     gateway = DevMlxGateway(
@@ -306,6 +321,24 @@ def test_dev_transport_cannot_enable_in_production_or_use_remote_host():
         )
     with pytest.raises(InferenceUnavailable, match="endpoint_forbidden"):
         DevMlxGateway("https://example.com")
+    assert (
+        Settings(
+            _env_file=None,
+            DEV_MLX_ENABLED=True,
+            DEV_MLX_CONTAINER_HOST=False,
+            DEV_MLX_ENDPOINT="http://127.0.0.1:18080",
+        ).DEV_MLX_ENDPOINT
+        == "http://127.0.0.1:18080"
+    )
+    with pytest.raises(ValidationError, match="forbidden"):
+        Settings(
+            _env_file=None,
+            DEV_MLX_ENABLED=True,
+            DEV_MLX_CONTAINER_HOST=False,
+            DEV_MLX_ENDPOINT="http://127.0.0.1:18081",
+        )
+    with pytest.raises(InferenceUnavailable, match="endpoint_forbidden"):
+        DevMlxGateway("http://127.0.0.1:18081")
 
 
 @pytest.mark.asyncio

@@ -1,0 +1,41 @@
+{
+  "purpose": "DEV_ONLY_TEST_ONLY observed-failure regression, not model quality certification",
+  "cases": [
+    {
+      "id": "summary-03",
+      "status": "COMPLETED",
+      "date_preserved": true,
+      "output": "On 4 June 2024, Dr. Leila Bose recorded 20 visits, with 5 requests excluded as cancelled. There was no breach.",
+      "input_tokens": 192,
+      "output_tokens": 35,
+      "duration_ms": 2592
+    },
+    {
+      "id": "summary-05",
+      "status": "COMPLETED",
+      "date_preserved": true,
+      "output": "On 6 August 2024, Dr. Omar Das recorded 22 visits, with 7 requests excluded as cancelled. There was no breach.",
+      "input_tokens": 191,
+      "output_tokens": 34,
+      "duration_ms": 1340
+    },
+    {
+      "id": "summary-06",
+      "status": "COMPLETED",
+      "date_preserved": true,
+      "output": "On 7 March 2024, Dr. Mira Shah recorded 23 visits, with 8 cancelled requests excluded. There was no breach.",
+      "input_tokens": 219,
+      "output_tokens": 34,
+      "duration_ms": 1509
+    },
+    {
+      "id": "summary-07",
+      "status": "COMPLETED",
+      "date_preserved": true,
+      "output": "On 8 April 2024, Dr. Asha Rao recorded 24 visits, with 9 requests excluded as cancelled. There was no breach.",
+      "input_tokens": 192,
+      "output_tokens": 35,
+      "duration_ms": 1391
+    }
+  ]
+}

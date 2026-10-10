@@ -228,7 +228,7 @@ class Settings(BaseSettings):
             if (
                 parsed.scheme != "http"
                 or parsed.hostname != allowed_host
-                or parsed.port != 8080
+                or parsed.port not in {8080, 18080}
                 or parsed.username
                 or parsed.password
                 or parsed.path not in {"", "/"}

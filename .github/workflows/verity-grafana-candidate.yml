@@ -19,15 +19,12 @@ jobs:
             echo 'BLOCKED: less than 25 GiB free for bounded Grafana source build' | tee /tmp/verity-grafana-candidate/preflight.txt
             exit 78
           fi
-      - name: Build current signed-plugin base and patched Grafana server with an 8 GiB disk floor
+      - name: Build supported Grafana 13.1.7 with bundled datasources and an 8 GiB disk floor
         run: |
           set -euo pipefail
           (
             docker build --progress=plain \
               -f infrastructure/grafana/Dockerfile \
-              -t azaeron-grafana:13.2.3-minimal infrastructure/grafana
-            docker build --progress=plain \
-              -f infrastructure/grafana/Dockerfile.candidate \
               -t verity-grafana:candidate infrastructure/grafana
           ) > /tmp/verity-grafana-candidate/build.log 2>&1 &
           build_pid=$!

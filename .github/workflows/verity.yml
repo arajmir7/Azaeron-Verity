@@ -88,14 +88,25 @@ jobs:
         run: |
           python backend/scripts/prepare_slice0_compose.py --project verity-ci --identity-mail --port-offset 1700 --output /tmp/verity-ci.json
           python - <<'PY'
-          import json, secrets
+          import json, os, secrets
           from pathlib import Path
           path = Path('/tmp/verity-ci.json')
           config = json.loads(path.read_text())
           config['services']['grafana']['environment']['GF_SECURITY_ADMIN_PASSWORD'] = secrets.token_urlsafe(32)
+          metrics_token = secrets.token_urlsafe(48)
+          config['services']['backend']['environment']['METRICS_TOKEN'] = metrics_token
+          token_path = Path('/tmp/verity-ci-metrics-token')
+          descriptor = os.open(token_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o640)
+          with os.fdopen(descriptor, 'w') as destination:
+            destination.write(metrics_token)
+          token_path.chmod(0o640)
+          metric_volumes = [volume for volume in config['services']['prometheus']['volumes'] if volume.get('target') == '/run/secrets/metrics-token']
+          assert len(metric_volumes) == 1
+          metric_volumes[0]['source'] = str(token_path)
           path.write_text(json.dumps(config, indent=2) + '\n')
           path.chmod(0o600)
           PY
+          sudo chgrp 10001 /tmp/verity-ci-metrics-token
       - name: Build runtime and verification images
         id: runtime_build
         run: docker compose -f /tmp/verity-ci.json --profile verification build postgres redis backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger otel-collector mailpit

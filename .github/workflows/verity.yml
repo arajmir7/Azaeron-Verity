@@ -24,7 +24,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: verity-${{ github.ref }}
+  group: verity-${{ github.ref }}-${{ github.event_name }}-${{ inputs.observability_candidate }}-${{ inputs.prometheus_candidate }}-${{ inputs.otel_candidate }}-${{ inputs.grafana_candidate }}
   cancel-in-progress: true
 jobs:
   derivative-mechanics:

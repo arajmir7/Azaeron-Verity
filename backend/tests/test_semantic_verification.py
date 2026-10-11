@@ -35,8 +35,8 @@ def identity():
             "The permit was signed 2024-08-06. Batch numbers 06 and 08.",
         ),
         (
-            "The permit was signed 6 August 2024. Batch numbers 6 and 8.",
-            "The permit was signed 8 August 2024. Batch numbers 6 and 8.",
+            "Event A is 6 August 2024; Event B is 8 September 2024.",
+            "Event A is 6 September 2024; Event B is 8 August 2024.",
         ),
     ],
 )

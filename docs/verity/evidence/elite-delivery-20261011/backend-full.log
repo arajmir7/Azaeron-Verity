@@ -58,4 +58,4 @@ backend/tests/test_validation_gate.py ......                             [ 95%]
 backend/tests/test_worker_redelivery.py ....                             [ 96%]
 backend/tests/test_workspace_onboarding.py ............                  [100%]
 
-================== 337 passed, 35 skipped in 79.80s (0:01:19) ==================
+================== 337 passed, 35 skipped in 78.43s (0:01:18) ==================

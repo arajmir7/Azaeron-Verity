@@ -1,0 +1,31 @@
+# PRD-022/TRD-022: isolated source-build trial; compose still uses the pinned
+# upstream image until the binary, UI, scanner and runtime gates pass.
+FROM golang:1.27.2-alpine3.24@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS build
+RUN apk add --no-cache bash gzip
+WORKDIR /src
+ADD --checksum=sha256:d6383dea2f9b26c1673a52859c453653f2c6c046f7fb6d01db59603a65a732eb https://codeload.github.com/prometheus/prometheus/tar.gz/v3.15.0 /tmp/source.tgz
+ADD --checksum=sha256:fa8c918ed05e3f89e232e9b69eccd6ed074602cd9e8a2cab7a92bec9651974ae https://github.com/prometheus/prometheus/releases/download/v3.15.0/prometheus-web-ui-3.15.0.tar.gz /tmp/ui.tgz
+RUN tar -xzf /tmp/source.tgz --strip-components=1 && tar -xzf /tmp/ui.tgz -C web/ui
+ENV CGO_ENABLED=0 GOTOOLCHAIN=local GOMAXPROCS=2
+RUN --mount=type=cache,target=/go/pkg/mod go get golang.org/x/net@v0.60.0 \
+    && test "$(go list -m -f '{{.Version}}' golang.org/x/net)" = v0.60.0
+RUN PREBUILT_ASSETS_STATIC_DIR=web/ui/static scripts/compress_assets.sh
+RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build \
+    go build -tags 'netgo builtinassets' -trimpath -ldflags='-s -w' -o /out/prometheus ./cmd/prometheus \
+    && go version -m /out/prometheus > /out/build-info.txt \
+    && go mod verify
+
+FROM alpine:3.24.2@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6
+RUN apk add --no-cache ca-certificates \
+    && addgroup -g 10001 prometheus \
+    && adduser -D -H -u 10001 -G prometheus prometheus \
+    && mkdir /prometheus \
+    && chown prometheus:prometheus /prometheus
+COPY --from=build /out/prometheus /usr/local/bin/prometheus
+COPY --from=build /out/build-info.txt /usr/share/prometheus/build-info.txt
+COPY --from=build /src/LICENSE /usr/share/licenses/prometheus/LICENSE
+COPY --from=build /src/NOTICE /usr/share/licenses/prometheus/NOTICE
+USER 10001:10001
+VOLUME /prometheus
+EXPOSE 9090
+ENTRYPOINT ["/usr/local/bin/prometheus"]

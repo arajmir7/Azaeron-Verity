@@ -17,6 +17,10 @@ on:
         description: Run only the bounded minimal Collector source candidate experiment
         type: boolean
         default: false
+      grafana_candidate:
+        description: Run only the bounded patched Grafana server candidate experiment
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -24,7 +28,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   derivative-mechanics:
-    if: ${{ !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate }}
+    if: ${{ !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate && !inputs.grafana_candidate }}
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
@@ -65,7 +69,7 @@ jobs:
             /tmp/native-v2-smoke/*/bundle/training-manifest.json
           retention-days: 7
   repository:
-    if: ${{ !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate }}
+    if: ${{ !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate && !inputs.grafana_candidate }}
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
@@ -81,10 +85,20 @@ jobs:
       - run: npm ci --prefix frontend
       - run: npx --prefix frontend playwright install --with-deps chromium
       - name: Prepare an isolated runtime
-        run: python backend/scripts/prepare_slice0_compose.py --project verity-ci --identity-mail --port-offset 1700 --output /tmp/verity-ci.json
+        run: |
+          python backend/scripts/prepare_slice0_compose.py --project verity-ci --identity-mail --port-offset 1700 --output /tmp/verity-ci.json
+          python - <<'PY'
+          import json, secrets
+          from pathlib import Path
+          path = Path('/tmp/verity-ci.json')
+          config = json.loads(path.read_text())
+          config['services']['grafana']['environment']['GF_SECURITY_ADMIN_PASSWORD'] = secrets.token_urlsafe(32)
+          path.write_text(json.dumps(config, indent=2) + '\n')
+          path.chmod(0o600)
+          PY
       - name: Build runtime and verification images
         id: runtime_build
-        run: docker compose -f /tmp/verity-ci.json --profile verification build postgres redis backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger grafana mailpit
+        run: docker compose -f /tmp/verity-ci.json --profile verification build postgres redis backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger otel-collector grafana mailpit
       - name: Migrate and wait for dependencies
         run: docker compose -f /tmp/verity-ci.json up -d --wait --wait-timeout 180 backend celery-worker frontend jaeger otel-collector prometheus
       - name: Verify specification, API, schema and migration contracts
@@ -95,6 +109,17 @@ jobs:
           python scripts/verity_spec_gate.py --openapi /tmp/verity-ci-openapi.json --schema /tmp/verity-ci-schema.json | tee /tmp/verity-ci-spec-gate.json
       - name: Execute repository gate including live browser and PostgreSQL tests
         run: python scripts/verity_gate.py --compose /tmp/verity-ci.json --browser-url http://localhost:4700 --output docs/verity/evidence/ci
+      - name: Verify persisted traces, scraping, alert rules, Grafana and redacted logs
+        run: |
+          set -euo pipefail
+          docker compose -f /tmp/verity-ci.json up -d grafana
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent --show-error --max-time 3 http://127.0.0.1:4701/api/health >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          python scripts/verity_observability_gate.py --compose /tmp/verity-ci.json --output docs/verity/evidence/ci/observability
       - name: Install security scanners
         if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: python -m pip install pip-audit==2.10.1 bandit==1.9.4 detect-secrets==1.5.0
@@ -138,11 +163,14 @@ jobs:
         if: always()
         run: docker compose -f /tmp/verity-ci.json down --volumes
   jaeger-source-candidate:
-    if: ${{ inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate }}
+    if: ${{ inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate && !inputs.grafana_candidate }}
     uses: ./.github/workflows/verity-observability-candidate.yml
   prometheus-source-candidate:
-    if: ${{ inputs.prometheus_candidate && !inputs.observability_candidate && !inputs.otel_candidate }}
+    if: ${{ inputs.prometheus_candidate && !inputs.observability_candidate && !inputs.otel_candidate && !inputs.grafana_candidate }}
     uses: ./.github/workflows/verity-prometheus-candidate.yml
   otel-source-candidate:
-    if: ${{ inputs.otel_candidate && !inputs.observability_candidate && !inputs.prometheus_candidate }}
+    if: ${{ inputs.otel_candidate && !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.grafana_candidate }}
     uses: ./.github/workflows/verity-otel-candidate.yml
+  grafana-source-candidate:
+    if: ${{ inputs.grafana_candidate && !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate }}
+    uses: ./.github/workflows/verity-grafana-candidate.yml

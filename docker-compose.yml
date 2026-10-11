@@ -347,7 +347,10 @@ services:
       - azaeron-network
 
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.161.0@sha256:fd328de2552466ad78385e1b1289c3f2402b1c45f265b252aab1955b42845ac1
+    image: azaeron-otel:0.162.0-go1.27.2-minimal
+    build:
+      context: ./infrastructure
+      dockerfile: otel-collector/Dockerfile.candidate
     container_name: azaeron-otel-collector
     command: ["--config=/etc/otelcol/config.yaml"]
     volumes:

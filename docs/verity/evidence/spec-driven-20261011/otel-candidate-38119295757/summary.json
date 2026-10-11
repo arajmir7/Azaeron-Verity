@@ -1,0 +1,20 @@
+{
+  "run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38119295757",
+  "source_commit": "f1b95dafc02dff25b8182b14d0fc0741898bc3ba",
+  "workflow_conclusion": "success",
+  "image_id": "sha256:08cb8513c9f79a5e03040e6fb11e9cdd383c9661646e2d6e6cb97fbe2946cdb9",
+  "image_bytes": 42905766,
+  "vulnerability_gate": "PASS",
+  "sbom_gate": "PASS",
+  "high_critical_count": 0,
+  "runtime_smoke": "OTLP HTTP accepted empty resourceSpans and process reported ready",
+  "components": [
+    "otlpreceiver",
+    "memorylimiterprocessor",
+    "batchprocessor",
+    "otlpexporter",
+    "fileprovider",
+    "envprovider"
+  ],
+  "production_gate": "PENDING exact-commit full-stack trace forwarding and image scan"
+}

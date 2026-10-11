@@ -1,0 +1,23 @@
+# PRD-022/TRD-022: isolate whether the Grafana server's four Go findings can
+# be removed without changing the two vendor-signed datasource plugins.
+# This image cannot pass the release gate while those plugins still scan HIGH.
+FROM golang:1.27.2-alpine3.24@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS build
+RUN apk add --no-cache git
+WORKDIR /src
+ADD --checksum=sha256:222f8cd14b5345d024ab460d592c63c1e7432cb20a89e2dbcc86d7bfd83df3ac https://codeload.github.com/grafana/grafana/tar.gz/6193dc03311b631b9727b560d24369e683dc396e /tmp/source.tgz
+RUN tar -xzf /tmp/source.tgz --strip-components=1
+ENV CGO_ENABLED=0 GOTOOLCHAIN=local GOMAXPROCS=2
+RUN --mount=type=cache,target=/go/pkg/mod go get golang.org/x/net@v0.60.0 \
+    && test "$(go list -m -f '{{.Version}}' golang.org/x/net)" = v0.60.0
+RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build \
+    go build -tags oss -trimpath -buildvcs=false \
+      -ldflags='-s -w -X main.version=13.2.3 -X main.commit=6193dc03311b631b9727b560d24369e683dc396e' \
+      -o /out/grafana ./pkg/cmd/grafana \
+    && go version -m /out/grafana > /out/build-info.txt \
+    && go mod verify
+
+FROM azaeron-grafana:13.2.3-minimal
+USER root
+COPY --from=build /out/grafana /usr/share/grafana/bin/grafana
+COPY --from=build /out/build-info.txt /usr/share/grafana/build-info.txt
+USER 472:0

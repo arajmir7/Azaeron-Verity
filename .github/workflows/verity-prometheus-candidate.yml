@@ -20,6 +20,7 @@ jobs:
             exit 78
           fi
       - name: Build patched upstream Prometheus with a 6 GiB disk floor
+        id: build
         run: |
           set -euo pipefail
           docker build --progress=plain \
@@ -61,20 +62,30 @@ jobs:
             -v /tmp/verity-prometheus-candidate/smoke.yml:/etc/prometheus/smoke.yml:ro \
             verity-prometheus:candidate --config.file=/etc/prometheus/smoke.yml)
           trap 'docker rm -f "$container" >/dev/null 2>&1 || true' EXIT
+          ready=0
           for attempt in $(seq 1 30); do
             if curl --fail --silent --show-error --max-time 3 http://127.0.0.1:19090/-/ready; then
+              ready=1
               break
             fi
             sleep 1
           done
+          docker logs "$container" > /tmp/verity-prometheus-candidate/runtime.log 2>&1 || true
+          docker inspect "$container" --format '{{json .State}}' \
+            > /tmp/verity-prometheus-candidate/container-state.json
+          if (( ready != 1 )); then
+            cat /tmp/verity-prometheus-candidate/runtime.log
+            cat /tmp/verity-prometheus-candidate/container-state.json
+            exit 1
+          fi
           curl --fail --silent --show-error http://127.0.0.1:19090/api/v1/targets \
             -o /tmp/verity-prometheus-candidate/targets.json
           grep -F '"status":"success"' /tmp/verity-prometheus-candidate/targets.json
           curl --fail --silent --show-error -L http://127.0.0.1:19090/query \
             -o /tmp/verity-prometheus-candidate/ui.html
           grep -Eiq '<html|<!doctype' /tmp/verity-prometheus-candidate/ui.html
-          docker logs "$container" > /tmp/verity-prometheus-candidate/runtime.log 2>&1
       - name: Scan candidate image and generate SBOM
+        if: ${{ always() && steps.build.outcome == 'success' }}
         run: python scripts/verity_image_gate.py verity-prometheus:candidate --output /tmp/verity-prometheus-candidate/images
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()

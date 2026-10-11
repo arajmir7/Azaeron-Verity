@@ -1,5 +1,5 @@
-# Minimal official OCB-generated distribution. Production compose still uses
-# its pinned collector until scan, SBOM and trace forwarding pass.
+# Minimal official OCB-generated distribution. Release remains blocked until
+# the exact-commit image scan and full-stack trace-forwarding gates pass.
 FROM golang:1.27.2-alpine3.24@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS build
 WORKDIR /src
 COPY otel-collector/builder-config.yaml /src/builder-config.yaml

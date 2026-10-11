@@ -145,8 +145,8 @@ class LeakageIndex:
         if include_target:
             self._add_text(row.target, split)
 
-    def _add_text(self, value: str, split: str):
-        words = re.findall(r"\w+", value.casefold())
+    def _add_text(self, text: str, split: str):
+        words = re.findall(r"\w+", text.casefold())
         if len(words) >= 5:
             key = hashlib.sha256(" ".join(words).encode()).digest()
             if self.exact_texts.setdefault(key, split) != split:
@@ -163,8 +163,8 @@ class LeakageIndex:
         if self.shingle_count > 2_000_000:
             raise PolicyError("near_duplicate_review_capacity_exceeded")
         candidates: set[int] = set()
-        for value in shingles:
-            candidates.update(self.postings.get(value, ()))
+        for shingle in shingles:
+            candidates.update(self.postings.get(shingle, ()))
         for index in candidates:
             other_split, other = self.rows[index]
             if (
@@ -174,8 +174,8 @@ class LeakageIndex:
                 raise PolicyError("near_duplicate_split_leakage")
         index = len(self.rows)
         self.rows.append((split, shingles))
-        for value in shingles:
-            self.postings.setdefault(value, set()).add(index)
+        for shingle in shingles:
+            self.postings.setdefault(shingle, set()).add(index)
 
 
 def review_subject(manifest: Dataset) -> str:

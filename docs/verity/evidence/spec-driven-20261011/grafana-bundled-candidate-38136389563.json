@@ -1,0 +1,15 @@
+{
+  "source_commit": "5041311a532e25ab05a886e15c44a32a6672c8bc",
+  "run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38136389563",
+  "image_id": "sha256:53c13214650700b99f35f108209771699d7fd60ae8377d029271318c1d0587c9",
+  "grafana": "13.1.7",
+  "health": "PASS",
+  "go": "1.27.2",
+  "x_net": "v0.60.0",
+  "tempo_dependency_linked": false,
+  "vulnerability_gate": "PASS",
+  "high_count": 0,
+  "critical_count": 0,
+  "sbom_gate": "PASS",
+  "scope": "focused image candidate; complete Compose and datasource query checks require exact-commit repository CI"
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-11",
+  "status": "PASS_FOR_SOURCE_AUDIT_ONLY",
+  "source": {
+    "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+    "readme_sha256": "db06c60090a11b20e79d1933b2f316f781605f07761ff2ae2795d6523e3e960b",
+    "payload_sha256": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec"
+  },
+  "artifacts": {
+    "audit_py_sha256": "262559017920e0a05ffb0065e4e844a4f771e5beabdde2b73c5ff88e99d1ca80",
+    "audit_summary_sha256": "44d0985e512782ec0420960d2ae4237e9e8807e7a92b5efc6b1bd4b8272b7a69",
+    "row_hashes_sha256": "4082227e214e8ee521b93b269638f10b9847c8cfbc17453692f0747152fb9b6a",
+    "candidate_json_sha256": "665eb13d0144a1fe5f148cc63d792dbf3f007610cb405537fa8b5f812e0df887"
+  },
+  "checks": {
+    "source_hashes_and_15011_rows": "PASS",
+    "deterministic_rerun": "PASS",
+    "modified_readme_rejected": "PASS",
+    "row_inventory_contains_hashes_flags_no_raw_text": "PASS",
+    "black": "PASS",
+    "ruff": "PASS",
+    "candidate_json_parse": "PASS"
+  },
+  "not_evidence_of": [
+    "commercial training admission",
+    "row-level contributor or Wikipedia rights",
+    "PII or copyright clearance",
+    "five-split leakage freedom",
+    "model quality"
+  ]
+}

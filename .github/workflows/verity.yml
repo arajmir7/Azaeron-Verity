@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      observability_candidate:
+        description: Run only the bounded Jaeger source candidate experiment
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -11,6 +16,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   derivative-mechanics:
+    if: ${{ !inputs.observability_candidate }}
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
@@ -51,6 +57,7 @@ jobs:
             /tmp/native-v2-smoke/*/bundle/training-manifest.json
           retention-days: 7
   repository:
+    if: ${{ !inputs.observability_candidate }}
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
@@ -122,3 +129,6 @@ jobs:
       - name: Stop isolated runtime
         if: always()
         run: docker compose -f /tmp/verity-ci.json down --volumes
+  jaeger-source-candidate:
+    if: ${{ inputs.observability_candidate }}
+    uses: ./.github/workflows/verity-observability-candidate.yml

@@ -1,5 +1,6 @@
 name: Verity observability source candidate
 on:
+  workflow_call:
   workflow_dispatch:
 permissions:
   contents: read

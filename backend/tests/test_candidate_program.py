@@ -412,9 +412,7 @@ def test_writer_answer_leakage_rejected(overlap):
     target_text = (
         "A wholly different completion."
         if overlap == "cross_field"
-        else answer + " a new closing sentence"
-        if overlap == "near_target"
-        else answer
+        else answer + " a new closing sentence" if overlap == "near_target" else answer
     )
     second = Example.model_validate(
         {

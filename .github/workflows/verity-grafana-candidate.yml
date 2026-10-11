@@ -56,6 +56,10 @@ jobs:
             | tee /tmp/verity-grafana-candidate/build-info.txt
           grep -F 'go1.27.2' /tmp/verity-grafana-candidate/build-info.txt
           grep -F 'golang.org/x/net' /tmp/verity-grafana-candidate/build-info.txt | grep -F 'v0.60.0'
+          if grep -F 'github.com/grafana/tempo' /tmp/verity-grafana-candidate/build-info.txt; then
+            echo 'Unused Tempo dependency remains linked into Grafana' >&2
+            exit 1
+          fi
           container=$(docker run -d -p 127.0.0.1:13000:3000 \
             -e GF_ANALYTICS_CHECK_FOR_UPDATES=false \
             -e GF_ANALYTICS_REPORTING_ENABLED=false \

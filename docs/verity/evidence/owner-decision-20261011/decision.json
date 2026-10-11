@@ -78,9 +78,12 @@
     }
   ],
   "subject_sha256": "481a46ba55c7ef4d31588cf924b68a13f4f5250aab905b0a21a8e66b17d8c31f",
-  "decision": "PENDING",
+  "decision": "REJECT",
   "approver_role": "AZAERON_PROJECT_OWNER",
-  "approver_name": null,
-  "decided_at": null,
-  "rationale": null
+  "approver_name": "Ajmir Aribam",
+  "decided_at": "2026-10-11",
+  "rationale": "Owner-reported rejection on 11 October 2026 (IST): OASST1 row-level copyright, provenance and privacy clearance is incomplete; historical contributor terms and downstream commercial use remain unreconciled; Qwen MLX source-checkpoint/conversion lineage is incomplete; hashes and split isolation do not establish lawful training or commercial quality. Lawful DEV_ONLY non-training verification may continue. No admission, quarantined-data training, production promotion or quality certification on this packet. Reassessment requires a new hash-bound submission. Confirmation/signature remains pending explicit owner action.",
+  "reviewed_record_sha256": "0d818462af9d5f02d7666eb4fd6157bd9ccd7fcc799ae299bfae7fa703db3da9",
+  "confirmation_status": "PENDING",
+  "confirmation_reference": null
 }

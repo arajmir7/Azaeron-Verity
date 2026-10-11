@@ -40,6 +40,9 @@ class OwnerDecision(StrictModel):
     approver_name: str | None = None
     decided_at: str | None = None
     rationale: str | None = None
+    reviewed_record_sha256: Digest | None = None
+    confirmation_status: Literal["PENDING", "CONFIRMED"] = "PENDING"
+    confirmation_reference: str | None = None
 
     @model_validator(mode="after")
     def bound_and_explicit(self):
@@ -52,16 +55,56 @@ class OwnerDecision(StrictModel):
         if len(keys) != len(set(keys)):
             raise ValueError("Duplicate owner decision subject")
         if self.decision == "PENDING":
-            if any((self.approver_name, self.decided_at, self.rationale)):
+            if (
+                any(
+                    (
+                        self.approver_name,
+                        self.decided_at,
+                        self.rationale,
+                        self.reviewed_record_sha256,
+                        self.confirmation_reference,
+                    )
+                )
+                or self.confirmation_status != "PENDING"
+            ):
                 raise ValueError("Pending decision cannot contain an owner attestation")
-        elif not all((self.approver_name, self.decided_at, self.rationale)):
-            raise ValueError("Owner name, date and rationale are required")
+        else:
+            if not all(
+                (
+                    self.approver_name,
+                    self.decided_at,
+                    self.rationale,
+                    self.reviewed_record_sha256,
+                )
+            ):
+                raise ValueError(
+                    "Owner identity, date, rationale and reviewed record are required"
+                )
+            if (
+                self.confirmation_status == "CONFIRMED"
+                and not self.confirmation_reference
+            ):
+                raise ValueError(
+                    "Confirmed decision needs an owner confirmation reference"
+                )
+            if self.confirmation_status == "PENDING" and self.confirmation_reference:
+                raise ValueError(
+                    "Unconfirmed decision cannot claim a confirmation reference"
+                )
+            if (
+                self.decision == "APPROVE_WITHIN_SCOPE"
+                and self.confirmation_status != "CONFIRMED"
+            ):
+                raise ValueError("Approval requires explicit owner confirmation")
         return self
 
 
 def require_owner_approval(path: Path, kind: str, subject_sha256: str, use: str):
     record = OwnerDecision.model_validate_json(path.read_bytes())
-    if record.decision != "APPROVE_WITHIN_SCOPE":
+    if (
+        record.decision != "APPROVE_WITHIN_SCOPE"
+        or record.confirmation_status != "CONFIRMED"
+    ):
         raise PolicyError("owner_decision_not_approved")
     matching = [
         subject

@@ -143,6 +143,19 @@ def test_owner_decision_is_exactly_bound_and_fail_closed(tmp_path):
     path = tmp_path / "owner-decision.json"
     path.write_bytes(canonical(record))
     assert OwnerDecision.model_validate_json(path.read_bytes()).decision == "PENDING"
+    pending_hash = digest(path)
+    with pytest.raises(PolicyError, match="not_approved"):
+        require_owner_approval(path, "DATASET", "a" * 64, "commercial_training")
+    record.update(
+        decision="REJECT",
+        approver_name="TEST FIXTURE ONLY",
+        decided_at="2026-10-11",
+        rationale="TEST FIXTURE REJECTION",
+        reviewed_record_sha256=pending_hash,
+        confirmation_status="PENDING",
+    )
+    path.write_bytes(canonical(record))
+    assert OwnerDecision.model_validate_json(path.read_bytes()).decision == "REJECT"
     with pytest.raises(PolicyError, match="not_approved"):
         require_owner_approval(path, "DATASET", "a" * 64, "commercial_training")
     record.update(
@@ -150,6 +163,14 @@ def test_owner_decision_is_exactly_bound_and_fail_closed(tmp_path):
         approver_name="TEST FIXTURE ONLY",
         decided_at="2026-10-11T00:00:00Z",
         rationale="TEST FIXTURE ONLY",
+        reviewed_record_sha256=pending_hash,
+    )
+    path.write_bytes(canonical(record))
+    with pytest.raises(ValidationError, match="explicit owner confirmation"):
+        OwnerDecision.model_validate_json(path.read_bytes())
+    record.update(
+        confirmation_status="CONFIRMED",
+        confirmation_reference="TEST FIXTURE ONLY",
     )
     path.write_bytes(canonical(record))
     with pytest.raises(PolicyError, match="unresolved"):
@@ -200,6 +221,7 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path):
     }
     owner_file = tmp_path / "owner-decision.json"
     owner_file.write_bytes(canonical(decision))
+    pending_hash = digest(owner_file)
     review = {
         "subject_sha256": digest(manifest),
         "purpose": "PRODUCTION",
@@ -228,6 +250,9 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path):
         approver_name="TEST FIXTURE OWNER",
         decided_at="2026-10-11T00:00:00Z",
         rationale="TEST FIXTURE ONLY",
+        reviewed_record_sha256=pending_hash,
+        confirmation_status="CONFIRMED",
+        confirmation_reference="TEST FIXTURE ONLY",
     )
     owner_file.write_bytes(canonical(decision))
     review["owner_decision"]["sha256"] = digest(owner_file)

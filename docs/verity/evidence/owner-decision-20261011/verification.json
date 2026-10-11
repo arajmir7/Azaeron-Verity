@@ -1,10 +1,10 @@
 {
   "checked_at_utc": "2026-10-11T14:04:22.978760+00:00",
   "status": "HASHES_PASS_RIGHTS_UNRESOLVED",
-  "owner_decision": "PENDING",
+  "owner_decision": "REJECT_REPORTED_CONFIRMATION_PENDING",
   "checks": {
     "decision_record": {
-      "sha256": "0d818462af9d5f02d7666eb4fd6157bd9ccd7fcc799ae299bfae7fa703db3da9",
+      "sha256": "4f48225b734340715dad9f5b75e8444d70c0ae94272c51839106b1349ff64313",
       "matches_recorded": true
     },
     "oasst1_license": {
@@ -69,7 +69,16 @@
     "ruff_changed_modules": "PASS",
     "spec_contract": "PASS; 104 OpenAPI operations, migration 20260929_0039, 22 traced requirements",
     "spec_gate_unit": "4 passed",
-    "hosted_exact_commit": "PENDING",
-    "private_inference_and_owner_admission_final": "51 passed; pytest backend/tests/test_private_inference.py backend/tests/test_candidate_program.py, 2026-10-11"
-  }
+    "hosted_exact_commit": "PENDING; previous 9181d7a run still building; new rejection commit not yet submitted",
+    "private_inference_and_owner_admission_final": "51 passed; pytest backend/tests/test_private_inference.py backend/tests/test_candidate_program.py, 2026-10-11",
+    "reported_rejection_fail_closed": "PASS; both subjects rejected by production admission check",
+    "owner_admission_and_private_inference": "51 passed; pytest backend/tests/test_candidate_program.py backend/tests/test_private_inference.py",
+    "black_full_backend": "PASS; 253 files",
+    "ruff_full_backend": "PASS",
+    "owner_decision_mypy": "PASS",
+    "owner_decision_schema": "Pydantic model validation PASS; JSON Schema syntax PASS"
+  },
+  "reviewed_pending_record_sha256": "0d818462af9d5f02d7666eb4fd6157bd9ccd7fcc799ae299bfae7fa703db3da9",
+  "owner_response_date_ist": "2026-10-11",
+  "owner_confirmation_status": "PENDING"
 }

@@ -1,5 +1,11 @@
 # Execution ledger
 
+## 2026-10-11: frontend dependency remediation and observability image audit
+
+PRD-022/TRD-022: the five frontend HIGH findings came from the unpatched `braces` dependency pulled only through `eslint-config-next`/the Next ESLint plugin. The frontend now uses direct, audited TypeScript/React/Hooks/accessibility/import plugins with explicit App Router checks and seven executable lint-policy probes. Local `npm ci`, lint (75 files, zero errors/warnings), production build and `npm audit` (zero findings) pass. The upstream Next package was removed from the lockfile; no audit waiver or forced downgrade was used. The new source still requires exact-commit hosted validation.
+
+The prior hosted image scan had 28 HIGH findings across Grafana (12), Jaeger (4), OpenTelemetry Collector (4) and Prometheus (8), all tied to three Go standard-library/`x/net` advisories. The latest available Jaeger 2.22.0 and OTel Collector Contrib 0.162.0 were pulled and scanned locally; each still has four HIGH findings, so neither replaces the pinned image. Grafana 13.2.3 and Prometheus 3.15.0 remain the latest tagged upstream releases checked on 2026-10-11. The four image release gates remain **FAIL**. [Executed evidence](evidence/spec-driven-20261011/security-remediation.json).
+
 ## 2026-10-11: authoritative specifications and live contract gate
 
 An isolated worktree based on `3c583aa` preserves the dirty primary worktree and working DEV_ONLY MLX branch. Six [production specifications](specs/01-PRD.md), [22-row traceability](specs/traceability.json), [ADR](adr/0001-private-model-release-states.md) and PR review template now govern the existing five product paths. The [source audit](evidence/spec-driven-20261011/README.md) reconciles older no-inference documentation with actual DEV_ONLY MLX and records 104 API operations, 55 PostgreSQL tables, 44 forced-RLS tables, 11 global/control tables and migration head `20260929_0039`.

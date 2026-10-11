@@ -53,6 +53,9 @@ _MONTH_DAY = re.compile(
     rf"\b(?P<month>{_MONTH_PATTERN})\s+(?P<day>\d{{1,2}}),?\s+(?P<year>\d{{4}})\b",
     re.IGNORECASE,
 )
+_YEAR_MONTH_DAY = re.compile(
+    r"(?<!\d)(?P<year>\d{4})[-/](?P<month>\d{1,2})[-/](?P<day>\d{1,2})(?!\d)"
+)
 _QUANTITY = re.compile(r"(?<![\w])\d+(?:[.,]\d+)*(?:\s*%)?(?![\w])")
 _OFFSET = re.compile(r"\[source offsets \d+:\d+\]")
 
@@ -123,6 +126,10 @@ def _dates(text: str) -> set[str]:
             values.add(
                 f"{int(match.group('year')):04d}-{month:02d}-{int(match.group('day')):02d}"
             )
+    for match in _YEAR_MONTH_DAY.finditer(text):
+        values.add(
+            f"{int(match.group('year')):04d}-{int(match.group('month')):02d}-{int(match.group('day')):02d}"
+        )
     return values
 
 
@@ -130,7 +137,7 @@ def _date_literals(text: str) -> list[str]:
     """Copy bounded source date spans into the prompt without parsing new facts."""
     spans = sorted(
         (match.start(), match.group())
-        for pattern in (_DAY_MONTH, _MONTH_DAY)
+        for pattern in (_DAY_MONTH, _MONTH_DAY, _YEAR_MONTH_DAY)
         for match in pattern.finditer(text)
     )
     return list(dict.fromkeys(value for _, value in spans))[:12]

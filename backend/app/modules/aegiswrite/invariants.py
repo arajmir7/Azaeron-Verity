@@ -24,6 +24,11 @@ PATTERNS = (
         "date",
         r"\b(?i:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:,?\s+\d{4})?\b",
     ),
+    (
+        "date",
+        r"\b\d{1,2}\s+(?i:January|February|March|April|May|June|July|August|September|October|November|December)(?:\s+\d{4})?\b",
+    ),
+    ("date", r"(?<!\d)\d{4}[-/]\d{1,2}[-/]\d{1,2}(?!\d)"),
     ("code", r"```[^\n]*\n[\s\S]*?(?:```|\Z)|~~~[^\n]*\n[\s\S]*?(?:~~~|\Z)|`[^`\n]+`"),
     (
         "quotation",

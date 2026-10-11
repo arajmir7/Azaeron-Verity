@@ -137,12 +137,15 @@ async def test_dev_summary_protects_bounded_source_date_literals():
     gateway = DevMlxGateway(
         "http://127.0.0.1:18080", transport=local_transport(capture=captured)
     )
-    source = "On 6 August 2024, 22 visits. On September 7, 2024, 4 follow-ups."
+    source = (
+        "On 6 August 2024, 22 visits. On September 7, 2024, 4 follow-ups. "
+        "The permit is dated 2024-08-06."
+    )
     await gateway.run(
         job(task="summarize", text=json.dumps({"untrusted_document": source}))
     )
     instructions = captured[0]["messages"][0]["content"]
-    assert '["6 August 2024", "September 7, 2024"]' in instructions
+    assert '["6 August 2024", "September 7, 2024", "2024-08-06"]' in instructions
     assert "Never substitute a count for the day or month" in instructions
 
 
@@ -188,6 +191,11 @@ async def test_dev_grounded_guard_rejects_novel_dates_and_quantities():
     assert _grounded_drift(source, "On 8 June 2024, 22 visits were recorded.")
     assert _grounded_drift(source, "On 6 August 2024, 23 visits were recorded.")
     assert not _grounded_drift(source, "On August 6, 2024, 22 visits were recorded.")
+    iso_source = "The permit was signed 2024-06-08. Batch numbers 06 and 08."
+    assert _grounded_drift(
+        iso_source, "The permit was signed 2024-08-06. Batch numbers 06 and 08."
+    )
+    assert not _grounded_drift(iso_source, "The permit was signed 2024-06-08.")
     private = DevMlxGateway(
         "http://127.0.0.1:8080",
         transport=local_transport(content="On 8 June 2024, 22 visits were recorded."),

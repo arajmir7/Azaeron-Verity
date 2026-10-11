@@ -30,6 +30,14 @@ def identity():
         ("Use `value != 1`.", "Use `value == 1`."),
         ("The equation is $x + y$.", "The equation is $x - y$."),
         ("A finding.[^7]", "A finding."),
+        (
+            "The permit was signed 2024-06-08. Batch numbers 06 and 08.",
+            "The permit was signed 2024-08-06. Batch numbers 06 and 08.",
+        ),
+        (
+            "The permit was signed 6 August 2024. Batch numbers 6 and 8.",
+            "The permit was signed 8 August 2024. Batch numbers 6 and 8.",
+        ),
     ],
 )
 async def test_factual_drift(original, candidate):

@@ -1,0 +1,16 @@
+{
+  "backend_log_sha256": "61bcfa554ca662b52739b24dcec8774374d52a5d6e82c3ea5d734e6fd74c5579",
+  "captured_at_utc": "2026-10-11T16:11:51.654340+00:00",
+  "change": "Protect day-month and ISO dates in deterministic MeaningLock; reject novel ISO dates in DEV_ONLY document-grounded responses and include source ISO dates in prompt hints.",
+  "files_sha256": {
+    "backend/app/modules/aegiswrite/invariants.py": "04aca59ee6072182d44ad98d0fef0a35565f56f5fb1779778ab80e6cf63d09c4",
+    "backend/app/modules/inference/dev_mlx.py": "d4119e278d054dc845ac847f4b4c02c3680fb73a372d9460693b6c65b03de49f",
+    "backend/tests/test_dev_mlx.py": "6ec678e65cccf5e35799f58a14514cc35673b12e26060df90ba15afd081b7f1b",
+    "backend/tests/test_semantic_verification.py": "96c8f6ddaf0bb7123d1a109bdc5e8f6365270ea9ff1724fc88b6056a10565acc"
+  },
+  "focused_result": "48 passed; dev MLX, semantic verification, editorial invariants",
+  "regression": "2024-06-08 -> 2024-08-06 rejected even when 06 and 08 both appear elsewhere in source",
+  "requirement": "PRD-004 / TRD-004 / FLOW-007",
+  "scope_limit": "No independent model quality, approved training data, or production model is established by deterministic date checks.",
+  "test_result": "337 passed, 35 skipped; local backend suite, 2026-10-11"
+}

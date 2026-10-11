@@ -1,6 +1,5 @@
-# PRD-022/TRD-022: isolate whether the Grafana server's four Go findings can
-# be removed without changing the two vendor-signed datasource plugins.
-# This image cannot pass the release gate while those plugins still scan HIGH.
+# PRD-022/TRD-022: patched Grafana server, preserving signed datasources.
+# The image remains release-blocked while those vendor plugins still scan HIGH.
 FROM golang:1.27.2-alpine3.24@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS build
 RUN apk add --no-cache git
 WORKDIR /src

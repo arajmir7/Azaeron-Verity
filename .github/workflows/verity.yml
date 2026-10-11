@@ -98,7 +98,42 @@ jobs:
           PY
       - name: Build runtime and verification images
         id: runtime_build
-        run: docker compose -f /tmp/verity-ci.json --profile verification build postgres redis backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger otel-collector grafana mailpit
+        run: docker compose -f /tmp/verity-ci.json --profile verification build postgres redis backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger otel-collector mailpit
+      - name: Build patched Grafana server on isolated runner with an 8 GiB disk floor
+        run: |
+          set -euo pipefail
+          mkdir -p docs/verity/evidence/ci/grafana-build
+          df -h / | tee docs/verity/evidence/ci/grafana-build/disk-before.txt
+          available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+          if (( available < 25 * 1024 * 1024 * 1024 )); then
+            echo 'BLOCKED: less than 25 GiB free for Grafana source build' | tee docs/verity/evidence/ci/grafana-build/preflight.txt
+            exit 78
+          fi
+          docker compose -f /tmp/verity-ci.json build grafana \
+            > docs/verity/evidence/ci/grafana-build/build.log 2>&1 &
+          build_pid=$!
+          (
+            while kill -0 "$build_pid" 2>/dev/null; do
+              available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+              if (( available < 8 * 1024 * 1024 * 1024 )); then
+                echo 'BLOCKED: Grafana build reached 8 GiB free-disk floor' \
+                  >> docs/verity/evidence/ci/grafana-build/build.log
+                kill -TERM "$build_pid"
+                exit 0
+              fi
+              sleep 5
+            done
+          ) &
+          monitor_pid=$!
+          set +e
+          wait "$build_pid"
+          result=$?
+          set -e
+          kill "$monitor_pid" 2>/dev/null || true
+          wait "$monitor_pid" 2>/dev/null || true
+          tail -n 40 docs/verity/evidence/ci/grafana-build/build.log
+          df -h / | tee docs/verity/evidence/ci/grafana-build/disk-after.txt
+          exit "$result"
       - name: Build patched Prometheus on isolated runner with a 6 GiB disk floor
         run: |
           set -euo pipefail

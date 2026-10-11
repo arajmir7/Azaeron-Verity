@@ -365,7 +365,7 @@ services:
       - azaeron-network
 
   grafana:
-    image: azaeron-grafana:13.2.3-minimal
+    image: azaeron-grafana:13.2.3-go1.27.2
     build:
       context: ./infrastructure/grafana
       dockerfile: Dockerfile

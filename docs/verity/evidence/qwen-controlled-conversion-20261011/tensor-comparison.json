@@ -1,0 +1,24 @@
+{
+  "controlled_sha256": "55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d",
+  "existing_sha256": "e56a94b846a2dce7d1cc154ce58b9cfc4b8d99e8ffb74bfe256a265f4cbc7fb9",
+  "historical_parent_proven": false,
+  "shape_dtype_different_examples": [],
+  "shape_dtype_equal_count": 904,
+  "tensor_count": 904,
+  "tensor_names_equal": true,
+  "value_different_examples": [
+    "model.embed_tokens.scales",
+    "model.embed_tokens.weight",
+    "model.layers.0.input_layernorm.weight",
+    "model.layers.0.mlp.down_proj.biases",
+    "model.layers.0.mlp.down_proj.scales",
+    "model.layers.0.mlp.down_proj.weight",
+    "model.layers.0.mlp.gate_proj.biases",
+    "model.layers.0.mlp.gate_proj.scales",
+    "model.layers.0.mlp.gate_proj.weight",
+    "model.layers.0.mlp.up_proj.biases",
+    "model.layers.0.mlp.up_proj.scales",
+    "model.layers.0.mlp.up_proj.weight"
+  ],
+  "value_equal_count": 74
+}

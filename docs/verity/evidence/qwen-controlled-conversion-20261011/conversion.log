@@ -1,0 +1,14 @@
+Executing pinned, offline, unadmitted conversion
+[INFO] Loading
+[INFO] Using dtype: bfloat16
+[INFO] Quantizing
+[INFO] Quantized model with 4.251 bits per weight.
+Traceback (most recent call last):
+  File "/Users/ajmiraribam/Projects/azaeron_verity_specs/docs/verity/evidence/qwen-controlled-conversion-20261011/run.py", line 85, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ajmiraribam/Projects/azaeron_verity_specs/docs/verity/evidence/qwen-controlled-conversion-20261011/run.py", line 62, in main
+    result = verify_conversion(source, output, existing)
+  File "/Users/ajmiraribam/Projects/azaeron_verity_specs/docs/verity/evidence/qwen-controlled-conversion-20261011/verify.py", line 85, in verify_conversion
+    raise ValueError("converted tokenizer differs from the source")
+ValueError: converted tokenizer differs from the source

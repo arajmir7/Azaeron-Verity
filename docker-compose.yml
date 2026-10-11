@@ -375,6 +375,8 @@ services:
       GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
       GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
       GF_PLUGINS_PREINSTALL_DISABLED: "true"
+      # The pinned server intentionally excludes unused Tempo backend code.
+      GF_PLUGINS_DISABLE_PLUGINS: "tempo"
       # Jaeger v2 serves service discovery at /api/v3/services, which the
       # bundled datasource uses when this supported toggle is enabled.
       GF_FEATURE_TOGGLES_ENABLE: "jaegerEnableGrpcEndpoint"

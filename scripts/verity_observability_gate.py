@@ -112,6 +112,15 @@ def main():
     )
     assert grafana_trace["data"]
     checks["authenticated_datasource_trace_query"] = "PASS"
+    grafana_logs = subprocess.run(
+        ["docker", "compose", "-f", str(args.compose), "logs", "--no-color", "grafana"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+    assert "Could not start plugin backend" not in grafana_logs
+    assert "Could not initialize plugin" not in grafana_logs
+    checks["grafana_plugin_initialization"] = "PASS"
     subprocess.run(
         ["docker", "compose", "-f", str(args.compose), "restart", "jaeger"],
         check=True,

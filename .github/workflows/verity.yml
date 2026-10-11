@@ -99,6 +99,41 @@ jobs:
       - name: Build runtime and verification images
         id: runtime_build
         run: docker compose -f /tmp/verity-ci.json --profile verification build postgres redis backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger otel-collector grafana mailpit
+      - name: Build patched Prometheus on isolated runner with a 6 GiB disk floor
+        run: |
+          set -euo pipefail
+          mkdir -p docs/verity/evidence/ci/prometheus-build
+          df -h / | tee docs/verity/evidence/ci/prometheus-build/disk-before.txt
+          available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+          if (( available < 14 * 1024 * 1024 * 1024 )); then
+            echo 'BLOCKED: less than 14 GiB free for source build' | tee docs/verity/evidence/ci/prometheus-build/preflight.txt
+            exit 78
+          fi
+          docker compose -f /tmp/verity-ci.json build prometheus \
+            > docs/verity/evidence/ci/prometheus-build/build.log 2>&1 &
+          build_pid=$!
+          (
+            while kill -0 "$build_pid" 2>/dev/null; do
+              available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+              if (( available < 6 * 1024 * 1024 * 1024 )); then
+                echo 'BLOCKED: source build reached 6 GiB free-disk floor' \
+                  >> docs/verity/evidence/ci/prometheus-build/build.log
+                kill -TERM "$build_pid"
+                exit 0
+              fi
+              sleep 5
+            done
+          ) &
+          monitor_pid=$!
+          set +e
+          wait "$build_pid"
+          result=$?
+          set -e
+          kill "$monitor_pid" 2>/dev/null || true
+          wait "$monitor_pid" 2>/dev/null || true
+          tail -n 40 docs/verity/evidence/ci/prometheus-build/build.log
+          df -h / | tee docs/verity/evidence/ci/prometheus-build/disk-after.txt
+          exit "$result"
       - name: Migrate and wait for dependencies
         run: docker compose -f /tmp/verity-ci.json up -d --wait --wait-timeout 180 backend celery-worker frontend jaeger otel-collector prometheus
       - name: Verify specification, API, schema and migration contracts

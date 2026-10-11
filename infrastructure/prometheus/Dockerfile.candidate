@@ -1,5 +1,5 @@
-# PRD-022/TRD-022: isolated source-build trial; compose still uses the pinned
-# upstream image until the binary, UI, scanner and runtime gates pass.
+# PRD-022/TRD-022: source-built upstream Prometheus with patched Go. Release
+# remains blocked until exact-commit stack, scanner and recovery gates pass.
 FROM golang:1.27.2-alpine3.24@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS build
 RUN apk add --no-cache bash gzip
 WORKDIR /src

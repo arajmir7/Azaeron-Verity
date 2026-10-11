@@ -320,7 +320,10 @@ services:
       - azaeron-network
 
   prometheus:
-    image: prom/prometheus:v3.15.0@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e
+    image: azaeron-prometheus:3.15.0-go1.27.2
+    build:
+      context: ./infrastructure/prometheus
+      dockerfile: Dockerfile.candidate
     container_name: azaeron-prometheus
     ports:
       - "127.0.0.1:9090:9090"

@@ -60,7 +60,9 @@ jobs:
             > /tmp/verity-prometheus-candidate/smoke.yml
           container=$(docker run -d -p 127.0.0.1:19090:9090 \
             -v /tmp/verity-prometheus-candidate/smoke.yml:/etc/prometheus/smoke.yml:ro \
-            verity-prometheus:candidate --config.file=/etc/prometheus/smoke.yml)
+            verity-prometheus:candidate \
+            --config.file=/etc/prometheus/smoke.yml \
+            --storage.tsdb.path=/prometheus)
           trap 'docker rm -f "$container" >/dev/null 2>&1 || true' EXIT
           ready=0
           for attempt in $(seq 1 30); do

@@ -26,6 +26,8 @@ COPY --from=build /out/build-info.txt /usr/share/prometheus/build-info.txt
 COPY --from=build /src/LICENSE /usr/share/licenses/prometheus/LICENSE
 COPY --from=build /src/NOTICE /usr/share/licenses/prometheus/NOTICE
 USER 10001:10001
+WORKDIR /prometheus
 VOLUME /prometheus
 EXPOSE 9090
 ENTRYPOINT ["/usr/local/bin/prometheus"]
+CMD ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.path=/prometheus"]

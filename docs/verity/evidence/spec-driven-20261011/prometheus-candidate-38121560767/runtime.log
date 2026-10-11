@@ -1,0 +1,7 @@
+time=2026-10-11T07:33:53.828Z level=INFO source=main.go:1770 msg="updated GOGC" old=100 new=75
+time=2026-10-11T07:33:53.829Z level=INFO source=main.go:824 msg="Leaving GOMAXPROCS=4: CPU quota undefined" component=automaxprocs
+time=2026-10-11T07:33:53.829Z level=INFO source=memlimit.go:198 msg="GOMEMLIMIT is updated" component=automemlimit package=github.com/KimMachineGun/automemlimit/memlimit GOMEMLIMIT=15089777049 previous=9223372036854775807
+time=2026-10-11T07:33:53.829Z level=INFO source=main.go:933 msg="Starting Prometheus Server" mode=server version="(version=, branch=, revision=unknown)"
+time=2026-10-11T07:33:53.829Z level=INFO source=main.go:938 msg="operational information" build_context="(go=go1.27.2, platform=linux/amd64, user=, date=, tags=netgo,builtinassets)" host_details="(Linux 6.17.0-1022-azure #22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026 x86_64 387c873b01b3 (none))" fd_limits="(soft=65536, hard=65536)" vm_limits="(soft=unlimited, hard=unlimited)"
+time=2026-10-11T07:33:53.830Z level=ERROR source=query_logger.go:161 msg="Failed to create directory for logging active queries" component=activeQueryTracker err="mkdir data/: permission denied"
+time=2026-10-11T07:33:53.830Z level=ERROR source=main.go:1021 msg="failed to initialize active query tracker" err="create active query log directory: mkdir data/: permission denied"

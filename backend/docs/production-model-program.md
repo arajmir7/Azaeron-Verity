@@ -12,8 +12,10 @@ The candidate program adds working offline SFT, full fine-tuning, LoRA and a CUD
 
 Run these commands from `backend` with the isolated derivative environment. JSON schemas are in `config/model-platform/`. Paths inside a manifest are relative, confined and hash verified. All output directories are exclusive; admitted bundles and dataset versions become read-only. Every subsequent load verifies content again. An operator must separately authorize any download; these commands have no download implementation.
 
+For `PRODUCTION`, the Azaeron Verity project owner is the sole final internal rights/admission approver. The candidate and dataset review files must reference the same adjacent `owner-decision.json` (path and SHA256), when covered by one decision. That record must bind the exact candidate-manifest SHA256 or dataset subject SHA256, document source/license/provenance/privacy/copyright findings and permitted uses, and contain the owner's explicit name, date and rationale with `APPROVE_WITHIN_SCOPE`. `PENDING`, `REJECT`, changed bytes, unmatched scope or any unresolved mandatory finding fail before admission. The owner is not a substitute for third-party permission or applicable privacy law. Production promotion needs a *new* checkpoint-bound owner decision in the bundle; the training-base decision cannot preapprove an as-yet-untrained checkpoint. The owner approval process must authenticate the owner's identity outside the JSON file. [Current pending evidence packet](../../docs/verity/evidence/owner-decision-20261011/decision.json) grants no training or release permission. Blinded quality reviewers remain independent.
+
 ```sh
-python -m app.modules.model_platform.admission --manifest candidate.json --review legal-review.json --source approved-local-bundle --registry private-candidate-registry
+python -m app.modules.model_platform.admission --manifest candidate.json --review candidate-review.json --source approved-local-bundle --registry private-candidate-registry
 python -m app.modules.model_platform.datasets --manifest dataset.json --registry private-dataset-registry
 python -m app.modules.model_platform.derivative --config training.json --output new-run-directory
 python -m app.modules.model_platform.bakeoff --config bakeoff.json --output new-benchmark-directory

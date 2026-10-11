@@ -1,5 +1,6 @@
 """Admission, leakage, compute and release attacks; no production model fixtures."""
 
+import hashlib
 import json
 
 import pytest
@@ -8,6 +9,8 @@ from pydantic import ValidationError
 from app.modules.model_platform.admission import (
     Candidate,
     CandidateReview,
+    admit,
+    load_candidate,
     verify_bundle,
 )
 from app.modules.model_platform.datasets import (
@@ -24,7 +27,12 @@ from app.modules.model_platform.detector_metrics import (
     operating_thresholds,
 )
 from app.modules.model_platform.hardware import enforce, plan
+from app.modules.model_platform.owner_decision import (
+    OwnerDecision,
+    require_owner_approval,
+)
 from app.modules.model_platform.policy import FileRef, PolicyError, canonical, digest
+from app.modules.model_platform.release import promote
 from app.modules.model_platform.human_review import writer_review
 from app.modules.inference.registry import AzaeronModelRegistry
 from tests.test_private_inference import approved_model
@@ -104,6 +112,136 @@ def test_floating_revision_and_fake_review_rejected(tmp_path):
         Candidate.model_validate({**candidate.model_dump(), "revision": "main"})
     with pytest.raises(ValidationError):
         CandidateReview.model_validate({"commercial_use": "UNKNOWN"})
+
+
+def test_owner_decision_is_exactly_bound_and_fail_closed(tmp_path):
+    subject = {
+        "kind": "DATASET",
+        "identifier": "fixture-only",
+        "sha256": "a" * 64,
+        "license": "TEST_ONLY",
+        "rights": "UNRESOLVED",
+        "provenance": "PASS",
+        "copyright": "PASS",
+        "privacy": "PASS",
+        "permitted_uses": ["commercial_training"],
+        "findings": ["TEST FIXTURE ONLY"],
+        "evidence": ["TEST_FIXTURE_ONLY"],
+        "risks": ["Unknown training rights"],
+        "restrictions": [],
+    }
+    record = {
+        "schema_version": 1,
+        "subjects": [subject],
+        "subject_sha256": hashlib.sha256(canonical([subject])).hexdigest(),
+        "decision": "PENDING",
+        "approver_role": "AZAERON_PROJECT_OWNER",
+        "approver_name": None,
+        "decided_at": None,
+        "rationale": None,
+    }
+    path = tmp_path / "owner-decision.json"
+    path.write_bytes(canonical(record))
+    assert OwnerDecision.model_validate_json(path.read_bytes()).decision == "PENDING"
+    with pytest.raises(PolicyError, match="not_approved"):
+        require_owner_approval(path, "DATASET", "a" * 64, "commercial_training")
+    record.update(
+        decision="APPROVE_WITHIN_SCOPE",
+        approver_name="TEST FIXTURE ONLY",
+        decided_at="2026-10-11T00:00:00Z",
+        rationale="TEST FIXTURE ONLY",
+    )
+    path.write_bytes(canonical(record))
+    with pytest.raises(PolicyError, match="unresolved"):
+        require_owner_approval(path, "DATASET", "a" * 64, "commercial_training")
+    subject["rights"] = "PASS"
+    record["subject_sha256"] = hashlib.sha256(canonical([subject])).hexdigest()
+    path.write_bytes(canonical(record))
+    require_owner_approval(path, "DATASET", "a" * 64, "commercial_training")
+    with pytest.raises(PolicyError, match="subject_mismatch"):
+        require_owner_approval(path, "DATASET", "b" * 64, "commercial_training")
+    with pytest.raises(PolicyError, match="scope_unresolved"):
+        require_owner_approval(path, "DATASET", "a" * 64, "production_release")
+    subject["rights"] = "UNRESOLVED"
+    path.write_bytes(canonical(record))
+    with pytest.raises(ValidationError, match="hash mismatch"):
+        OwnerDecision.model_validate_json(path.read_bytes())
+
+
+def test_candidate_admission_requires_the_same_explicit_owner(tmp_path):
+    source = tmp_path / "source"
+    candidate = candidate_fixture(source).model_copy(update={"purpose": "PRODUCTION"})
+    manifest = tmp_path / "candidate.json"
+    manifest.write_bytes(canonical(candidate.model_dump(mode="json")))
+    subject = {
+        "kind": "BASE_MODEL",
+        "identifier": "TEST FIXTURE ONLY",
+        "sha256": digest(manifest),
+        "license": "TEST_ONLY",
+        "rights": "PASS",
+        "provenance": "PASS",
+        "copyright": "PASS",
+        "privacy": "NOT_APPLICABLE",
+        "permitted_uses": ["commercial_derivative_training"],
+        "findings": ["TEST FIXTURE ONLY"],
+        "evidence": ["TEST FIXTURE ONLY"],
+        "risks": [],
+        "restrictions": [],
+    }
+    decision = {
+        "schema_version": 1,
+        "subjects": [subject],
+        "subject_sha256": hashlib.sha256(canonical([subject])).hexdigest(),
+        "decision": "PENDING",
+        "approver_role": "AZAERON_PROJECT_OWNER",
+        "approver_name": None,
+        "decided_at": None,
+        "rationale": None,
+    }
+    owner_file = tmp_path / "owner-decision.json"
+    owner_file.write_bytes(canonical(decision))
+    review = {
+        "subject_sha256": digest(manifest),
+        "purpose": "PRODUCTION",
+        "reviewer": "OTHER TEST FIXTURE",
+        "reviewer_kind": "HUMAN",
+        "reviewed_at": "2026-10-11",
+        "reference": "TEST FIXTURE ONLY",
+        "license": "TEST_ONLY",
+        "commercial_use": "PASS",
+        "commercial_training": "PASS",
+        "redistribution_requirements": "TEST FIXTURE ONLY",
+        "attribution_requirements": "TEST FIXTURE ONLY",
+        "acceptable_use_restrictions": "TEST FIXTURE ONLY",
+        "technical_review": "PASS",
+        "owner_decision": {
+            "path": owner_file.name,
+            "sha256": digest(owner_file),
+        },
+    }
+    review_file = tmp_path / "review.json"
+    review_file.write_bytes(canonical(review))
+    with pytest.raises(PolicyError, match="not_approved"):
+        admit(manifest, review_file, source, tmp_path / "registry")
+    decision.update(
+        decision="APPROVE_WITHIN_SCOPE",
+        approver_name="TEST FIXTURE OWNER",
+        decided_at="2026-10-11T00:00:00Z",
+        rationale="TEST FIXTURE ONLY",
+    )
+    owner_file.write_bytes(canonical(decision))
+    review["owner_decision"]["sha256"] = digest(owner_file)
+    review_file.write_bytes(canonical(review))
+    with pytest.raises(PolicyError, match="not_project_owner"):
+        admit(manifest, review_file, source, tmp_path / "registry")
+    review["reviewer"] = "TEST FIXTURE OWNER"
+    review_file.write_bytes(canonical(review))
+    admitted = admit(manifest, review_file, source, tmp_path / "registry")
+    assert load_candidate(admitted)[0].purpose == "PRODUCTION"
+    assert (
+        json.loads((admitted / "admission.json").read_bytes())["status"]
+        == "EXPERIMENTAL"
+    )
 
 
 def dataset_fixture(root):
@@ -274,7 +412,9 @@ def test_writer_answer_leakage_rejected(overlap):
     target_text = (
         "A wholly different completion."
         if overlap == "cross_field"
-        else answer + " a new closing sentence" if overlap == "near_target" else answer
+        else answer + " a new closing sentence"
+        if overlap == "near_target"
+        else answer
     )
     second = Example.model_validate(
         {
@@ -294,6 +434,38 @@ def test_production_dataset_missing_derivative_rights_fails_before_review(tmp_pa
     path = save_dataset(tmp_path, manifest)
     with pytest.raises(PolicyError, match="derivative_rights"):
         read_dataset(path, "detector")
+
+
+def test_production_dataset_requires_owner_record(tmp_path):
+    manifest = dataset_fixture(tmp_path).model_copy(
+        update={
+            "purpose": "PRODUCTION",
+            "derivative_permission": "GRANTED",
+            "quality_tier": "CURATED",
+            "allowed_tasks": ["classify"],
+        }
+    )
+    path = save_dataset(tmp_path, manifest)
+    review_path = tmp_path / "review.json"
+    review = json.loads(review_path.read_bytes())
+    review["reviewer_kind"] = "HUMAN"
+    review_path.write_bytes(canonical(review))
+    values = json.loads(path.read_bytes())
+    values["review"]["sha256"] = digest(review_path)
+    path.write_bytes(canonical(values))
+    with pytest.raises(PolicyError, match="owner_dataset_decision_required"):
+        read_dataset(path, "detector")
+
+
+def test_production_release_requires_new_checkpoint_bound_owner_record(tmp_path):
+    model = approved_model(model_id="fixture-writer")
+    (tmp_path / "lineage.json").write_bytes(
+        canonical(model.lineage.model_dump(mode="json"))
+    )
+    with pytest.raises(PolicyError, match="owner_release_decision_required"):
+        promote(
+            tmp_path, {}, model.release.model_dump(mode="json"), AzaeronModelRegistry()
+        )
 
 
 def test_gpu_plan_blocks_oversized_training():

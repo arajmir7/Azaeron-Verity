@@ -1,0 +1,75 @@
+{
+  "checked_at_utc": "2026-10-11T14:04:22.978760+00:00",
+  "status": "HASHES_PASS_RIGHTS_UNRESOLVED",
+  "owner_decision": "PENDING",
+  "checks": {
+    "decision_record": {
+      "sha256": "0d818462af9d5f02d7666eb4fd6157bd9ccd7fcc799ae299bfae7fa703db3da9",
+      "matches_recorded": true
+    },
+    "oasst1_license": {
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "matches_recorded": true
+    },
+    "data_proposal": {
+      "sha256": "7514ca2a1e53b0e6cbd7c7b6727b852321f7f32cee26482113e77abfc6a88408",
+      "matches_recorded": true
+    },
+    "qwen_bundle_inventory": {
+      "sha256": "ec6cffa2a103343b82163e3b823100e194608a057b3b98cea1c17e68fae938b1",
+      "matches_recorded": true
+    },
+    "qwen_license": {
+      "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+      "matches_recorded": true
+    },
+    "qwen_weights": {
+      "sha256": "e56a94b846a2dce7d1cc154ce58b9cfc4b8d99e8ffb74bfe256a265f4cbc7fb9",
+      "matches_recorded": true
+    },
+    "qwen_tokenizer": {
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+      "matches_recorded": true
+    },
+    "oasst1_train": {
+      "sha256": "551c87ab33043266547a945e7c793ac289b53a525e94ea69f3d506139d5febfc",
+      "matches_recorded": true
+    },
+    "oasst1_validation": {
+      "sha256": "cc3a50139b00f2afd14adf695cf2099b7abb5d40031bc7221096e02174c22314",
+      "matches_recorded": true
+    },
+    "oasst1_calibration": {
+      "sha256": "3acecb483fa887be5ead128c3dd51f9ea34dca5e3233d416d9d90ef6a7b37517",
+      "matches_recorded": true
+    },
+    "oasst1_test": {
+      "sha256": "3898128393c674029c3c8d8da8568a9f83b1c3ee46b4b81aac3638c392801eee",
+      "matches_recorded": true
+    },
+    "oasst1_ood": {
+      "sha256": "3eb7ceb85667a18ddd96b5b565599baa9ad953caac71e9bd2272be74a8841ad6",
+      "matches_recorded": true
+    },
+    "oasst1_source_lineage": {
+      "sha256": "306eb8bbe5dccb49549ca63f01b7f172f06948b2693b44d1fb7ee2316a6d201c",
+      "matches_recorded": true
+    },
+    "oasst1_review_html": {
+      "sha256": "e8fc7a45c5ab95997f1538a86c2364aeda8dc6314c00d0e035b04ac628fad7c0",
+      "matches_recorded": true
+    }
+  },
+  "legal_conclusion": "NOT_APPROVED",
+  "training_permission": "NONE",
+  "engineering_checks": {
+    "backend_full_before_final_test_addition": "333 passed, 35 skipped; pytest backend/tests, 2026-10-11",
+    "owner_admission_focused_final": "28 passed; pytest backend/tests/test_candidate_program.py, 2026-10-11",
+    "mypy_model_platform_changed": "PASS; 5 source modules",
+    "ruff_changed_modules": "PASS",
+    "spec_contract": "PASS; 104 OpenAPI operations, migration 20260929_0039, 22 traced requirements",
+    "spec_gate_unit": "4 passed",
+    "hosted_exact_commit": "PENDING",
+    "private_inference_and_owner_admission_final": "51 passed; pytest backend/tests/test_private_inference.py backend/tests/test_candidate_program.py, 2026-10-11"
+  }
+}

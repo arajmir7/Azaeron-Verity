@@ -16,6 +16,7 @@ from typing import Literal
 
 from pydantic import Field, model_validator
 
+from .owner_decision import require_owner_approval
 from .policy import (
     Digest,
     FileRef,
@@ -89,6 +90,7 @@ class CandidateReview(StrictModel):
     attribution_requirements: str = Field(min_length=1)
     acceptable_use_restrictions: str = Field(min_length=1)
     technical_review: Literal["PASS"]
+    owner_decision: FileRef | None = None
     strong_baseline: bool = False
     strong_baseline_evidence: str | None = None
 
@@ -96,6 +98,12 @@ class CandidateReview(StrictModel):
     def human_attestation(self):
         if self.purpose == "PRODUCTION" and self.reviewer_kind != "HUMAN":
             raise ValueError("Production review requires an accountable human reviewer")
+        if self.purpose == "PRODUCTION" and self.owner_decision is None:
+            raise ValueError(
+                "Production review requires a bound project-owner decision"
+            )
+        if self.owner_decision and self.owner_decision.path != "owner-decision.json":
+            raise ValueError("Owner decision must be the adjacent owner-decision.json")
         if self.strong_baseline and not self.strong_baseline_evidence:
             raise ValueError("A strong-baseline claim needs evidence")
         return self
@@ -216,6 +224,17 @@ def load_candidate(admitted: Path, *, smoke=False):
         raise PolicyError("candidate_review_binding_failed")
     if (candidate.purpose == "TEST_ONLY") != smoke:
         raise PolicyError("candidate_purpose_mismatch")
+    if not smoke:
+        if review.owner_decision is None:
+            raise PolicyError("owner_candidate_decision_required")
+        owner = require_owner_approval(
+            review.owner_decision.verify(admitted),
+            "BASE_MODEL",
+            digest(admitted / "candidate.json"),
+            "commercial_derivative_training",
+        )
+        if review.reviewer != owner.approver_name:
+            raise PolicyError("candidate_reviewer_is_not_project_owner")
     verify_bundle(candidate, admitted / "bundle")
     return candidate, review
 
@@ -233,12 +252,30 @@ def admit(
         raise PolicyError("candidate_review_binding_failed")
     if (candidate.purpose == "TEST_ONLY") != smoke:
         raise PolicyError("candidate_purpose_mismatch")
+    if not smoke:
+        if review.owner_decision is None:
+            raise PolicyError("owner_candidate_decision_required")
+        owner = require_owner_approval(
+            review.owner_decision.verify(review_file.parent),
+            "BASE_MODEL",
+            digest(manifest),
+            "commercial_derivative_training",
+        )
+        if review.reviewer != owner.approver_name:
+            raise PolicyError("candidate_reviewer_is_not_project_owner")
     verify_bundle(candidate, source)
     output = registry / candidate.candidate_id / digest(manifest)
     output.mkdir(parents=True, exist_ok=False)
     shutil.copytree(source, output / "bundle", symlinks=True)
     shutil.copyfile(manifest, output / "candidate.json")
     shutil.copyfile(review_file, output / "review.json")
+    if not smoke:
+        if review.owner_decision is None:
+            raise PolicyError("owner_candidate_decision_required")
+        shutil.copyfile(
+            review.owner_decision.verify(review_file.parent),
+            output / review.owner_decision.path,
+        )
     (output / "admission.json").write_bytes(
         canonical(
             {

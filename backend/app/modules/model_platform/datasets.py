@@ -10,8 +10,9 @@ import re
 import shutil
 from typing import Literal
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
+from .owner_decision import require_owner_approval
 from .policy import (
     DatasetManifest,
     Digest,
@@ -95,6 +96,13 @@ class DatasetReview(StrictModel):
     provenance: Literal["PASS"]
     copyright: Literal["PASS"]
     pii: Literal["PASS"]
+    owner_decision: FileRef | None = None
+
+    @model_validator(mode="after")
+    def adjacent_owner_record(self):
+        if self.owner_decision and self.owner_decision.path != "owner-decision.json":
+            raise ValueError("Owner decision must be the adjacent owner-decision.json")
+        return self
 
 
 class Example(StrictModel):
@@ -206,6 +214,17 @@ def read_dataset(manifest_file: Path, family: Family, *, smoke=False):
         review.reviewer_kind != "HUMAN" or manifest.quality_tier == "TEST_FIXTURE"
     ):
         raise PolicyError("human_dataset_review_required")
+    if not smoke:
+        if review.owner_decision is None:
+            raise PolicyError("owner_dataset_decision_required")
+        owner = require_owner_approval(
+            review.owner_decision.verify(manifest_file.parent),
+            "DATASET",
+            review_subject(manifest),
+            "commercial_training",
+        )
+        if review.reviewer != owner.approver_name:
+            raise PolicyError("dataset_reviewer_is_not_project_owner")
     rows, ids, inputs, groups, generators = {}, set(), set(), set(), set()
     leakage = LeakageIndex()
     for split, ref in manifest.splits.items():

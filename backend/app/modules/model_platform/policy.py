@@ -215,10 +215,13 @@ class ReleaseApproval(StrictModel):
     approved_at: str = Field(min_length=10)
     reference: str = Field(min_length=1)
     checkpoint_sha256: Digest
+    owner_decision: FileRef | None = None
     gates: dict[str, GateEvidence]
 
     @model_validator(mode="after")
     def all_gates(self):
+        if self.owner_decision and self.owner_decision.path != "owner-decision.json":
+            raise ValueError("Owner decision must be the adjacent owner-decision.json")
         if set(self.gates) != GATES or any(
             item.checkpoint_sha256 != self.checkpoint_sha256
             for item in self.gates.values()
@@ -232,6 +235,18 @@ def verify_release_files(model, root: Path):
     lineage, release = model.lineage, model.release
     if not lineage or not release or lineage.purpose != "PRODUCTION":
         raise PolicyError("owned_production_lineage_required")
+    if release.owner_decision is None:
+        raise PolicyError("owner_release_decision_required")
+    from .owner_decision import require_owner_approval
+
+    owner = require_owner_approval(
+        release.owner_decision.verify(root),
+        "MODEL_RELEASE",
+        lineage.checkpoint_sha256,
+        "production_release",
+    )
+    if release.reviewer != owner.approver_name:
+        raise PolicyError("release_reviewer_is_not_project_owner")
     for gate, item in release.gates.items():
         evidence = json.loads(item.evidence.verify(root).read_bytes())
         if (

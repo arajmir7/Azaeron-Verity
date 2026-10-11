@@ -251,6 +251,46 @@ def test_near_duplicate_and_derived_lineage_rejected():
         )
 
 
+@pytest.mark.parametrize("overlap", ["exact_target", "near_target", "cross_field"])
+def test_writer_answer_leakage_rejected(overlap):
+    index = LeakageIndex()
+    answer = " ".join(f"distinctword{i}" for i in range(40))
+    first = Example.model_validate(
+        {
+            "id": "train-row",
+            "group": "train-group",
+            "input": "Describe a quiet harbor at sunrise in natural prose.",
+            "target": answer,
+            "language": "en",
+            "domain": "prose",
+            "task": "natural_prose",
+            "slices": [],
+        }
+    )
+    index.add(first, "train", include_target=True)
+    input_text = (
+        answer if overlap == "cross_field" else "Write about an unrelated forest."
+    )
+    target_text = (
+        "A wholly different completion."
+        if overlap == "cross_field"
+        else answer + " a new closing sentence"
+        if overlap == "near_target"
+        else answer
+    )
+    second = Example.model_validate(
+        {
+            **first.model_dump(),
+            "id": "test-row",
+            "group": "test-group",
+            "input": input_text,
+            "target": target_text,
+        }
+    )
+    with pytest.raises(PolicyError, match="split_leakage"):
+        index.add(second, "test", include_target=True)
+
+
 def test_production_dataset_missing_derivative_rights_fails_before_review(tmp_path):
     manifest = dataset_fixture(tmp_path).model_copy(update={"purpose": "PRODUCTION"})
     path = save_dataset(tmp_path, manifest)

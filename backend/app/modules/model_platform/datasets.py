@@ -126,9 +126,10 @@ class LeakageIndex:
         self.rows: list[tuple[str, set[bytes]]] = []
         self.postings: dict[bytes, set[int]] = {}
         self.lineage: dict[tuple[str, str], str] = {}
+        self.exact_texts: dict[bytes, str] = {}
         self.shingle_count = 0
 
-    def add(self, row, split):
+    def add(self, row, split, *, include_target=False):
         keys = [
             ("source", row.source_id),
             ("author", row.author_id),
@@ -140,9 +141,18 @@ class LeakageIndex:
         for kind, value in keys:
             if value and self.lineage.setdefault((kind, value), split) != split:
                 raise PolicyError("derived_or_author_lineage_split_leakage")
-        words = re.findall(r"\w+", row.input.casefold())
+        self._add_text(row.input, split)
+        if include_target:
+            self._add_text(row.target, split)
+
+    def _add_text(self, value: str, split: str):
+        words = re.findall(r"\w+", value.casefold())
+        if len(words) >= 5:
+            key = hashlib.sha256(" ".join(words).encode()).digest()
+            if self.exact_texts.setdefault(key, split) != split:
+                raise PolicyError("exact_answer_split_leakage")
         if len(words) < 10:
-            return  # Existing exact normalized-input checks cover short fixtures.
+            return  # Short text relies on exact and source-lineage checks.
         shingles = {
             hashlib.blake2b(
                 " ".join(words[i : i + 5]).encode(), digest_size=16
@@ -211,7 +221,7 @@ def read_dataset(manifest_file: Path, family: Family, *, smoke=False):
                     or row.task not in manifest.allowed_tasks
                 ):
                     raise PolicyError("example_lineage_and_task_review_required")
-                leakage.add(row, split)
+                leakage.add(row, split, include_target=family in {"writer", "embed"})
                 key = hashlib.sha256(
                     " ".join(row.input.casefold().split()).encode()
                 ).hexdigest()

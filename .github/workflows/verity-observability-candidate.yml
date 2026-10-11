@@ -1,0 +1,77 @@
+name: Verity observability source candidate
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  jaeger-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - name: Check isolated runner disk before source build
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/verity-jaeger-candidate
+          df -h / | tee /tmp/verity-jaeger-candidate/disk-before.txt
+          available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+          if (( available < 14 * 1024 * 1024 * 1024 )); then
+            echo 'BLOCKED: less than 14 GiB free for bounded source build' | tee /tmp/verity-jaeger-candidate/preflight.txt
+            exit 78
+          fi
+      - name: Build patched upstream Jaeger with a 6 GiB disk floor
+        run: |
+          set -euo pipefail
+          docker build --progress=plain \
+            -f infrastructure/jaeger/Dockerfile.candidate \
+            -t verity-jaeger:candidate infrastructure/jaeger \
+            > /tmp/verity-jaeger-candidate/build.log 2>&1 &
+          build_pid=$!
+          (
+            while kill -0 "$build_pid" 2>/dev/null; do
+              available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+              if (( available < 6 * 1024 * 1024 * 1024 )); then
+                echo 'BLOCKED: source build reached 6 GiB free-disk floor' >> /tmp/verity-jaeger-candidate/build.log
+                kill -TERM "$build_pid"
+                exit 0
+              fi
+              sleep 5
+            done
+          ) &
+          monitor_pid=$!
+          set +e
+          wait "$build_pid"
+          result=$?
+          set -e
+          kill "$monitor_pid" 2>/dev/null || true
+          wait "$monitor_pid" 2>/dev/null || true
+          tail -n 80 /tmp/verity-jaeger-candidate/build.log
+          df -h / | tee /tmp/verity-jaeger-candidate/disk-after.txt
+          exit "$result"
+      - name: Verify binary lineage and standalone Jaeger UI
+        run: |
+          set -euo pipefail
+          docker run --rm --entrypoint cat verity-jaeger:candidate /usr/share/jaeger/build-info.txt \
+            | tee /tmp/verity-jaeger-candidate/build-info.txt
+          grep -F 'go1.27.2' /tmp/verity-jaeger-candidate/build-info.txt
+          grep -F 'golang.org/x/net' /tmp/verity-jaeger-candidate/build-info.txt | grep -F 'v0.60.0'
+          container=$(docker run -d -p 127.0.0.1:16686:16686 verity-jaeger:candidate)
+          trap 'docker rm -f "$container" >/dev/null 2>&1 || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --max-time 3 http://127.0.0.1:16686/ \
+              -o /tmp/verity-jaeger-candidate/ui.html; then
+              break
+            fi
+            sleep 1
+          done
+          test -s /tmp/verity-jaeger-candidate/ui.html
+          grep -Eiq '<html|<!doctype' /tmp/verity-jaeger-candidate/ui.html
+          docker logs "$container" > /tmp/verity-jaeger-candidate/runtime.log 2>&1
+      - name: Scan candidate image and generate SBOM
+        run: python scripts/verity_image_gate.py verity-jaeger:candidate --output /tmp/verity-jaeger-candidate/images
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: jaeger-source-candidate-evidence
+          path: /tmp/verity-jaeger-candidate
+          retention-days: 7

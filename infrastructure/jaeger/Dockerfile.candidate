@@ -1,5 +1,4 @@
-# PRD-022/TRD-022: reproducible, non-production trial of the upstream Jaeger
-# 2.22.0 source with the patched Go standard library and x/net module.
+# PRD-022/TRD-022: hash-pinned upstream Jaeger with patched Go dependencies.
 FROM golang:1.27.2-alpine3.24@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS build
 RUN apk add --no-cache gzip
 WORKDIR /src
@@ -10,8 +9,11 @@ RUN tar -xzf /tmp/source.tgz --strip-components=1 \
     && cp -R /tmp/packages/jaeger-ui/build/. cmd/jaeger/internal/extension/jaegerquery/internal/ui/actual/ \
     && find cmd/jaeger/internal/extension/jaegerquery/internal/ui/actual -type f ! -name .gitignore -exec gzip --no-name {} +
 ENV CGO_ENABLED=0 GOTOOLCHAIN=local GOMAXPROCS=2
-RUN --mount=type=cache,target=/go/pkg/mod go get golang.org/x/net@v0.60.0 \
-    && test "$(go list -m -f '{{.Version}}' golang.org/x/net)" = v0.60.0
+RUN --mount=type=cache,target=/go/pkg/mod \
+    go get golang.org/x/net@v0.60.0 golang.org/x/text@v0.42.0 \
+    && go mod download \
+    && test "$(go list -m -f '{{.Version}}' golang.org/x/net)" = v0.60.0 \
+    && test "$(go list -m -f '{{.Version}}' golang.org/x/text)" = v0.42.0
 RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build \
     go build -trimpath -ldflags='-s -w' -o /out/jaeger ./cmd/jaeger \
     && go version -m /out/jaeger > /out/build-info.txt \

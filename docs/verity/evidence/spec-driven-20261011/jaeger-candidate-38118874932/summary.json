@@ -1,0 +1,15 @@
+{
+  "run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38118874932",
+  "source_commit": "f22cef7d9a2a6839ac562ea07b5d8f5c01ec0e65",
+  "workflow_conclusion": "cancelled_after_all_candidate_steps_succeeded_due_to_superseding_branch_push",
+  "image_id": "sha256:7723acbd2053cc799ce4eddc39909f01de558904a821db313600d05a13c7205d",
+  "image_bytes": 85698343,
+  "vulnerability_gate": "PASS",
+  "sbom_gate": "PASS",
+  "high_critical_count": 0,
+  "runtime_smoke": "Jaeger UI HTTP 200 and HTML; process reported ready",
+  "source": "jaegertracing/jaeger v2.22.0 commit 462bb49fcff9af4be9556bf0206d07f5171bd8d7",
+  "source_archive_sha256": "74ff87bf31cfc1512b1c309831f9f47319a0291c8ec8ff3cf2956917a0a9847f",
+  "ui_archive_sha256": "18d9deb8aaf19ba9a5f9709417f8ae7ca71d99937ea68140a866d9d703da3d6a",
+  "production_gate": "PENDING exact-commit full stack trace persistence and image scan"
+}

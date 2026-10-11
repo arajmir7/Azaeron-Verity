@@ -333,7 +333,7 @@ services:
       - azaeron-network
 
   jaeger:
-    image: azaeron-jaeger:2.21.0-minimal
+    image: azaeron-jaeger:2.22.0-go1.27.2
     build:
       context: ./infrastructure/jaeger
       dockerfile: Dockerfile

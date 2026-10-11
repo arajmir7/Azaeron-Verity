@@ -1,0 +1,80 @@
+name: Verity minimal Collector candidate
+on:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  otel-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - name: Check isolated runner disk before source build
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/verity-otel-candidate
+          df -h / | tee /tmp/verity-otel-candidate/disk-before.txt
+          available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+          if (( available < 14 * 1024 * 1024 * 1024 )); then
+            echo 'BLOCKED: less than 14 GiB free for bounded source build' | tee /tmp/verity-otel-candidate/preflight.txt
+            exit 78
+          fi
+      - name: Build patched minimal Collector with a 6 GiB disk floor
+        run: |
+          set -euo pipefail
+          docker build --progress=plain \
+            -f infrastructure/otel-collector/Dockerfile.candidate \
+            -t verity-otel:candidate infrastructure \
+            > /tmp/verity-otel-candidate/build.log 2>&1 &
+          build_pid=$!
+          (
+            while kill -0 "$build_pid" 2>/dev/null; do
+              available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+              if (( available < 6 * 1024 * 1024 * 1024 )); then
+                echo 'BLOCKED: source build reached 6 GiB free-disk floor' >> /tmp/verity-otel-candidate/build.log
+                kill -TERM "$build_pid"
+                exit 0
+              fi
+              sleep 5
+            done
+          ) &
+          monitor_pid=$!
+          set +e
+          wait "$build_pid"
+          result=$?
+          set -e
+          kill "$monitor_pid" 2>/dev/null || true
+          wait "$monitor_pid" 2>/dev/null || true
+          tail -n 80 /tmp/verity-otel-candidate/build.log
+          df -h / | tee /tmp/verity-otel-candidate/disk-after.txt
+          exit "$result"
+      - name: Verify lineage and OTLP HTTP ingestion
+        run: |
+          set -euo pipefail
+          docker run --rm --entrypoint cat verity-otel:candidate /usr/share/otelcol/build-info.txt \
+            | tee /tmp/verity-otel-candidate/build-info.txt
+          grep -F 'go1.27.2' /tmp/verity-otel-candidate/build-info.txt
+          grep -F 'golang.org/x/net' /tmp/verity-otel-candidate/build-info.txt | grep -F 'v0.60.0'
+          container=$(docker run -d -p 127.0.0.1:14318:4318 verity-otel:candidate)
+          trap 'docker rm -f "$container" >/dev/null 2>&1 || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --max-time 3 \
+              -H 'Content-Type: application/json' \
+              -d '{"resourceSpans":[]}' \
+              http://127.0.0.1:14318/v1/traces \
+              -o /tmp/verity-otel-candidate/otlp-response.json; then
+              break
+            fi
+            sleep 1
+          done
+          test -s /tmp/verity-otel-candidate/otlp-response.json
+          docker logs "$container" > /tmp/verity-otel-candidate/runtime.log 2>&1
+          grep -F 'Everything is ready' /tmp/verity-otel-candidate/runtime.log
+      - name: Scan candidate image and generate SBOM
+        run: python scripts/verity_image_gate.py verity-otel:candidate --output /tmp/verity-otel-candidate/images
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: otel-source-candidate-evidence
+          path: /tmp/verity-otel-candidate
+          retention-days: 7

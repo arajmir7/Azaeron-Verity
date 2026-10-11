@@ -13,6 +13,10 @@ on:
         description: Run only the bounded Prometheus source candidate experiment
         type: boolean
         default: false
+      otel_candidate:
+        description: Run only the bounded minimal Collector source candidate experiment
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -20,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   derivative-mechanics:
-    if: ${{ !inputs.observability_candidate && !inputs.prometheus_candidate }}
+    if: ${{ !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate }}
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
@@ -61,7 +65,7 @@ jobs:
             /tmp/native-v2-smoke/*/bundle/training-manifest.json
           retention-days: 7
   repository:
-    if: ${{ !inputs.observability_candidate && !inputs.prometheus_candidate }}
+    if: ${{ !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate }}
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
@@ -134,8 +138,11 @@ jobs:
         if: always()
         run: docker compose -f /tmp/verity-ci.json down --volumes
   jaeger-source-candidate:
-    if: ${{ inputs.observability_candidate && !inputs.prometheus_candidate }}
+    if: ${{ inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate }}
     uses: ./.github/workflows/verity-observability-candidate.yml
   prometheus-source-candidate:
-    if: ${{ inputs.prometheus_candidate && !inputs.observability_candidate }}
+    if: ${{ inputs.prometheus_candidate && !inputs.observability_candidate && !inputs.otel_candidate }}
     uses: ./.github/workflows/verity-prometheus-candidate.yml
+  otel-source-candidate:
+    if: ${{ inputs.otel_candidate && !inputs.observability_candidate && !inputs.prometheus_candidate }}
+    uses: ./.github/workflows/verity-otel-candidate.yml

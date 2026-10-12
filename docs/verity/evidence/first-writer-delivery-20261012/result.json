@@ -1,0 +1,24 @@
+{
+  "scope": "integrated local checks after controlled-Qwen screen, guarded MLX training path, Writer data audits and localhost serving benchmark",
+  "tested_source_head": "a40b3e542be61b5ae620785ed735dc23170f5e62",
+  "backend_pytest": {
+    "status": "PASS",
+    "passed": 350,
+    "skipped": 35,
+    "log": "backend-pytest.log",
+    "log_sha256": "f65c0f4b87e1b0b403a0be7e20081ab7227e6ddb98dd026fc4f2e0fd5747c6af"
+  },
+  "spec_gate": {
+    "status": "PASS",
+    "api_operations": 104,
+    "schema_tables": 55,
+    "requirements": 22,
+    "blocked_requirements": 8,
+    "log": "spec-gate.log",
+    "log_sha256": "0639dc04032dfac7a723b9799c3e993a008b014bd0bf777d28093d115dafa833"
+  },
+  "model_training": "BLOCKED_NO_APPROVED_BASE_OR_WRITER_DATA",
+  "writer_dataset_rows_admitted": 0,
+  "production_model_registry": "EMPTY",
+  "hosted_exact_commit_ci": "PENDING_PUSH"
+}

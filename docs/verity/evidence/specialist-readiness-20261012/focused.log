@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/ajmiraribam/Projects/azaeron_verity_specs/backend
+configfile: pytest.ini
+plugins: asyncio-1.4.0, Faker-30.0.0, anyio-4.15.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 52 items
+
+tests/test_semantic_verification.py ......................               [ 42%]
+tests/test_model_layer_hardening.py .................                    [ 75%]
+tests/test_model_platform.py .........                                   [ 92%]
+tests/test_detector_calibration_protocol.py ....                         [100%]
+
+============================== 52 passed in 3.45s ==============================

@@ -1,0 +1,30 @@
+{
+  "approved_specialist_datasets": 0,
+  "approved_specialist_models": 0,
+  "meaninglock_regression": {
+    "new_alphabetic_citation": [
+      "protected_citation_added"
+    ],
+    "new_url": [
+      "protected_identifier_added"
+    ]
+  },
+  "model_registry_status": "BLOCKED_NO_APPROVED_MODELS",
+  "reason_blocked": "No owner-admitted task-specific production datasets, trained and approved independent checkpoints, held-out evaluation, or independent reviewers.",
+  "scope": "NONTRAINING_SPECIALIST_ENGINEERING_REGRESSION",
+  "source_sha256": {
+    "test_semantic_verification.py": "e77fbb439fea864e8b8c8de5010b5bf0b1822efde73b85bda77132abcf7e68a4",
+    "verification_service.py": "d788856dd30dac323dd768b8abd77853d78ff5fe2a1fa2472d2ce5f109f76a39"
+  },
+  "specialist_quality_benchmark_performed": false,
+  "specialist_training_performed": false,
+  "tests": {
+    "backend_unit": "340 passed, 1 skipped",
+    "backend_unit_log_sha256": "39c42ec524a20f98aa4be8fcd30e39c5fe9866486d77c0e0ad94b0f27457d8af",
+    "black": "PASS",
+    "focused": "52 passed",
+    "focused_log_sha256": "ab375ed6da4b4f7b8f7caaf7ea8b36bdf895b8915aef1d7205ba954c9092b07a",
+    "mypy_service": "PASS",
+    "ruff": "PASS"
+  }
+}

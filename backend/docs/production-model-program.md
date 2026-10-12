@@ -6,7 +6,7 @@ Detector decision metrics now apply the same confidence/region abstention mask t
 
 The production registry remains empty. The nine-step native models and new tiny derivative-path fixtures are **TEST_ONLY**, never capable product models. The current model classes are `AZAERON_NATIVE` and `AZAERON_DERIVATIVE`; historical `AZAERON_ORIGINAL` fixture manifests are retained unchanged as evidence, not migrated into production approvals.
 
-The candidate program adds working offline SFT, full fine-tuning, LoRA and a CUDA-gated QLoRA implementation. Full and LoRA optimization, safe-tensor export, adapter merging, repeated-seed weight equality and a common three-entrant benchmark were executed on generated random architecture fixtures. QLoRA has **not** been executed: this Mac has no CUDA GPU. This evidence tests mechanics only. No pretrained model was downloaded or selected, no legal approval was created, and no production training ran.
+The candidate program adds working offline SFT, full fine-tuning, LoRA and a CUDA-gated QLoRA implementation. Full and LoRA optimization, safe-tensor export, adapter merging, repeated-seed weight equality and a common three-entrant benchmark were executed on generated random architecture fixtures. QLoRA has **not** been executed: this Mac has no CUDA GPU. A separately pinned Qwen3-4B source was converted to MLX 4-bit for DEV_ONLY validation; neither that conversion nor the fixture runs trained an Azaeron Writer. Its base-owner decision and real Writer data remain unapproved.
 
 ## Admission and immutable datasets
 
@@ -25,7 +25,7 @@ Candidate admission requires repository, immutable revision, complete weight/tok
 
 Dataset v2 requires source, license, granted commercial training, redistribution permission, acquisition, provenance, PII/copyright review, language/domain, quality tier, allowed families, and an attestation covering all metadata and split hashes. Customer content is prohibited by this ingestion path. Unknown rights fail validation. The version cannot be overwritten. Five nonempty splits are mandatory: train, validation, calibration, test, OOD. IDs, normalized inputs and source groups cannot cross splits. Detector AI/MIXED rows need generator lineage; generator families cannot cross splits. This is intentionally stricter than merely de-duplicating generator outputs.
 
-Writer task categories and MeaningLock stress categories are defined in `datasets.py`. No real corpus has been acquired or approved. Data sourcing, human curation, meaningful adversarial coverage and provenance review remain **BLOCKED**. Generated review records exist only in the explicit smoke script with TEST_ONLY purpose and TEST_FIXTURE reviewer identity; production loaders reject them.
+Writer task categories and MeaningLock stress categories are defined in `datasets.py`. Real editing sources have been investigated, but zero rows have passed all rights, provenance, privacy, isolation and owner-admission gates. Human curation and meaningful adversarial coverage remain **BLOCKED**. Generated review records exist only in the explicit smoke script with TEST_ONLY purpose and TEST_FIXTURE reviewer identity; production loaders reject them.
 
 ## Training and hardware boundaries
 
@@ -36,6 +36,8 @@ The trainer inspects the architecture on the meta device and counts parameters b
 Runs record base repository/revision and every artifact hash, candidate review, dataset/split hashes, original tokenizer lineage, adapter/merged/new checkpoint hashes, before/after trainable-parameter hashes, code hash, seed/hyperparameters, optimizer/scheduler/precision, hardware/software, wall time, token counts and train/validation losses. Exports are immutable and explicitly EXPERIMENTAL. Adapter-only output is not a standalone owned production model. Export into the serving registry, runtime compatibility, security, evaluation and independent release review remain separate and **BLOCKED**.
 
 Use `requirements-derivative-macos.lock` for the tested Python 3.13 Mac environment. `requirements-derivative-linux-cpu.lock` pins the official CPython 3.12 AMD64 CPU wheel and dependencies for hosted mechanics CI. Neither belongs in the API image. A production CUDA/runtime image and CUDA dependency lock are not certified.
+
+For the exact controlled Qwen 4-bit bundle, `derivative_mlx.py` is a separate, offline MLX-LM 0.32.0 LoRA path on Apple Silicon. It requires the admitted base and five-split Writer dataset **before** creating a run, pins the bundle weight/template/revision, checks real chat-template token lengths to prevent silent truncation, and uses only TRAIN and validation. It writes a hash-bound experimental adapter and records configured iterations; MLX continuation restores weights only, not optimizer, RNG or iteration state. The Mac hardware and tokenizer preflight passed without optimization; [executed evidence](../../docs/verity/evidence/mlx-writer-readiness-20261012/result.json). No real Writer training or quality measurement has run. The 16-case [controlled conversion screen](../../docs/verity/evidence/qwen-technical-suitability-20261012/README.md) is a narrow engineering check, not commercial model-quality evidence.
 
 ## Evaluation and independence
 
@@ -51,7 +53,7 @@ The serving registry additionally rejects a Writer/Verifier sharing the same bas
 
 Local evidence: `docs/verity/evidence/model-bakeoff-20260930/`. Generated checkpoints and raw fixture runs: `.verity-local/derivative-smoke-final/`. CI uploads derivative mechanics and repository/image/SBOM artifacts for the submitted head. All fixture outputs are NOT APPROVED.
 
-Candidate manifests/commercial reviews for the discovered Qwen/MiniLM bundles: **NOT FOUND**. Production datasets, independent reviewers and approved strong baselines: **NOT FOUND**. Production checkpoints, GPU evidence and runtime approval: **BLOCKED**. Existing exact local asset paths remain in `docs/verity/LOCAL_MODEL_ASSETS.md`. Do not relabel those assets.
+The controlled Qwen candidate manifest and pending base-owner packet are [hash-bound here](../../docs/verity/evidence/qwen-controlled-conversion-20261011/README.md); admission is **BLOCKED**, and the older Qwen/MiniLM bundles remain separate third-party assets. Production datasets, independent reviewers and approved strong baselines: **NOT FOUND**. Production checkpoints and runtime approval: **BLOCKED**. Existing exact local asset paths remain in `docs/verity/LOCAL_MODEL_ASSETS.md`. Do not relabel those assets.
 
 The later commercial continuation installs Debian stable security OpenSSL 3.5.7-1~deb13u3 and uses a controlled PostgreSQL 16 image with a new-volume logical migration. Local candidate scans pass; exact-head hosted status is tracked in `docs/verity/EXECUTION_STATE.md`. Scanner thresholds remain unchanged. No merge or production approval follows from repository tests alone.
 

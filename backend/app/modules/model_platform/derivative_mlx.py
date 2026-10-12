@@ -13,9 +13,11 @@ import math
 import os
 from pathlib import Path
 import platform
+import select
 import shutil
-import subprocess
+import signal
 import tempfile
+import time
 from typing import Literal
 
 from pydantic import Field, model_validator
@@ -38,6 +40,102 @@ CONTROLLED_QWEN_TEMPLATE = (
 MIN_DISK_FREE = 8 * 1024**3
 MIN_PHYSICAL_MEMORY = 16 * 1024**3
 MIN_RECLAIMABLE_MEMORY = 4 * 1024**3
+
+
+def _run_local(
+    argv: list[str],
+    *,
+    environment: dict[str, str],
+    timeout: int,
+    output_fd: int | None = None,
+    output_limit: int | None = None,
+) -> bytes:
+    """Run an absolute local executable with bounded capture and group cleanup."""
+    if not argv or not Path(argv[0]).is_absolute() or not os.access(argv[0], os.X_OK):
+        raise PolicyError("mlx_executable_must_be_absolute_and_executable")
+    read_fd: int | None = None
+    write_fd = output_fd
+    if write_fd is None:
+        read_fd, write_fd = os.pipe()
+        os.set_blocking(read_fd, False)
+    try:
+        pid = os.posix_spawn(
+            argv[0],
+            argv,
+            environment,
+            file_actions=[
+                (os.POSIX_SPAWN_DUP2, write_fd, 1),
+                (os.POSIX_SPAWN_DUP2, write_fd, 2),
+            ],
+            setpgroup=0,
+        )
+    except (OSError, TypeError) as exc:
+        if read_fd is not None:
+            os.close(read_fd)
+            os.close(write_fd)
+        raise PolicyError("mlx_local_process_unavailable") from exc
+    if read_fd is not None:
+        os.close(write_fd)
+    reaped = False
+    captured = bytearray()
+    try:
+        deadline = time.monotonic() + timeout
+        while True:
+            if read_fd is not None:
+                ready, _, _ = select.select([read_fd], [], [], 0.05)
+                if ready:
+                    chunk = os.read(read_fd, 64 * 1024 + 1 - len(captured))
+                    captured.extend(chunk)
+                    if len(captured) > 64 * 1024:
+                        raise PolicyError("mlx_local_process_output_overflow")
+            else:
+                time.sleep(0.05)
+                if (
+                    output_limit is not None
+                    and output_fd is not None
+                    and os.fstat(output_fd).st_size > output_limit
+                ):
+                    raise PolicyError("mlx_local_process_output_overflow")
+            completed, status = os.waitpid(pid, os.WNOHANG)
+            if completed == pid:
+                reaped = True
+                if os.waitstatus_to_exitcode(status):
+                    raise PolicyError("mlx_local_process_failed")
+                if read_fd is not None:
+                    while True:
+                        try:
+                            chunk = os.read(read_fd, 64 * 1024 + 1 - len(captured))
+                        except BlockingIOError:
+                            break
+                        if not chunk:
+                            break
+                        captured.extend(chunk)
+                        if len(captured) > 64 * 1024:
+                            raise PolicyError("mlx_local_process_output_overflow")
+                return bytes(captured)
+            if time.monotonic() >= deadline:
+                raise PolicyError("mlx_local_process_timeout")
+    except BaseException:
+        if not reaped:
+            try:
+                os.killpg(pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            except PermissionError:
+                # A child may exit between the poll and group signal on macOS.
+                try:
+                    os.kill(pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+            os.waitpid(pid, 0)
+        raise
+    finally:
+        if read_fd is not None:
+            os.close(read_fd)
+
+
+def _local_output(argv: list[str], *, environment: dict[str, str], timeout: int) -> str:
+    return _run_local(argv, environment=environment, timeout=timeout).decode("utf-8")
 
 
 class MLXWriterConfig(StrictModel):
@@ -74,10 +172,17 @@ def _mac_preflight(output: Path) -> dict[str, int | str]:
         raise PolicyError("mlx_training_requires_apple_silicon")
     if output.exists() or not output.parent.is_dir() or output.parent.is_symlink():
         raise PolicyError("mlx_output_must_be_new_under_existing_directory")
-    total = int(subprocess.check_output(["sysctl", "-n", "hw.memsize"], text=True))
+    environment = _offline_environment()
+    total = int(
+        _local_output(
+            ["/usr/sbin/sysctl", "-n", "hw.memsize"],
+            environment=environment,
+            timeout=15,
+        )
+    )
     if total < MIN_PHYSICAL_MEMORY:
         raise PolicyError("mlx_physical_memory_below_training_floor")
-    vm = subprocess.check_output(["vm_stat"], text=True)
+    vm = _local_output(["/usr/bin/vm_stat"], environment=environment, timeout=15)
     page_size = int(vm.split("page size of ", 1)[1].split(" bytes", 1)[0])
     pages = {}
     for line in vm.splitlines():
@@ -108,23 +213,19 @@ def _mac_preflight(output: Path) -> dict[str, int | str]:
 
 
 def _mlx_version(python: Path) -> str:
-    if not python.is_file():
+    if not python.is_absolute() or not python.is_file():
         raise PolicyError("mlx_python_not_found")
     try:
-        version = subprocess.check_output(
+        version = _local_output(
             [
                 str(python),
                 "-c",
                 "import importlib.metadata; print(importlib.metadata.version('mlx-lm'))",
             ],
-            text=True,
             timeout=15,
-            env={
-                "PATH": os.environ.get("PATH", ""),
-                "HOME": os.environ.get("HOME", ""),
-            },
+            environment=_offline_environment(),
         ).strip()
-    except (OSError, subprocess.SubprocessError) as exc:
+    except (OSError, UnicodeError, PolicyError) as exc:
         raise PolicyError("mlx_runtime_unavailable") from exc
     if version != MLX_LM_VERSION:
         raise PolicyError("mlx_runtime_version_mismatch")
@@ -307,19 +408,19 @@ def train(config_file: Path, output: Path) -> dict:
         }
         # MLX-LM silently truncates overlength rows. This separate, pinned
         # interpreter checks the exact chat template and masked target offset.
-        subprocess.run(
-            [
-                str(config.mlx_python),
-                str(Path(__file__).with_name("mlx_token_preflight.py")),
-                str(model),
-                str(training_data),
-                str(config.sequence_length),
-            ],
-            check=True,
-            timeout=180,
-            env=environment,
-            stdout=subprocess.DEVNULL,
-        )
+        with os.fdopen(os.open(os.devnull, os.O_WRONLY), "wb") as sink:
+            _run_local(
+                [
+                    str(config.mlx_python),
+                    str(Path(__file__).with_name("mlx_token_preflight.py")),
+                    str(model),
+                    str(training_data),
+                    str(config.sequence_length),
+                ],
+                timeout=180,
+                environment=environment,
+                output_fd=sink.fileno(),
+            )
         # Recheck input integrity immediately before creating any output.
         load_candidate(admitted, smoke=False)
         read_dataset(dataset_file, "writer", smoke=False)
@@ -354,7 +455,7 @@ def train(config_file: Path, output: Path) -> dict:
             output / "training.log", os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600
         )
         with os.fdopen(log_fd, "wb") as log:
-            subprocess.run(
+            _run_local(
                 [
                     str(config.mlx_python),
                     "-m",
@@ -363,11 +464,10 @@ def train(config_file: Path, output: Path) -> dict:
                     "-c",
                     str(command_file),
                 ],
-                check=True,
                 timeout=config.max_wall_seconds,
-                env=environment,
-                stdout=log,
-                stderr=subprocess.STDOUT,
+                environment=environment,
+                output_fd=log.fileno(),
+                output_limit=64 * 1024**2,
             )
     adapter = output / "adapters.safetensors"
     checkpoint_hash = _verify_adapter(adapter)

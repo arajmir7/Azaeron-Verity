@@ -2,6 +2,7 @@
 
 import json
 from pathlib import Path
+import sys
 from types import SimpleNamespace
 
 import pytest
@@ -108,11 +109,11 @@ def test_mlx_memory_disk_preflight_parses_vm_stat(tmp_path, monkeypatch):
     monkeypatch.setattr(mlx.platform, "system", lambda: "Darwin")
     monkeypatch.setattr(mlx.platform, "machine", lambda: "arm64")
     monkeypatch.setattr(
-        mlx.subprocess,
-        "check_output",
+        mlx,
+        "_local_output",
         lambda command, **_kwargs: (
             str(16 * 1024**3)
-            if command[0] == "sysctl"
+            if command[0] == "/usr/sbin/sysctl"
             else "Mach Virtual Memory Statistics: (page size of 16384 bytes)\n"
             "Pages free: 300000.\nPages inactive: 300000.\n"
             "Pages speculative: 1000.\nPages purgeable: 1000.\n"
@@ -129,6 +130,61 @@ def test_mlx_memory_disk_preflight_parses_vm_stat(tmp_path, monkeypatch):
     )
     with pytest.raises(PolicyError, match="checkpoint_disk"):
         mlx._mac_preflight(tmp_path / "new-run")
+
+
+def test_mlx_local_runner_requires_absolute_executable_and_bounds_capture():
+    with pytest.raises(PolicyError, match="absolute_and_executable"):
+        mlx._run_local(["python", "-c", "pass"], environment={}, timeout=1)
+    with pytest.raises(PolicyError, match="absolute_and_executable"):
+        mlx._run_local(["/no/such/python"], environment={}, timeout=1)
+    value = mlx._run_local(
+        [sys.executable, "-c", "print('local-only')"],
+        environment={"PATH": "/usr/bin"},
+        timeout=3,
+    )
+    assert value == b"local-only\n"
+    with pytest.raises(PolicyError, match="output_overflow"):
+        mlx._run_local(
+            [sys.executable, "-c", "print('x' * 70000)"],
+            environment={"PATH": "/usr/bin"},
+            timeout=3,
+        )
+
+
+def test_mlx_local_runner_reaps_timeout_and_rejects_nonzero(tmp_path):
+    with pytest.raises(PolicyError, match="process_failed"):
+        mlx._run_local(
+            [sys.executable, "-c", "raise SystemExit(3)"],
+            environment={"PATH": "/usr/bin"},
+            timeout=3,
+        )
+    with pytest.raises(PolicyError, match="process_timeout"):
+        mlx._run_local(
+            [sys.executable, "-c", "import time; time.sleep(4)"],
+            environment={"PATH": "/usr/bin"},
+            timeout=1,
+        )
+    log = tmp_path / "process.log"
+    with log.open("wb") as stream:
+        assert (
+            mlx._run_local(
+                [sys.executable, "-c", "print('logged')"],
+                environment={"PATH": "/usr/bin"},
+                timeout=3,
+                output_fd=stream.fileno(),
+            )
+            == b""
+        )
+    assert log.read_bytes() == b"logged\n"
+    with log.open("wb") as stream:
+        with pytest.raises(PolicyError, match="output_overflow"):
+            mlx._run_local(
+                [sys.executable, "-c", "print('x' * 1000)"],
+                environment={"PATH": "/usr/bin"},
+                timeout=3,
+                output_fd=stream.fileno(),
+                output_limit=100,
+            )
 
 
 def test_mlx_subprocess_environment_excludes_credentials(monkeypatch):

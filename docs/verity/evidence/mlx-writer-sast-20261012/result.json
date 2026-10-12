@@ -1,0 +1,30 @@
+{
+  "admission": "Existing owner and dataset gates remain mandatory; no training was executed.",
+  "bandit": {
+    "artifact": "bandit.json",
+    "findings": 0,
+    "new_suppressions": 0,
+    "scope": "backend/app",
+    "sha256": "4d764aac3624cb3f05abff2b2a7f2ac3d1105ff58238e2bbc4db5296e3a6d184",
+    "version": "1.9.4"
+  },
+  "classification": "ENGINEERING_CHECK_ONLY_NO_TRAINING_OR_MODEL_APPROVAL",
+  "code_checks": {
+    "black": "PASS",
+    "mypy": "PASS",
+    "ruff": "PASS"
+  },
+  "focused_tests": {
+    "count": 10,
+    "result": "PASS",
+    "runner": "Python 3.12, pytest 8.4.2, pydantic 2.13.5",
+    "scope": "backend/tests/test_derivative_mlx.py run in an isolated pytest collection because repository conftest requires full app dependencies"
+  },
+  "mac_runtime_smoke": {
+    "local_qwen_tokenizer_preflight": "PASS",
+    "mlx_lm_version": "0.32.0",
+    "physical_memory_bytes": 17179869184,
+    "sysctl_and_vm_stat": "PASS"
+  },
+  "security_change": "Absolute local os.posix_spawn paths, no shell, sanitized offline environment, bounded captured output and training log, child-process group kill/reap on timeout or cancellation; exact pinned tokenizer revision."
+}

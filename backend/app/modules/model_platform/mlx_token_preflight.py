@@ -11,7 +11,11 @@ from transformers import AutoTokenizer  # type: ignore[import-not-found]  # sepa
 
 def check(model: Path, data: Path, maximum: int):
     tokenizer = AutoTokenizer.from_pretrained(
-        model, local_files_only=True, trust_remote_code=False, use_fast=True
+        model,
+        revision="1cfa9a7208912126459214e8b04321603b3df60c",
+        local_files_only=True,
+        trust_remote_code=False,
+        use_fast=True,
     )
     for split in ("train", "valid"):
         rows = (data / f"{split}.jsonl").read_text().splitlines()

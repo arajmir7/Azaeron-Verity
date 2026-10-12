@@ -2,6 +2,8 @@
 
 import hashlib
 import json
+from pathlib import Path
+import runpy
 
 import pytest
 from pydantic import ValidationError
@@ -17,6 +19,7 @@ from app.modules.model_platform.datasets import (
     Dataset,
     DatasetReview,
     read_dataset,
+    register,
     review_subject,
     Example,
     LeakageIndex,
@@ -31,6 +34,7 @@ from app.modules.model_platform.owner_decision import (
     OwnerDecision,
     require_owner_approval,
 )
+from app.modules.model_platform import owner_decision as approval
 from app.modules.model_platform.policy import FileRef, PolicyError, canonical, digest
 from app.modules.model_platform.release import promote
 from app.modules.model_platform.human_review import writer_review
@@ -177,7 +181,7 @@ def test_floating_revision_and_fake_review_rejected(tmp_path):
         CandidateReview.model_validate({"commercial_use": "UNKNOWN"})
 
 
-def test_owner_decision_is_exactly_bound_and_fail_closed(tmp_path):
+def test_owner_decision_is_exactly_bound_and_fail_closed(tmp_path, monkeypatch):
     subject = {
         "kind": "DATASET",
         "identifier": "fixture-only",
@@ -245,6 +249,9 @@ def test_owner_decision_is_exactly_bound_and_fail_closed(tmp_path):
     subject["rights"] = "PASS"
     record["subject_sha256"] = hashlib.sha256(canonical([subject])).hexdigest()
     path.write_bytes(canonical(record))
+    # The remaining checks exercise rights/scope after separately tested
+    # account authentication; these are deliberately fixture decisions.
+    monkeypatch.setattr(approval, "_verify_authenticated_confirmation", lambda *_: None)
     require_owner_approval(path, "DATASET", "a" * 64, "commercial_training")
     with pytest.raises(PolicyError, match="subject_mismatch"):
         require_owner_approval(path, "DATASET", "b" * 64, "commercial_training")
@@ -256,7 +263,7 @@ def test_owner_decision_is_exactly_bound_and_fail_closed(tmp_path):
         OwnerDecision.model_validate_json(path.read_bytes())
 
 
-def test_candidate_admission_requires_the_same_explicit_owner(tmp_path):
+def test_candidate_admission_requires_the_same_explicit_owner(tmp_path, monkeypatch):
     source = tmp_path / "source"
     candidate = candidate_fixture(source).model_copy(update={"purpose": "PRODUCTION"})
     manifest = tmp_path / "candidate.json"
@@ -324,6 +331,7 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path):
     owner_file.write_bytes(canonical(decision))
     review["owner_decision"]["sha256"] = digest(owner_file)
     review_file.write_bytes(canonical(review))
+    monkeypatch.setattr(approval, "_verify_authenticated_confirmation", lambda *_: None)
     with pytest.raises(PolicyError, match="not_project_owner"):
         admit(manifest, review_file, source, tmp_path / "registry")
     review["reviewer"] = "TEST FIXTURE OWNER"
@@ -334,6 +342,100 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path):
         json.loads((admitted / "admission.json").read_bytes())["status"]
         == "EXPERIMENTAL"
     )
+
+
+def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
+    tmp_path, monkeypatch
+):
+    root = Path(__file__).resolve().parents[2]
+    packet = (
+        root
+        / "docs/verity/evidence/qwen-controlled-conversion-20261011"
+        / "base-owner-decision-pending.json"
+    )
+    values = json.loads(packet.read_bytes())
+    assert digest(packet) == approval.QWEN_BASE_PACKET_SHA256
+    values.update(
+        decision="APPROVE_WITHIN_SCOPE",
+        approver_name=approval.OWNER_NAME,
+        decided_at="2026-10-12T10:00:00Z",
+        rationale="Commercial derivative training for this base only",
+        reviewed_record_sha256=digest(packet),
+        confirmation_status="CONFIRMED",
+    )
+    record = OwnerDecision.model_validate(
+        {**values, "confirmation_reference": "TEST FIXTURE ONLY"}
+    )
+    body = approval._confirmation_body(
+        record, record.subjects[0], "commercial_derivative_training"
+    )
+    published = runpy.run_path(str(root / "scripts/verity_owner_confirmation.py"))
+    assert body == published["COMMENT_BODY"]
+    body_hash = hashlib.sha256(body.encode()).hexdigest()
+    comment_id = 12345
+    values["confirmation_reference"] = (
+        f"github-issue-comment:{comment_id}:sha256:{body_hash}"
+    )
+    decision = tmp_path / "owner-decision.json"
+    decision.write_bytes(canonical(values))
+    comment = {
+        "id": comment_id,
+        "issue_url": (
+            f"https://api.github.com/repos/{approval.CONFIRMATION_REPOSITORY}"
+            f"/issues/{approval.CONFIRMATION_PR}"
+        ),
+        "html_url": (
+            f"https://github.com/{approval.CONFIRMATION_REPOSITORY}/pull/"
+            f"{approval.CONFIRMATION_PR}#issuecomment-{comment_id}"
+        ),
+        "user": {
+            "login": approval.OWNER_GITHUB_LOGIN,
+            "id": approval.OWNER_GITHUB_ID,
+            "type": "User",
+        },
+        "author_association": "OWNER",
+        "body": body,
+        "created_at": "2026-10-12T10:00:00Z",
+        "updated_at": "2026-10-12T10:00:00Z",
+    }
+    monkeypatch.setattr(approval, "_fetch_confirmation", lambda _id: comment)
+    require_owner_approval(
+        decision,
+        "BASE_MODEL",
+        approval.QWEN_BASE_SHA256,
+        "commercial_derivative_training",
+    )
+    for changed, reason in (
+        ({"confirmation_reference": "TEST FIXTURE ONLY"}, "reference_invalid"),
+        ({"reviewed_record_sha256": "f" * 64}, "packet_mismatch"),
+    ):
+        decision.write_bytes(canonical({**values, **changed}))
+        with pytest.raises(PolicyError, match=reason):
+            require_owner_approval(
+                decision,
+                "BASE_MODEL",
+                approval.QWEN_BASE_SHA256,
+                "commercial_derivative_training",
+            )
+    decision.write_bytes(canonical(values))
+    for changed in (
+        {"id": comment_id + 1},
+        {"issue_url": "https://api.github.com/repos/elsewhere/other/issues/2"},
+        {"author_association": "COLLABORATOR"},
+        {"user": {**comment["user"], "id": 1}},
+        {"updated_at": "2026-10-12T10:01:00Z"},
+        {"body": body + "\nadditional scope"},
+    ):
+        monkeypatch.setattr(
+            approval, "_fetch_confirmation", lambda _id, c=changed: {**comment, **c}
+        )
+        with pytest.raises(PolicyError, match="comment_mismatch"):
+            require_owner_approval(
+                decision,
+                "BASE_MODEL",
+                approval.QWEN_BASE_SHA256,
+                "commercial_derivative_training",
+            )
 
 
 def dataset_fixture(root):
@@ -545,6 +647,92 @@ def test_production_dataset_requires_owner_record(tmp_path):
     path.write_bytes(canonical(values))
     with pytest.raises(PolicyError, match="owner_dataset_decision_required"):
         read_dataset(path, "detector")
+
+
+def test_registered_production_dataset_preserves_owner_decision(tmp_path, monkeypatch):
+    source = tmp_path / "source"
+    source.mkdir()
+    manifest = dataset_fixture(source).model_copy(
+        update={
+            "purpose": "PRODUCTION",
+            "derivative_permission": "GRANTED",
+            "quality_tier": "CURATED",
+            "allowed_tasks": ["classify"],
+        }
+    )
+    values = manifest.model_dump(mode="json")
+    for split in values["splits"]:
+        path = source / f"{split}.jsonl"
+        row = json.loads(path.read_bytes())
+        row.update(
+            source_id=f"source-{split}",
+            author_id=f"author-{split}",
+            document_id=f"document-{split}",
+        )
+        path.write_bytes(canonical(row) + b"\n")
+        values["splits"][split]["sha256"] = digest(path)
+    reviewed = Dataset.model_validate(values)
+    subject = {
+        "kind": "DATASET",
+        "identifier": "TEST FIXTURE ONLY",
+        "sha256": review_subject(reviewed),
+        "license": "TEST_ONLY",
+        "rights": "PASS",
+        "provenance": "PASS",
+        "copyright": "PASS",
+        "privacy": "PASS",
+        "permitted_uses": ["commercial_training"],
+        "findings": ["TEST FIXTURE ONLY"],
+        "evidence": ["TEST FIXTURE ONLY"],
+        "risks": [],
+        "restrictions": [],
+    }
+    decision = {
+        "schema_version": 1,
+        "subjects": [subject],
+        "subject_sha256": hashlib.sha256(canonical([subject])).hexdigest(),
+        "decision": "PENDING",
+        "approver_role": "AZAERON_PROJECT_OWNER",
+        "approver_name": None,
+        "decided_at": None,
+        "rationale": None,
+        "reviewed_record_sha256": None,
+        "confirmation_status": "PENDING",
+        "confirmation_reference": None,
+    }
+    decision["reviewed_record_sha256"] = hashlib.sha256(canonical(decision)).hexdigest()
+    decision.update(
+        decision="APPROVE_WITHIN_SCOPE",
+        approver_name=approval.OWNER_NAME,
+        decided_at="2026-10-12T10:00:00Z",
+        rationale="TEST FIXTURE ONLY",
+        confirmation_status="CONFIRMED",
+        confirmation_reference="TEST FIXTURE ONLY",
+    )
+    owner_file = source / "owner-decision.json"
+    owner_file.write_bytes(canonical(decision))
+    review = DatasetReview(
+        subject_sha256=review_subject(reviewed),
+        reviewer=approval.OWNER_NAME,
+        reviewer_kind="HUMAN",
+        reviewed_at="2026-10-12T10:00:00Z",
+        evidence_reference="TEST FIXTURE ONLY",
+        rights="PASS",
+        provenance="PASS",
+        copyright="PASS",
+        pii="PASS",
+        owner_decision=FileRef(path=owner_file.name, sha256=digest(owner_file)),
+    )
+    review_file = source / "review.json"
+    review_file.write_bytes(canonical(review.model_dump(mode="json")))
+    values["review"] = {"path": review_file.name, "sha256": digest(review_file)}
+    manifest_file = source / "dataset.json"
+    manifest_file.write_bytes(canonical(values))
+    monkeypatch.setattr(approval, "_verify_authenticated_confirmation", lambda *_: None)
+
+    registered = register(manifest_file, tmp_path / "registry")
+    assert digest(registered / owner_file.name) == digest(owner_file)
+    assert len(read_dataset(registered / "dataset.json", "detector")[1]) == 5
 
 
 def test_production_release_requires_new_checkpoint_bound_owner_record(tmp_path):

@@ -118,6 +118,108 @@ async def test_dev_transport_filters_reasoning_and_streams_real_deltas():
 
 
 @pytest.mark.asyncio
+async def test_dev_transport_never_exposes_nested_or_malformed_reasoning():
+    nested = "<think>outer <think>inner</think> still private</think>Public"
+    gateway = DevMlxGateway(
+        "http://127.0.0.1:8080", transport=local_transport(content=nested)
+    )
+    # The fixture wraps content in a separate thought span, so both layers
+    # must be closed before any public text can be released.
+    assert (await gateway.run(job())).output == "Public"
+
+    for malformed in (
+        "Public</think>private",
+        "<think>unfinished private",
+        "<think malformed>private</think>Public",
+    ):
+        bad = DevMlxGateway(
+            "http://127.0.0.1:8080", transport=local_transport(content=malformed)
+        )
+        with pytest.raises(InferenceUnavailable, match="dev_runtime_invalid_output"):
+            await bad.run(job())
+
+
+@pytest.mark.asyncio
+async def test_dev_stream_filters_nested_reasoning_across_sse_and_network_chunks():
+    contents = [
+        "<thi",
+        "nk>outer <THI",
+        "NK>inner</think> still private",
+        "</think>Public",
+    ]
+    frames = [
+        {
+            "model": MODEL_ID,
+            "choices": [
+                {
+                    "index": 0,
+                    "delta": {"content": content},
+                    "finish_reason": "stop" if index == len(contents) - 1 else None,
+                }
+            ],
+        }
+        for index, content in enumerate(contents)
+    ]
+    frames.append(
+        {
+            "model": MODEL_ID,
+            "choices": [],
+            "usage": {"prompt_tokens": 8, "completion_tokens": 15},
+        }
+    )
+    wire = (
+        "".join("data: " + json.dumps(frame) + "\n\n" for frame in frames)
+        + "data: [DONE]\n\n"
+    ).encode()
+
+    class Fragmented(httpx.AsyncByteStream):
+        async def __aiter__(self):
+            for offset in range(0, len(wire), 3):
+                yield wire[offset : offset + 3]
+
+    async def handle(request):
+        if request.url.path == "/v1/models":
+            return httpx.Response(200, json={"data": [{"id": MODEL_ID}]})
+        return httpx.Response(200, stream=Fragmented())
+
+    gateway = DevMlxGateway(
+        "http://127.0.0.1:8080", transport=httpx.MockTransport(handle)
+    )
+    chunks = []
+
+    async def delta(content):
+        chunks.append(content)
+
+    result = await gateway.run(job(), on_delta=delta)
+    assert result.output == "".join(chunks) == "Public"
+    assert "private" not in "".join(chunks)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "content",
+    (
+        "Public</think>private",
+        "<think>unfinished private",
+        "<think malformed>private</think>Public",
+    ),
+)
+async def test_dev_stream_rejects_malformed_reasoning_without_emitting_it(content):
+    gateway = DevMlxGateway(
+        "http://127.0.0.1:8080",
+        transport=local_transport(stream=True, content=content),
+    )
+    chunks = []
+
+    async def delta(value):
+        chunks.append(value)
+
+    with pytest.raises(InferenceUnavailable, match="dev_runtime_invalid_output"):
+        await gateway.run(job(), on_delta=delta)
+    assert chunks == []
+
+
+@pytest.mark.asyncio
 async def test_dev_document_and_humanise_prompts_mark_untrusted_content():
     captured = []
     gateway = DevMlxGateway(
@@ -477,6 +579,25 @@ async def test_dev_public_chat_stream_and_humanize_remain_unverified(
     assert "private" not in response.text
     assert "Public" in response.text
     assert '"accepted": false' in response.text
+
+    nested = DevMlxGateway(
+        "http://127.0.0.1:8080",
+        transport=local_transport(
+            stream=True,
+            content="<think>outer <think>inner</think> still private</think>Public",
+        ),
+    )
+    monkeypatch.setattr("app.api.v1.model_platform.gateway", lambda: nested)
+    nested_response = await client.post(
+        "/api/v1/ai/chat/stream",
+        headers=auth,
+        json={"operation_id": str(uuid4()), "text": "Say hello."},
+    )
+    assert nested_response.status_code == 200, nested_response.text
+    assert "event: completed" in nested_response.text
+    assert "inner" not in nested_response.text
+    assert "private" not in nested_response.text
+    assert "Public" in nested_response.text
 
 
 @pytest.mark.asyncio

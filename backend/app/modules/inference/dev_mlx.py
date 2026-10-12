@@ -58,6 +58,8 @@ _YEAR_MONTH_DAY = re.compile(
 )
 _QUANTITY = re.compile(r"(?<![\w])\d+(?:[.,]\d+)*(?:\s*%)?(?![\w])")
 _OFFSET = re.compile(r"\[source offsets \d+:\d+\]")
+_THOUGHT_TAG = re.compile(r"</?think>", re.IGNORECASE)
+_THOUGHT_PREFIX = re.compile(r"</?thi(?:n(?:k)?)?", re.IGNORECASE)
 _MAX_RUNTIME_RESPONSE_BYTES = 262_144
 
 
@@ -184,38 +186,45 @@ def _grounded_drift(source: str, output: str) -> bool:
 
 
 class _Visible:
-    """Drop reasoning fields and split <think> blocks before emitting any delta."""
+    """Drop even nested, split reasoning spans before emitting any delta."""
 
     def __init__(self):
         self.pending = ""
-        self.inside = False
+        self.depth = 0
+
+    @property
+    def inside(self) -> bool:
+        return self.depth > 0
 
     def feed(self, chunk: str, *, final: bool = False) -> str:
         self.pending += chunk
         output = ""
         while self.pending:
-            if self.inside:
-                end = self.pending.find("</think>")
-                if end < 0:
-                    self.pending = self.pending[-7:]
-                    break
-                self.pending = self.pending[end + len("</think>") :]
-                self.inside = False
-            else:
-                start = self.pending.find("<think>")
-                if start >= 0:
-                    output += self.pending[:start]
-                    self.pending = self.pending[start + len("<think>") :]
-                    self.inside = True
-                elif final:
-                    output += self.pending
-                    self.pending = ""
-                elif len(self.pending) > len("<think>") - 1:
-                    emit = len(self.pending) - (len("<think>") - 1)
-                    output += self.pending[:emit]
-                    self.pending = self.pending[emit:]
+            tag = _THOUGHT_TAG.search(self.pending)
+            if tag:
+                prefix = self.pending[: tag.start()]
+                if _THOUGHT_PREFIX.search(prefix):
+                    raise ValueError("malformed reasoning delimiter")
+                if not self.inside:
+                    output += prefix
+                if tag.group().lower() == "<think>":
+                    self.depth += 1
+                elif self.depth:
+                    self.depth -= 1
                 else:
-                    break
+                    raise ValueError("unmatched reasoning delimiter")
+                self.pending = self.pending[tag.end() :]
+                continue
+            # Retain the longest possible split delimiter until the next chunk.
+            emit = len(self.pending) if final else max(0, len(self.pending) - 7)
+            if _THOUGHT_PREFIX.search(self.pending[:emit]) or (
+                final and _THOUGHT_PREFIX.search(self.pending)
+            ):
+                raise ValueError("malformed reasoning delimiter")
+            if not self.inside:
+                output += self.pending[:emit]
+            self.pending = self.pending[emit:]
+            break
         return output
 
 

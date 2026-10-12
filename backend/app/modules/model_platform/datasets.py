@@ -307,7 +307,12 @@ def register(manifest_file: Path, registry: Path, *, smoke=False):
         read_dataset(manifest_file, family, smoke=smoke)
     output = registry / manifest.dataset_id / manifest.version
     output.mkdir(parents=True, exist_ok=False)
-    for ref in [*manifest.splits.values(), manifest.review]:
+    review_file = manifest.review.verify(manifest_file.parent)
+    review = DatasetReview.model_validate_json(review_file.read_bytes())
+    references = [*manifest.splits.values(), manifest.review]
+    if review.owner_decision is not None:
+        references.append(review.owner_decision)
+    for ref in references:
         source = ref.verify(manifest_file.parent)
         destination = output / ref.path
         destination.parent.mkdir(parents=True, exist_ok=True)

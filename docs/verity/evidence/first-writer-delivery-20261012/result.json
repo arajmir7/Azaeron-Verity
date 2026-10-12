@@ -17,6 +17,14 @@
     "log": "spec-gate.log",
     "log_sha256": "0639dc04032dfac7a723b9799c3e993a008b014bd0bf777d28093d115dafa833"
   },
+  "secret_gate": {
+    "status": "PASS",
+    "unreviewed_findings": 0,
+    "reviewed_exact_fingerprints": 69,
+    "log": "secret-gate.log",
+    "log_sha256": "933636aea8b7a5342e8245cc1204900515275c348ab27ca15169fa179260920b",
+    "scan_report_sha256": "40edeb105c14a2ec5cba9edd9526206a34b71dbebfdfa0331a3a73a8dc2a6ad9"
+  },
   "model_training": "BLOCKED_NO_APPROVED_BASE_OR_WRITER_DATA",
   "writer_dataset_rows_admitted": 0,
   "production_model_registry": "EMPTY",

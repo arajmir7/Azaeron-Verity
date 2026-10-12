@@ -1,0 +1,31 @@
+{
+  "current_qwen_base_admission": "BLOCKED",
+  "current_qwen_independent_technical_comment": "NOT_FOUND",
+  "current_qwen_technical_acceptance": "BLOCKED",
+  "current_qwen_training": "NOT_STARTED",
+  "limitation": "The gate authenticates account control and a hash-bound human decision; it does not prove physical identity, report quality, dataset rights, trained-checkpoint quality, or production release.",
+  "requirements": [
+    "Exact candidate and technical report hashes in an adjacent acceptance record",
+    "Live unedited GitHub PR #2 comment from a non-owner collaborator or member User",
+    "Exact candidate and report hashes in the comment body",
+    "Reverification when admitted candidate is loaded",
+    "TEST_ONLY fixtures remain separate"
+  ],
+  "scope": "PRODUCTION_BASE_CANDIDATE_TECHNICAL_ATTESTATION",
+  "source_sha256": {
+    "backend/app/modules/model_platform/admission.py": "138f9423182e662f7e185743df3847e983e2bb78237535b8337a8b46ced2a333",
+    "backend/tests/test_candidate_program.py": "d9c6ab893e37f4bf88c6395bdff2a7008b5e7d9da2c2eb3773ece77a04db4aa8",
+    "config/model-platform/candidate-review.schema.json": "22f270d033a0430d8fcb732b5024c533858e4945cd555fca7e0481b9c2c2477b",
+    "config/model-platform/technical-acceptance.schema.json": "37613f0468096413015f3ab013ec1f52baa0661c3a377af571630909b0438ef4"
+  },
+  "status": "ENGINEERING_GATE_PASS_MODEL_ADMISSION_BLOCKED",
+  "tests": {
+    "black": "PASS",
+    "diff_check": "PASS",
+    "focused": "44 passed",
+    "full_backend": "380 passed, 1 skipped",
+    "full_backend_log_sha256": "5ce9381de3c4ed44eb6a40f2400a76a41d402d2a47daf5e8d7c3be09a60bf2c8",
+    "mypy": "PASS",
+    "ruff": "PASS"
+  }
+}

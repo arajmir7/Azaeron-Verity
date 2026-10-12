@@ -13,8 +13,10 @@ from app.modules.model_platform.admission import (
     CandidateReview,
     admit,
     load_candidate,
+    require_technical_acceptance,
     verify_bundle,
 )
+from app.modules.model_platform import admission as base_admission
 from app.modules.model_platform.datasets import (
     Dataset,
     DatasetReview,
@@ -296,6 +298,30 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path, monkeypa
     owner_file = tmp_path / "owner-decision.json"
     owner_file.write_bytes(canonical(decision))
     pending_hash = digest(owner_file)
+    technical_evidence = tmp_path / "technical-evidence.json"
+    technical_evidence.write_bytes(
+        canonical({"candidate_sha256": digest(manifest), "status": "PASS"})
+    )
+    technical_body = base_admission._technical_confirmation_body(
+        digest(manifest), digest(technical_evidence)
+    )
+    technical_file = tmp_path / "technical-acceptance.json"
+    technical_file.write_bytes(
+        canonical(
+            {
+                "candidate_sha256": digest(manifest),
+                "evidence": {
+                    "path": technical_evidence.name,
+                    "sha256": digest(technical_evidence),
+                },
+                "reviewer_github_login": "independent-fixture",
+                "reviewer_github_id": 123456,
+                "decision": "PASS",
+                "confirmation_reference": "github-issue-comment:123:sha256:"
+                + hashlib.sha256(technical_body.encode()).hexdigest(),
+            }
+        )
+    )
     review = {
         "subject_sha256": digest(manifest),
         "purpose": "PRODUCTION",
@@ -310,6 +336,10 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path, monkeypa
         "attribution_requirements": "TEST FIXTURE ONLY",
         "acceptable_use_restrictions": "TEST FIXTURE ONLY",
         "technical_review": "PASS",
+        "technical_acceptance": {
+            "path": technical_file.name,
+            "sha256": digest(technical_file),
+        },
         "owner_decision": {
             "path": owner_file.name,
             "sha256": digest(owner_file),
@@ -336,12 +366,160 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path, monkeypa
         admit(manifest, review_file, source, tmp_path / "registry")
     review["reviewer"] = "TEST FIXTURE OWNER"
     review_file.write_bytes(canonical(review))
+    monkeypatch.setattr(
+        base_admission,
+        "_fetch_technical_comment",
+        lambda comment_id: {
+            "id": comment_id,
+            "issue_url": "https://api.github.com/repos/arajmir7/Azaeron-Verity/issues/2",
+            "html_url": "https://github.com/arajmir7/Azaeron-Verity/pull/2#issuecomment-123",
+            "user": {
+                "login": "independent-fixture",
+                "id": 123456,
+                "type": "User",
+            },
+            "author_association": "COLLABORATOR",
+            "body": technical_body,
+            "created_at": "2026-10-12T10:00:00Z",
+            "updated_at": "2026-10-12T10:00:00Z",
+        },
+    )
     admitted = admit(manifest, review_file, source, tmp_path / "registry")
     assert load_candidate(admitted)[0].purpose == "PRODUCTION"
+    assert digest(admitted / "technical-evidence.json") == digest(technical_evidence)
+    assert digest(admitted / "technical-acceptance.json") == digest(technical_file)
     assert (
         json.loads((admitted / "admission.json").read_bytes())["status"]
         == "EXPERIMENTAL"
     )
+    monkeypatch.setattr(
+        base_admission,
+        "_fetch_technical_comment",
+        lambda *_: (_ for _ in ()).throw(PolicyError("technical_lookup_unavailable")),
+    )
+    with pytest.raises(PolicyError, match="technical_lookup_unavailable"):
+        load_candidate(admitted)
+
+
+@pytest.mark.parametrize(
+    "mutation,reason",
+    [
+        ("accepted", None),
+        ("wrong_candidate", "technical_acceptance_subject_or_independence_mismatch"),
+        ("owner", "technical_acceptance_subject_or_independence_mismatch"),
+        ("tampered_evidence", "artifact_hash_mismatch"),
+        ("blocked_evidence", "technical_evidence_subject_or_status_mismatch"),
+        ("wrong_pr", "technical_confirmation_comment_mismatch"),
+        ("wrong_author", "technical_confirmation_comment_mismatch"),
+        ("bot", "technical_confirmation_comment_mismatch"),
+        ("edited", "technical_confirmation_comment_mismatch"),
+        ("wrong_body", "technical_confirmation_comment_mismatch"),
+        ("wrong_reference_hash", "technical_confirmation_body_hash_mismatch"),
+    ],
+)
+def test_independent_technical_acceptance_requires_authenticated_exact_evidence(
+    tmp_path, monkeypatch, mutation, reason
+):
+    candidate_sha256 = "a" * 64
+    evidence_file = tmp_path / "technical-evidence.json"
+    evidence_file.write_bytes(
+        canonical({"candidate_sha256": candidate_sha256, "status": "PASS"})
+    )
+    body = base_admission._technical_confirmation_body(
+        candidate_sha256, digest(evidence_file)
+    )
+    acceptance = {
+        "candidate_sha256": candidate_sha256,
+        "evidence": {"path": evidence_file.name, "sha256": digest(evidence_file)},
+        "reviewer_github_login": "independent-fixture",
+        "reviewer_github_id": 123456,
+        "decision": "PASS",
+        "confirmation_reference": "github-issue-comment:123:sha256:"
+        + hashlib.sha256(body.encode()).hexdigest(),
+    }
+    comment = {
+        "id": 123,
+        "issue_url": "https://api.github.com/repos/arajmir7/Azaeron-Verity/issues/2",
+        "html_url": "https://github.com/arajmir7/Azaeron-Verity/pull/2#issuecomment-123",
+        "user": {"login": "independent-fixture", "id": 123456, "type": "User"},
+        "author_association": "COLLABORATOR",
+        "body": body,
+        "created_at": "2026-10-12T10:00:00Z",
+        "updated_at": "2026-10-12T10:00:00Z",
+    }
+    if mutation == "wrong_candidate":
+        acceptance["candidate_sha256"] = "b" * 64
+    elif mutation == "owner":
+        acceptance["reviewer_github_login"] = approval.OWNER_GITHUB_LOGIN
+        acceptance["reviewer_github_id"] = approval.OWNER_GITHUB_ID
+        comment["user"] = {
+            "login": approval.OWNER_GITHUB_LOGIN,
+            "id": approval.OWNER_GITHUB_ID,
+            "type": "User",
+        }
+        comment["author_association"] = "OWNER"
+    elif mutation == "tampered_evidence":
+        evidence_file.write_bytes(canonical({"candidate_sha256": "b" * 64}))
+    elif mutation == "blocked_evidence":
+        evidence_file.write_bytes(
+            canonical({"candidate_sha256": candidate_sha256, "status": "BLOCKED"})
+        )
+        acceptance["evidence"]["sha256"] = digest(evidence_file)
+    elif mutation == "wrong_pr":
+        comment["issue_url"] = (
+            "https://api.github.com/repos/arajmir7/Azaeron-Verity/issues/1"
+        )
+    elif mutation == "wrong_author":
+        comment["author_association"] = "NONE"
+    elif mutation == "bot":
+        comment["user"]["type"] = "Bot"
+    elif mutation == "edited":
+        comment["updated_at"] = "2026-10-12T10:01:00Z"
+    elif mutation == "wrong_body":
+        comment["body"] += "\nextra"
+    elif mutation == "wrong_reference_hash":
+        acceptance["confirmation_reference"] = (
+            "github-issue-comment:123:sha256:" + "f" * 64
+        )
+    acceptance_file = tmp_path / "technical-acceptance.json"
+    acceptance_file.write_bytes(canonical(acceptance))
+    review = CandidateReview.model_construct(
+        technical_acceptance=FileRef(
+            path=acceptance_file.name, sha256=digest(acceptance_file)
+        )
+    )
+    monkeypatch.setattr(base_admission, "_fetch_technical_comment", lambda *_: comment)
+    if reason is None:
+        assert require_technical_acceptance(tmp_path, review, candidate_sha256) == (
+            acceptance_file,
+            evidence_file,
+        )
+    else:
+        with pytest.raises(PolicyError, match=reason):
+            require_technical_acceptance(tmp_path, review, candidate_sha256)
+
+
+def test_production_technical_pass_without_independent_attestation_is_rejected():
+    review = {
+        "subject_sha256": "a" * 64,
+        "purpose": "PRODUCTION",
+        "reviewer": "TEST FIXTURE OWNER",
+        "reviewer_kind": "HUMAN",
+        "reviewed_at": "2026-10-12",
+        "reference": "TEST FIXTURE ONLY",
+        "license": "TEST_ONLY",
+        "commercial_use": "PASS",
+        "commercial_training": "PASS",
+        "redistribution_requirements": "TEST FIXTURE ONLY",
+        "attribution_requirements": "TEST FIXTURE ONLY",
+        "acceptable_use_restrictions": "TEST FIXTURE ONLY",
+        "technical_review": "PASS",
+        "owner_decision": {"path": "owner-decision.json", "sha256": "a" * 64},
+    }
+    with pytest.raises(ValidationError, match="independent technical acceptance"):
+        CandidateReview.model_validate(review)
+    review["purpose"] = "TEST_ONLY"
+    assert CandidateReview.model_validate(review).technical_acceptance is None
 
 
 def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(

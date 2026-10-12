@@ -1,0 +1,12 @@
+{
+  "run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38194229738",
+  "source_head": "583505bb1ec3ab8926eaad33c5b21e05eaa34a3a",
+  "conclusion": "FAIL",
+  "repository_gate": "11/11 PASS, including live browser and PostgreSQL/RLS",
+  "image_vulnerability_scans": "12/12 PASS",
+  "image_sboms": "12/12 PASS",
+  "derivative_mechanics_job": "PASS",
+  "failed_step": "SAST and source secret gate",
+  "root_cause": "Bandit 1.9.4 reported B404/B603/B607 on the new MLX training process launches and B615 on the local tokenizer load. The hosted source-secret command was not reached; the separate local secret gate had zero unreviewed findings.",
+  "status": "RETAINED_FAILED_ATTEMPT_NOT_RELEASE_EVIDENCE"
+}

@@ -323,6 +323,9 @@ def train(config_file: Path, output: Path) -> dict:
         # Recheck input integrity immediately before creating any output.
         load_candidate(admitted, smoke=False)
         read_dataset(dataset_file, "writer", smoke=False)
+        if config.resume_adapter is not None and config.resume_intent is not None:
+            config.resume_adapter.verify(config_file.parent)
+            config.resume_intent.verify(config_file.parent)
         output.mkdir(mode=0o700, exist_ok=False)
         intent = {
             "schema_version": 1,
@@ -373,6 +376,9 @@ def train(config_file: Path, output: Path) -> dict:
         raise PolicyError("mlx_training_did_not_change_resumed_adapter")
     load_candidate(admitted, smoke=False)
     read_dataset(dataset_file, "writer", smoke=False)
+    if config.resume_adapter is not None and config.resume_intent is not None:
+        config.resume_adapter.verify(config_file.parent)
+        config.resume_intent.verify(config_file.parent)
     if digest(config_file) != intent["config_sha256"]:
         raise PolicyError("mlx_config_changed_during_training")
     training = {
@@ -396,7 +402,9 @@ def train(config_file: Path, output: Path) -> dict:
             Path(__file__).with_name("mlx_token_preflight.py")
         ),
         "hardware_preflight": hardware,
-        "iterations_executed": config.iterations,
+        "iterations_configured": config.iterations,
+        "optimizer_steps_configured": config.iterations // config.gradient_accumulation,
+        "trainer_process_exit": 0,
         "quality_evaluation": "NOT_RUN",
         "human_review": "NOT_FOUND",
         "owner_base_reviewer": review.reviewer,

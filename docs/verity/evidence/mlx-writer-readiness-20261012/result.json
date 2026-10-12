@@ -21,6 +21,7 @@
     "mypy_1_11_0": "PASS for two new modules",
     "real_controlled_qwen_tokenizer_preflight": "Valid synthetic date-preservation prompt accepted; overlength synthetic prompt rejected; no model training",
     "real_mlx_lm_config_parse": "Installed mlx-lm 0.32.0 parsed generated JSON as YAML, recognized all 24 keys in CONFIG_DEFAULTS, and accepted the CLI -c flag without model loading or training",
+    "tokenization_source_review": "Installed mlx_lm.tuner.datasets.CompletionsDataset.process constructs the same user/assistant chat-template tokens and masked-prefix offset as mlx_token_preflight.py; no training invoked",
     "mac_preflight": {
       "machine": "Darwin/arm64",
       "physical_memory_bytes": 17179869184,

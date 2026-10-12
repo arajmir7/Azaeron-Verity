@@ -16,5 +16,6 @@
   "training_authorized": false,
   "production_registry_promotion_authorized": false,
   "human_technical_acceptance": "PENDING",
-  "next_action": "Obtain the actual controlled-process confirmation reference and independently review the technical evidence before attempting exact-base admission. Dataset and release decisions remain separate."
+  "confirmation_process": "Project owner personally posts the exact comment emitted by scripts/verity_owner_confirmation.py --instructions on GitHub PR #2; the read-only verifier checks the repository-owner GitHub account ID, PR, unedited exact body and packet/candidate hashes before issuing a reference.",
+  "next_action": "Obtain and verify the owner's PR comment, then independently review the technical evidence before attempting exact-base admission. Dataset and release decisions remain separate."
 }

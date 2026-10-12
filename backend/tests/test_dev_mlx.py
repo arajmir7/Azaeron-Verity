@@ -318,6 +318,69 @@ async def test_dev_stream_cancellation_releases_slot_and_recovers():
     assert result.output == "Public"
 
 
+@pytest.mark.asyncio
+@pytest.mark.parametrize("stream", [False, True])
+async def test_dev_runtime_response_limit_stops_reading_oversized_body(stream):
+    class Oversized(httpx.AsyncByteStream):
+        chunks_read = 0
+
+        async def __aiter__(self):
+            for _ in range(1000):
+                self.chunks_read += 1
+                yield b"x" * 8192
+
+    oversized = Oversized()
+
+    async def handle(request):
+        if request.url.path == "/v1/models":
+            return httpx.Response(200, json={"data": [{"id": MODEL_ID}]})
+        return httpx.Response(200, stream=oversized)
+
+    private = DevMlxGateway(
+        "http://127.0.0.1:8080", transport=httpx.MockTransport(handle)
+    )
+
+    async def delta(_text):
+        raise AssertionError("An oversized malformed frame must not be released")
+
+    with pytest.raises(InferenceUnavailable, match="dev_output_too_large"):
+        await private.run(job(), on_delta=delta if stream else None)
+    assert oversized.chunks_read == 33
+
+
+@pytest.mark.asyncio
+async def test_dev_model_identity_response_is_bounded_before_generation():
+    completion_requests = 0
+
+    class Oversized(httpx.AsyncByteStream):
+        chunks_read = 0
+
+        async def __aiter__(self):
+            for _ in range(1000):
+                self.chunks_read += 1
+                yield b"x" * 8192
+
+    responses = []
+
+    async def handle(request):
+        nonlocal completion_requests
+        if request.url.path == "/v1/models":
+            oversized = Oversized()
+            responses.append(oversized)
+            return httpx.Response(200, stream=oversized)
+        completion_requests += 1
+        raise AssertionError("Generation must not start without bounded identity")
+
+    private = DevMlxGateway(
+        "http://127.0.0.1:8080", transport=httpx.MockTransport(handle)
+    )
+    assert await private.health() == {"status": "UNAVAILABLE"}
+    with pytest.raises(InferenceUnavailable, match="dev_output_too_large"):
+        await private.run(job())
+    assert [response.chunks_read for response in responses] == [33, 33]
+    assert completion_requests == 0
+
+
 def test_dev_transport_cannot_enable_in_production_or_use_remote_host():
     with pytest.raises(ValidationError, match="DEV_MLX requires development"):
         Settings(_env_file=None, ENVIRONMENT="production", DEV_MLX_ENABLED=True)
@@ -414,6 +477,116 @@ async def test_dev_public_chat_stream_and_humanize_remain_unverified(
     assert "private" not in response.text
     assert "Public" in response.text
     assert '"accepted": false' in response.text
+
+
+@pytest.mark.asyncio
+async def test_dev_public_boundary_rejects_malformed_input_before_local_runtime(
+    client, monkeypatch
+):
+    captured = []
+    private = DevMlxGateway(
+        "http://127.0.0.1:8080", transport=local_transport(capture=captured)
+    )
+    monkeypatch.setattr("app.api.v1.model_platform.gateway", lambda: private)
+    auth, _ = await owner(client)
+    operation = str(uuid4())
+    malformed = [
+        {},
+        {"operation_id": operation, "messages": [{"role": "user", "content": "x"}]},
+        {"operation_id": operation, "text": ["not a string"]},
+        {"operation_id": operation, "text": "hello", "messages": []},
+        {"operation_id": operation, "text": "hello", "max_output_tokens": 4097},
+        {"operation_id": operation, "text": "x" * 60_001},
+    ]
+    for route in ("/api/v1/ai/chat", "/api/v1/ai/chat/stream"):
+        for body in malformed:
+            response = await client.post(route, headers=auth, json=body)
+            assert response.status_code == 422, (route, response.text)
+    assert captured == []
+
+    valid = await client.post(
+        "/api/v1/ai/chat",
+        headers=auth,
+        json={"operation_id": str(uuid4()), "text": "Say hello."},
+    )
+    assert valid.status_code == 200, valid.text
+    assert [message["role"] for message in captured[0]["messages"]] == [
+        "system",
+        "user",
+    ]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("stream", [False, True])
+async def test_dev_public_boundary_sanitizes_disconnect_and_recovers(
+    client, monkeypatch, stream
+):
+    fallback = local_transport(stream=stream)
+    calls = 0
+
+    async def handle(request):
+        nonlocal calls
+        if request.url.path == "/v1/chat/completions":
+            calls += 1
+            if calls == 1:
+                raise httpx.RemoteProtocolError("private runtime traceback and token")
+        return await fallback.handle_async_request(request)
+
+    private = DevMlxGateway(
+        "http://127.0.0.1:8080", transport=httpx.MockTransport(handle)
+    )
+    monkeypatch.setattr("app.api.v1.model_platform.gateway", lambda: private)
+    auth, _ = await owner(client)
+    route = "/api/v1/ai/chat/stream" if stream else "/api/v1/ai/chat"
+    first = await client.post(
+        route,
+        headers=auth,
+        json={"operation_id": str(uuid4()), "text": "Say hello."},
+    )
+    if stream:
+        assert first.status_code == 200
+        assert "event: error" in first.text
+        assert '"provisional_output_rejected": true' in first.text
+        assert "event: completed" not in first.text
+    else:
+        assert first.status_code == 503
+        assert first.json()["detail"]["code"] == "dev_runtime_unavailable"
+    assert "traceback" not in first.text and "token" not in first.text
+
+    recovered = await client.post(
+        route,
+        headers=auth,
+        json={"operation_id": str(uuid4()), "text": "Say hello."},
+    )
+    assert recovered.status_code == 200, recovered.text
+    assert (
+        "event: completed" in recovered.text
+        if stream
+        else recovered.json()["result"]["output"] == "Public"
+    )
+    assert calls == 2
+
+
+@pytest.mark.asyncio
+async def test_dev_humanize_rejects_changed_protected_quotation(client, monkeypatch):
+    original = 'Mira said, "Keep the blue folder." Please improve the prose.'
+    changed = 'Mira said, "Keep the green folder." Please improve the prose.'
+    private = DevMlxGateway(
+        "http://127.0.0.1:8080", transport=local_transport(content=changed)
+    )
+    monkeypatch.setattr("app.api.v1.text.gateway", lambda: private)
+    auth, _ = await owner(client)
+    response = await client.post(
+        "/api/v1/humanize",
+        headers=auth,
+        json={"operation_id": str(uuid4()), "text": original},
+    )
+    assert response.status_code == 200, response.text
+    assert response.json()["candidate"]["output"] == changed
+    assert response.json()["verification"]["outcome"] == "REJECTED"
+    assert "protected_quotation_changed" in response.json()["verification"]["reasons"]
+    assert response.json()["verification"]["semantic_checked"] is False
+    assert response.json()["accepted"] is False
 
 
 @pytest.mark.asyncio

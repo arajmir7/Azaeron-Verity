@@ -1,0 +1,11 @@
+test_current_packet_is_exactly_bound (test_verity_owner_confirmation.OwnerConfirmationTests) ... ok
+test_exact_owner_comment_produces_reference (test_verity_owner_confirmation.OwnerConfirmationTests) ... ok
+test_current_trace_and_migrations (test_verity_spec_gate.SpecGateTests) ... ok
+test_rls_or_column_drift_is_rejected (test_verity_spec_gate.SpecGateTests) ... ok
+test_route_contract_drift_is_rejected (test_verity_spec_gate.SpecGateTests) ... ok
+test_trace_file_absence_fails_closed (test_verity_spec_gate.SpecGateTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.063s
+
+OK

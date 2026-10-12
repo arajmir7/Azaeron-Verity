@@ -7,7 +7,7 @@ import hashlib
 import json
 import re
 import time
-from collections.abc import Awaitable, Callable
+from collections.abc import AsyncIterator, Awaitable, Callable
 from urllib.parse import urlsplit
 
 import httpx
@@ -58,6 +58,37 @@ _YEAR_MONTH_DAY = re.compile(
 )
 _QUANTITY = re.compile(r"(?<![\w])\d+(?:[.,]\d+)*(?:\s*%)?(?![\w])")
 _OFFSET = re.compile(r"\[source offsets \d+:\d+\]")
+_MAX_RUNTIME_RESPONSE_BYTES = 262_144
+
+
+async def _bounded_body(response: httpx.Response) -> bytes:
+    """Stop reading a malformed local response once its wire body exceeds the cap."""
+    chunks = []
+    size = 0
+    async for chunk in response.aiter_bytes(chunk_size=8192):
+        size += len(chunk)
+        if size > _MAX_RUNTIME_RESPONSE_BYTES:
+            raise InferenceUnavailable("dev_output_too_large")
+        chunks.append(chunk)
+    return b"".join(chunks)
+
+
+async def _bounded_lines(response: httpx.Response) -> AsyncIterator[str]:
+    """Frame MLX SSE without buffering an unbounded line from a faulty runtime."""
+    pending = b""
+    size = 0
+    # Do not request a fixed chunk size: a short SSE frame must be emitted
+    # immediately, including when the producer remains open awaiting cancellation.
+    async for chunk in response.aiter_bytes():
+        size += len(chunk)
+        if size > _MAX_RUNTIME_RESPONSE_BYTES:
+            raise InferenceUnavailable("dev_output_too_large")
+        pending += chunk
+        while b"\n" in pending:
+            line, pending = pending.split(b"\n", 1)
+            yield line.rstrip(b"\r").decode("utf-8")
+    if pending:
+        yield pending.decode("utf-8")
 
 
 def _omit_document_commands(prompt: str) -> tuple[str, int]:
@@ -239,11 +270,13 @@ class DevMlxGateway:
                 timeout=2,
                 transport=self.transport,
             ) as client:
-                response = await client.get(self.endpoint + "/v1/models")
-                if response.status_code == 200 and self._identity_present(
-                    response.json()
-                ):
-                    return {"status": "AVAILABLE"}
+                async with client.stream(
+                    "GET", self.endpoint + "/v1/models"
+                ) as response:
+                    if response.status_code == 200 and self._identity_present(
+                        json.loads(await _bounded_body(response))
+                    ):
+                        return {"status": "AVAILABLE"}
         except (InferenceUnavailable, httpx.HTTPError, ValueError, TypeError):
             pass
         return {"status": "UNAVAILABLE"}
@@ -341,10 +374,15 @@ class DevMlxGateway:
 
                             await resolve_private("host.docker.internal", self.port)
                         # Identity is checked on each call; a substituted local server fails closed.
-                        models = await client.get(self.endpoint + "/v1/models")
-                        models.raise_for_status()
-                        if not self._identity_present(models.json()):
-                            raise InferenceUnavailable("dev_model_identity_mismatch")
+                        async with client.stream(
+                            "GET", self.endpoint + "/v1/models"
+                        ) as models:
+                            models.raise_for_status()
+                            identity = json.loads(await _bounded_body(models))
+                            if not self._identity_present(identity):
+                                raise InferenceUnavailable(
+                                    "dev_model_identity_mismatch"
+                                )
                         async with client.stream(
                             "POST",
                             self.endpoint + "/v1/chat/completions",
@@ -354,9 +392,7 @@ class DevMlxGateway:
                             if response.status_code != 200:
                                 raise InferenceUnavailable("dev_runtime_failed")
                             if on_delta is None:
-                                raw = await response.aread()
-                                if len(raw) > 262_144:
-                                    raise InferenceUnavailable("dev_output_too_large")
+                                raw = await _bounded_body(response)
                                 body = json.loads(raw)
                                 if (
                                     body.get("model") != self.model_id
@@ -430,16 +466,12 @@ class DevMlxGateway:
             raise InferenceUnavailable("dev_runtime_invalid_output") from None
 
     async def _stream(self, response, on_delta):
-        total = 0
         output = ""
         usage = None
         finish = None
         done = False
         visible = _Visible()
-        async for line in response.aiter_lines():
-            total += len(line.encode())
-            if total > 262_144:
-                raise InferenceUnavailable("dev_output_too_large")
+        async for line in _bounded_lines(response):
             if not line or line.startswith(":"):
                 continue
             if not line.startswith("data: ") or done:

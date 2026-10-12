@@ -146,6 +146,7 @@ def verify_bundle(candidate: Candidate, root: Path):
                 "I32": 4,
                 "I16": 2,
                 "I8": 1,
+                "U32": 4,  # MLX 4-bit packs quantized weights into unsigned words.
                 "U8": 1,
                 "BOOL": 1,
             }

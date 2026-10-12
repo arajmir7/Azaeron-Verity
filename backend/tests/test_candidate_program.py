@@ -148,6 +148,27 @@ def test_hash_bound_chat_template_is_tokenizer_lineage_only(tmp_path):
         Candidate.model_validate(manifest)
 
 
+def test_hash_bound_quantized_u32_weight_layout(tmp_path):
+    root = tmp_path / "source"
+    fixture = candidate_fixture(root)
+    weight = root / "model.safetensors"
+    header = canonical(
+        {"weight": {"dtype": "U32", "shape": [1], "data_offsets": [0, 4]}}
+    )
+    weight.write_bytes(len(header).to_bytes(8, "little") + header + b"\x01\x00\x00\x00")
+    manifest = fixture.model_dump()
+    manifest["artifacts"][weight.name] = digest(weight)
+    verify_bundle(Candidate.model_validate(manifest), root)
+
+    broken = canonical(
+        {"weight": {"dtype": "U32", "shape": [1], "data_offsets": [0, 3]}}
+    )
+    weight.write_bytes(len(broken).to_bytes(8, "little") + broken + b"\x01\x00\x00")
+    manifest["artifacts"][weight.name] = digest(weight)
+    with pytest.raises(PolicyError, match="invalid_safetensors_shape"):
+        verify_bundle(Candidate.model_validate(manifest), root)
+
+
 def test_floating_revision_and_fake_review_rejected(tmp_path):
     candidate = candidate_fixture(tmp_path / "source")
     with pytest.raises(ValidationError):

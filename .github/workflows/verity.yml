@@ -185,6 +185,7 @@ jobs:
       - name: Verify specification, API, schema and migration contracts
         run: |
           python -m unittest discover -s scripts/tests -p 'test_verity_spec_gate.py'
+          python -m unittest discover -s scripts/tests -p 'test_verity_owner_confirmation.py'
           curl --fail --silent --show-error http://localhost:9700/api/openapi.json -o /tmp/verity-ci-openapi.json
           docker compose -f /tmp/verity-ci.json exec -T postgres psql -U azaeron -d azaeron -X -q -t -A -f - < scripts/verity_schema_catalog.sql > /tmp/verity-ci-schema.json
           python scripts/verity_spec_gate.py --openapi /tmp/verity-ci-openapi.json --schema /tmp/verity-ci-schema.json | tee /tmp/verity-ci-spec-gate.json

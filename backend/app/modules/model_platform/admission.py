@@ -14,7 +14,7 @@ from pathlib import Path
 import shutil
 from typing import Literal
 
-from pydantic import Field, model_validator
+from pydantic import Field, StrictBool, model_validator
 
 from .owner_decision import (
     CONFIRMATION_PR,
@@ -152,6 +152,111 @@ class TechnicalAcceptance(StrictModel):
         return self
 
 
+class TechnicalProtocol(StrictModel):
+    """Declared limits for a bounded comparison on the exact base candidate."""
+
+    candidate_sha256: Digest
+    baseline_id: str = Field(min_length=3)
+    score_definition: str = Field(min_length=20)
+    task_cases_min: int = Field(ge=32, le=4096)
+    mean_score_drop_max: float = Field(ge=0, le=0.1, allow_inf_nan=False)
+    stopping_cases_min: int = Field(ge=8, le=4096)
+    stopping_violations_max: Literal[0]
+    reasoning_leaks_max: Literal[0]
+    peak_memory_gib_max: float = Field(gt=0, le=256, allow_inf_nan=False)
+    context_tokens_min: int = Field(ge=64)
+
+
+class TechnicalTaskCase(StrictModel):
+    id: str = Field(min_length=1)
+    prompt_sha256: Digest
+    baseline_response_sha256: Digest
+    candidate_response_sha256: Digest
+    baseline_score: float = Field(ge=0, le=1, allow_inf_nan=False)
+    candidate_score: float = Field(ge=0, le=1, allow_inf_nan=False)
+
+
+class TechnicalStoppingCase(StrictModel):
+    id: str = Field(min_length=1)
+    prompt_sha256: Digest
+    response_sha256: Digest
+    finish_reason: Literal["stop", "eos", "length", "error"]
+    reasoning_visible: StrictBool
+
+
+class TechnicalResourceCase(StrictModel):
+    id: str = Field(min_length=1)
+    input_tokens: int = Field(gt=0)
+    peak_memory_gib: float = Field(ge=0, allow_inf_nan=False)
+    success: StrictBool
+
+
+class TechnicalRawResults(StrictModel):
+    candidate_sha256: Digest
+    protocol_sha256: Digest
+    baseline_id: str = Field(min_length=3)
+    upstream_revision: str = Field(pattern=r"^[a-f0-9]{40,64}$")
+    artifact_hashes: dict[str, Digest] = Field(min_length=4)
+    source_checkpoint_verified: Literal[True]
+    tokenizer_verified: Literal[True]
+    runtime_conversion_verified: Literal[True]
+    tasks: list[TechnicalTaskCase] = Field(min_length=32, max_length=4096)
+    stopping: list[TechnicalStoppingCase] = Field(min_length=8, max_length=4096)
+    resources: list[TechnicalResourceCase] = Field(min_length=1, max_length=256)
+
+    @model_validator(mode="after")
+    def unique_case_ids(self):
+        ids = [
+            case.id
+            for cases in (self.tasks, self.stopping, self.resources)
+            for case in cases
+        ]
+        if len(ids) != len(set(ids)):
+            raise ValueError("Technical case IDs must be unique")
+        return self
+
+
+class TechnicalExecution(StrictModel):
+    candidate_sha256: Digest
+    protocol_sha256: Digest
+    raw_results: FileRef
+    task_cases: int = Field(ge=32)
+    stopping_cases: int = Field(ge=8)
+    baseline_mean_score: float = Field(ge=0, le=1, allow_inf_nan=False)
+    candidate_mean_score: float = Field(ge=0, le=1, allow_inf_nan=False)
+    stopping_violations: int = Field(ge=0)
+    reasoning_leaks: int = Field(ge=0)
+    peak_memory_gib: float = Field(ge=0, allow_inf_nan=False)
+    tested_context_tokens: int = Field(gt=0)
+
+    @model_validator(mode="after")
+    def raw_results_location(self):
+        if self.raw_results.path != "technical-raw-results.json":
+            raise ValueError("Raw technical results must be adjacent")
+        return self
+
+
+class TechnicalEvidence(StrictModel):
+    """Human-reviewed scope and hashes for protocol and executed results."""
+
+    candidate_sha256: Digest
+    status: Literal["PASS"]
+    protocol: FileRef
+    execution: FileRef
+    known_limitations: list[str] = Field(min_length=1)
+    reviewer_rationale: str = Field(min_length=40)
+
+    @model_validator(mode="after")
+    def adjacent_evidence(self):
+        if (
+            self.protocol.path != "technical-protocol.json"
+            or self.execution.path != "technical-execution.json"
+            or any(not item.strip() for item in self.known_limitations)
+        ):
+            raise ValueError("Technical report needs adjacent evidence and limitations")
+        return self
+
+
 def _technical_confirmation_body(candidate_sha256: str, evidence_sha256: str) -> str:
     return "\n".join(
         [
@@ -164,13 +269,24 @@ def _technical_confirmation_body(candidate_sha256: str, evidence_sha256: str) ->
     )
 
 
+def _bounded_reference(root: Path, ref: FileRef, limit: int) -> Path:
+    path = local_file(root, ref.path)
+    try:
+        size = path.stat().st_size
+    except OSError as exc:
+        raise PolicyError("technical_evidence_missing") from exc
+    if size > limit:
+        raise PolicyError("technical_evidence_too_large")
+    return ref.verify(root)
+
+
 def require_technical_acceptance(
-    root: Path, review: CandidateReview, candidate_sha256: str
-) -> tuple[Path, Path]:
+    root: Path, review: CandidateReview, candidate: Candidate, candidate_sha256: str
+) -> tuple[Path, ...]:
     """Refetch the non-owner reviewer decision; a local PASS is insufficient."""
     if review.technical_acceptance is None:
         raise PolicyError("independent_technical_acceptance_required")
-    acceptance_path = review.technical_acceptance.verify(root)
+    acceptance_path = _bounded_reference(root, review.technical_acceptance, 64 * 1024)
     acceptance = TechnicalAcceptance.model_validate_json(acceptance_path.read_bytes())
     if (
         acceptance.candidate_sha256 != candidate_sha256
@@ -178,19 +294,61 @@ def require_technical_acceptance(
         or acceptance.reviewer_github_login.casefold() == OWNER_GITHUB_LOGIN.casefold()
     ):
         raise PolicyError("technical_acceptance_subject_or_independence_mismatch")
-    evidence_path = acceptance.evidence.verify(root)
-    if evidence_path.stat().st_size > 1024 * 1024:
-        raise PolicyError("technical_evidence_too_large")
-    try:
-        evidence = json.loads(evidence_path.read_bytes())
-    except (UnicodeError, ValueError) as exc:
-        raise PolicyError("technical_evidence_invalid") from exc
-    if (
-        not isinstance(evidence, dict)
-        or evidence.get("candidate_sha256") != candidate_sha256
-        or evidence.get("status") != "PASS"
-    ):
+    evidence_path = _bounded_reference(root, acceptance.evidence, 64 * 1024)
+    evidence = TechnicalEvidence.model_validate_json(evidence_path.read_bytes())
+    if evidence.candidate_sha256 != candidate_sha256:
         raise PolicyError("technical_evidence_subject_or_status_mismatch")
+    protocol_path = _bounded_reference(root, evidence.protocol, 64 * 1024)
+    protocol = TechnicalProtocol.model_validate_json(protocol_path.read_bytes())
+    execution_path = _bounded_reference(root, evidence.execution, 64 * 1024)
+    execution = TechnicalExecution.model_validate_json(execution_path.read_bytes())
+    raw_path = _bounded_reference(root, execution.raw_results, 4 * 1024 * 1024)
+    raw = TechnicalRawResults.model_validate_json(raw_path.read_bytes())
+    if (
+        protocol.candidate_sha256 != candidate_sha256
+        or execution.candidate_sha256 != candidate_sha256
+        or raw.candidate_sha256 != candidate_sha256
+        or execution.protocol_sha256 != evidence.protocol.sha256
+        or raw.protocol_sha256 != evidence.protocol.sha256
+        or raw.baseline_id != protocol.baseline_id
+        or raw.upstream_revision != candidate.revision
+        or raw.artifact_hashes != candidate.artifacts
+        or protocol.context_tokens_min > candidate.context
+    ):
+        raise PolicyError("technical_evidence_lineage_mismatch")
+    baseline_mean = sum(case.baseline_score for case in raw.tasks) / len(raw.tasks)
+    candidate_mean = sum(case.candidate_score for case in raw.tasks) / len(raw.tasks)
+    stopping_violations = sum(
+        case.finish_reason not in {"stop", "eos"} for case in raw.stopping
+    )
+    reasoning_leaks = sum(case.reasoning_visible for case in raw.stopping)
+    peak_memory = max(case.peak_memory_gib for case in raw.resources)
+    tested_context = max(case.input_tokens for case in raw.resources)
+    if (
+        execution.task_cases != len(raw.tasks)
+        or execution.stopping_cases != len(raw.stopping)
+        or not math.isclose(execution.baseline_mean_score, baseline_mean, abs_tol=1e-6)
+        or not math.isclose(
+            execution.candidate_mean_score, candidate_mean, abs_tol=1e-6
+        )
+        or execution.stopping_violations != stopping_violations
+        or execution.reasoning_leaks != reasoning_leaks
+        or not math.isclose(execution.peak_memory_gib, peak_memory, abs_tol=1e-6)
+        or execution.tested_context_tokens != tested_context
+    ):
+        raise PolicyError("technical_execution_summary_mismatch")
+    if (
+        len(raw.tasks) < protocol.task_cases_min
+        or baseline_mean - candidate_mean > protocol.mean_score_drop_max
+        or len(raw.stopping) < protocol.stopping_cases_min
+        or stopping_violations > protocol.stopping_violations_max
+        or reasoning_leaks > protocol.reasoning_leaks_max
+        or any(not case.success for case in raw.resources)
+        or peak_memory > protocol.peak_memory_gib_max
+        or tested_context < protocol.context_tokens_min
+        or tested_context > candidate.context
+    ):
+        raise PolicyError("technical_protocol_threshold_failed")
     reference = CONFIRMATION_REFERENCE.fullmatch(acceptance.confirmation_reference)
     if reference is None:
         raise PolicyError("technical_confirmation_reference_invalid")
@@ -220,7 +378,7 @@ def require_technical_acceptance(
         or comment.get("updated_at") != comment.get("created_at")
     ):
         raise PolicyError("technical_confirmation_comment_mismatch")
-    return acceptance_path, evidence_path
+    return acceptance_path, evidence_path, protocol_path, execution_path, raw_path
 
 
 def inventory_hash(artifacts: dict[str, str]) -> str:
@@ -360,7 +518,7 @@ def load_candidate(admitted: Path, *, smoke=False):
         if review.reviewer != owner.approver_name:
             raise PolicyError("candidate_reviewer_is_not_project_owner")
         require_technical_acceptance(
-            admitted, review, digest(admitted / "candidate.json")
+            admitted, review, candidate, digest(admitted / "candidate.json")
         )
     verify_bundle(candidate, admitted / "bundle")
     return candidate, review
@@ -379,7 +537,7 @@ def admit(
         raise PolicyError("candidate_review_binding_failed")
     if (candidate.purpose == "TEST_ONLY") != smoke:
         raise PolicyError("candidate_purpose_mismatch")
-    technical_paths: tuple[Path, Path] | None = None
+    technical_paths: tuple[Path, ...] | None = None
     if not smoke:
         if review.owner_decision is None:
             raise PolicyError("owner_candidate_decision_required")
@@ -392,7 +550,7 @@ def admit(
         if review.reviewer != owner.approver_name:
             raise PolicyError("candidate_reviewer_is_not_project_owner")
         technical_paths = require_technical_acceptance(
-            review_file.parent, review, digest(manifest)
+            review_file.parent, review, candidate, digest(manifest)
         )
     verify_bundle(candidate, source)
     output = registry / candidate.candidate_id / digest(manifest)
@@ -409,8 +567,8 @@ def admit(
         )
         if technical_paths is None:
             raise PolicyError("independent_technical_acceptance_required")
-        shutil.copyfile(technical_paths[0], output / "technical-acceptance.json")
-        shutil.copyfile(technical_paths[1], output / "technical-evidence.json")
+        for technical_path in technical_paths:
+            shutil.copyfile(technical_path, output / technical_path.name)
     (output / "admission.json").write_bytes(
         canonical(
             {

@@ -3,7 +3,6 @@
 import hashlib
 import json
 from pathlib import Path
-import runpy
 
 import pytest
 from pydantic import ValidationError
@@ -11,6 +10,7 @@ from pydantic import ValidationError
 from app.modules.model_platform.admission import (
     Candidate,
     CandidateReview,
+    TechnicalEvidence,
     admit,
     load_candidate,
     require_technical_acceptance,
@@ -84,6 +84,173 @@ def candidate_fixture(root):
         languages=["fixture"],
         runtime_compatibility=["fixture"],
     )
+
+
+def technical_fixture(root, candidate, candidate_sha256):
+    protocol_file = root / "technical-protocol.json"
+    protocol_file.write_bytes(
+        canonical(
+            {
+                "candidate_sha256": candidate_sha256,
+                "baseline_id": "fixture-bf16",
+                "score_definition": "Exact fixture task score from 0 to 1",
+                "task_cases_min": 32,
+                "mean_score_drop_max": 0.05,
+                "stopping_cases_min": 8,
+                "stopping_violations_max": 0,
+                "reasoning_leaks_max": 0,
+                "peak_memory_gib_max": 2.0,
+                "context_tokens_min": 64,
+            }
+        )
+    )
+    raw_file = root / "technical-raw-results.json"
+    raw_file.write_bytes(
+        canonical(
+            {
+                "candidate_sha256": candidate_sha256,
+                "protocol_sha256": digest(protocol_file),
+                "baseline_id": "fixture-bf16",
+                "upstream_revision": candidate.revision,
+                "artifact_hashes": candidate.artifacts,
+                "source_checkpoint_verified": True,
+                "tokenizer_verified": True,
+                "runtime_conversion_verified": True,
+                "tasks": [
+                    {
+                        "id": f"task-{i}",
+                        "prompt_sha256": hashlib.sha256(
+                            f"prompt-{i}".encode()
+                        ).hexdigest(),
+                        "baseline_response_sha256": hashlib.sha256(
+                            f"baseline-{i}".encode()
+                        ).hexdigest(),
+                        "candidate_response_sha256": hashlib.sha256(
+                            f"candidate-{i}".encode()
+                        ).hexdigest(),
+                        "baseline_score": 1.0,
+                        "candidate_score": 1.0,
+                    }
+                    for i in range(32)
+                ],
+                "stopping": [
+                    {
+                        "id": f"stop-{i}",
+                        "prompt_sha256": hashlib.sha256(
+                            f"stop-{i}".encode()
+                        ).hexdigest(),
+                        "response_sha256": hashlib.sha256(
+                            f"response-{i}".encode()
+                        ).hexdigest(),
+                        "finish_reason": "stop",
+                        "reasoning_visible": False,
+                    }
+                    for i in range(8)
+                ],
+                "resources": [
+                    {
+                        "id": "resource-1",
+                        "input_tokens": 64,
+                        "peak_memory_gib": 1.0,
+                        "success": True,
+                    }
+                ],
+            }
+        )
+    )
+    execution_file = root / "technical-execution.json"
+    execution_file.write_bytes(
+        canonical(
+            {
+                "candidate_sha256": candidate_sha256,
+                "protocol_sha256": digest(protocol_file),
+                "raw_results": {"path": raw_file.name, "sha256": digest(raw_file)},
+                "task_cases": 32,
+                "stopping_cases": 8,
+                "baseline_mean_score": 1.0,
+                "candidate_mean_score": 1.0,
+                "stopping_violations": 0,
+                "reasoning_leaks": 0,
+                "peak_memory_gib": 1.0,
+                "tested_context_tokens": 64,
+            }
+        )
+    )
+    evidence_file = root / "technical-evidence.json"
+    evidence_file.write_bytes(
+        canonical(
+            {
+                "candidate_sha256": candidate_sha256,
+                "status": "PASS",
+                "protocol": {
+                    "path": protocol_file.name,
+                    "sha256": digest(protocol_file),
+                },
+                "execution": {
+                    "path": execution_file.name,
+                    "sha256": digest(execution_file),
+                },
+                "known_limitations": [
+                    "Synthetic test fixture; not a product quality claim"
+                ],
+                "reviewer_rationale": "Fixture-only independent review of all declared technical checks.",
+            }
+        )
+    )
+    body = base_admission._technical_confirmation_body(
+        candidate_sha256, digest(evidence_file)
+    )
+    acceptance_file = root / "technical-acceptance.json"
+    acceptance_file.write_bytes(
+        canonical(
+            {
+                "candidate_sha256": candidate_sha256,
+                "evidence": {
+                    "path": evidence_file.name,
+                    "sha256": digest(evidence_file),
+                },
+                "reviewer_github_login": "independent-fixture",
+                "reviewer_github_id": 123456,
+                "decision": "PASS",
+                "confirmation_reference": "github-issue-comment:123:sha256:"
+                + hashlib.sha256(body.encode()).hexdigest(),
+            }
+        )
+    )
+    return {
+        "protocol": protocol_file,
+        "raw": raw_file,
+        "execution": execution_file,
+        "evidence": evidence_file,
+        "acceptance": acceptance_file,
+        "body": body,
+    }
+
+
+def rebind_technical_fixture(files, candidate_sha256):
+    raw = json.loads(files["raw"].read_bytes())
+    raw["protocol_sha256"] = digest(files["protocol"])
+    files["raw"].write_bytes(canonical(raw))
+    execution = json.loads(files["execution"].read_bytes())
+    execution["protocol_sha256"] = digest(files["protocol"])
+    execution["raw_results"]["sha256"] = digest(files["raw"])
+    files["execution"].write_bytes(canonical(execution))
+    evidence = json.loads(files["evidence"].read_bytes())
+    if "protocol" in evidence:
+        evidence["protocol"]["sha256"] = digest(files["protocol"])
+    if "execution" in evidence:
+        evidence["execution"]["sha256"] = digest(files["execution"])
+    files["evidence"].write_bytes(canonical(evidence))
+    acceptance = json.loads(files["acceptance"].read_bytes())
+    acceptance["evidence"]["sha256"] = digest(files["evidence"])
+    body = base_admission._technical_confirmation_body(
+        candidate_sha256, digest(files["evidence"])
+    )
+    acceptance["confirmation_reference"] = (
+        "github-issue-comment:123:sha256:" + hashlib.sha256(body.encode()).hexdigest()
+    )
+    files["acceptance"].write_bytes(canonical(acceptance))
+    files["body"] = body
 
 
 @pytest.mark.parametrize("mutation", ["tamper", "extra", "remote", "symlink", "header"])
@@ -298,30 +465,9 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path, monkeypa
     owner_file = tmp_path / "owner-decision.json"
     owner_file.write_bytes(canonical(decision))
     pending_hash = digest(owner_file)
-    technical_evidence = tmp_path / "technical-evidence.json"
-    technical_evidence.write_bytes(
-        canonical({"candidate_sha256": digest(manifest), "status": "PASS"})
-    )
-    technical_body = base_admission._technical_confirmation_body(
-        digest(manifest), digest(technical_evidence)
-    )
-    technical_file = tmp_path / "technical-acceptance.json"
-    technical_file.write_bytes(
-        canonical(
-            {
-                "candidate_sha256": digest(manifest),
-                "evidence": {
-                    "path": technical_evidence.name,
-                    "sha256": digest(technical_evidence),
-                },
-                "reviewer_github_login": "independent-fixture",
-                "reviewer_github_id": 123456,
-                "decision": "PASS",
-                "confirmation_reference": "github-issue-comment:123:sha256:"
-                + hashlib.sha256(technical_body.encode()).hexdigest(),
-            }
-        )
-    )
+    technical_files = technical_fixture(tmp_path, candidate, digest(manifest))
+    technical_body = technical_files["body"]
+    technical_file = technical_files["acceptance"]
     review = {
         "subject_sha256": digest(manifest),
         "purpose": "PRODUCTION",
@@ -386,8 +532,9 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path, monkeypa
     )
     admitted = admit(manifest, review_file, source, tmp_path / "registry")
     assert load_candidate(admitted)[0].purpose == "PRODUCTION"
-    assert digest(admitted / "technical-evidence.json") == digest(technical_evidence)
-    assert digest(admitted / "technical-acceptance.json") == digest(technical_file)
+    for name in ("evidence", "acceptance", "protocol", "execution", "raw"):
+        file = technical_files[name]
+        assert digest(admitted / file.name) == digest(file)
     assert (
         json.loads((admitted / "admission.json").read_bytes())["status"]
         == "EXPERIMENTAL"
@@ -408,7 +555,18 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path, monkeypa
         ("wrong_candidate", "technical_acceptance_subject_or_independence_mismatch"),
         ("owner", "technical_acceptance_subject_or_independence_mismatch"),
         ("tampered_evidence", "artifact_hash_mismatch"),
-        ("blocked_evidence", "technical_evidence_subject_or_status_mismatch"),
+        ("tampered_protocol", "artifact_hash_mismatch"),
+        ("missing_execution", "technical_evidence_missing"),
+        ("oversized_raw", "technical_evidence_too_large"),
+        ("unbound_protocol", "technical_evidence_lineage_mismatch"),
+        ("unbound_artifact", "technical_evidence_lineage_mismatch"),
+        ("failed_raw_stopping", "technical_protocol_threshold_failed"),
+        ("failed_task_quality", "technical_protocol_threshold_failed"),
+        ("vacuous_threshold", "less than or equal to 0.1"),
+        ("duplicate_case", "Technical case IDs must be unique"),
+        ("mismatched_summary", "technical_execution_summary_mismatch"),
+        ("content_free_evidence", "Field required"),
+        ("content_free_raw", "Field required"),
         ("wrong_pr", "technical_confirmation_comment_mismatch"),
         ("wrong_author", "technical_confirmation_comment_mismatch"),
         ("bot", "technical_confirmation_comment_mismatch"),
@@ -421,50 +579,104 @@ def test_independent_technical_acceptance_requires_authenticated_exact_evidence(
     tmp_path, monkeypatch, mutation, reason
 ):
     candidate_sha256 = "a" * 64
-    evidence_file = tmp_path / "technical-evidence.json"
-    evidence_file.write_bytes(
-        canonical({"candidate_sha256": candidate_sha256, "status": "PASS"})
-    )
-    body = base_admission._technical_confirmation_body(
-        candidate_sha256, digest(evidence_file)
-    )
-    acceptance = {
-        "candidate_sha256": candidate_sha256,
-        "evidence": {"path": evidence_file.name, "sha256": digest(evidence_file)},
-        "reviewer_github_login": "independent-fixture",
-        "reviewer_github_id": 123456,
-        "decision": "PASS",
-        "confirmation_reference": "github-issue-comment:123:sha256:"
-        + hashlib.sha256(body.encode()).hexdigest(),
-    }
+    candidate = candidate_fixture(tmp_path / "source")
+    files = technical_fixture(tmp_path, candidate, candidate_sha256)
+    acceptance = json.loads(files["acceptance"].read_bytes())
+    if mutation == "wrong_candidate":
+        acceptance["candidate_sha256"] = "b" * 64
+    elif mutation == "owner":
+        acceptance["reviewer_github_login"] = approval.OWNER_GITHUB_LOGIN
+        acceptance["reviewer_github_id"] = approval.OWNER_GITHUB_ID
+    elif mutation == "tampered_evidence":
+        files["evidence"].write_bytes(b"changed")
+    elif mutation == "tampered_protocol":
+        files["protocol"].write_bytes(b"changed")
+    elif mutation == "missing_execution":
+        files["execution"].unlink()
+    elif mutation == "oversized_raw":
+        files["raw"].write_bytes(b"x" * (4 * 1024 * 1024 + 1))
+    elif mutation == "unbound_protocol":
+        protocol = json.loads(files["protocol"].read_bytes())
+        protocol["candidate_sha256"] = "b" * 64
+        files["protocol"].write_bytes(canonical(protocol))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "unbound_artifact":
+        raw = json.loads(files["raw"].read_bytes())
+        raw["artifact_hashes"]["tokenizer.json"] = "b" * 64
+        files["raw"].write_bytes(canonical(raw))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "failed_raw_stopping":
+        raw = json.loads(files["raw"].read_bytes())
+        raw["stopping"][0]["finish_reason"] = "length"
+        raw["stopping"][0]["reasoning_visible"] = True
+        files["raw"].write_bytes(canonical(raw))
+        execution = json.loads(files["execution"].read_bytes())
+        execution["stopping_violations"] = 1
+        execution["reasoning_leaks"] = 1
+        files["execution"].write_bytes(canonical(execution))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "failed_task_quality":
+        raw = json.loads(files["raw"].read_bytes())
+        for case in raw["tasks"][:4]:
+            case["candidate_score"] = 0.0
+        files["raw"].write_bytes(canonical(raw))
+        execution = json.loads(files["execution"].read_bytes())
+        execution["candidate_mean_score"] = 0.875
+        files["execution"].write_bytes(canonical(execution))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "vacuous_threshold":
+        protocol = json.loads(files["protocol"].read_bytes())
+        protocol["mean_score_drop_max"] = 1.0
+        files["protocol"].write_bytes(canonical(protocol))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "duplicate_case":
+        raw = json.loads(files["raw"].read_bytes())
+        raw["tasks"][1]["id"] = raw["tasks"][0]["id"]
+        files["raw"].write_bytes(canonical(raw))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "mismatched_summary":
+        execution = json.loads(files["execution"].read_bytes())
+        execution["task_cases"] = 33
+        files["execution"].write_bytes(canonical(execution))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "content_free_evidence":
+        files["evidence"].write_bytes(
+            canonical({"candidate_sha256": candidate_sha256, "status": "PASS"})
+        )
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "content_free_raw":
+        files["raw"].write_bytes(
+            canonical(
+                {
+                    "candidate_sha256": candidate_sha256,
+                    "protocol_sha256": digest(files["protocol"]),
+                }
+            )
+        )
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "wrong_reference_hash":
+        acceptance["confirmation_reference"] = (
+            "github-issue-comment:123:sha256:" + "f" * 64
+        )
+    if mutation in {"wrong_candidate", "owner", "wrong_reference_hash"}:
+        files["acceptance"].write_bytes(canonical(acceptance))
     comment = {
         "id": 123,
         "issue_url": "https://api.github.com/repos/arajmir7/Azaeron-Verity/issues/2",
         "html_url": "https://github.com/arajmir7/Azaeron-Verity/pull/2#issuecomment-123",
         "user": {"login": "independent-fixture", "id": 123456, "type": "User"},
         "author_association": "COLLABORATOR",
-        "body": body,
+        "body": files["body"],
         "created_at": "2026-10-12T10:00:00Z",
         "updated_at": "2026-10-12T10:00:00Z",
     }
-    if mutation == "wrong_candidate":
-        acceptance["candidate_sha256"] = "b" * 64
-    elif mutation == "owner":
-        acceptance["reviewer_github_login"] = approval.OWNER_GITHUB_LOGIN
-        acceptance["reviewer_github_id"] = approval.OWNER_GITHUB_ID
+    if mutation == "owner":
         comment["user"] = {
             "login": approval.OWNER_GITHUB_LOGIN,
             "id": approval.OWNER_GITHUB_ID,
             "type": "User",
         }
         comment["author_association"] = "OWNER"
-    elif mutation == "tampered_evidence":
-        evidence_file.write_bytes(canonical({"candidate_sha256": "b" * 64}))
-    elif mutation == "blocked_evidence":
-        evidence_file.write_bytes(
-            canonical({"candidate_sha256": candidate_sha256, "status": "BLOCKED"})
-        )
-        acceptance["evidence"]["sha256"] = digest(evidence_file)
     elif mutation == "wrong_pr":
         comment["issue_url"] = (
             "https://api.github.com/repos/arajmir7/Azaeron-Verity/issues/1"
@@ -477,12 +689,7 @@ def test_independent_technical_acceptance_requires_authenticated_exact_evidence(
         comment["updated_at"] = "2026-10-12T10:01:00Z"
     elif mutation == "wrong_body":
         comment["body"] += "\nextra"
-    elif mutation == "wrong_reference_hash":
-        acceptance["confirmation_reference"] = (
-            "github-issue-comment:123:sha256:" + "f" * 64
-        )
-    acceptance_file = tmp_path / "technical-acceptance.json"
-    acceptance_file.write_bytes(canonical(acceptance))
+    acceptance_file = files["acceptance"]
     review = CandidateReview.model_construct(
         technical_acceptance=FileRef(
             path=acceptance_file.name, sha256=digest(acceptance_file)
@@ -490,13 +697,18 @@ def test_independent_technical_acceptance_requires_authenticated_exact_evidence(
     )
     monkeypatch.setattr(base_admission, "_fetch_technical_comment", lambda *_: comment)
     if reason is None:
-        assert require_technical_acceptance(tmp_path, review, candidate_sha256) == (
-            acceptance_file,
-            evidence_file,
+        assert require_technical_acceptance(
+            tmp_path, review, candidate, candidate_sha256
+        ) == (
+            files["acceptance"],
+            files["evidence"],
+            files["protocol"],
+            files["execution"],
+            files["raw"],
         )
     else:
-        with pytest.raises(PolicyError, match=reason):
-            require_technical_acceptance(tmp_path, review, candidate_sha256)
+        with pytest.raises((PolicyError, ValidationError), match=reason):
+            require_technical_acceptance(tmp_path, review, candidate, candidate_sha256)
 
 
 def test_production_technical_pass_without_independent_attestation_is_rejected():
@@ -522,15 +734,19 @@ def test_production_technical_pass_without_independent_attestation_is_rejected()
     assert CandidateReview.model_validate(review).technical_acceptance is None
 
 
+def test_short_targeted_probe_is_not_a_substantive_technical_pass():
+    probe = {
+        "classification": "DEV_ONLY_NON_TRAINING_TARGETED_BASE_PROBE",
+        "results": [{}] * 5,
+    }
+    with pytest.raises(ValidationError, match="Field required"):
+        TechnicalEvidence.model_validate(probe)
+
+
 def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
     tmp_path, monkeypatch
 ):
-    root = Path(__file__).resolve().parents[2]
-    packet = (
-        root
-        / "docs/verity/evidence/qwen-controlled-conversion-20261011"
-        / "base-owner-decision-pending.json"
-    )
+    packet = Path(__file__).parent / "fixtures/base-owner-decision-pending.json"
     values = json.loads(packet.read_bytes())
     assert digest(packet) == approval.QWEN_BASE_PACKET_SHA256
     values.update(
@@ -547,8 +763,17 @@ def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
     body = approval._confirmation_body(
         record, record.subjects[0], "commercial_derivative_training"
     )
-    published = runpy.run_path(str(root / "scripts/verity_owner_confirmation.py"))
-    assert body == published["COMMENT_BODY"]
+    assert body == "\n".join(
+        (
+            "AZAERON_OWNER_CONFIRMATION_V1",
+            "Decision: APPROVE_WITHIN_SCOPE",
+            f"Packet-SHA256: {approval.QWEN_BASE_PACKET_SHA256}",
+            f"Candidate-SHA256: {approval.QWEN_BASE_SHA256}",
+            "Permitted-use: commercial_derivative_training",
+            "Scope: exact controlled third-party Qwen3-4B base only",
+            "Excludes: dataset admission, human technical acceptance, production release",
+        )
+    )
     body_hash = hashlib.sha256(body.encode()).hexdigest()
     comment_id = 12345
     values["confirmation_reference"] = (

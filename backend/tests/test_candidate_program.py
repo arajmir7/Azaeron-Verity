@@ -106,6 +106,48 @@ def test_candidate_inventory_attacks(tmp_path, mutation):
         verify_bundle(model, root)
 
 
+def test_hash_bound_chat_template_is_tokenizer_lineage_only(tmp_path):
+    root = tmp_path / "source"
+    fixture = candidate_fixture(root)
+    template = root / "chat_template.jinja"
+    template.write_text("{{ messages[0].content }}", encoding="utf-8")
+    manifest = fixture.model_dump()
+    manifest["artifacts"][template.name] = digest(template)
+
+    with pytest.raises(ValidationError):
+        Candidate.model_validate(manifest)
+
+    manifest["tokenizer"].append(template.name)
+    candidate = Candidate.model_validate(manifest)
+    verify_bundle(candidate, root)
+
+    template.write_text("{{ messages[0].role }}", encoding="utf-8")
+    with pytest.raises(PolicyError, match="artifact_hash_mismatch"):
+        verify_bundle(candidate, root)
+
+    for payload, reason in (
+        (b"x" * (64 * 1024 + 1), "candidate_chat_template_too_large"),
+        (b"\xff", "candidate_chat_template_not_utf8"),
+        (b"hello\x00world", "candidate_chat_template_invalid"),
+    ):
+        template.write_bytes(payload)
+        manifest["artifacts"][template.name] = digest(template)
+        with pytest.raises(PolicyError, match=reason):
+            verify_bundle(Candidate.model_validate(manifest), root)
+
+    template.rename(root / "other_template.jinja")
+    manifest["artifacts"] = {
+        name if name != template.name else "other_template.jinja": value
+        for name, value in manifest["artifacts"].items()
+    }
+    manifest["tokenizer"] = [
+        name if name != template.name else "other_template.jinja"
+        for name in manifest["tokenizer"]
+    ]
+    with pytest.raises(ValidationError):
+        Candidate.model_validate(manifest)
+
+
 def test_floating_revision_and_fake_review_rejected(tmp_path):
     candidate = candidate_fixture(tmp_path / "source")
     with pytest.raises(ValidationError):

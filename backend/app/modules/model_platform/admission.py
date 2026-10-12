@@ -65,12 +65,18 @@ class Candidate(StrictModel):
             self.weights
         ):
             raise ValueError("Every weight file must be declared")
+        if (
+            "chat_template.jinja" in self.artifacts
+            and "chat_template.jinja" not in self.tokenizer
+        ):
+            raise ValueError("Chat template must be part of tokenizer lineage")
         for name in self.artifacts:
             local_file(Path("."), name)
             if (
                 Path(name).suffix.lower()
                 not in {".json", ".safetensors", ".model", ".txt", ".md", ".tiktoken"}
                 and name != "LICENSE"
+                and name != "chat_template.jinja"
             ):
                 raise ValueError("Unsupported artifact type")
         return self
@@ -170,6 +176,15 @@ def verify_bundle(candidate: Candidate, root: Path):
                 raise PolicyError("invalid_safetensors_payload")
         if name not in candidate.weights and path.stat().st_size > 64 * 1024**2:
             raise PolicyError("candidate_metadata_too_large")
+        if name == "chat_template.jinja":
+            if path.stat().st_size > 64 * 1024:
+                raise PolicyError("candidate_chat_template_too_large")
+            try:
+                template = path.read_text(encoding="utf-8")
+            except UnicodeDecodeError as exc:
+                raise PolicyError("candidate_chat_template_not_utf8") from exc
+            if not template or "\x00" in template:
+                raise PolicyError("candidate_chat_template_invalid")
         if path.suffix == ".json":
             value = json.loads(path.read_bytes())
 

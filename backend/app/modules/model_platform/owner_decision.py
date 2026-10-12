@@ -80,12 +80,15 @@ class OwnerDecision(StrictModel):
                 raise ValueError(
                     "Owner identity, date, rationale and reviewed record are required"
                 )
-            if (
-                self.confirmation_status == "CONFIRMED"
-                and not self.confirmation_reference
+            if self.confirmation_status == "CONFIRMED" and (
+                not self.confirmation_reference
+                or not self.confirmation_reference.strip()
+                or "insert actual" in self.confirmation_reference.casefold()
+                or self.confirmation_reference.strip().casefold()
+                in {"pending", "tbd", "placeholder"}
             ):
                 raise ValueError(
-                    "Confirmed decision needs an owner confirmation reference"
+                    "Confirmed decision needs a non-placeholder owner confirmation reference"
                 )
             if self.confirmation_status == "PENDING" and self.confirmation_reference:
                 raise ValueError(

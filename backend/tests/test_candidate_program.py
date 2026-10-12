@@ -233,8 +233,12 @@ def test_owner_decision_is_exactly_bound_and_fail_closed(tmp_path):
         OwnerDecision.model_validate_json(path.read_bytes())
     record.update(
         confirmation_status="CONFIRMED",
-        confirmation_reference="TEST FIXTURE ONLY",
+        confirmation_reference="[Insert actual authenticated confirmation reference]",
     )
+    path.write_bytes(canonical(record))
+    with pytest.raises(ValidationError, match="non-placeholder"):
+        OwnerDecision.model_validate_json(path.read_bytes())
+    record["confirmation_reference"] = "TEST FIXTURE ONLY"
     path.write_bytes(canonical(record))
     with pytest.raises(PolicyError, match="unresolved"):
         require_owner_approval(path, "DATASET", "a" * 64, "commercial_training")

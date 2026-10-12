@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "record_type": "REPORTED_OWNER_INTENT_NOT_AN_ADMISSION_DECISION",
+  "reported_decision": "APPROVE_WITHIN_SCOPE",
+  "reported_approver": "Ajmir Aribam",
+  "reported_role": "Azaeron Verity Project Owner",
+  "reported_date": "2026-10-12",
+  "reviewed_pending_packet_sha256": "eb6f3f0615628abedd9baecd5eab2b5595e1841f844157e35a8449963c6a2314",
+  "scope": "Commercial derivative training on the exact controlled third-party Qwen3-4B base in the reviewed packet, subject to Apache-2.0 obligations and separate human technical admission",
+  "confirmation_reference": null,
+  "confirmation_finding": "The supplied text was the literal placeholder '[Insert actual authenticated confirmation reference from the controlled owner-approval process]'; no actual controlled-process reference was supplied.",
+  "identity_authentication": "PENDING_CONTROLLED_OWNER_PROCESS",
+  "owner_decision_record_status": "PENDING",
+  "base_admitted": false,
+  "dataset_admitted": false,
+  "training_authorized": false,
+  "production_registry_promotion_authorized": false,
+  "human_technical_acceptance": "PENDING",
+  "next_action": "Obtain the actual controlled-process confirmation reference and independently review the technical evidence before attempting exact-base admission. Dataset and release decisions remain separate."
+}

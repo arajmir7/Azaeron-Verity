@@ -1,0 +1,8 @@
+{
+  "classification": "PRE_EXECUTION_SEAL",
+  "purpose": "Freeze the targeted prompt set, stopping checks and executable before model inference.",
+  "sha256": {
+    "protocol.json": "55eb822daa68404d3fa73e4f2f42e1203d376f9636df8c5d9079c42f6c4d7419",
+    "run.py": "c146d3f2a33f632f00fe2dfac39a8671a3e35a9edc785d99dbb8f0f61953b242"
+  }
+}

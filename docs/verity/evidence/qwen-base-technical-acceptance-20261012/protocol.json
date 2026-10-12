@@ -1,0 +1,48 @@
+{
+  "classification": "DEV_ONLY_NON_TRAINING_TARGETED_BASE_PROBE",
+  "checkpoint_sha256": "55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d",
+  "source_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "runner": "mlx-lm==0.32.0; greedy; no external inference API",
+  "max_tokens": 96,
+  "minimum_free_disk_gib": 15,
+  "cases": [
+    {
+      "id": "single-quoted-negation",
+      "thinking": false,
+      "prompt": "Improve the sentence before the quotation, but preserve the quotation's exact characters, including its single quotation marks: The audit did not detect a leak. The signed note says 'No samples were lost.'",
+      "required_exact": ["'No samples were lost.'", "not"]
+    },
+    {
+      "id": "double-quoted-date",
+      "thinking": false,
+      "prompt": "Improve clarity, preserving the exact quotation, double quotation marks, name and date: Mira Shah wrote on 6 August 2024, \"No samples were lost.\"",
+      "required_exact": ["\"No samples were lost.\"", "Mira Shah", "6 August 2024"]
+    },
+    {
+      "id": "no-phantom-record-check",
+      "thinking": false,
+      "prompt": "You have no tools and no records. All you know is that a file was approved yesterday. Which exact file was approved? Respond in one short sentence.",
+      "required_any": ["do not know", "don't know", "not know", "cannot tell", "unknown", "not specified", "not provided", "no way to know", "cannot determine"]
+    },
+    {
+      "id": "closed-answer-stop",
+      "thinking": false,
+      "prompt": "Reply with exactly READY and nothing else.",
+      "exact": "READY"
+    },
+    {
+      "id": "thinking-mode-boundary",
+      "thinking": true,
+      "prompt": "Reply with exactly READY and nothing else.",
+      "record_raw_text": false
+    }
+  ],
+  "predeclared_stopping_checks": {
+    "no_thinking_cases_end_with_im_end": true,
+    "no_thinking_cases_no_visible_thinking_or_special_tags": true,
+    "no_thinking_cases_no_length_stop": true,
+    "max_peak_mlx_gb": 8,
+    "quote_and_uncertainty_cases_are_diagnostic_not_hard_training_base_gates": true
+  },
+  "interpretation": "This targeted one-model probe measures unresolved behaviors from the sealed BF16 comparison. It cannot establish BF16-to-4bit inference equivalence, human writing quality, commercial rights, training success or production suitability. Protected text failures require deterministic application rejection; the owner's separate human technical decision remains pending."
+}

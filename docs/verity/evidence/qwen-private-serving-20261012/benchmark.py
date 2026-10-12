@@ -117,9 +117,11 @@ def get_model_id() -> str:
     with OPENER.open(ENDPOINT + "/v1/models", timeout=5) as response:
         body = json.load(response)
     ids = [entry.get("id") for entry in body.get("data", [])]
-    if len(ids) != 1 or ids[0] != str(MODEL):
+    # MLX-LM exposes its original publisher alias as well as the local path.
+    # Only the exact controlled path is used for generation below.
+    if str(MODEL) not in ids:
         raise SystemExit(f"Unexpected serving identity: {ids!r}")
-    return ids[0]
+    return str(MODEL)
 
 
 def request(model_id: str, prompt: str, *, cancel: bool = False) -> dict:

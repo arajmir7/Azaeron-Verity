@@ -2,7 +2,6 @@
 
 import hashlib
 import json
-from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
@@ -34,6 +33,7 @@ from app.modules.model_platform.detector_metrics import (
 from app.modules.model_platform.hardware import enforce, plan
 from app.modules.model_platform.owner_decision import (
     OwnerDecision,
+    ReviewedSubject,
     require_owner_approval,
 )
 from app.modules.model_platform import owner_decision as approval
@@ -743,12 +743,35 @@ def test_short_targeted_probe_is_not_a_substantive_technical_pass():
         TechnicalEvidence.model_validate(probe)
 
 
-def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
+def test_owner_confirmation_authenticates_bound_packet_and_account(
     tmp_path, monkeypatch
 ):
-    packet = Path(__file__).parent / "fixtures/base-owner-decision-pending.json"
-    values = json.loads(packet.read_bytes())
-    assert digest(packet) == approval.QWEN_BASE_PACKET_SHA256
+    subject_sha256 = "a" * 64
+    subject = ReviewedSubject(
+        kind="BASE_MODEL",
+        identifier="TEST FIXTURE",
+        sha256=subject_sha256,
+        license="TEST_ONLY",
+        rights="PASS",
+        provenance="PASS",
+        copyright="PASS",
+        privacy="NOT_APPLICABLE",
+        permitted_uses=["commercial_derivative_training"],
+        findings=["TEST FIXTURE"],
+        evidence=["TEST FIXTURE"],
+        risks=[],
+        restrictions=[],
+    )
+    pending = OwnerDecision(
+        subjects=[subject],
+        subject_sha256=hashlib.sha256(
+            canonical([subject.model_dump(mode="json")])
+        ).hexdigest(),
+        decision="PENDING",
+    )
+    values = pending.model_dump(mode="json")
+    packet = tmp_path / "pending.json"
+    packet.write_bytes(canonical(values))
     values.update(
         decision="APPROVE_WITHIN_SCOPE",
         approver_name=approval.OWNER_NAME,
@@ -767,12 +790,22 @@ def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
         (
             "AZAERON_OWNER_CONFIRMATION_V1",
             "Decision: APPROVE_WITHIN_SCOPE",
-            f"Packet-SHA256: {approval.QWEN_BASE_PACKET_SHA256}",
-            f"Candidate-SHA256: {approval.QWEN_BASE_SHA256}",
+            f"Packet-SHA256: {digest(packet)}",
+            "Subject-kind: BASE_MODEL",
+            f"Subject-SHA256: {subject_sha256}",
             "Permitted-use: commercial_derivative_training",
-            "Scope: exact controlled third-party Qwen3-4B base only",
-            "Excludes: dataset admission, human technical acceptance, production release",
+            "Scope: exactly this reviewed subject and use only",
         )
+    )
+    qwen_record = record.model_copy(
+        update={"reviewed_record_sha256": approval.QWEN_BASE_PACKET_SHA256}
+    )
+    qwen_subject = subject.model_copy(update={"sha256": approval.QWEN_BASE_SHA256})
+    assert approval._confirmation_body(
+        qwen_record, qwen_subject, "commercial_derivative_training"
+    ).endswith(
+        "Scope: exact controlled third-party Qwen3-4B base only\n"
+        "Excludes: dataset admission, human technical acceptance, production release"
     )
     body_hash = hashlib.sha256(body.encode()).hexdigest()
     comment_id = 12345
@@ -805,7 +838,7 @@ def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
     require_owner_approval(
         decision,
         "BASE_MODEL",
-        approval.QWEN_BASE_SHA256,
+        subject_sha256,
         "commercial_derivative_training",
     )
     monkeypatch.setattr(
@@ -816,7 +849,7 @@ def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
     require_owner_approval(
         decision,
         "BASE_MODEL",
-        approval.QWEN_BASE_SHA256,
+        subject_sha256,
         "commercial_derivative_training",
     )
     monkeypatch.setattr(approval, "_fetch_confirmation", lambda _id: comment)
@@ -829,7 +862,7 @@ def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
             require_owner_approval(
                 decision,
                 "BASE_MODEL",
-                approval.QWEN_BASE_SHA256,
+                subject_sha256,
                 "commercial_derivative_training",
             )
     decision.write_bytes(canonical(values))
@@ -849,7 +882,7 @@ def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
             require_owner_approval(
                 decision,
                 "BASE_MODEL",
-                approval.QWEN_BASE_SHA256,
+                subject_sha256,
                 "commercial_derivative_training",
             )
 

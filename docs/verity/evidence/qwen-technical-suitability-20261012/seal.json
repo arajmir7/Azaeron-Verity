@@ -1,0 +1,9 @@
+{
+  "fixture_count": 16,
+  "sha256": {
+    "fixtures.json": "2081a3d043b6e1af122b8108accaf04900fd8daaef5282acc48cc28400057d4e",
+    "protocol.json": "7673a3d8d36fed0b85af20088b9400d95d3ebeb3e84fb4dc4c9f5cd9a0b4e3f1",
+    "run.py": "b132b967e0343ba8a396777e77964bd7c38fa992864ee64113bfcf7c41d940cc"
+  },
+  "status": "SEALED_BEFORE_EXECUTION"
+}

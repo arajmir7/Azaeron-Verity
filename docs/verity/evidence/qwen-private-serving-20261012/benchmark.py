@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import hashlib
+import http.client
 import json
 import math
 import os
@@ -236,6 +237,10 @@ def run(pid: int) -> None:
             invalid_status = 200
     except urllib.error.HTTPError as error:
         invalid_status = error.code
+    except http.client.RemoteDisconnected:
+        # MLX-LM 0.32.0 raises an AssertionError inside its request handler
+        # for missing messages; record the abrupt close, then test recovery.
+        invalid_status = "REMOTE_DISCONNECT"
     after_invalid = request(model_id, config["serial"][0]["prompt"])
     cancelled = request(model_id, config["serial"][1]["prompt"], cancel=True)
     after_cancel = request(model_id, config["serial"][2]["prompt"])

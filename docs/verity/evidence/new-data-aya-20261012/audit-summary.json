@@ -1,0 +1,79 @@
+{
+  "automated_review_limit": "Publisher Apache-2.0 and data-card commercial statement do not prove each contributor's grant, each row's original copyright status, privacy clearance, professional editing, or task-complete Writer quality. No row is admitted.",
+  "candidate": "CohereLabs/aya_dataset:English:original-annotations",
+  "commercial_training_admission": "NOT_APPROVED",
+  "cross_provisional_split_author_prompt_long_target_overlap": 0,
+  "duplicate_long_target_groups": 38,
+  "duplicate_normalized_prompt_groups": 63,
+  "duplicate_normalized_prompt_rows": 135,
+  "english_original_length_characters": {
+    "prompt_p50": 64.0,
+    "prompt_p95": 194.8499999999999,
+    "target_p50": 201.0,
+    "target_p95": 963.3999999999996
+  },
+  "english_original_publisher_test_rows_excluded": 250,
+  "english_original_train_rows": 2164,
+  "heuristic_task_counts": {
+    "creative_writing": 2,
+    "document_question": 5,
+    "explain": 142,
+    "rewrite_or_edit": 1,
+    "structured_extraction": 4,
+    "summarize": 7
+  },
+  "largest_source_group_rows": 1618,
+  "ood_limitation": "Author holdout only; no adjudicated domain-shift OOD set.",
+  "pattern_and_overlap_flags": {
+    "duplicate_long_target_review": 80,
+    "duplicate_normalized_prompt_review": 135,
+    "email_pattern": 10,
+    "english_language_label_review": 29,
+    "long_target_review": 28,
+    "published_test_prompt_overlap": 13,
+    "publisher_test_excluded": 250,
+    "short_target_review": 289,
+    "target_equals_input_review": 3,
+    "url_pattern": 1
+  },
+  "provisional_author_isolated_review_split_authors": {
+    "calibration": 14,
+    "ood": 14,
+    "test": 14,
+    "train": 6,
+    "validation": 1
+  },
+  "provisional_author_isolated_review_split_rows": {
+    "calibration": 136,
+    "ood": 135,
+    "test": 135,
+    "train": 1618,
+    "validation": 140
+  },
+  "publisher_test_authors": 23,
+  "publisher_train_test_author_overlap": 23,
+  "publisher_train_test_prompt_overlap": 13,
+  "row_hash_inventory": {
+    "path": "row-hashes.jsonl",
+    "sha256": "9ac878320ffb89e2e2903f29cd7a711e3cd9236db69136d3f5b1c240968d1e8e"
+  },
+  "schema_version": 1,
+  "source_files": {
+    "README.md": {
+      "bytes": 13659,
+      "sha256": "3ac54f63eec84100c155571945da01c7c18cd8ec97ea94639e2b94a6860e8573"
+    },
+    "test.parquet": {
+      "bytes": 977517,
+      "sha256": "52bbb79461bff9887c9987a5737d9a06f5ec6c78c08d770828c37fc182ce2cca"
+    },
+    "train.parquet": {
+      "bytes": 137195800,
+      "sha256": "51baa85043b569ba117f41516b32d1b0e4e2647fb203a08933f98a556fb1fb06"
+    }
+  },
+  "source_groups": 44,
+  "source_revision": "f9ea04583f02a8f86404ff6c58bf75fe637df8a2",
+  "status": "QUARANTINED_REVIEW_ONLY",
+  "train_authors": 49
+}

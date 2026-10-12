@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "candidate_id": "aya-original-en-review-v1",
+  "status": "QUARANTINED_REVIEW_ONLY",
+  "admission": "NOT_APPROVED",
+  "publisher": "Cohere Labs",
+  "source_repository": "https://huggingface.co/datasets/CohereLabs/aya_dataset",
+  "revision": "f9ea04583f02a8f86404ff6c58bf75fe637df8a2",
+  "declared_license": "Apache-2.0, declared in pinned publisher README and research paper; no separate LICENSE file in pinned repository",
+  "publisher_commercial_ml_training_statement": "VERIFIED_PUBLISHER_STATEMENT",
+  "source_file_sha256": {
+    "README.md": "3ac54f63eec84100c155571945da01c7c18cd8ec97ea94639e2b94a6860e8573",
+    "data/train-00000-of-00001.parquet": "51baa85043b569ba117f41516b32d1b0e4e2647fb203a08933f98a556fb1fb06",
+    "data/test-00000-of-00001.parquet": "52bbb79461bff9887c9987a5737d9a06f5ec6c78c08d770828c37fc182ce2cca"
+  },
+  "candidate_scope": "English original human annotations only; re-annotations and demographics excluded",
+  "source_train_rows_in_scope": 2164,
+  "published_test_rows_excluded": 250,
+  "provisional_review_splits_not_training_data": {
+    "train": 1618,
+    "validation": 140,
+    "calibration": 136,
+    "test": 135,
+    "ood": 135
+  },
+  "findings": {
+    "publisher_license_and_commercial_finetuning_declaration": "VERIFIED",
+    "publisher_human_annotation_provenance": "VERIFIED_AT_DATASET_LEVEL",
+    "source_payload_integrity": "VERIFIED",
+    "per_contributor_grant_for_commercial_AI_training": "NOT_FOUND",
+    "row_level_copyright_and_privacy_review": "PENDING",
+    "professional_editing_provenance": "NOT_FOUND",
+    "publisher_train_test_author_isolation": "FAIL",
+    "provisional_review_split_author_and_exact_prompt_isolation": "PASS_NON_TRAINING_ONLY",
+    "true_domain_shift_OOD_set": "NOT_FOUND",
+    "task_complete_writer_editing_and_summarization": "FAIL",
+    "independent_human_quality_review": "NOT_DONE",
+    "owner_decision": "NOT_REQUESTED_INCOMPLETE_PACKET"
+  },
+  "evidence": [
+    "docs/verity/evidence/new-data-aya-20261012/README.md",
+    "docs/verity/evidence/new-data-aya-20261012/audit-summary.json",
+    "docs/verity/evidence/new-data-aya-20261012/row-hashes.jsonl"
+  ],
+  "training_permitted_by_azaeron_gate": false,
+  "production_registry_eligible": false
+}

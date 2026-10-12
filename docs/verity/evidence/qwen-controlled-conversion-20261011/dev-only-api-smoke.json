@@ -1,0 +1,17 @@
+{
+  "scope": "DEV_ONLY existing third-party Qwen/Qwen3-4B-MLX-4bit; this is not the new controlled conversion",
+  "date_ist": "2026-10-12",
+  "runtime": "MLX-LM 0.32.0, localhost 127.0.0.1:8080, offline model loading, thinking disabled",
+  "model_identity": "Qwen/Qwen3-4B-MLX-4bit",
+  "live_test": {
+    "command": "AZAERON_LIVE_MLX_TEST=1 HF_HUB_OFFLINE=1 python -m pytest -q tests/test_dev_mlx_live.py",
+    "result": "1 passed in 5.13s",
+    "coverage": "Authenticated Azaeron API chat, streaming, rewrite, document summary and grounded Q&A; response content excludes reasoning markers; outputs remain unverified and unaccepted"
+  },
+  "focused_tests": {
+    "command": "python -m pytest -q tests/test_dev_mlx.py tests/test_dev_mlx_live.py tests/integration/test_agent_rls.py",
+    "result": "13 passed, 5 skipped in 2.62s",
+    "skip_reason": "Opt-in real MLX test and PostgreSQL integration tests were not enabled in the focused invocation; the real MLX test was separately executed above"
+  },
+  "release_status": "DEV_ONLY; no production model admitted, no model-quality or load certification"
+}

@@ -40,6 +40,14 @@ def identity():
             "Event A is 6 August 2024; Event B is 8 September 2024.",
             "Event A is 6 September 2024; Event B is 8 August 2024.",
         ),
+        (
+            "Event A is 6 Aug 2024; Event B is 8 Jun 2024.",
+            "Event A is 6 Jun 2024; Event B is 8 Aug 2024.",
+        ),
+        (
+            "Event A is 6 aug 2024; Event B is 8 jun 2024.",
+            "Event A is 6 jun 2024; Event B is 8 aug 2024.",
+        ),
     ],
 )
 async def test_factual_drift(original, candidate):

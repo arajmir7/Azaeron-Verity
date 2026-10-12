@@ -44,7 +44,14 @@ _MONTHS = (
     "November",
     "December",
 )
-_MONTH_PATTERN = "(?:" + "|".join(_MONTHS) + ")"
+_MONTH_NUMBERS = {month.casefold(): index for index, month in enumerate(_MONTHS, 1)}
+_MONTH_NUMBERS.update(
+    {month[:3].casefold(): index for index, month in enumerate(_MONTHS, 1)}
+)
+_MONTH_NUMBERS["sept"] = 9
+_MONTH_PATTERN = (
+    "(?:" + "|".join(sorted(_MONTH_NUMBERS, key=len, reverse=True)) + r")\.?"
+)
 _DAY_MONTH = re.compile(
     rf"\b(?P<day>\d{{1,2}})\s+(?P<month>{_MONTH_PATTERN})\s+(?P<year>\d{{4}})\b",
     re.IGNORECASE,
@@ -56,6 +63,8 @@ _MONTH_DAY = re.compile(
 _YEAR_MONTH_DAY = re.compile(
     r"(?<!\d)(?P<year>\d{4})[-/](?P<month>\d{1,2})[-/](?P<day>\d{1,2})(?!\d)"
 )
+# Locale is unknown; compare day/month-first numeric dates as exact source literals.
+_YEAR_LAST_DATE = re.compile(r"(?<!\d)\d{1,2}[-/]\d{1,2}[-/]\d{4}(?!\d)")
 _QUANTITY = re.compile(r"(?<![\w])\d+(?:[.,]\d+)*(?:\s*%)?(?![\w])")
 _OFFSET = re.compile(r"\[source offsets \d+:\d+\]")
 _THOUGHT_TAG = re.compile(r"</?think>", re.IGNORECASE)
@@ -155,7 +164,7 @@ def _dates(text: str) -> set[str]:
     values = set()
     for pattern in (_DAY_MONTH, _MONTH_DAY):
         for match in pattern.finditer(text):
-            month = _MONTHS.index(match.group("month").capitalize()) + 1
+            month = _MONTH_NUMBERS[match.group("month").casefold().rstrip(".")]
             values.add(
                 f"{int(match.group('year')):04d}-{month:02d}-{int(match.group('day')):02d}"
             )
@@ -170,7 +179,7 @@ def _date_literals(text: str) -> list[str]:
     """Copy bounded source date spans into the prompt without parsing new facts."""
     spans = sorted(
         (match.start(), match.group())
-        for pattern in (_DAY_MONTH, _MONTH_DAY, _YEAR_MONTH_DAY)
+        for pattern in (_DAY_MONTH, _MONTH_DAY, _YEAR_MONTH_DAY, _YEAR_LAST_DATE)
         for match in pattern.finditer(text)
     )
     return list(dict.fromkeys(value for _, value in spans))[:12]
@@ -179,6 +188,10 @@ def _date_literals(text: str) -> list[str]:
 def _grounded_drift(source: str, output: str) -> bool:
     """Reject novel explicit dates and quantities; semantic support remains unverified."""
     if not _dates(output).issubset(_dates(source)):
+        return True
+    source_year_last = {m.group() for m in _YEAR_LAST_DATE.finditer(source)}
+    output_year_last = {m.group() for m in _YEAR_LAST_DATE.finditer(output)}
+    if not output_year_last.issubset(source_year_last):
         return True
     source_quantities = {m.group().strip() for m in _QUANTITY.finditer(source)}
     candidate_quantities = {m.group().strip() for m in _QUANTITY.finditer(output)}

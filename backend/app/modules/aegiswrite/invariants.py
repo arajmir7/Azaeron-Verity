@@ -14,6 +14,12 @@ class ProtectedSpan:
     value: str
 
 
+_MONTH = (
+    r"Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|"
+    r"Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|"
+    r"Nov(?:ember)?|Dec(?:ember)?"
+)
+
 PATTERNS = (
     ("negation", r"\b(?i:not|no|never|without|cannot)\b|(?i:n['’]t)\b"),
     (
@@ -22,11 +28,11 @@ PATTERNS = (
     ),
     (
         "date",
-        r"\b(?i:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:,?\s+\d{4})?\b",
+        rf"\b(?i:(?:{_MONTH})\.?)\s+\d{{1,2}}(?:,?\s+\d{{4}})?\b",
     ),
     (
         "date",
-        r"\b\d{1,2}\s+(?i:January|February|March|April|May|June|July|August|September|October|November|December)(?:\s+\d{4})?\b",
+        rf"\b\d{{1,2}}\s+(?i:(?:{_MONTH})\.?)(?:\s+\d{{4}})?(?=\W|$)",
     ),
     ("date", r"(?<!\d)\d{4}[-/]\d{1,2}[-/]\d{1,2}(?!\d)"),
     ("code", r"```[^\n]*\n[\s\S]*?(?:```|\Z)|~~~[^\n]*\n[\s\S]*?(?:~~~|\Z)|`[^`\n]+`"),

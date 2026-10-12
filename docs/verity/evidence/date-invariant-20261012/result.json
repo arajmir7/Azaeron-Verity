@@ -1,0 +1,31 @@
+{
+  "changes": [
+    "MeaningLock protects abbreviated month dates, including Sept. and case variants.",
+    "DEV_ONLY grounded output rejects new abbreviated-month dates after normalization.",
+    "Ambiguous year-last numeric dates are compared as opaque source literals, without assuming locale.",
+    "Source date hints include both abbreviated months and year-last numeric literals."
+  ],
+  "limits": "This guards explicit date drift only; it is not semantic verification, human review, model-quality certification or production model approval.",
+  "regressions": {
+    "month_component_swap": "REJECTED",
+    "same_abbreviated_date_reformatted_full_month": "ALLOWED",
+    "unchanged_year_last_numeric_literal": "ALLOWED",
+    "year_last_numeric_component_swap": "REJECTED"
+  },
+  "scope": "DEV_ONLY_DETERMINISTIC_DATE_INVARIANT_REGRESSION",
+  "source_sha256": {
+    "backend/app/modules/aegiswrite/invariants.py": "49a1bf4ca2838e79aa297fd7f0e18375b3f685a996767e5a361c3b5d113fb6b9",
+    "backend/app/modules/inference/dev_mlx.py": "9cc1cb252aa3e3cf7311335dac5d6ead7401b65d3ede8341f0e968e861652337",
+    "backend/tests/test_dev_mlx.py": "a8bb803054c33b98fbcf93ebd343afe988b6aa60d36f5b6ad09a9bc8b981b4eb",
+    "backend/tests/test_semantic_verification.py": "056c4b933588ada76ae41b30e98c42f71abb37d84c39c02a071a2658ae4319df"
+  },
+  "status": "PASS",
+  "tests": {
+    "black": "PASS",
+    "focused": "49 passed",
+    "full_backend": "368 passed, 1 skipped",
+    "full_backend_log_sha256": "f959a03224f80a6fe1cb1a7ba4b761d8855f699fbae1dcdcc16f98eadef9ea69",
+    "mypy": "PASS: 201 source files",
+    "ruff": "PASS"
+  }
+}

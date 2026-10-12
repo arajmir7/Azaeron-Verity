@@ -1,0 +1,38 @@
+{
+  "architecture": "qwen3",
+  "artifacts": {
+    "LICENSE": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "README.md": "748c964f9b7e5f2c3770ce013bbc0153be7c54311d9692c343b6188eefe77ac6",
+    "chat_template.jinja": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+    "config.json": "c2ec0173d67f0d18cd9e538b4cf19e77b218459a7c108cfa863496bab46661e9",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    "model.safetensors": "55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d",
+    "model.safetensors.index.json": "8cef64e1365a46469a966601e39615374b753f5deaff953fc3c4d706a8744481",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "tokenizer_config.json": "5aa5069e1b0c0d623ce38e0df387e506b843e5c4d612a36d2e79e46a400e6450"
+  },
+  "candidate_id": "qwen3-4b-controlled-mlx-1cfa9a-4bit",
+  "context": 40960,
+  "languages": [
+    "en"
+  ],
+  "license": "Apache-2.0",
+  "license_file": "LICENSE",
+  "model_card": "README.md",
+  "parameters": 4659865088,
+  "purpose": "PRODUCTION",
+  "repository": "Qwen/Qwen3-4B",
+  "revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "runtime_compatibility": [
+    "MLX-LM 0.32.0 local macOS arm64 smoke; production serving unverified"
+  ],
+  "schema_version": 1,
+  "tokenizer": [
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "chat_template.jinja"
+  ],
+  "weights": [
+    "model.safetensors"
+  ]
+}

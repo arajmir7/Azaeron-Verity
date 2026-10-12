@@ -1,0 +1,6 @@
+Executing pinned, offline, unadmitted conversion
+[INFO] Loading
+[INFO] Using dtype: bfloat16
+[INFO] Quantizing
+[INFO] Quantized model with 4.251 bits per weight.
+Conversion and hash verification complete; admission remains blocked

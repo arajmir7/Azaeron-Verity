@@ -36,6 +36,14 @@ def main() -> None:
         raise ValueError("owner packet is not bound to the proposed candidate")
     if packet.decision != "PENDING" or packet.confirmation_status != "PENDING":
         raise ValueError("owner packet was unexpectedly decided")
+    checked_evidence = 0
+    for reference in packet.subjects[0].evidence:
+        if reference.startswith("https://"):
+            continue
+        path_text, separator, expected = reference.partition(" SHA256 ")
+        if not separator or sha(Path(path_text)) != expected:
+            raise ValueError(f"supporting evidence hash mismatch: {path_text}")
+        checked_evidence += 1
     try:
         require_owner_approval(
             args.owner_packet,
@@ -58,6 +66,7 @@ def main() -> None:
                 "candidate_schema": "PASS",
                 "exact_bundle_hash_and_safetensors_validation": "PASS",
                 "owner_decision_schema": "PASS",
+                "supporting_evidence_hashes_checked": checked_evidence,
                 "pending_decision_fail_closed": "PASS",
                 "commercial_base_admitted": False,
                 "training_authorized": False,

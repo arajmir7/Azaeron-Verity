@@ -92,6 +92,10 @@ def compare(source_dir: Path, converted_dir: Path) -> dict[str, object]:
         top_converted = int(np.argmax(right))
         top_two = np.partition(left, -2)[-2:]
         top_margin = float(top_two.max() - top_two.min())
+        source_prob = np.exp(left64 - np.max(left64))
+        source_prob /= np.sum(source_prob)
+        converted_prob = np.exp(right64 - np.max(right64))
+        converted_prob /= np.sum(converted_prob)
         cases.append(
             {
                 "index": index,
@@ -105,6 +109,16 @@ def compare(source_dir: Path, converted_dir: Path) -> dict[str, object]:
                 "converted_top1_token_id": top_converted,
                 "top1_equal": top_source == top_converted,
                 "source_top1_margin": round(top_margin, 6),
+                "source_top1_probability": round(float(source_prob[top_source]), 6),
+                "converted_probability_of_source_top1": round(
+                    float(converted_prob[top_source]), 6
+                ),
+                "softmax_total_variation": round(
+                    float(0.5 * np.sum(np.abs(source_prob - converted_prob))), 6
+                ),
+                "top10_overlap": len(
+                    set(np.argsort(left)[-10:]) & set(np.argsort(right)[-10:])
+                ),
                 "source_logits_sha256": a["logit_vector_sha256"],
                 "converted_logits_sha256": b["logit_vector_sha256"],
             }
@@ -116,6 +130,9 @@ def compare(source_dir: Path, converted_dir: Path) -> dict[str, object]:
         "same_chat_template_token_ids_all_cases": True,
         "prompt_count": len(cases),
         "min_cosine_similarity": min(item["cosine_similarity"] for item in cases),
+        "max_softmax_total_variation": max(
+            item["softmax_total_variation"] for item in cases
+        ),
         "top1_equal_count": sum(item["top1_equal"] for item in cases),
         "source_peak_mlx_bytes": source["peak_mlx_bytes"],
         "converted_peak_mlx_bytes": converted["peak_mlx_bytes"],

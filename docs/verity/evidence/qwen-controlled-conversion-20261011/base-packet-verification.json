@@ -6,7 +6,8 @@
   "exact_bundle_hash_and_safetensors_validation": "PASS",
   "owner_decision_schema": "PASS",
   "pending_decision_fail_closed": "PASS",
-  "pending_owner_packet_sha256": "5a4f52feb1b1e9cf70f25313f921eeea17afa6e4d18af2b36e27efc127eccd4f",
+  "pending_owner_packet_sha256": "eb6f3f0615628abedd9baecd5eab2b5595e1841f844157e35a8449963c6a2314",
   "production_approved": false,
+  "supporting_evidence_hashes_checked": 6,
   "training_authorized": false
 }

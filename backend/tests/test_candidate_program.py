@@ -405,6 +405,18 @@ def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
         approval.QWEN_BASE_SHA256,
         "commercial_derivative_training",
     )
+    monkeypatch.setattr(
+        approval,
+        "_fetch_confirmation",
+        lambda _id: {**comment, "body": body.replace("\n", "\r\n")},
+    )
+    require_owner_approval(
+        decision,
+        "BASE_MODEL",
+        approval.QWEN_BASE_SHA256,
+        "commercial_derivative_training",
+    )
+    monkeypatch.setattr(approval, "_fetch_confirmation", lambda _id: comment)
     for changed, reason in (
         ({"confirmation_reference": "TEST FIXTURE ONLY"}, "reference_invalid"),
         ({"reviewed_record_sha256": "f" * 64}, "packet_mismatch"),
@@ -425,6 +437,7 @@ def test_owner_confirmation_authenticates_exact_qwen_packet_and_account(
         {"user": {**comment["user"], "id": 1}},
         {"updated_at": "2026-10-12T10:01:00Z"},
         {"body": body + "\nadditional scope"},
+        {"body": body.replace("\n", "\r")},
     ):
         monkeypatch.setattr(
             approval, "_fetch_confirmation", lambda _id, c=changed: {**comment, **c}

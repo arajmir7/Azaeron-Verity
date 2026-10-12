@@ -31,15 +31,23 @@ class OwnerConfirmationTests(unittest.TestCase):
         receipt = verify_comment(comment, comment_id)
         self.assertEqual(receipt["decision"], "APPROVE_WITHIN_SCOPE")
         self.assertIn(str(comment_id), receipt["confirmation_reference"])
+        self.assertEqual(
+            verify_comment(
+                {**comment, "body": COMMENT_BODY.replace("\n", "\r\n")}, comment_id
+            ),
+            receipt,
+        )
         for field, value in (
             ("id", 12346),
             ("issue_url", "https://api.github.com/repos/other/repo/issues/2"),
             ("html_url", "https://github.com/other/repo/pull/2#issuecomment-12345"),
             ("author_association", "COLLABORATOR"),
             ("body", COMMENT_BODY.replace("APPROVE_WITHIN_SCOPE", "REJECT")),
+            ("body_lone_cr", COMMENT_BODY.replace("\n", "\r")),
+            ("body_extra_newline", COMMENT_BODY + "\n"),
             ("updated_at", "2026-10-12T10:00:01Z"),
         ):
-            changed = {**comment, field: value}
+            changed = {**comment, "body" if field.startswith("body_") else field: value}
             with self.subTest(field=field), self.assertRaises(ValueError):
                 verify_comment(changed, comment_id)
         for field, value in (("id", 1), ("login", "someone-else")):

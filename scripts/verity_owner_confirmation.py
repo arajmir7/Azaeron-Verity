@@ -95,7 +95,7 @@ def verify_comment(comment: dict, comment_id: int) -> dict:
         or user.get("type") != "User"
         or comment.get("author_association") != "OWNER"
         or not isinstance(comment.get("body"), str)
-        or comment["body"].strip() != COMMENT_BODY
+        or comment["body"].replace("\r\n", "\n") != COMMENT_BODY
         or not comment.get("created_at")
         or comment.get("updated_at") != comment.get("created_at")
     ):

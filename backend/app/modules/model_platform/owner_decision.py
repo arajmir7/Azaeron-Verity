@@ -224,7 +224,7 @@ def _verify_authenticated_confirmation(
         or user.get("type") != "User"
         or comment.get("author_association") != "OWNER"
         or not isinstance(comment.get("body"), str)
-        or comment["body"].strip() != expected_body
+        or comment["body"].replace("\r\n", "\n") != expected_body
         or not comment.get("created_at")
         or comment.get("updated_at") != comment.get("created_at")
     ):

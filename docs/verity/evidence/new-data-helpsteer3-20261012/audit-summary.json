@@ -1,0 +1,161 @@
+{
+  "admitted_rows": 0,
+  "approximate_near_context_screen": {
+    "candidate_pairs_checked": 25489,
+    "exhaustive": false,
+    "method": "English general/stem only; 32-smallest 5-word-shingle hashes, 8x4 LSH bands, then exact Jaccard >=0.8 for candidates",
+    "nonexact_pairs_at_or_above_0_8_jaccard": 6,
+    "pairs_at_or_above_0_8_jaccard": 260,
+    "train_rows_indexed": 4798,
+    "validation_rows_with_signature": 252
+  },
+  "automated_review_leads_not_dispositions": {
+    "number_change_lead": 8197,
+    "pii_lead_email": 113,
+    "pii_lead_ipv4": 99,
+    "pii_lead_phone_pattern": 279,
+    "pii_lead_url": 1268,
+    "unchanged_edit_lead": 36
+  },
+  "domains_by_section_split": {
+    "edit/train": {
+      "code": 3371,
+      "general": 4606,
+      "multilingual": 4626,
+      "stem": 1137
+    },
+    "edit/validation": {
+      "code": 177,
+      "general": 242,
+      "multilingual": 243,
+      "stem": 59
+    },
+    "edit_quality/train": {
+      "general": 2475,
+      "stem": 636
+    },
+    "edit_quality/validation": {
+      "general": 130,
+      "stem": 33
+    }
+  },
+  "duplicate_normalized_keys": {
+    "normalized_context": {
+      "edit_train_vs_validation_keys": 431,
+      "edit_vs_edit_quality_keys": 2050,
+      "repeated_keys_anywhere": 4979
+    },
+    "normalized_edited": {
+      "edit_train_vs_validation_keys": 412,
+      "edit_vs_edit_quality_keys": 2062,
+      "repeated_keys_anywhere": 4992
+    },
+    "normalized_original": {
+      "edit_train_vs_validation_keys": 412,
+      "edit_vs_edit_quality_keys": 2063,
+      "repeated_keys_anywhere": 4996
+    }
+  },
+  "heuristic_user_prompt_task_leads_not_labels": {
+    "edit/train:document_qa": 567,
+    "edit/train:rewrite": 740,
+    "edit/train:summary": 194,
+    "edit/validation:document_qa": 29,
+    "edit/validation:rewrite": 41,
+    "edit/validation:summary": 11,
+    "edit_quality/train:document_qa": 180,
+    "edit_quality/train:rewrite": 282,
+    "edit_quality/train:summary": 76,
+    "edit_quality/validation:document_qa": 10,
+    "edit_quality/validation:rewrite": 9,
+    "edit_quality/validation:summary": 4
+  },
+  "languages_by_section_split": {
+    "edit/train": {
+      "bash": 26,
+      "c": 92,
+      "c#": 173,
+      "c++": 150,
+      "chinese": 1510,
+      "dutch": 87,
+      "english": 5743,
+      "french": 549,
+      "german": 242,
+      "go": 83,
+      "indonesian": 89,
+      "italian": 224,
+      "japanese": 287,
+      "java": 189,
+      "javascript_html_css": 640,
+      "korean": 459,
+      "php": 95,
+      "polish": 109,
+      "portuguese": 205,
+      "powershell": 24,
+      "python": 1590,
+      "r": 33,
+      "russian": 258,
+      "rust": 19,
+      "spanish": 517,
+      "sql": 167,
+      "typescript": 90,
+      "vietnamese": 90
+    },
+    "edit/validation": {
+      "bash": 1,
+      "c": 4,
+      "c#": 12,
+      "c++": 4,
+      "chinese": 75,
+      "dutch": 3,
+      "english": 301,
+      "french": 30,
+      "german": 10,
+      "go": 6,
+      "indonesian": 8,
+      "italian": 10,
+      "japanese": 21,
+      "java": 4,
+      "javascript_html_css": 30,
+      "korean": 17,
+      "php": 8,
+      "polish": 8,
+      "portuguese": 13,
+      "powershell": 2,
+      "python": 89,
+      "r": 5,
+      "russian": 17,
+      "spanish": 31,
+      "sql": 8,
+      "typescript": 4
+    },
+    "edit_quality/train": {
+      "english": 3111
+    },
+    "edit_quality/validation": {
+      "english": 163
+    }
+  },
+  "publisher_splits": [
+    "train",
+    "validation"
+  ],
+  "rows_by_section_split": {
+    "edit/train": 13740,
+    "edit/validation": 721,
+    "edit_quality/train": 3111,
+    "edit_quality/validation": 163
+  },
+  "source_author_document_lineage_identifiers_in_rows": false,
+  "source_repository": "https://huggingface.co/datasets/nvidia/HelpSteer3",
+  "source_revision": "f6d145777bcbde96137596340fab89793acd1031",
+  "source_sha256": {
+    "README.md": "d5d46db58e8374937ea284b33b1583a4a465b232bf74b941745d80e3c35fd8ae",
+    "edit/train.jsonl.gz": "c0d4208ddedd1bb66845fd29ff8be2549e8dde7dda720af944bd9308df688df2",
+    "edit/validation.jsonl.gz": "80ac8fa3d204e71778aa7a09e1f8050d247b758d85f8a6d27014757aaef8c74c",
+    "edit_quality/train.jsonl.gz": "5df23b690d2d3fb8347d9fcf0e15f521d580a1d3347f68d4815b378a28ba0d1f",
+    "edit_quality/validation.jsonl.gz": "6c89444f8be151b62a0e0d9693d470fbd21ccd226c656fa788556ab650df8184"
+  },
+  "status": "QUARANTINED_REVIEW_ONLY",
+  "training_permitted_by_azaeron_gate": false
+}

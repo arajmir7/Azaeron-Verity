@@ -1,0 +1,72 @@
+{
+  "admitted_rows": 0,
+  "annotated_paper_ids_cross_split_overlap": {
+    "dev_test": 0,
+    "train_dev": 0,
+    "train_test": 0
+  },
+  "positive_license_filter": "Both version 1 and version 2 must have publisher-recorded CC BY 3.0/4.0, CC0 or public-domain URL; unknown, noncommercial, share-alike and arXiv nonexclusive-distribution excluded",
+  "results_by_split": {
+    "dev": {
+      "annotated_edits_with_both_versions_positive": 0,
+      "annotated_paper_ids_missing_alignment": 0,
+      "annotated_papers": 46,
+      "papers_with_both_versions_in_positive_commercial_reuse_license": 0,
+      "published_aligned_papers": 75,
+      "published_annotated_edits": 200,
+      "publisher_license_pairs_by_paper": {
+        "http://arxiv.org/licenses/assumed-1991-2003/ -> http://arxiv.org/licenses/assumed-1991-2003/": 19,
+        "http://arxiv.org/licenses/nonexclusive-distrib/1.0/ -> http://arxiv.org/licenses/nonexclusive-distrib/1.0/": 56
+      }
+    },
+    "test": {
+      "annotated_edits_with_both_versions_positive": 0,
+      "annotated_paper_ids_missing_alignment": 0,
+      "annotated_papers": 69,
+      "papers_with_both_versions_in_positive_commercial_reuse_license": 0,
+      "published_aligned_papers": 150,
+      "published_annotated_edits": 200,
+      "publisher_license_pairs_by_paper": {
+        "http://arxiv.org/licenses/assumed-1991-2003/ -> http://arxiv.org/licenses/assumed-1991-2003/": 36,
+        "http://arxiv.org/licenses/assumed-1991-2003/ -> http://arxiv.org/licenses/nonexclusive-distrib/1.0/": 2,
+        "http://arxiv.org/licenses/nonexclusive-distrib/1.0/ -> http://arxiv.org/licenses/nonexclusive-distrib/1.0/": 112
+      }
+    },
+    "train": {
+      "annotated_edits_with_both_versions_positive": 18,
+      "annotated_paper_ids_missing_alignment": 0,
+      "annotated_papers": 248,
+      "papers_with_both_versions_in_positive_commercial_reuse_license": 8,
+      "published_aligned_papers": 526,
+      "published_annotated_edits": 600,
+      "publisher_license_pairs_by_paper": {
+        "http://arxiv.org/licenses/assumed-1991-2003/ -> http://arxiv.org/licenses/assumed-1991-2003/": 134,
+        "http://arxiv.org/licenses/assumed-1991-2003/ -> http://arxiv.org/licenses/nonexclusive-distrib/1.0/": 3,
+        "http://arxiv.org/licenses/nonexclusive-distrib/1.0/ -> http://arxiv.org/licenses/assumed-1991-2003/": 1,
+        "http://arxiv.org/licenses/nonexclusive-distrib/1.0/ -> http://arxiv.org/licenses/nonexclusive-distrib/1.0/": 376,
+        "http://arxiv.org/licenses/nonexclusive-distrib/1.0/ -> http://creativecommons.org/licenses/by/4.0/": 1,
+        "http://creativecommons.org/licenses/by-nc-sa/4.0/ -> http://creativecommons.org/licenses/by-nc-sa/4.0/": 2,
+        "http://creativecommons.org/licenses/by/3.0/ -> http://creativecommons.org/licenses/by/3.0/": 1,
+        "http://creativecommons.org/licenses/by/4.0/ -> http://creativecommons.org/licenses/by/4.0/": 4,
+        "http://creativecommons.org/licenses/publicdomain/ -> http://creativecommons.org/licenses/publicdomain/": 2,
+        "http://creativecommons.org/publicdomain/zero/1.0/ -> http://creativecommons.org/licenses/by-sa/4.0/": 1,
+        "http://creativecommons.org/publicdomain/zero/1.0/ -> http://creativecommons.org/publicdomain/zero/1.0/": 1
+      }
+    }
+  },
+  "row_level_privacy_and_copyright_review": "NOT_DONE",
+  "source_repository": "https://github.com/chaojiang06/arXivEdits",
+  "source_revision": "113913d68522c1c8428d8e191d5c9bed633da6ce",
+  "source_sha256": {
+    "data/edits/dev.json": "2280be90e03f7cb794769d82b92b1769fa8ec84fa0e563df6a9a3a3a1a8840a6",
+    "data/edits/test.json": "d0db73e78cf0c3086146d7339307a870769f5a50b0e0a969478b45041bb9ece3",
+    "data/edits/train.json": "22b8e4b8f2e5dd4710665bc5077456b4f455fa2d0e07b31635f5dc89a99e44d1",
+    "data/sentence_alignment/dev.json": "2252147b738a52133f7617b352c7e77639b0efe951adeacb3e371a4cd6dbfadf",
+    "data/sentence_alignment/test.json": "995f042d44e87c2d891429e2d30bf22c9f97a4dd9c3799854944325b31a18eb0",
+    "data/sentence_alignment/train.json": "6ee44429681edb7eab39a90d9272aa28e79473458d8d5b94cb99394c173ad184"
+  },
+  "source_to_target_version_mapping_independently_confirmed": false,
+  "status": "QUARANTINED_REVIEW_ONLY",
+  "task_coverage": "Scientific sentence revision only; no chat, summary, document QA, VoiceLock or OOD set",
+  "training_permitted_by_azaeron_gate": false
+}

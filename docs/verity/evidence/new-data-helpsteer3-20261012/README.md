@@ -1,0 +1,23 @@
+# HelpSteer3 human-edit Writer source audit — 12 October 2026
+
+**QUARANTINED_REVIEW_ONLY; zero rows admitted, zero training authorized.** The [pinned NVIDIA dataset card](https://huggingface.co/datasets/nvidia/HelpSteer3/blob/f6d145777bcbde96137596340fab89793acd1031/README.md) declares CC BY 4.0 and says its annotation vendors obtained annotator consent for model training. It describes 14,461 human-edited model responses, vendor/research quality review, and prompts taken from WildChat-1M for General/STEM or ShareGPT for Code/Multilingual. This is meaningful publisher-side evidence, but the original responses are model generated, the prompts are upstream user content, and the release lacks row-level source/author/document identifiers and per-response generator identifiers. A blanket claim of original human-authored target data would be false.
+
+The [WildChat publisher card at pinned revision](https://huggingface.co/datasets/allenai/WildChat-1M/blob/7d6490e462285cf85d91eabea0f9a954fbddcd1f/README.md) says its ODC-BY relicensing applies retroactively and describes de-identification and later PII-content removals. Its [pinned license](https://huggingface.co/datasets/allenai/WildChat-1M/blob/7d6490e462285cf85d91eabea0f9a954fbddcd1f/LICENSE.md) expressly distinguishes database rights from rights in individual contents. The source card SHA-256 is `0bbf0494bdf60a3d8f644c155cb3c5f8fb21cb247045008f99bfc261e7e15162`; the license SHA-256 is `a7c7f6bdb20d261b8726c7594afb5832b36926e0cabfa116c41f58625bbc776c`. Current [WildChat collection-app consent code](https://huggingface.co/spaces/yuntian-deng/ChatGPT4/blob/ac5f405a4807cabc44e92ce4b3056fb2636fe203/app.py) discusses data sharing and commercial applications, but that snapshot does not establish the terms shown to every historical source user; its SHA-256 is `27027f8494e11bef81e585d75654dd12c39d553d3a005979c741334ab7c34cb0`. ShareGPT user/content grant provenance and the exact upstream row mapping were not established. No additional rights were inferred from a third-party mirror's license label.
+
+[The reproducible audit](audit.py) verified five pinned NVIDIA files before parsing them. Their SHA-256 values, aggregate counts and method are in [audit-summary.json](audit-summary.json). Downloaded text remains only under `/private/tmp/azaeron-helpsteer3-audit-20261012`; no prompt, response, user identifier or row-level privacy lead is committed.
+
+The `edit` files contain **13,740 train and 721 validation rows**; `edit_quality` adds 3,111 train and 163 validation rows. Exact normalized context repeats across the published `edit` train/validation boundary for **431 keys**; original and edited responses repeat for **412 keys each**. Another **2,050 context keys** occur in both `edit` and `edit_quality`. An approximate English General/STEM screen checked 25,489 candidate pairs and found 260 context pairs with 5-word-shingle Jaccard at least 0.8, including **six nonexact** pairs; the method is not exhaustive. The publisher's two splits therefore cannot be accepted as isolated TRAIN/VAL/CAL/TEST/OOD evidence. The files provide no annotator, upstream conversation, source document, or generator IDs with which to prove source-isolated resplitting.
+
+Automated pattern checks found email-, URL-, IP- and phone-shaped content and many number changes between original and edited responses. The aggregate counts are review leads, not findings of actual personal data or factual drift. No accountable row-level PII/copyright disposition or independent Azaeron quality review was performed. Prompt regexes find some potential rewrite, summary and document-QA examples, but these are unadjudicated task leads, not a task-complete Writer set. MeaningLock preservation is not established.
+
+This source requires upstream prompt/content-rights reconciliation, row-source and generator lineage, manual privacy/copyright/quality disposition, a leakage-free five-way source-isolated construction with real TEST/OOD coverage, and an authenticated project-owner admission. Until then, it stays outside `config/model-platform/datasets.json` and all training jobs. Do not use the publisher validation rows as a sealed benchmark.
+
+To rerun the audit, download the five exact files listed in `audit-summary.json` from the pinned NVIDIA revision to a private directory, then run:
+
+```bash
+python3 docs/verity/evidence/new-data-helpsteer3-20261012/audit.py \
+  --source-dir /private/tmp/azaeron-helpsteer3-audit-20261012 \
+  --out-dir /private/tmp/azaeron-helpsteer3-audit-rerun
+```
+
+The rerun writes row hashes with automated flags to the private output directory for an authorized reviewer; only aggregate results are retained in the repository.

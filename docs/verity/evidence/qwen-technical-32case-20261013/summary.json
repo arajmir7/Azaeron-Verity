@@ -1,0 +1,26 @@
+{
+  "base_admitted": false,
+  "candidate_mean_objective_score": 0.5625,
+  "candidate_minus_source": -0.21875,
+  "candidate_peak_mlx_memory_gib": 2.5893,
+  "candidate_private_raw_sha256": "3e3f102a0f6df86929cbea220c069400e5ad181b4aae3256b389b48dd7d565d1",
+  "candidate_reasoning_visible_count": 0,
+  "candidate_stopping_violations": 0,
+  "classification": "NON_TRAINING_TECHNICAL_COMPARISON_ONLY",
+  "limitations": [
+    "Self-authored objective probes are not blinded quality evaluation.",
+    "Short deterministic outputs do not establish naturalness or commercial model quality.",
+    "Only one Mac/runtime was measured; quantization discrepancies in earlier logits remain.",
+    "Protocol timestamp shows file creation before this run but does not prove external pre-registration."
+  ],
+  "production_approved": false,
+  "protocol_sha256": "06aa420893fedc087a03578729247b3d7c191fb8c2ee9fd1e54546d0aee19a9c",
+  "raw_results_sha256": "fccd01fcfb4af53e27bc2e6d5f4f7104b89d00fd643b2b65ce66bef28418aade",
+  "resource_input_tokens": [
+    529
+  ],
+  "source_mean_objective_score": 0.78125,
+  "source_private_raw_sha256": "0e589c79332a795dfbc5365c7d9a34008445c0b195dc18e4eb39c2049c9622c9",
+  "task_count": 32,
+  "technical_acceptance": "PENDING_INDEPENDENT_HUMAN_REVIEW"
+}

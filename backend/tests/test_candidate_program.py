@@ -87,6 +87,38 @@ def candidate_fixture(root):
 
 
 def technical_fixture(root, candidate, candidate_sha256):
+    fixture_file = root / "technical-fixtures.json"
+    fixture_file.write_bytes(
+        canonical(
+            {
+                "tasks": [
+                    {
+                        "id": f"task-{i}",
+                        "prompt": f"prompt-{i}",
+                        "kind": "exact",
+                        "expected": f"answer-{i}",
+                    }
+                    for i in range(32)
+                ],
+                "stopping": [
+                    {
+                        "id": f"stop-{i}",
+                        "prompt": f"stop-{i}",
+                        "expected": f"response-{i}",
+                    }
+                    for i in range(8)
+                ],
+                "resources": [
+                    {
+                        "id": "resource-1",
+                        "prompt": "resource-prompt",
+                        "expected": "resource-response",
+                        "minimum_tokens": 64,
+                    }
+                ],
+            }
+        )
+    )
     protocol_file = root / "technical-protocol.json"
     protocol_file.write_bytes(
         canonical(
@@ -94,6 +126,11 @@ def technical_fixture(root, candidate, candidate_sha256):
                 "candidate_sha256": candidate_sha256,
                 "baseline_id": "fixture-bf16",
                 "score_definition": "Exact fixture task score from 0 to 1",
+                "fixtures": {
+                    "path": fixture_file.name,
+                    "sha256": digest(fixture_file),
+                },
+                "scoring_rule": "exact_or_invariants_v1",
                 "task_cases_min": 32,
                 "mean_score_drop_max": 0.05,
                 "stopping_cases_min": 8,
@@ -110,6 +147,7 @@ def technical_fixture(root, candidate, candidate_sha256):
             {
                 "candidate_sha256": candidate_sha256,
                 "protocol_sha256": digest(protocol_file),
+                "fixtures_sha256": digest(fixture_file),
                 "baseline_id": "fixture-bf16",
                 "upstream_revision": candidate.revision,
                 "artifact_hashes": candidate.artifacts,
@@ -123,11 +161,14 @@ def technical_fixture(root, candidate, candidate_sha256):
                             f"prompt-{i}".encode()
                         ).hexdigest(),
                         "baseline_response_sha256": hashlib.sha256(
-                            f"baseline-{i}".encode()
+                            f"answer-{i}".encode()
                         ).hexdigest(),
                         "candidate_response_sha256": hashlib.sha256(
-                            f"candidate-{i}".encode()
+                            f"answer-{i}".encode()
                         ).hexdigest(),
+                        "baseline_response": f"answer-{i}",
+                        "candidate_response": f"answer-{i}",
+                        "reasoning_visible": False,
                         "baseline_score": 1.0,
                         "candidate_score": 1.0,
                     }
@@ -142,16 +183,25 @@ def technical_fixture(root, candidate, candidate_sha256):
                         "response_sha256": hashlib.sha256(
                             f"response-{i}".encode()
                         ).hexdigest(),
+                        "response": f"response-{i}",
                         "finish_reason": "stop",
                         "reasoning_visible": False,
+                        "expected_exact_match": True,
                     }
                     for i in range(8)
                 ],
                 "resources": [
                     {
                         "id": "resource-1",
+                        "prompt_sha256": hashlib.sha256(b"resource-prompt").hexdigest(),
+                        "response_sha256": hashlib.sha256(
+                            b"resource-response"
+                        ).hexdigest(),
+                        "response": "resource-response",
                         "input_tokens": 64,
                         "peak_memory_gib": 1.0,
+                        "finish_reason": "stop",
+                        "reasoning_visible": False,
                         "success": True,
                     }
                 ],
@@ -218,6 +268,7 @@ def technical_fixture(root, candidate, candidate_sha256):
         )
     )
     return {
+        "fixtures": fixture_file,
         "protocol": protocol_file,
         "raw": raw_file,
         "execution": execution_file,
@@ -228,8 +279,12 @@ def technical_fixture(root, candidate, candidate_sha256):
 
 
 def rebind_technical_fixture(files, candidate_sha256):
+    protocol = json.loads(files["protocol"].read_bytes())
+    protocol["fixtures"]["sha256"] = digest(files["fixtures"])
+    files["protocol"].write_bytes(canonical(protocol))
     raw = json.loads(files["raw"].read_bytes())
     raw["protocol_sha256"] = digest(files["protocol"])
+    raw["fixtures_sha256"] = digest(files["fixtures"])
     files["raw"].write_bytes(canonical(raw))
     execution = json.loads(files["execution"].read_bytes())
     execution["protocol_sha256"] = digest(files["protocol"])
@@ -532,7 +587,7 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path, monkeypa
     )
     admitted = admit(manifest, review_file, source, tmp_path / "registry")
     assert load_candidate(admitted)[0].purpose == "PRODUCTION"
-    for name in ("evidence", "acceptance", "protocol", "execution", "raw"):
+    for name in ("evidence", "acceptance", "protocol", "fixtures", "execution", "raw"):
         file = technical_files[name]
         assert digest(admitted / file.name) == digest(file)
     assert (
@@ -556,12 +611,20 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path, monkeypa
         ("owner", "technical_acceptance_subject_or_independence_mismatch"),
         ("tampered_evidence", "artifact_hash_mismatch"),
         ("tampered_protocol", "artifact_hash_mismatch"),
+        ("tampered_fixtures", "artifact_hash_mismatch"),
         ("missing_execution", "technical_evidence_missing"),
         ("oversized_raw", "technical_evidence_too_large"),
         ("unbound_protocol", "technical_evidence_lineage_mismatch"),
         ("unbound_artifact", "technical_evidence_lineage_mismatch"),
         ("failed_raw_stopping", "technical_protocol_threshold_failed"),
+        ("wrong_stop_answer", "technical_protocol_threshold_failed"),
+        ("forged_stop_match", "technical_stopping_score_or_reasoning_mismatch"),
         ("failed_task_quality", "technical_protocol_threshold_failed"),
+        ("forged_task_score", "technical_task_score_or_reasoning_mismatch"),
+        ("task_reasoning_leak", "technical_protocol_threshold_failed"),
+        ("hidden_task_reasoning", "technical_task_score_or_reasoning_mismatch"),
+        ("tampered_response", "technical_task_binding_mismatch"),
+        ("resource_false_success", "technical_resource_score_or_reasoning_mismatch"),
         ("vacuous_threshold", "less than or equal to 0.1"),
         ("duplicate_case", "Technical case IDs must be unique"),
         ("mismatched_summary", "technical_execution_summary_mismatch"),
@@ -591,6 +654,8 @@ def test_independent_technical_acceptance_requires_authenticated_exact_evidence(
         files["evidence"].write_bytes(b"changed")
     elif mutation == "tampered_protocol":
         files["protocol"].write_bytes(b"changed")
+    elif mutation == "tampered_fixtures":
+        files["fixtures"].write_bytes(b"changed")
     elif mutation == "missing_execution":
         files["execution"].unlink()
     elif mutation == "oversized_raw":
@@ -608,21 +673,76 @@ def test_independent_technical_acceptance_requires_authenticated_exact_evidence(
     elif mutation == "failed_raw_stopping":
         raw = json.loads(files["raw"].read_bytes())
         raw["stopping"][0]["finish_reason"] = "length"
-        raw["stopping"][0]["reasoning_visible"] = True
         files["raw"].write_bytes(canonical(raw))
         execution = json.loads(files["execution"].read_bytes())
         execution["stopping_violations"] = 1
-        execution["reasoning_leaks"] = 1
         files["execution"].write_bytes(canonical(execution))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "wrong_stop_answer":
+        raw = json.loads(files["raw"].read_bytes())
+        raw["stopping"][0]["response"] = "WRONG"
+        raw["stopping"][0]["response_sha256"] = hashlib.sha256(b"WRONG").hexdigest()
+        raw["stopping"][0]["expected_exact_match"] = False
+        files["raw"].write_bytes(canonical(raw))
+        execution = json.loads(files["execution"].read_bytes())
+        execution["stopping_violations"] = 1
+        files["execution"].write_bytes(canonical(execution))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "forged_stop_match":
+        raw = json.loads(files["raw"].read_bytes())
+        raw["stopping"][0]["response"] = "WRONG"
+        raw["stopping"][0]["response_sha256"] = hashlib.sha256(b"WRONG").hexdigest()
+        files["raw"].write_bytes(canonical(raw))
         rebind_technical_fixture(files, candidate_sha256)
     elif mutation == "failed_task_quality":
         raw = json.loads(files["raw"].read_bytes())
         for case in raw["tasks"][:4]:
+            case["candidate_response"] = "WRONG"
+            case["candidate_response_sha256"] = hashlib.sha256(b"WRONG").hexdigest()
             case["candidate_score"] = 0.0
         files["raw"].write_bytes(canonical(raw))
         execution = json.loads(files["execution"].read_bytes())
         execution["candidate_mean_score"] = 0.875
         files["execution"].write_bytes(canonical(execution))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "forged_task_score":
+        raw = json.loads(files["raw"].read_bytes())
+        raw["tasks"][0]["candidate_score"] = 0.0
+        files["raw"].write_bytes(canonical(raw))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "task_reasoning_leak":
+        raw = json.loads(files["raw"].read_bytes())
+        raw["tasks"][0]["candidate_response"] = "<think>internal</think>"
+        raw["tasks"][0]["candidate_response_sha256"] = hashlib.sha256(
+            b"<think>internal</think>"
+        ).hexdigest()
+        raw["tasks"][0]["candidate_score"] = 0.0
+        raw["tasks"][0]["reasoning_visible"] = True
+        files["raw"].write_bytes(canonical(raw))
+        execution = json.loads(files["execution"].read_bytes())
+        execution["candidate_mean_score"] = 31 / 32
+        execution["reasoning_leaks"] = 1
+        files["execution"].write_bytes(canonical(execution))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "hidden_task_reasoning":
+        raw = json.loads(files["raw"].read_bytes())
+        raw["tasks"][0]["candidate_response"] = "<think>internal</think>"
+        raw["tasks"][0]["candidate_response_sha256"] = hashlib.sha256(
+            b"<think>internal</think>"
+        ).hexdigest()
+        raw["tasks"][0]["candidate_score"] = 0.0
+        files["raw"].write_bytes(canonical(raw))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "tampered_response":
+        raw = json.loads(files["raw"].read_bytes())
+        raw["tasks"][0]["candidate_response"] = "WRONG"
+        files["raw"].write_bytes(canonical(raw))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "resource_false_success":
+        raw = json.loads(files["raw"].read_bytes())
+        raw["resources"][0]["response"] = "WRONG"
+        raw["resources"][0]["response_sha256"] = hashlib.sha256(b"WRONG").hexdigest()
+        files["raw"].write_bytes(canonical(raw))
         rebind_technical_fixture(files, candidate_sha256)
     elif mutation == "vacuous_threshold":
         protocol = json.loads(files["protocol"].read_bytes())
@@ -703,6 +823,7 @@ def test_independent_technical_acceptance_requires_authenticated_exact_evidence(
             files["acceptance"],
             files["evidence"],
             files["protocol"],
+            files["fixtures"],
             files["execution"],
             files["raw"],
         )

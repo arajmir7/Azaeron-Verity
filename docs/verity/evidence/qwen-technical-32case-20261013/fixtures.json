@@ -1,0 +1,300 @@
+{
+  "classification": "ORIGINAL_SELF_AUTHORED_NON_TRAINING_TECHNICAL_PROBES",
+  "resources": [
+    {
+      "id": "R01",
+      "minimum_tokens": 256,
+      "prompt": "Read the records, then answer with only FINAL-OK. Record 1: marker L-001 is not the answer. Record 2: marker L-002 is not the answer. Record 3: marker L-003 is not the answer. Record 4: marker L-004 is not the answer. Record 5: marker L-005 is not the answer. Record 6: marker L-006 is not the answer. Record 7: marker L-007 is not the answer. Record 8: marker L-008 is not the answer. Record 9: marker L-009 is not the answer. Record 10: marker L-010 is not the answer. Record 11: marker L-011 is not the answer. Record 12: marker L-012 is not the answer. Record 13: marker L-013 is not the answer. Record 14: marker L-014 is not the answer. Record 15: marker L-015 is not the answer. Record 16: marker L-016 is not the answer. Record 17: marker L-017 is not the answer. Record 18: marker L-018 is not the answer. Record 19: marker L-019 is not the answer. Record 20: marker L-020 is not the answer. Record 21: marker L-021 is not the answer. Record 22: marker L-022 is not the answer. Record 23: marker L-023 is not the answer. Record 24: marker L-024 is not the answer. Record 25: marker L-025 is not the answer. Record 26: marker L-026 is not the answer. Record 27: marker L-027 is not the answer. Record 28: marker L-028 is not the answer. Record 29: marker L-029 is not the answer. Record 30: marker L-030 is not the answer. Record 31: marker L-031 is not the answer. Record 32: marker L-032 is not the answer. Answer:"
+    }
+  ],
+  "stopping": [
+    {
+      "expected": "ACK",
+      "id": "S01",
+      "prompt": "Reply with exactly: ACK"
+    },
+    {
+      "expected": "READY",
+      "id": "S02",
+      "prompt": "Reply with exactly: READY"
+    },
+    {
+      "expected": "4",
+      "id": "S03",
+      "prompt": "What is 2 plus 2? Return only the number."
+    },
+    {
+      "expected": "blue",
+      "id": "S04",
+      "prompt": "Source: The key is blue. What color is the key? One word only."
+    },
+    {
+      "expected": "FINAL",
+      "id": "S05",
+      "prompt": "Return the single word FINAL and then stop."
+    },
+    {
+      "expected": "3 May 2023",
+      "id": "S06",
+      "prompt": "Choose the later date: 2 May 2023 or 3 May 2023. Return only the later date."
+    },
+    {
+      "expected": "N",
+      "id": "S07",
+      "prompt": "The source says the answer is N. Return just the answer from the source."
+    },
+    {
+      "expected": "ZK-19",
+      "id": "S08",
+      "prompt": "Echo the reference code ZK-19 and then stop."
+    }
+  ],
+  "tasks": [
+    {
+      "expected": "14 April 2025",
+      "id": "E01",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. The permit was signed on 14 April 2025; the draft was filed in 2023. What is the signing date?"
+    },
+    {
+      "expected": "18",
+      "id": "E02",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Warehouse K received 18 crates; Warehouse J received 27. How many crates did Warehouse K receive?"
+    },
+    {
+      "expected": "southern room",
+      "id": "E03",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. The northern room closes at 16:30 and the southern room closes at 18:15. Which room closes later?"
+    },
+    {
+      "expected": "Nira Sen",
+      "id": "E04",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. The final reviewer is Nira Sen. An earlier draft names Raj Mehta. Who is the final reviewer?"
+    },
+    {
+      "expected": "AX-407",
+      "id": "E05",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. The invoice reference is AX-407, while the purchase order is PO-82. Give only the invoice reference."
+    },
+    {
+      "expected": "Friday",
+      "id": "E06",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. The training session moved from Tuesday to Friday. Which day is current?"
+    },
+    {
+      "expected": "Blue team",
+      "id": "E07",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Blue team scored 6 and amber team scored 9. Which team scored fewer points?"
+    },
+    {
+      "expected": "3 November 2026",
+      "id": "E08",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Memo revision C is effective on 3 November 2026; revision B was effective in 2024. Give the current effective date."
+    },
+    {
+      "expected": "43",
+      "id": "A01",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Add 17 and 26. Return only the integer."
+    },
+    {
+      "expected": "44",
+      "id": "A02",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Subtract 19 from 63. Return only the integer."
+    },
+    {
+      "expected": "56",
+      "id": "A03",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Multiply 8 by 7. Return only the integer."
+    },
+    {
+      "expected": "12",
+      "id": "A04",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Divide 84 by 7. Return only the integer."
+    },
+    {
+      "expected": "21",
+      "id": "A05",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. A box has 12 red pens and 9 black pens. How many pens total? Return only the integer."
+    },
+    {
+      "expected": "27",
+      "id": "A06",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. There are 45 seats; 18 are occupied. How many seats are empty? Return only the integer."
+    },
+    {
+      "expected": "42",
+      "id": "A07",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Three groups each have 14 members. How many members total? Return only the integer."
+    },
+    {
+      "expected": "30",
+      "id": "A08",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. A train travels 6 km in each of 5 segments. How many km total? Return only the integer."
+    },
+    {
+      "expected": "5",
+      "id": "Q01",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Source: The red folder is in cabinet 2. The green folder is in cabinet 5. Where is the green folder? Answer with only the cabinet number."
+    },
+    {
+      "expected": "rejected",
+      "id": "Q02",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Source: Item P was approved; item Q was rejected. What happened to item Q? Answer with one word."
+    },
+    {
+      "expected": "tunnel",
+      "id": "Q03",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Source: The bridge opens in June, but the tunnel opens in September. Which structure opens in September? Answer with one word."
+    },
+    {
+      "expected": "N",
+      "id": "Q04",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Source: Policy M covers interns. Policy N covers contractors. Which policy covers contractors? Answer with the policy letter."
+    },
+    {
+      "expected": "Omar",
+      "id": "Q05",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Source: Liya signed the note, and Omar witnessed it. Who witnessed the note? Answer with the name only."
+    },
+    {
+      "expected": "12",
+      "id": "Q06",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Source: Route 12 serves the museum; Route 21 serves the library. Which route serves the museum? Answer with the number only."
+    },
+    {
+      "expected": "9",
+      "id": "Q07",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Source: The sample was chilled to 4 C, then warmed to 9 C before testing. What temperature was used for testing? Answer as a number only."
+    },
+    {
+      "expected": "8",
+      "id": "Q08",
+      "kind": "exact",
+      "prompt": "Answer from the supplied text only. Source: The order was placed on 2 March and delivered on 8 March. On which March day was it delivered? Answer with the day number only."
+    },
+    {
+      "forbidden": [
+        "approved"
+      ],
+      "id": "P01",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly in one sentence without changing the facts: Mira did not approve invoice AX-407 on 14 April 2025.",
+      "required": [
+        "Mira",
+        "not",
+        "AX-407",
+        "14 April 2025"
+      ]
+    },
+    {
+      "forbidden": [
+        "will arrive"
+      ],
+      "id": "P02",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly in one sentence without changing the facts: The report may arrive by 6 June 2026, but that date is uncertain.",
+      "required": [
+        "may",
+        "6 June 2026",
+        "uncertain"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "P03",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly in one sentence without changing the facts: Raj listed 18 units, not 80, in memo R-27.",
+      "required": [
+        "Raj",
+        "18",
+        "not",
+        "80",
+        "R-27"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "P04",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly in one sentence without changing the facts: The citation [12] supports only the 2024 estimate, not the 2025 forecast.",
+      "required": [
+        "[12]",
+        "only",
+        "2024",
+        "not",
+        "2025"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "P05",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly in one sentence without changing the facts: Nira said, 'The gate is closed,' on 3 May 2023.",
+      "required": [
+        "Nira",
+        "The gate is closed",
+        "3 May 2023"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "P06",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly in one sentence without changing the facts: The east office closes at 17:00; the west office closes at 19:00.",
+      "required": [
+        "east",
+        "17:00",
+        "west",
+        "19:00"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "P07",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly in one sentence without changing the facts: Under rule B-4, Ana can defer up to 7 days, not 17 days.",
+      "required": [
+        "B-4",
+        "Ana",
+        "can",
+        "7",
+        "not",
+        "17"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "P08",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly in one sentence without changing the facts: Omar's 12 October 2026 note cites Section 5.2 and says the claim is unverified.",
+      "required": [
+        "Omar",
+        "12 October 2026",
+        "Section 5.2",
+        "unverified"
+      ]
+    }
+  ]
+}

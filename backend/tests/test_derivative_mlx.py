@@ -9,7 +9,9 @@ import pytest
 from pydantic import ValidationError
 
 from app.modules.model_platform import derivative_mlx as mlx
-from app.modules.model_platform.policy import PolicyError, canonical, digest
+from app.modules.model_platform.admission import CandidateReview
+from app.modules.model_platform.datasets import Dataset, DatasetReview
+from app.modules.model_platform.policy import FileRef, PolicyError, canonical, digest
 
 
 def config(tmp_path: Path, **changes) -> mlx.MLXWriterConfig:
@@ -103,6 +105,54 @@ def test_mlx_weights_only_continuation_requires_matching_intent(tmp_path):
     )
     with pytest.raises(PolicyError, match="resume_lineage"):
         mlx._resume_source(value, tmp_path, mlx._bindings(value, "a" * 64, "b" * 64))
+
+
+def test_mlx_run_binds_and_rechecks_base_and_dataset_decisions(tmp_path):
+    admitted = tmp_path / "admitted"
+    admitted.mkdir()
+    (admitted / "review.json").write_bytes(b"reviewed base")
+    (admitted / "owner-decision.json").write_bytes(b"base owner")
+    (admitted / "technical-acceptance.json").write_bytes(b"technical reviewer")
+    base_review = CandidateReview.model_construct(
+        owner_decision=FileRef(
+            path="owner-decision.json",
+            sha256=digest(admitted / "owner-decision.json"),
+        ),
+        technical_acceptance=FileRef(
+            path="technical-acceptance.json",
+            sha256=digest(admitted / "technical-acceptance.json"),
+        ),
+    )
+    data = tmp_path / "data"
+    data.mkdir()
+    (data / "owner-decision.json").write_bytes(b"dataset owner")
+    data_review = DatasetReview(
+        subject_sha256="a" * 64,
+        reviewer="fixture owner",
+        reviewer_kind="HUMAN",
+        reviewed_at="2026-10-13",
+        evidence_reference="TEST FIXTURE",
+        rights="PASS",
+        provenance="PASS",
+        copyright="PASS",
+        pii="PASS",
+        owner_decision=FileRef(
+            path="owner-decision.json",
+            sha256=digest(data / "owner-decision.json"),
+        ),
+    )
+    (data / "review.json").write_bytes(canonical(data_review.model_dump(mode="json")))
+    dataset = Dataset.model_construct(
+        review=FileRef(path="review.json", sha256=digest(data / "review.json"))
+    )
+    bound = mlx._admission_hashes(admitted, base_review, data / "dataset.json", dataset)
+    assert bound["base_review_sha256"] == digest(admitted / "review.json")
+    assert bound["dataset_owner_decision_sha256"] == digest(
+        data / "owner-decision.json"
+    )
+    (data / "owner-decision.json").write_bytes(b"changed dataset owner")
+    with pytest.raises(PolicyError, match="artifact_hash_mismatch"):
+        mlx._admission_hashes(admitted, base_review, data / "dataset.json", dataset)
 
 
 def test_mlx_memory_disk_preflight_parses_vm_stat(tmp_path, monkeypatch):

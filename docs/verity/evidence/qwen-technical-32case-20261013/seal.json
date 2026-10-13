@@ -1,0 +1,13 @@
+{
+  "base_admitted": false,
+  "classification": "BEFORE_MODEL_EXECUTION_NON_TRAINING_TECHNICAL_PROBES",
+  "created_at_utc": "2026-10-13T05:37:50.213149+00:00",
+  "free_disk_gib_at_seal": 22.047,
+  "git_head_at_seal": "58b1730046bf650d6a2faaf47b379f19abae612c",
+  "input_sha256": {
+    "benchmark.py": "cfead5d97602355ce101283f5f7f58bf00f9b8fa02b5abf7cebf5631fdb94e5f",
+    "fixtures.json": "d44de175e4c14a3660c308f34daf6aaa49098cfd57ad891e5675a603909ba9c3",
+    "make_fixtures.py": "cf05ba7703e29fca7e0cdd2830d03fd866b92ac930db9c3c569d79148373827d",
+    "protocol.json": "06aa420893fedc087a03578729247b3d7c191fb8c2ee9fd1e54546d0aee19a9c"
+  }
+}

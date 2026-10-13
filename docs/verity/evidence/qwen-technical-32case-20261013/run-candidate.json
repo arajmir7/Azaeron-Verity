@@ -1,0 +1,40 @@
+{
+  "artifact_hashes": {
+    "LICENSE": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "README.md": "748c964f9b7e5f2c3770ce013bbc0153be7c54311d9692c343b6188eefe77ac6",
+    "chat_template.jinja": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+    "config.json": "c2ec0173d67f0d18cd9e538b4cf19e77b218459a7c108cfa863496bab46661e9",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    "model.safetensors": "55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d",
+    "model.safetensors.index.json": "8cef64e1365a46469a966601e39615374b753f5deaff953fc3c4d706a8744481",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "tokenizer_config.json": "5aa5069e1b0c0d623ce38e0df387e506b843e5c4d612a36d2e79e46a400e6450"
+  },
+  "candidate_sha256": "19fe23dd9302d4cb73e8cf9866f42b6a73399c9ec9398c28a340cda1acf1b8ce",
+  "eos_token_ids": [
+    151643,
+    151645
+  ],
+  "fixtures_sha256": "d44de175e4c14a3660c308f34daf6aaa49098cfd57ad891e5675a603909ba9c3",
+  "free_disk_gib_after": 19.194,
+  "free_disk_gib_before": 19.201,
+  "mean_objective_score": 0.5625,
+  "peak_mlx_memory_gib": 2.5893,
+  "private_raw_path": ".verity-local/qwen-technical-32case-20261013/raw-candidate.json",
+  "private_raw_sha256": "3e3f102a0f6df86929cbea220c069400e5ad181b4aae3256b389b48dd7d565d1",
+  "protocol_sha256": "06aa420893fedc087a03578729247b3d7c191fb8c2ee9fd1e54546d0aee19a9c",
+  "reasoning_visible_count": 0,
+  "resource_cases": [
+    {
+      "id": "R01",
+      "input_tokens": 529,
+      "peak_memory_gib": 2.5893,
+      "success": true
+    }
+  ],
+  "source_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "stage": "candidate",
+  "stopping_count": 8,
+  "stopping_violations": 0,
+  "task_count": 32
+}

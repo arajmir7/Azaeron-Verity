@@ -230,6 +230,155 @@ class ReleaseApproval(StrictModel):
         return self
 
 
+class DerivativeAdmission(StrictModel):
+    """Compact, hash-bound copies of the admissions used for a derivative."""
+
+    candidate_manifest_sha256: Digest
+    candidate_review_sha256: Digest
+    base_owner_decision_sha256: Digest
+    technical_acceptance_sha256: Digest
+    base_weights_sha256: Digest
+    base_license_sha256: Digest
+    dataset_manifest_sha256: Digest
+    dataset_review_sha256: Digest
+    dataset_owner_decision_sha256: Digest
+    training_manifest_sha256: Digest
+
+
+def _required_attestation(root: Path, name: str) -> Path:
+    path = local_file(root, name)
+    if not path.is_file() or path.stat().st_size > 4 * 1024**2:
+        raise PolicyError("derivative_admission_evidence_missing")
+    return path
+
+
+def _verify_derivative_admission(lineage: Lineage, training: dict, root: Path) -> None:
+    """Recheck external decisions at promotion and at every serving load.
+
+    The release bundle carries only admission records and their reviewed hashes,
+    not private training rows or a second copy of base weights. This attests
+    admissions and lineage; it is not a proof of the physical training execution.
+    """
+    from .admission import (
+        Candidate,
+        CandidateReview,
+        inventory_hash,
+        require_technical_acceptance,
+    )
+    from .datasets import Dataset, DatasetReview, SPLITS, review_subject
+    from .owner_decision import require_owner_approval
+
+    base_root = root / "base-admission"
+    data_root = root / "dataset-admission"
+    candidate_file = _required_attestation(base_root, "candidate.json")
+    candidate_review_file = _required_attestation(base_root, "review.json")
+    provenance_file = _required_attestation(root, "derivative-admission.json")
+    dataset_file = _required_attestation(data_root, "dataset.json")
+    candidate = Candidate.model_validate_json(candidate_file.read_bytes())
+    candidate_review = CandidateReview.model_validate_json(
+        candidate_review_file.read_bytes()
+    )
+    candidate_hash = digest(candidate_file)
+    if (
+        candidate.purpose != "PRODUCTION"
+        or candidate_review.purpose != "PRODUCTION"
+        or candidate_review.subject_sha256 != candidate_hash
+        or candidate_review.license != candidate.license
+        or candidate_review.owner_decision is None
+        or candidate_review.technical_acceptance is None
+    ):
+        raise PolicyError("derivative_base_admission_mismatch")
+    base_license_file = _required_attestation(base_root, candidate.license_file)
+    if digest(base_license_file) != candidate.artifacts[candidate.license_file]:
+        raise PolicyError("derivative_base_license_mismatch")
+    model_card = _required_attestation(root, "MODEL_CARD.md").read_text(
+        encoding="utf-8"
+    )
+    if f"{candidate.repository}@{candidate.revision}" not in model_card:
+        raise PolicyError("derivative_model_card_base_attribution_missing")
+    base_owner_file = candidate_review.owner_decision.verify(base_root)
+    base_owner = require_owner_approval(
+        base_owner_file, "BASE_MODEL", candidate_hash, "commercial_derivative_training"
+    )
+    if candidate_review.reviewer != base_owner.approver_name:
+        raise PolicyError("derivative_base_reviewer_mismatch")
+    require_technical_acceptance(base_root, candidate_review, candidate, candidate_hash)
+    base_weights_hash = inventory_hash(
+        {name: candidate.artifacts[name] for name in candidate.weights}
+    )
+    # A single-file base has an established checkpoint SHA. A sharded base has
+    # no single file SHA, so its canonical weight inventory is the checkpoint.
+    base_checkpoint_hash = (
+        candidate.artifacts[candidate.weights[0]]
+        if len(candidate.weights) == 1
+        else base_weights_hash
+    )
+
+    dataset = Dataset.model_validate_json(dataset_file.read_bytes())
+    dataset_hash = digest(dataset_file)
+    if (
+        dataset.purpose != "PRODUCTION"
+        or dataset.derivative_permission != "GRANTED"
+        or lineage.family not in dataset.allowed_model_families
+        or not dataset.allowed_tasks
+        or set(dataset.splits) != SPLITS
+        or dataset.quality_tier == "TEST_FIXTURE"
+    ):
+        raise PolicyError("derivative_dataset_admission_mismatch")
+    dataset_review_file = dataset.review.verify(data_root)
+    dataset_review = DatasetReview.model_validate_json(dataset_review_file.read_bytes())
+    if (
+        dataset_review.subject_sha256 != review_subject(dataset)
+        or dataset_review.reviewer_kind != "HUMAN"
+        or dataset_review.owner_decision is None
+    ):
+        raise PolicyError("derivative_dataset_review_mismatch")
+    dataset_owner_file = dataset_review.owner_decision.verify(data_root)
+    dataset_owner = require_owner_approval(
+        dataset_owner_file,
+        "DATASET",
+        review_subject(dataset),
+        "commercial_training",
+    )
+    if dataset_review.reviewer != dataset_owner.approver_name:
+        raise PolicyError("derivative_dataset_reviewer_mismatch")
+
+    provenance = DerivativeAdmission.model_validate_json(provenance_file.read_bytes())
+    if provenance.model_dump() != {
+        "candidate_manifest_sha256": candidate_hash,
+        "candidate_review_sha256": digest(candidate_review_file),
+        "base_owner_decision_sha256": digest(base_owner_file),
+        "technical_acceptance_sha256": candidate_review.technical_acceptance.sha256,
+        "base_weights_sha256": base_weights_hash,
+        "base_license_sha256": digest(base_license_file),
+        "dataset_manifest_sha256": dataset_hash,
+        "dataset_review_sha256": digest(dataset_review_file),
+        "dataset_owner_decision_sha256": digest(dataset_owner_file),
+        "training_manifest_sha256": lineage.training_manifest_sha256,
+    }:
+        raise PolicyError("derivative_admission_hash_mismatch")
+    if (
+        lineage.base_model != candidate.repository
+        or lineage.base_revision != candidate.revision
+        or lineage.base_checkpoint_sha256 != base_checkpoint_hash
+        or lineage.base_approval_sha256 != digest(base_owner_file)
+        or lineage.dataset_manifest_sha256 != dataset_hash
+        or training.get("candidate_manifest_sha256") != candidate_hash
+        or training.get("base_review_sha256") != digest(candidate_review_file)
+        or training.get("base_owner_decision_sha256") != digest(base_owner_file)
+        or training.get("technical_acceptance_sha256")
+        != candidate_review.technical_acceptance.sha256
+        or training.get("base_repository") != candidate.repository
+        or training.get("base_revision") != candidate.revision
+        or training.get("base_artifacts") != candidate.artifacts
+        or training.get("dataset_review_sha256") != digest(dataset_review_file)
+        or training.get("dataset_owner_decision_sha256") != digest(dataset_owner_file)
+        or training.get("dataset_splits")
+        != {name: ref.sha256 for name, ref in dataset.splits.items()}
+    ):
+        raise PolicyError("derivative_training_lineage_mismatch")
+
+
 def verify_release_files(model, root: Path):
     """Called at serving startup, after complete bundle integrity validation."""
     lineage, release = model.lineage, model.release
@@ -272,6 +421,8 @@ def verify_release_files(model, root: Path):
         or manifest.get("initialization_sha256") != lineage.initialization_sha256
     ):
         raise PolicyError("training_lineage_mismatch")
+    if lineage.classification == "AZAERON_DERIVATIVE":
+        _verify_derivative_admission(lineage, manifest, root)
     evaluation = json.loads(
         release.gates["evaluation"].evidence.verify(root).read_bytes()
     )

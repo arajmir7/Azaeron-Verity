@@ -1,0 +1,12 @@
+{
+  "baseline_id": "qwen3-4b-bf16-source-1cfa9a",
+  "candidate_sha256": "19fe23dd9302d4cb73e8cf9866f42b6a73399c9ec9398c28a340cda1acf1b8ce",
+  "context_tokens_min": 256,
+  "mean_score_drop_max": 0.1,
+  "peak_memory_gib_max": 5.0,
+  "reasoning_leaks_max": 0,
+  "score_definition": "For 24 exact-answer probes, score 1 only when case-folded, whitespace-collapsed model output equals the expected answer after stripping outer quotes and one trailing period; otherwise 0. For eight invariant rewrites, score 1 only when every listed case-sensitive required marker occurs and no listed forbidden marker occurs; otherwise 0. Greedy temperature-zero generation, identical no-thinking chat-template token IDs, at most 48 output tokens per task, 96 per stopping case, 32 per resource case. Compare the unweighted mean over all 32 tasks. Stopping violations count non-stop terminal reasons; visible reasoning means a literal think/analysis marker in output. These are technical probes, not writing-quality ratings.",
+  "stopping_cases_min": 8,
+  "stopping_violations_max": 0,
+  "task_cases_min": 32
+}

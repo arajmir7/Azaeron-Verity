@@ -22,8 +22,8 @@ from typing import Literal
 
 from pydantic import Field, model_validator
 
-from .admission import load_candidate
-from .datasets import read_dataset
+from .admission import CandidateReview, load_candidate
+from .datasets import Dataset, DatasetReview, read_dataset
 from .policy import FileRef, PolicyError, StrictModel, canonical, digest
 
 MLX_LM_VERSION = "0.32.0"
@@ -248,6 +248,37 @@ def _bindings(config: MLXWriterConfig, candidate_hash: str, dataset_hash: str) -
     }
 
 
+def _admission_hashes(
+    admitted: Path,
+    candidate_review: CandidateReview,
+    dataset_file: Path,
+    dataset: Dataset,
+) -> dict[str, str]:
+    """Bind the already-validated human decisions to the actual training run."""
+    if (
+        candidate_review.owner_decision is None
+        or candidate_review.technical_acceptance is None
+    ):
+        raise PolicyError("mlx_base_admission_incomplete")
+    dataset_review_file = dataset.review.verify(dataset_file.parent)
+    dataset_review = DatasetReview.model_validate_json(dataset_review_file.read_bytes())
+    if dataset_review.owner_decision is None:
+        raise PolicyError("mlx_dataset_admission_incomplete")
+    return {
+        "base_review_sha256": digest(admitted / "review.json"),
+        "base_owner_decision_sha256": digest(
+            candidate_review.owner_decision.verify(admitted)
+        ),
+        "technical_acceptance_sha256": digest(
+            candidate_review.technical_acceptance.verify(admitted)
+        ),
+        "dataset_review_sha256": digest(dataset_review_file),
+        "dataset_owner_decision_sha256": digest(
+            dataset_review.owner_decision.verify(dataset_file.parent)
+        ),
+    }
+
+
 def _resume_source(config: MLXWriterConfig, root: Path, bindings: dict) -> Path | None:
     if config.resume_adapter is None or config.resume_intent is None:
         return None
@@ -393,7 +424,11 @@ def train(config_file: Path, output: Path) -> dict:
         raise PolicyError("training_context_exceeds_admission")
     hardware = _mac_preflight(output)
     mlx_version = _mlx_version(config.mlx_python)
-    bindings = _bindings(config, config.candidate.sha256, config.dataset.sha256)
+    admission_hashes = _admission_hashes(admitted, review, dataset_file, dataset)
+    bindings = {
+        **_bindings(config, config.candidate.sha256, config.dataset.sha256),
+        **admission_hashes,
+    }
     resume = _resume_source(config, config_file.parent, bindings)
     environment = _offline_environment()
     model = (admitted / "bundle").resolve()
@@ -422,8 +457,15 @@ def train(config_file: Path, output: Path) -> dict:
                 output_fd=sink.fileno(),
             )
         # Recheck input integrity immediately before creating any output.
-        load_candidate(admitted, smoke=False)
-        read_dataset(dataset_file, "writer", smoke=False)
+        _, rechecked_review = load_candidate(admitted, smoke=False)
+        rechecked_dataset, _ = read_dataset(dataset_file, "writer", smoke=False)
+        if (
+            _admission_hashes(
+                admitted, rechecked_review, dataset_file, rechecked_dataset
+            )
+            != admission_hashes
+        ):
+            raise PolicyError("mlx_admission_changed_during_training")
         if config.resume_adapter is not None and config.resume_intent is not None:
             config.resume_adapter.verify(config_file.parent)
             config.resume_intent.verify(config_file.parent)
@@ -474,8 +516,13 @@ def train(config_file: Path, output: Path) -> dict:
     # A completed process and changed adapter produce a candidate, not quality evidence.
     if resume is not None and checkpoint_hash == digest(resume):
         raise PolicyError("mlx_training_did_not_change_resumed_adapter")
-    load_candidate(admitted, smoke=False)
-    read_dataset(dataset_file, "writer", smoke=False)
+    _, rechecked_review = load_candidate(admitted, smoke=False)
+    rechecked_dataset, _ = read_dataset(dataset_file, "writer", smoke=False)
+    if (
+        _admission_hashes(admitted, rechecked_review, dataset_file, rechecked_dataset)
+        != admission_hashes
+    ):
+        raise PolicyError("mlx_admission_changed_during_training")
     if config.resume_adapter is not None and config.resume_intent is not None:
         config.resume_adapter.verify(config_file.parent)
         config.resume_intent.verify(config_file.parent)

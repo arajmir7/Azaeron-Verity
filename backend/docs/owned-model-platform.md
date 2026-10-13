@@ -27,6 +27,8 @@ Promotion requires at least 1,000 evaluation examples and every applicable quali
 
 `app.modules.model_platform.release` verifies the bundle and all eight checkpoint-bound gates: license, rights, provenance, training, checkpoint, evaluation, security and private runtime. It accepts an independently supplied approval and writes a new registry file exclusively; it cannot overwrite the active registry. Runtime initialization repeats artifact, tokenizer, training-lineage, evaluation and calibration binding checks. Test-only lineage, unchanged weights, missing evidence and the same checkpoint assigned to different specialist families are rejected. An empty registry means no approved models.
 
+For an `AZAERON_DERIVATIVE`, promotion and serving also require adjacent `base-admission/` candidate, review, exact base license, owner decision and independent technical acceptance records; `dataset-admission/` manifest, review and owner decision records; and `derivative-admission.json` matching the governed schema. The training manifest binds the exact base/data review and decision hashes. A single-file base uses its weight-file SHA-256 as `lineage.base_checkpoint_sha256`; `base_approval_sha256` is the authenticated owner-decision file hash. Release validation rechecks live GitHub confirmations, so an offline cold start fails closed. These attestations do not replace raw-row checks during training or prove physical training execution.
+
 ## API and private runtime
 
 Customers use the existing Azaeron `/api/v1` authentication boundary:

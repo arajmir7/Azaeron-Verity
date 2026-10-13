@@ -627,6 +627,7 @@ def test_candidate_admission_requires_the_same_explicit_owner(tmp_path, monkeypa
         ("resource_false_success", "technical_resource_score_or_reasoning_mismatch"),
         ("vacuous_threshold", "less than or equal to 0.1"),
         ("duplicate_case", "Technical case IDs must be unique"),
+        ("duplicate_prompt", "Technical fixture prompts must be unique"),
         ("mismatched_summary", "technical_execution_summary_mismatch"),
         ("content_free_evidence", "Field required"),
         ("content_free_raw", "Field required"),
@@ -753,6 +754,13 @@ def test_independent_technical_acceptance_requires_authenticated_exact_evidence(
         raw = json.loads(files["raw"].read_bytes())
         raw["tasks"][1]["id"] = raw["tasks"][0]["id"]
         files["raw"].write_bytes(canonical(raw))
+        rebind_technical_fixture(files, candidate_sha256)
+    elif mutation == "duplicate_prompt":
+        fixtures = json.loads(files["fixtures"].read_bytes())
+        fixtures["tasks"][1]["prompt"] = (
+            "  " + fixtures["tasks"][0]["prompt"].upper() + "  "
+        )
+        files["fixtures"].write_bytes(canonical(fixtures))
         rebind_technical_fixture(files, candidate_sha256)
     elif mutation == "mismatched_summary":
         execution = json.loads(files["execution"].read_bytes())

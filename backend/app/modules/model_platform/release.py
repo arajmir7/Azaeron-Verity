@@ -13,7 +13,6 @@ from app.modules.inference.registry import (
     ModelRecord,
     verify_artifacts,
 )
-from .owner_decision import require_owner_approval
 from .policy import (
     Lineage,
     PolicyError,
@@ -31,14 +30,6 @@ def promote(
     release = ReleaseApproval.model_validate(approval)
     if release.owner_decision is None:
         raise PolicyError("owner_release_decision_required")
-    owner = require_owner_approval(
-        release.owner_decision.verify(bundle),
-        "MODEL_RELEASE",
-        release.checkpoint_sha256,
-        "production_release",
-    )
-    if release.reviewer != owner.approver_name:
-        raise PolicyError("release_reviewer_is_not_project_owner")
     if any(path.is_symlink() for path in bundle.rglob("*")):
         raise PolicyError("symlink_not_allowed")
     artifacts = {

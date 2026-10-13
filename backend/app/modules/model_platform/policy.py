@@ -230,6 +230,24 @@ class ReleaseApproval(StrictModel):
         return self
 
 
+def release_subject_sha256(model) -> str:
+    """Hash the reviewed release scope without its eventual owner confirmation.
+
+    The owner decision is stored inside the release bundle and therefore cannot
+    be included in its own subject hash. References filled from that decision
+    are excluded for the same reason; all model behavior, lineage, deployment,
+    gate evidence and other artifact hashes remain bound.
+    """
+    subject = model.model_dump(mode="json")
+    if subject.get("status") != "APPROVED" or not subject.get("release"):
+        raise PolicyError("release_subject_requires_approved_model")
+    subject["artifacts"].pop("owner-decision.json", None)
+    subject["release"].pop("owner_decision", None)
+    subject["release"].pop("reference", None)
+    subject.pop("approval_reference", None)
+    return hashlib.sha256(canonical(subject)).hexdigest()
+
+
 class DerivativeAdmission(StrictModel):
     """Compact, hash-bound copies of the admissions used for a derivative."""
 
@@ -391,11 +409,16 @@ def verify_release_files(model, root: Path):
     owner = require_owner_approval(
         release.owner_decision.verify(root),
         "MODEL_RELEASE",
-        lineage.checkpoint_sha256,
+        release_subject_sha256(model),
         "production_release",
     )
     if release.reviewer != owner.approver_name:
         raise PolicyError("release_reviewer_is_not_project_owner")
+    if (
+        release.reference != owner.confirmation_reference
+        or model.approval_reference != owner.confirmation_reference
+    ):
+        raise PolicyError("release_confirmation_reference_mismatch")
     for gate, item in release.gates.items():
         evidence = json.loads(item.evidence.verify(root).read_bytes())
         if (

@@ -230,6 +230,13 @@ class TechnicalFixtures(StrictModel):
         ]
         if len(ids) != len(set(ids)):
             raise ValueError("Technical fixture IDs must be unique")
+        prompts = [
+            re.sub(r"\s+", " ", case.prompt).strip().casefold()
+            for cases in (self.tasks, self.stopping, self.resources)
+            for case in cases
+        ]
+        if len(prompts) != len(set(prompts)):
+            raise ValueError("Technical fixture prompts must be unique")
         return self
 
 

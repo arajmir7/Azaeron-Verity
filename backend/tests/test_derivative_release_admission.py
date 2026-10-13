@@ -13,13 +13,15 @@ from app.modules.model_platform.policy import (
     FileRef,
     Lineage,
     PolicyError,
+    ReleaseApproval,
     _verify_derivative_admission,
     canonical,
     digest,
+    release_subject_sha256,
+    verify_release_files,
 )
 from app.modules.model_platform.release import promote
-from app.modules.model_platform import release as release_module
-from app.modules.inference.registry import AzaeronModelRegistry
+from app.modules.inference.registry import AzaeronModelRegistry, ModelRecord
 from tests.test_private_inference import approved_model
 
 
@@ -98,19 +100,139 @@ def _unreviewed_derivative(tmp_path):
     return metadata, approval
 
 
+def _release_model(bundle, metadata, approval):
+    lineage = Lineage.model_validate_json((bundle / "lineage.json").read_bytes())
+    release = ReleaseApproval.model_validate(approval)
+    artifacts = {
+        path.relative_to(bundle).as_posix(): digest(path)
+        for path in bundle.rglob("*")
+        if path.is_file()
+    }
+    return ModelRecord.model_validate(
+        {
+            **metadata,
+            "artifacts": artifacts,
+            "lineage": lineage,
+            "release": release,
+            "status": "APPROVED",
+            "commercial_use_approved": True,
+            "approval_reference": release.reference,
+            "evaluation_sha256": release.gates["evaluation"].evidence.sha256,
+        }
+    )
+
+
+def test_release_subject_binds_scope_without_owner_decision_cycle(tmp_path):
+    metadata, approval = _unreviewed_derivative(tmp_path)
+    original = _release_model(tmp_path, metadata, approval)
+    subject = release_subject_sha256(original)
+    values = original.model_dump(mode="json")
+
+    for field, replacement in (
+        ("model_id", "different-model"),
+        ("runtime_image", "example.invalid/other@sha256:" + "e" * 64),
+        ("tasks", ["chat"]),
+    ):
+        changed = {**values, field: replacement}
+        assert release_subject_sha256(ModelRecord.model_validate(changed)) != subject
+
+    changed = original.model_dump(mode="json")
+    changed["lineage"]["classification"] = "AZAERON_NATIVE"
+    for key in (
+        "base_model",
+        "base_revision",
+        "base_checkpoint_sha256",
+        "base_approval_sha256",
+    ):
+        changed["lineage"][key] = None
+    assert release_subject_sha256(ModelRecord.model_validate(changed)) != subject
+
+    changed = original.model_dump(mode="json")
+    changed["release"]["gates"]["security"]["evidence"]["sha256"] = "f" * 64
+    changed["artifacts"]["evidence/security.json"] = "f" * 64
+    assert release_subject_sha256(ModelRecord.model_validate(changed)) != subject
+
+    decision_derived = original.model_dump(mode="json")
+    decision_derived["artifacts"]["owner-decision.json"] = "f" * 64
+    decision_derived["release"]["owner_decision"]["sha256"] = "f" * 64
+    decision_derived["release"]["reference"] = "eventual-comment-id"
+    decision_derived["approval_reference"] = "eventual-comment-id"
+    assert (
+        release_subject_sha256(ModelRecord.model_validate(decision_derived)) == subject
+    )
+
+
+def test_native_reclassification_cannot_reuse_derivative_release_decision(
+    tmp_path, monkeypatch
+):
+    metadata, approval = _unreviewed_derivative(tmp_path)
+    reviewed_subject = release_subject_sha256(
+        _release_model(tmp_path, metadata, approval)
+    )
+    lineage = Lineage.model_validate_json((tmp_path / "lineage.json").read_bytes())
+    native = lineage.model_dump(mode="json")
+    native["classification"] = "AZAERON_NATIVE"
+    for key in (
+        "base_model",
+        "base_revision",
+        "base_checkpoint_sha256",
+        "base_approval_sha256",
+    ):
+        native[key] = None
+    (tmp_path / "lineage.json").write_bytes(canonical(native))
+
+    def owner_for_original_scope(_path, kind, subject, use):
+        assert kind == "MODEL_RELEASE" and use == "production_release"
+        if subject != reviewed_subject:
+            raise PolicyError("owner_release_subject_mismatch")
+        raise AssertionError("Reclassified model unexpectedly retained owner scope")
+
+    monkeypatch.setattr(
+        owner_decision, "require_owner_approval", owner_for_original_scope
+    )
+    with pytest.raises(PolicyError, match="owner_release_subject_mismatch"):
+        promote(tmp_path, metadata, approval, AzaeronModelRegistry())
+
+
+def test_release_reference_must_match_authenticated_comment(tmp_path, monkeypatch):
+    metadata, approval = _unreviewed_derivative(tmp_path)
+    lineage = Lineage.model_validate_json((tmp_path / "lineage.json").read_bytes())
+    native = lineage.model_dump(mode="json")
+    native["classification"] = "AZAERON_NATIVE"
+    for key in (
+        "base_model",
+        "base_revision",
+        "base_checkpoint_sha256",
+        "base_approval_sha256",
+    ):
+        native[key] = None
+    (tmp_path / "lineage.json").write_bytes(canonical(native))
+    model = _release_model(tmp_path, metadata, approval)
+
+    class ApprovedOwner:
+        approver_name = "Ajmir Aribam"
+        confirmation_reference = "github-issue-comment:123:sha256:" + "a" * 64
+
+    monkeypatch.setattr(
+        owner_decision, "require_owner_approval", lambda *_: ApprovedOwner()
+    )
+    with pytest.raises(PolicyError, match="release_confirmation_reference_mismatch"):
+        promote(tmp_path, metadata, approval, AzaeronModelRegistry())
+    with pytest.raises(PolicyError, match="release_confirmation_reference_mismatch"):
+        verify_release_files(model, tmp_path)
+
+
 def test_derivative_release_rechecks_base_and_dataset_admission(tmp_path, monkeypatch):
     metadata, approval = _unreviewed_derivative(tmp_path)
 
     class ApprovedOwner:
         approver_name = "Ajmir Aribam"
+        confirmation_reference = approval["reference"]
 
     # Emulate a genuine release signature. This does not supply a base/data
     # approval; those must be independently verifiable at promotion and startup.
     monkeypatch.setattr(
         owner_decision, "require_owner_approval", lambda *_: ApprovedOwner()
-    )
-    monkeypatch.setattr(
-        release_module, "require_owner_approval", lambda *_: ApprovedOwner()
     )
     with pytest.raises(PolicyError, match="derivative_admission_evidence_missing"):
         promote(tmp_path, metadata, approval, AzaeronModelRegistry())

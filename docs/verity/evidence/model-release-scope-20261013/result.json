@@ -1,0 +1,37 @@
+{
+  "classification": "ENGINEERING_SECURITY_EVIDENCE_NOT_MODEL_APPROVAL",
+  "prechange_head": "85ae43a7f50687724d136cb52f26fb84a417c75b",
+  "finding": "A checkpoint-only MODEL_RELEASE owner confirmation could be transplanted to a record with the same checkpoint bytes but different lineage classification, tasks, runtime image or gate evidence.",
+  "fix": "MODEL_RELEASE confirmation now authenticates the SHA-256 of the canonical approved ModelRecord scope. Only the circular owner-decision artifact and its eventual confirmation references are excluded. The model and release references must equal the authenticated GitHub comment reference at promotion and serving startup.",
+  "additional_fix": "Technical fixture sets reject repeated normalized prompts across task, stopping and resource cases, even when IDs differ.",
+  "regressions": [
+    "native reclassification cannot reuse a derivative release confirmation",
+    "model identity, task, runtime-image and gate changes alter the release subject",
+    "owner-decision circular fields leave the reviewed subject stable",
+    "release reference must match the authenticated comment",
+    "duplicate normalized technical prompts are rejected"
+  ],
+  "local_checks": {
+    "focused": "70 passed",
+    "backend": "407 passed, 35 skipped; PostgreSQL-backed integration tests require the hosted environment",
+    "black_changed_files": "PASS",
+    "ruff_changed_files": "PASS",
+    "mypy": "PASS, 201 source files",
+    "bandit": "PASS, zero findings",
+    "secret_gate": "PASS, zero unreviewed findings; 74 exact reviewed fingerprints",
+    "git_diff_check": "PASS"
+  },
+  "controlled_base_technical_screen": {
+    "evidence": "../qwen-technical-32case-20261013/verdict.json",
+    "predeclared_objective_score": "FAIL: BF16 source 25/32; controlled MLX 4-bit 18/32; drop 0.21875 exceeds 0.10 limit",
+    "base_admitted": false
+  },
+  "production_dataset_rows_admitted": 0,
+  "approved_production_models": 0,
+  "real_derivative_training_run": "NOT_STARTED_NO_ADMITTED_DATA_OR_TECHNICALLY_ACCEPTED_BASE",
+  "limitations": [
+    "Owner decision records cannot by themselves prove physical training execution or privately held dataset rows.",
+    "The current serving cold-start confirmation requires live GitHub access and fails closed offline.",
+    "No genuine production release confirmation exists for any model."
+  ]
+}

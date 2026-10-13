@@ -1,0 +1,24 @@
+# Controlled Qwen BF16 versus MLX 4-bit technical comparison
+
+**Result: FAIL on the predeclared objective-score limit; independent human technical acceptance remains PENDING.** This is offline, non-training evidence for the exact third-party Qwen base candidate. It does not admit a model, certify product quality or authorize production.
+
+The [seal](seal.json) was created at `2026-10-13T05:37:50Z`, before either model was loaded. It binds the [protocol](protocol.json) SHA-256 `06aa420893fedc087a03578729247b3d7c191fb8c2ee9fd1e54546d0aee19a9c`, [original self-authored fixtures](fixtures.json) SHA-256 `d44de175e4c14a3660c308f34daf6aaa49098cfd57ad891e5675a603909ba9c3`, and [runner](benchmark.py) SHA-256 `cfead5d97602355ce101283f5f7f58bf00f9b8fa02b5abf7cebf5631fdb94e5f`. This local file sequence is auditable but is not independent pre-registration. No threshold was changed or case rerun after inspecting results.
+
+The exact `Qwen/Qwen3-4B` BF16 source at revision `1cfa9a7208912126459214e8b04321603b3df60c` and the controlled MLX 4-bit candidate manifest SHA-256 `19fe23dd9302d4cb73e8cf9866f42b6a73399c9ec9398c28a340cda1acf1b8ce` were read only from `.verity-local/` in this worktree. All 12 source and nine candidate artifact hashes matched pinned inventories immediately before their respective runs; the candidate checkpoint was `55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d`. The same no-thinking chat-template token IDs were verified on all 41 paired prompts. Both used MLX-LM 0.32.0, greedy decoding, sequential model loading and offline Hub/Transformers settings. No external AI inference API, training, model registry change or public deployment occurred.
+
+| Predeclared probe | BF16 source | Controlled 4-bit | Limit/result |
+| --- | ---: | ---: | --- |
+| Strict objective-marker task score, 32 cases | 25/32 = 0.78125 | 18/32 = 0.56250 | Drop **0.21875 > 0.10: FAIL** |
+| Terminal `stop`, eight stopping cases | 8/8 | 8/8 | 0 violations: PASS |
+| Exact answer on stopping cases, diagnostic | 8/8 | 7/8 | S04 returned an embellished answer; not a separate declared gate |
+| Literal reasoning marker in 41 outputs | 0 | 0 | 0 allowed: PASS for the limited literal scan |
+| 529-token resource case | completed | completed | ≥256 input tokens: PASS |
+| Peak MLX memory | 7.8538 GiB | 2.5893 GiB | Candidate ≤5 GiB: PASS |
+
+The [postrun verdict](verdict.json) records the overall protocol **FAIL** without changing the sealed [raw results](raw-results.json). The seven source-to-candidate score losses are `E06`, `A02`, `Q03`, `P02`, `P05`, `P07` and `P08`. The first three are extra wording despite a correct short answer under the strict exact-output metric. `P02` strengthens “may” to “expected”; `P05` paraphrases a protected quotation; `P07` changes a protected modal marker; `P08` changes the protected date format. These are mixed formatting and fidelity failures, not seven independently adjudicated factual errors. The [visible-response review packet](review-packet.json) includes every prompt/answer-key reference, model response, response hash, recomputed score, stopping exact-match flag and resource outcome. Its SHA-256 is `2ef1253bbaa2080b051033f0e315e11adfd8a0fbe922d711810f49592f4d0e08`.
+
+Full raw response records remain untracked with mode `0600` in `.verity-local/qwen-technical-32case-20261013/`: source SHA-256 `0e589c79332a795dfbc5365c7d9a34008445c0b195dc18e4eb39c2049c9622c9`, candidate SHA-256 `3e3f102a0f6df86929cbea220c069400e5ad181b4aae3256b389b48dd7d565d1`. The [postrun auditor](postrun_review.py) checked those hashes, recomputed scores from the sealed fixtures, and refused to publish a response with a literal reasoning marker. The private files should be preserved for independent review. Disk free space fell from 22.047 GiB before source execution to 19.194 GiB after candidate execution, above the runner's 15 GiB guard.
+
+The strict score measures instruction-format compliance and selected protected markers, not writing naturalness, broad semantic equivalence or a release-quality model. The 529-token case does not establish long-context behavior. A literal marker scan does not prove absence of unmarked reasoning. This was one Mac and one run per model, with no confidence interval, blinded reviewers or cross-host repetition. Existing ten-prompt logit differences remain unresolved. `raw-results.json` is an offline evidence artifact and deliberately is not an owner-signed or reviewer-accepted admission packet. The base remains **NOT ADMITTED**; the production registry remains unchanged.
+
+The subsequently hardened technical-admission code also requires an exact answer on every stopping case and recomputes scores from a bound response packet. S04 fails that answer check. This sealed run is retained as failed evidence; it has not been transformed into or submitted as a passing admission packet.

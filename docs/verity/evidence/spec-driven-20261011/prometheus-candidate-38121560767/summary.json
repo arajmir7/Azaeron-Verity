@@ -1,0 +1,11 @@
+{
+  "run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38121560767",
+  "source_commit": "40540e75a92dc835e2837938dfffcce81ca4b98d",
+  "image_id": "sha256:7adc90e45ce79c2c67fe932be9cbf3fa3f1bcce520599d85abb0cdddd34a78a6",
+  "vulnerability_gate": "PASS",
+  "sbom_gate": "PASS",
+  "high_critical_count": 0,
+  "runtime_smoke": "FAIL: nonroot process cannot create data/ from root working directory",
+  "fix": "Set WORKDIR=/prometheus and explicit /prometheus TSDB path; pending rerun",
+  "production_gate": "BLOCKED"
+}

@@ -1,0 +1,16 @@
+{
+  "classification": "INCOMPLETE_EXECUTION_RETAINED",
+  "initial_seal_commit": "3c198fa",
+  "completed_stages_before_failure": [
+    "warmup_2",
+    "serial_12",
+    "parallel_2_four_rounds",
+    "parallel_4_two_rounds"
+  ],
+  "failure_stage": "malformed-request error recovery",
+  "client_error": "http.client.RemoteDisconnected: Remote end closed connection without response",
+  "server_error": "AssertionError: Request did not contain messages",
+  "result_file_written": false,
+  "measurement_status": "INVALID_INCOMPLETE",
+  "next_action": "Reseal changed harness and rerun complete workload; retain this failed attempt."
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "candidate_id": "gsm8k-review-v1",
+  "status": "QUARANTINED_REVIEW_ONLY",
+  "admission": "NOT_APPROVED",
+  "publisher": "OpenAI",
+  "source_repository": "https://github.com/openai/grade-school-math",
+  "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+  "source_license": "MIT (publisher dataset declaration; final scope/chain-of-title review pending)",
+  "source_file_sha256": {
+    "LICENSE": "86bbb73e855821d7c401912fd4bf82e34313e6e3b6fd6f909f2b6cc9e209a53b",
+    "grade_school_math/data/train.jsonl": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+    "grade_school_math/data/test.jsonl": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14"
+  },
+  "source_rows": {
+    "train": 7473,
+    "test": 1319
+  },
+  "candidate_scope": [
+    "basic-math instruction following",
+    "arithmetic answer fidelity",
+    "narrow verifier reasoning slice"
+  ],
+  "explicit_exclusions": [
+    "general Writer task coverage",
+    "humanisation or VoiceLock quality",
+    "AI Detector calibration",
+    "private Embed retrieval",
+    "sealed competitive evaluation"
+  ],
+  "findings": {
+    "publisher_license_declaration": "VERIFIED",
+    "source_file_integrity": "VERIFIED",
+    "source_record_count": "VERIFIED",
+    "automated_exact_question_cross_split_overlap": "NONE_DETECTED",
+    "automated_number_template_cross_split_overlap": "NONE_DETECTED",
+    "row_level_contributor_authority": "NOT_FOUND",
+    "commercial_ml_training_rights_owner_review": "PENDING",
+    "row_level_privacy_review": "PENDING",
+    "row_level_copyright_review": "PENDING",
+    "source_isolated_five_split_dataset": "NOT_BUILT",
+    "independent_quality_review": "NOT_DONE",
+    "owner_decision": "NOT_REQUESTED"
+  },
+  "evidence": [
+    "docs/verity/evidence/new-data-gsm8k-20261011/README.md",
+    "docs/verity/evidence/new-data-gsm8k-20261011/audit-summary.json",
+    "docs/verity/evidence/new-data-gsm8k-20261011/row-hashes.jsonl"
+  ],
+  "training_permitted_by_azaeron_gate": false,
+  "production_registry_eligible": false
+}

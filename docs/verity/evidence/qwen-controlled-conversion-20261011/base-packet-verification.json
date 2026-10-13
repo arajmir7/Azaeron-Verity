@@ -1,0 +1,13 @@
+{
+  "candidate_manifest_sha256": "19fe23dd9302d4cb73e8cf9866f42b6a73399c9ec9398c28a340cda1acf1b8ce",
+  "candidate_schema": "PASS",
+  "checkpoint_sha256": "55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d",
+  "commercial_base_admitted": false,
+  "exact_bundle_hash_and_safetensors_validation": "PASS",
+  "owner_decision_schema": "PASS",
+  "pending_decision_fail_closed": "PASS",
+  "pending_owner_packet_sha256": "eb6f3f0615628abedd9baecd5eab2b5595e1841f844157e35a8449963c6a2314",
+  "production_approved": false,
+  "supporting_evidence_hashes_checked": 6,
+  "training_authorized": false
+}

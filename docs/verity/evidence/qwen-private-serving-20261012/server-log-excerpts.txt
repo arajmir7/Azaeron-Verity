@@ -1,0 +1,16 @@
+Selected exception excerpts from the temporary MLX-LM 0.32.0 process output,
+12 October 2026. The full raw process output was not captured to a file.
+
+Malformed request (occurred in both the incomplete first attempt and the
+complete second run):
+  File ".../site-packages/mlx_lm/server.py", line 1605, in handle_chat_completions
+    assert "messages" in body, "Request did not contain messages"
+AssertionError: Request did not contain messages
+Client: http.client.RemoteDisconnected: Remote end closed connection without response
+
+Client cancellation after first visible delta (complete second run):
+  File ".../site-packages/mlx_lm/server.py", line 1507, in handle_completion
+    self.wfile.write(f"data: {json.dumps(resp)}\n\n".encode())
+BrokenPipeError: [Errno 32] Broken pipe
+
+The subsequent valid streamed HTTP request succeeded after each exception.

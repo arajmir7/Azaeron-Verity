@@ -1,0 +1,11 @@
+{
+  "run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38119067279",
+  "source_commit": "118fc23f05253e4fb27c28fb670e5d5a4a60aeb2",
+  "workflow_conclusion": "failure",
+  "failed_step": "Build patched upstream Prometheus with a 6 GiB disk floor",
+  "cause": "GitHub release-asset TLS connection reset before compilation",
+  "disk_before_available_gib": 86,
+  "disk_after_available_gib": 86,
+  "retry_run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38119454217",
+  "image_scan": "NOT RUN"
+}

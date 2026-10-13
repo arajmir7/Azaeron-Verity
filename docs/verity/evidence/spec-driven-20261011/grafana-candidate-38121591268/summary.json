@@ -1,0 +1,24 @@
+{
+  "run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38121591268",
+  "source_commit": "e86047302136794d650fb3b4a749ba4a2a1baea1",
+  "image_id": "sha256:65ed25453881d1935c7276b77c7572f9eeb485706d0a85d2f8a0dfb88f8c4550",
+  "server_source": "grafana/grafana v13.2.3 commit 6193dc03311b631b9727b560d24369e683dc396e",
+  "server_source_archive_sha256": "222f8cd14b5345d024ab460d592c63c1e7432cb20a89e2dbcc86d7bfd83df3ac",
+  "server_go": "1.27.2",
+  "runtime_health": "PASS: database ok, version 13.2.3",
+  "vulnerability_gate": "FAIL",
+  "sbom_gate": "PASS",
+  "high_critical_count": 8,
+  "findings": [
+    [
+      "usr/share/grafana/data/plugins-bundled/jaeger/gpx_grafana-jaeger-datasource_linux_amd64",
+      4
+    ],
+    [
+      "usr/share/grafana/data/plugins-bundled/prometheus/gpx_grafana-prometheus-datasource_linux_amd64",
+      4
+    ]
+  ],
+  "server_binary_findings": 0,
+  "production_gate": "BLOCKED: the two vendor-signed datasource binaries retain eight HIGH findings; modifying them would break their signatures"
+}

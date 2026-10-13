@@ -1,0 +1,44 @@
+{
+  "base_admitted": false,
+  "classification": "SEALED_NON_TRAINING_TECHNICAL_PROTOCOL_RESULT",
+  "independent_human_technical_acceptance": "PENDING",
+  "limitations": [
+    "This protocol scores strict exact outputs and protected text markers; it does not measure general semantic quality or fluency.",
+    "Literal reasoning-marker scan does not prove no unmarked hidden or visible reasoning.",
+    "Single Mac, single runtime, one run per model; no confidence interval or cross-host reproducibility.",
+    "Protocol sealed locally before execution but not independently preregistered."
+  ],
+  "literal_reasoning_marker": {
+    "count": 0,
+    "limit": 0,
+    "result": "PASS"
+  },
+  "objective_score": {
+    "allowed_drop_max": 0.1,
+    "candidate": 0.5625,
+    "drop": 0.21875,
+    "result": "FAIL",
+    "source": 0.78125
+  },
+  "overall_predeclared_technical_protocol": "FAIL",
+  "production_approved": false,
+  "protocol_sha256": "06aa420893fedc087a03578729247b3d7c191fb8c2ee9fd1e54546d0aee19a9c",
+  "raw_results_sha256": "fccd01fcfb4af53e27bc2e6d5f4f7104b89d00fd643b2b65ce66bef28418aade",
+  "resources": {
+    "candidate_peak_memory_gib": 2.5893,
+    "input_tokens": 529,
+    "limit_gib": 5.0,
+    "minimum_input_tokens": 256,
+    "result": "PASS"
+  },
+  "review_packet_sha256": "2ef1253bbaa2080b051033f0e315e11adfd8a0fbe922d711810f49592f4d0e08",
+  "sealed_fixtures_sha256": "d44de175e4c14a3660c308f34daf6aaa49098cfd57ad891e5675a603909ba9c3",
+  "stopping": {
+    "candidate_exact_expected_match": 7,
+    "candidate_terminal_stop": 8,
+    "cases": 8,
+    "exact_match_cases": 8,
+    "exact_match_diagnostic": "7/8; S04 returned an embellished answer",
+    "terminal_stop_gate": "PASS"
+  }
+}

@@ -30,6 +30,24 @@ def identity():
         ("Use `value != 1`.", "Use `value == 1`."),
         ("The equation is $x + y$.", "The equation is $x - y$."),
         ("A finding.[^7]", "A finding."),
+        ("The report is clear.", "The report is clear. [source]"),
+        ("The report is clear.", "The report is clear. https://fabricated.test"),
+        (
+            "The permit was signed 2024-06-08. Batch numbers 06 and 08.",
+            "The permit was signed 2024-08-06. Batch numbers 06 and 08.",
+        ),
+        (
+            "Event A is 6 August 2024; Event B is 8 September 2024.",
+            "Event A is 6 September 2024; Event B is 8 August 2024.",
+        ),
+        (
+            "Event A is 6 Aug 2024; Event B is 8 Jun 2024.",
+            "Event A is 6 Jun 2024; Event B is 8 Aug 2024.",
+        ),
+        (
+            "Event A is 6 aug 2024; Event B is 8 jun 2024.",
+            "Event A is 6 jun 2024; Event B is 8 aug 2024.",
+        ),
     ],
 )
 async def test_factual_drift(original, candidate):
@@ -54,6 +72,16 @@ def test_explicit_locked_spans_and_invalid_range():
     )
     with pytest.raises(ValueError):
         deterministic_reasons("text", "text", [(0, 999)])
+
+
+def test_new_source_markers_are_deterministically_rejected():
+    original = "The report is clear."
+    assert deterministic_reasons(original, original + " [source]") == [
+        "protected_citation_added"
+    ]
+    assert deterministic_reasons(original, original + " https://fabricated.test") == [
+        "protected_identifier_added"
+    ]
 
 
 class VerifierFixture:

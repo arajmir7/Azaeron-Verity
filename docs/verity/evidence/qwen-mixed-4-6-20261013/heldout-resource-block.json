@@ -1,0 +1,13 @@
+{
+  "candidate_inference_attempted": false,
+  "candidate_stage": "BLOCKED_BEFORE_LOADING_MODEL",
+  "classification": "SEALED_HELDOUT_PARTIAL_RESOURCE_BLOCK",
+  "disk_free_gib_at_record": 14.905,
+  "minimum_free_disk_gib_before": 15,
+  "policy": "Do not lower sealed guard or reinterpret partial result as candidate acceptance",
+  "seal_sha256": "3819a1910c8c8eb9c9690c23671cd748b1d27e57411ae61822917087bc54fa90",
+  "source_raw_sha256": "ddee423f5c6460e955f5d916c8df256aa88e4e4b54a8e7da9cf8b6d8d76afe2c",
+  "source_score": "25/32",
+  "source_stopping_exact": "7/8",
+  "technical_admission": "BLOCKED"
+}

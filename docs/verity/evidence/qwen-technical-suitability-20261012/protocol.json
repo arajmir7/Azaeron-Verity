@@ -1,0 +1,32 @@
+{
+  "classification": "DEV_ONLY_NON_TRAINING_TECHNICAL_SCREEN",
+  "source": ".verity-local/qwen3-4b-source-1cfa9a",
+  "converted": ".verity-local/qwen3-4b-mlx-controlled-1cfa9a-4bit",
+  "artifacts": {
+    "source_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+    "converted_checkpoint_sha256": "55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d"
+  },
+  "generation": {
+    "enable_thinking": false,
+    "temperature": 0,
+    "max_tokens_per_item": 96,
+    "model_order": ["source_bf16", "controlled_4bit"],
+    "identical_chat_template_tokens_required": true,
+    "source_repeat": "first case twice in the same load to check deterministic generation"
+  },
+  "predeclared_engineering_screen": {
+    "source_task_pass_fraction_min": 0.80,
+    "controlled_task_pass_given_source_pass_fraction_min": 0.90,
+    "controlled_new_critical_fact_or_injection_errors_max": 0,
+    "unexpected_thinking_or_special_token_leaks_max": 0,
+    "unexpected_endoftext_stops_max": 0,
+    "length_stops_max": 0,
+    "controlled_peak_mlx_gb_max": 8.0,
+    "controlled_warm_first_token_p95_seconds_max": 12.0,
+    "controlled_median_decode_tokens_per_second_min": 10.0,
+    "minimum_free_disk_gib": 15.0
+  },
+  "interpretation": "These are predeclared local compatibility triage thresholds, not a claim of equivalent logits, model quality, commercial training rights, human preference, or production readiness. Failing any criterion blocks technical adoption of this 4-bit conversion. Passing merely permits further independent evaluation.",
+  "fixtures_origin": "Self-authored for this protocol; no customer or external dataset content. Checks capture objective markers only; naturalness and semantic quality need independent review.",
+  "sealed_before_execution": true
+}

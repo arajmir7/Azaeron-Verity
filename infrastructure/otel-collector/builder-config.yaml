@@ -1,0 +1,19 @@
+# PRD-022/TRD-022: only the components used by otel-collector.yml.
+# Versions follow the upstream v0.162.0 builder manifest; the source-built
+# binary remains a candidate until scanner and end-to-end trace gates pass.
+dist:
+  module: github.com/arajmir7/Azaeron-Verity/infrastructure/otel-collector
+  name: otelcol-verity
+  description: Azaeron Verity private trace forwarding collector
+  version: 0.162.0
+  output_path: /src/dist
+exporters:
+  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.162.0
+processors:
+  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.162.0
+  - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.162.0
+receivers:
+  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.162.0
+providers:
+  - gomod: go.opentelemetry.io/collector/confmap/provider/fileprovider v1.68.0
+  - gomod: go.opentelemetry.io/collector/confmap/provider/envprovider v1.68.0

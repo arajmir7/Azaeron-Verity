@@ -4,13 +4,31 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      observability_candidate:
+        description: Run only the bounded Jaeger source candidate experiment
+        type: boolean
+        default: false
+      prometheus_candidate:
+        description: Run only the bounded Prometheus source candidate experiment
+        type: boolean
+        default: false
+      otel_candidate:
+        description: Run only the bounded minimal Collector source candidate experiment
+        type: boolean
+        default: false
+      grafana_candidate:
+        description: Run only the bounded patched Grafana server candidate experiment
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
-  group: verity-${{ github.ref }}
+  group: verity-${{ github.ref }}-${{ github.event_name }}-${{ inputs.observability_candidate }}-${{ inputs.prometheus_candidate }}-${{ inputs.otel_candidate }}-${{ inputs.grafana_candidate }}
   cancel-in-progress: true
 jobs:
   derivative-mechanics:
+    if: ${{ !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate && !inputs.grafana_candidate }}
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
@@ -51,6 +69,7 @@ jobs:
             /tmp/native-v2-smoke/*/bundle/training-manifest.json
           retention-days: 7
   repository:
+    if: ${{ !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate && !inputs.grafana_candidate }}
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
@@ -66,26 +85,141 @@ jobs:
       - run: npm ci --prefix frontend
       - run: npx --prefix frontend playwright install --with-deps chromium
       - name: Prepare an isolated runtime
-        run: python backend/scripts/prepare_slice0_compose.py --project verity-ci --identity-mail --port-offset 1700 --output /tmp/verity-ci.json
+        run: |
+          python backend/scripts/prepare_slice0_compose.py --project verity-ci --identity-mail --port-offset 1700 --output /tmp/verity-ci.json
+          python - <<'PY'
+          import json, os, secrets
+          from pathlib import Path
+          path = Path('/tmp/verity-ci.json')
+          config = json.loads(path.read_text())
+          config['services']['grafana']['environment']['GF_SECURITY_ADMIN_PASSWORD'] = secrets.token_urlsafe(32)
+          metrics_token = secrets.token_urlsafe(48)
+          config['services']['backend']['environment']['METRICS_TOKEN'] = metrics_token
+          token_path = Path('/tmp/verity-ci-metrics-token')
+          descriptor = os.open(token_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o640)
+          with os.fdopen(descriptor, 'w') as destination:
+            destination.write(metrics_token)
+          token_path.chmod(0o640)
+          metric_volumes = [volume for volume in config['services']['prometheus']['volumes'] if volume.get('target') == '/run/secrets/metrics-token']
+          assert len(metric_volumes) == 1
+          metric_volumes[0]['source'] = str(token_path)
+          path.write_text(json.dumps(config, indent=2) + '\n')
+          path.chmod(0o600)
+          PY
+          sudo chgrp 10001 /tmp/verity-ci-metrics-token
       - name: Build runtime and verification images
-        run: docker compose -f /tmp/verity-ci.json --profile verification build postgres redis backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger grafana mailpit
+        id: runtime_build
+        run: docker compose -f /tmp/verity-ci.json --profile verification build postgres redis backend celery-worker celery-beat migrate frontend verification minio minio-init jaeger otel-collector mailpit
+      - name: Build patched Grafana server on isolated runner with an 8 GiB disk floor
+        run: |
+          set -euo pipefail
+          mkdir -p docs/verity/evidence/ci/grafana-build
+          df -h / | tee docs/verity/evidence/ci/grafana-build/disk-before.txt
+          available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+          if (( available < 25 * 1024 * 1024 * 1024 )); then
+            echo 'BLOCKED: less than 25 GiB free for Grafana source build' | tee docs/verity/evidence/ci/grafana-build/preflight.txt
+            exit 78
+          fi
+          docker compose -f /tmp/verity-ci.json build grafana \
+            > docs/verity/evidence/ci/grafana-build/build.log 2>&1 &
+          build_pid=$!
+          (
+            while kill -0 "$build_pid" 2>/dev/null; do
+              available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+              if (( available < 8 * 1024 * 1024 * 1024 )); then
+                echo 'BLOCKED: Grafana build reached 8 GiB free-disk floor' \
+                  >> docs/verity/evidence/ci/grafana-build/build.log
+                kill -TERM "$build_pid"
+                exit 0
+              fi
+              sleep 5
+            done
+          ) &
+          monitor_pid=$!
+          set +e
+          wait "$build_pid"
+          result=$?
+          set -e
+          kill "$monitor_pid" 2>/dev/null || true
+          wait "$monitor_pid" 2>/dev/null || true
+          tail -n 40 docs/verity/evidence/ci/grafana-build/build.log
+          df -h / | tee docs/verity/evidence/ci/grafana-build/disk-after.txt
+          exit "$result"
+      - name: Build patched Prometheus on isolated runner with a 6 GiB disk floor
+        run: |
+          set -euo pipefail
+          mkdir -p docs/verity/evidence/ci/prometheus-build
+          df -h / | tee docs/verity/evidence/ci/prometheus-build/disk-before.txt
+          available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+          if (( available < 14 * 1024 * 1024 * 1024 )); then
+            echo 'BLOCKED: less than 14 GiB free for source build' | tee docs/verity/evidence/ci/prometheus-build/preflight.txt
+            exit 78
+          fi
+          docker compose -f /tmp/verity-ci.json build prometheus \
+            > docs/verity/evidence/ci/prometheus-build/build.log 2>&1 &
+          build_pid=$!
+          (
+            while kill -0 "$build_pid" 2>/dev/null; do
+              available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+              if (( available < 6 * 1024 * 1024 * 1024 )); then
+                echo 'BLOCKED: source build reached 6 GiB free-disk floor' \
+                  >> docs/verity/evidence/ci/prometheus-build/build.log
+                kill -TERM "$build_pid"
+                exit 0
+              fi
+              sleep 5
+            done
+          ) &
+          monitor_pid=$!
+          set +e
+          wait "$build_pid"
+          result=$?
+          set -e
+          kill "$monitor_pid" 2>/dev/null || true
+          wait "$monitor_pid" 2>/dev/null || true
+          tail -n 40 docs/verity/evidence/ci/prometheus-build/build.log
+          df -h / | tee docs/verity/evidence/ci/prometheus-build/disk-after.txt
+          exit "$result"
       - name: Migrate and wait for dependencies
         run: docker compose -f /tmp/verity-ci.json up -d --wait --wait-timeout 180 backend celery-worker frontend jaeger otel-collector prometheus
+      - name: Verify specification, API, schema and migration contracts
+        run: |
+          python -m unittest discover -s scripts/tests -p 'test_verity_spec_gate.py'
+          python -m unittest discover -s scripts/tests -p 'test_verity_owner_confirmation.py'
+          curl --fail --silent --show-error http://localhost:9700/api/openapi.json -o /tmp/verity-ci-openapi.json
+          docker compose -f /tmp/verity-ci.json exec -T postgres psql -U azaeron -d azaeron -X -q -t -A -f - < scripts/verity_schema_catalog.sql > /tmp/verity-ci-schema.json
+          python scripts/verity_spec_gate.py --openapi /tmp/verity-ci-openapi.json --schema /tmp/verity-ci-schema.json | tee /tmp/verity-ci-spec-gate.json
       - name: Execute repository gate including live browser and PostgreSQL tests
         run: python scripts/verity_gate.py --compose /tmp/verity-ci.json --browser-url http://localhost:4700 --output docs/verity/evidence/ci
+      - name: Verify persisted traces, scraping, alert rules, Grafana and redacted logs
+        run: |
+          set -euo pipefail
+          docker compose -f /tmp/verity-ci.json up -d grafana
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent --show-error --max-time 3 http://127.0.0.1:4701/api/health >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          python scripts/verity_observability_gate.py --compose /tmp/verity-ci.json --output docs/verity/evidence/ci/observability
       - name: Install security scanners
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: python -m pip install pip-audit==2.10.1 bandit==1.9.4 detect-secrets==1.5.0
       - name: Dependency audits
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: |
           python -m pip_audit -r backend/requirements-dev.lock --no-deps --disable-pip
           npm audit --prefix frontend
       - name: SAST and source secret gate
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: |
           python -m bandit -r backend/app
           python scripts/verity_secret_gate.py
       - name: Export frontend SBOM
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: npm --prefix frontend sbom --sbom-format cyclonedx > docs/verity/evidence/ci/frontend.cdx.json
       - name: Reclaim build cache before image scans
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: |
           df -h / /tmp
           docker system df
@@ -93,8 +227,10 @@ jobs:
           df -h / /tmp
           docker system df
       - name: Pull pinned infrastructure images for security coverage
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: docker compose -f /tmp/verity-ci.json --profile '*' pull --ignore-buildable
       - name: Scan every Compose image and generate SBOMs
+        if: ${{ !cancelled() && steps.runtime_build.outcome == 'success' }}
         run: python scripts/verity_image_gate.py --compose /tmp/verity-ci.json --output docs/verity/evidence/ci/images
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
@@ -108,3 +244,15 @@ jobs:
       - name: Stop isolated runtime
         if: always()
         run: docker compose -f /tmp/verity-ci.json down --volumes
+  jaeger-source-candidate:
+    if: ${{ inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate && !inputs.grafana_candidate }}
+    uses: ./.github/workflows/verity-observability-candidate.yml
+  prometheus-source-candidate:
+    if: ${{ inputs.prometheus_candidate && !inputs.observability_candidate && !inputs.otel_candidate && !inputs.grafana_candidate }}
+    uses: ./.github/workflows/verity-prometheus-candidate.yml
+  otel-source-candidate:
+    if: ${{ inputs.otel_candidate && !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.grafana_candidate }}
+    uses: ./.github/workflows/verity-otel-candidate.yml
+  grafana-source-candidate:
+    if: ${{ inputs.grafana_candidate && !inputs.observability_candidate && !inputs.prometheus_candidate && !inputs.otel_candidate }}
+    uses: ./.github/workflows/verity-grafana-candidate.yml

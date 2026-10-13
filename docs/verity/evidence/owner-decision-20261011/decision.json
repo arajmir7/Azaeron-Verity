@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "subjects": [
+    {
+      "kind": "DATASET",
+      "identifier": "OpenAssistant/oasst1 root-pairs review v1, 360 rows, revision fdf72ae0827c1cda404aff25b6603abec9e3399b",
+      "sha256": "7514ca2a1e53b0e6cbd7c7b6727b852321f7f32cee26482113e77abfc6a88408",
+      "rights": "UNRESOLVED",
+      "provenance": "UNRESOLVED",
+      "copyright": "UNRESOLVED",
+      "privacy": "UNRESOLVED",
+      "permitted_uses": [
+        "commercial_training"
+      ],
+      "evidence": [
+        "private review packet /Users/ajmiraribam/Projects/azaeron_verity/docs/verity/evidence/production-model-final/data-review-proposal.json; 360-row review /Users/ajmiraribam/Projects/azaeron_verity/.verity-local/production-review-quarantine/azaeron-oasst1-review-v1/review.html SHA256 e8fc7a45c5ab95997f1538a86c2364aeda8dc6314c00d0e035b04ac628fad7c0",
+        "pinned upstream LICENSE SHA256 c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4; https://huggingface.co/datasets/OpenAssistant/oasst1/resolve/fdf72ae0827c1cda404aff25b6603abec9e3399b/LICENSE",
+        "local proposal SHA256 7514ca2a1e53b0e6cbd7c7b6727b852321f7f32cee26482113e77abfc6a88408; original payload SHA256 286a6e9a5a413b3272ae9c0b5a20d327983dea1c24342ae28cb244a6da65185c",
+        "split SHA256 train 551c87ab33043266547a945e7c793ac289b53a525e94ea69f3d506139d5febfc; validation cc3a50139b00f2afd14adf695cf2099b7abb5d40031bc7221096e02174c22314; calibration 3acecb483fa887be5ead128c3dd51f9ea34dca5e3233d416d9d90ef6a7b37517; test 3898128393c674029c3c8d8da8568a9f83b1c3ee46b4b81aac3638c392801eee; ood 3eb7ceb85667a18ddd96b5b565599baa9ad953caac71e9bd2272be74a8841ad6",
+        "https://projects.laion.ai/Open-Assistant/docs/faq",
+        "https://huggingface.co/datasets/OpenAssistant/oasst1/tree/fdf72ae0827c1cda404aff25b6603abec9e3399b",
+        "https://github.com/LAION-AI/Open-Assistant/blob/06bf5b11c9f6fd6a01e4d180bf03a84e28351114/website/src/components/ToS.tsx",
+        "https://github.com/LAION-AI/Open-Assistant/blob/06bf5b11c9f6fd6a01e4d180bf03a84e28351114/website/src/pages/privacy-policy.tsx",
+        "https://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "risks": [
+        "Publisher FAQ declares Apache-2.0 commercial data use, but historical collection terms refer to scientific purpose; no evidence that every contributor had authority over every submitted text.",
+        "Publisher collection rules discourage PII and copied answers; these rules and automated filters do not establish row-level privacy/copyright clearance. The 360 private rows require accountable review.",
+        "Contributor-level permission/consent and applicable privacy basis, retention and deletion obligations remain unresolved. Owner signature cannot supply absent third-party rights.",
+        "The proposal supports only a Writer instruction pilot, not Humaniser, Detector, Verifier, Embed, or production quality claims; no production dataset manifest is admitted."
+      ],
+      "license": "Apache-2.0 (publisher declaration; contributor authority unresolved)",
+      "findings": [
+        "Publisher FAQ explicitly says Open Assistant data are Apache-2.0 and commercially usable; this supports but does not prove every contribution was authorized for Azaeron commercial training.",
+        "Pinned 360-row proposal and five private split files match their recorded SHA256 hashes; prior exact/lexical leakage checks do not establish semantic isolation or row-level copyright/PII clearance.",
+        "Historical collection terms refer to scientific use and the privacy policy describes accounts and contributor data; applicable onward-use basis remains unverified."
+      ],
+      "restrictions": [
+        "No training, evaluation promotion, redistribution or production admission until unresolved rights/provenance/copyright/privacy statuses are supported and set PASS in a newly hash-bound owner decision.",
+        "If any row is excluded or changed, rebuild every affected split and subject hash before approval.",
+        "Even an owner-approved pilot would cover only the exact Writer instruction task, not other model families or release."
+      ]
+    },
+    {
+      "kind": "BASE_MODEL",
+      "identifier": "Qwen/Qwen3-4B-MLX-4bit revision 52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495, third-party DEV_ONLY bundle",
+      "sha256": "ec6cffa2a103343b82163e3b823100e194608a057b3b98cea1c17e68fae938b1",
+      "rights": "PASS",
+      "provenance": "UNRESOLVED",
+      "copyright": "PASS",
+      "privacy": "NOT_APPLICABLE",
+      "permitted_uses": [
+        "commercial_derivative_training"
+      ],
+      "evidence": [
+        "local bundle inventory SHA256 ec6cffa2a103343b82163e3b823100e194608a057b3b98cea1c17e68fae938b1; safetensors SHA256 e56a94b846a2dce7d1cc154ce58b9cfc4b8d99e8ffb74bfe256a265f4cbc7fb9; tokenizer SHA256 aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "pinned upstream LICENSE SHA256 832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+        "https://huggingface.co/Qwen/Qwen3-4B-MLX-4bit/tree/52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495",
+        "https://huggingface.co/Qwen/Qwen3-4B-MLX-4bit/blob/52a5ab34fa604bc8af6d3ce0cac0cab10b7eb495/LICENSE",
+        "https://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "risks": [
+        "The pinned publisher card and Apache-2.0 license support derivative/commercial use subject to license and notice obligations; this is not Azaeron-owned foundation weights.",
+        "Exact unquantized source checkpoint and conversion lineage for this MLX snapshot are not established in the local inventory; no production Candidate manifest or technical admission exists.",
+        "A trained, newly hashed adapter would be AZAERON_DERIVATIVE only after rights-cleared data, controlled training, independent evaluation and release gates."
+      ],
+      "license": "Apache-2.0",
+      "findings": [
+        "Pinned Qwen publisher snapshot carries an Apache-2.0 license and a reproducible local inventory; verified safetensors, tokenizer and license hashes match recorded values.",
+        "Apache-2.0 permits derivative and commercial use subject to notice/attribution/change-marking; it does not transfer ownership of the original checkpoint to Azaeron.",
+        "The local MLX snapshot remains third-party DEV_ONLY; an exact unquantized source/conversion chain is not documented in the reviewed inventory."
+      ],
+      "restrictions": [
+        "Keep Qwen attribution, Apache license/NOTICE and change markings where required; do not use Qwen marks as Azaeron product endorsement.",
+        "Do not claim Azaeron-native ownership or production approval; require a new trained hashed derivative and full release gates.",
+        "Do not admit a production base until a complete candidate manifest binds all actual bundle files and resolves conversion lineage."
+      ]
+    }
+  ],
+  "subject_sha256": "481a46ba55c7ef4d31588cf924b68a13f4f5250aab905b0a21a8e66b17d8c31f",
+  "decision": "REJECT",
+  "approver_role": "AZAERON_PROJECT_OWNER",
+  "approver_name": "Ajmir Aribam",
+  "decided_at": "2026-10-11",
+  "rationale": "Owner-reported rejection on 11 October 2026 (IST): OASST1 row-level copyright, provenance and privacy clearance is incomplete; historical contributor terms and downstream commercial use remain unreconciled; Qwen MLX source-checkpoint/conversion lineage is incomplete; hashes and split isolation do not establish lawful training or commercial quality. Lawful DEV_ONLY non-training verification may continue. No admission, quarantined-data training, production promotion or quality certification on this packet. Reassessment requires a new hash-bound submission. Confirmation/signature remains pending explicit owner action.",
+  "reviewed_record_sha256": "0d818462af9d5f02d7666eb4fd6157bd9ccd7fcc799ae299bfae7fa703db3da9",
+  "confirmation_status": "PENDING",
+  "confirmation_reference": null
+}

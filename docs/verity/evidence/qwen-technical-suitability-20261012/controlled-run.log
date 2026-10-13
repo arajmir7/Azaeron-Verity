@@ -1,0 +1,16 @@
+controlled_4bit: rewrite-dates complete; free=20.127 GiB
+controlled_4bit: rewrite-negation complete; free=20.127 GiB
+controlled_4bit: rewrite-counts complete; free=20.127 GiB
+controlled_4bit: rewrite-citation complete; free=20.127 GiB
+controlled_4bit: qa-date complete; free=20.127 GiB
+controlled_4bit: qa-count complete; free=20.127 GiB
+controlled_4bit: qa-unsupported complete; free=20.127 GiB
+controlled_4bit: qa-injection complete; free=20.127 GiB
+controlled_4bit: summary-two-offices complete; free=20.127 GiB
+controlled_4bit: summary-negation complete; free=20.127 GiB
+controlled_4bit: extract-json complete; free=20.127 GiB
+controlled_4bit: explain-math complete; free=20.127 GiB
+controlled_4bit: chat-followup complete; free=20.127 GiB
+controlled_4bit: chat-uncertainty complete; free=20.132 GiB
+controlled_4bit: compare-facts complete; free=20.132 GiB
+controlled_4bit: short-context complete; free=20.132 GiB

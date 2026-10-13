@@ -10,8 +10,9 @@ import re
 import shutil
 from typing import Literal
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
+from .owner_decision import require_owner_approval
 from .policy import (
     DatasetManifest,
     Digest,
@@ -95,6 +96,13 @@ class DatasetReview(StrictModel):
     provenance: Literal["PASS"]
     copyright: Literal["PASS"]
     pii: Literal["PASS"]
+    owner_decision: FileRef | None = None
+
+    @model_validator(mode="after")
+    def adjacent_owner_record(self):
+        if self.owner_decision and self.owner_decision.path != "owner-decision.json":
+            raise ValueError("Owner decision must be the adjacent owner-decision.json")
+        return self
 
 
 class Example(StrictModel):
@@ -126,9 +134,10 @@ class LeakageIndex:
         self.rows: list[tuple[str, set[bytes]]] = []
         self.postings: dict[bytes, set[int]] = {}
         self.lineage: dict[tuple[str, str], str] = {}
+        self.exact_texts: dict[bytes, str] = {}
         self.shingle_count = 0
 
-    def add(self, row, split):
+    def add(self, row, split, *, include_target=False):
         keys = [
             ("source", row.source_id),
             ("author", row.author_id),
@@ -140,9 +149,18 @@ class LeakageIndex:
         for kind, value in keys:
             if value and self.lineage.setdefault((kind, value), split) != split:
                 raise PolicyError("derived_or_author_lineage_split_leakage")
-        words = re.findall(r"\w+", row.input.casefold())
+        self._add_text(row.input, split)
+        if include_target:
+            self._add_text(row.target, split)
+
+    def _add_text(self, text: str, split: str):
+        words = re.findall(r"\w+", text.casefold())
+        if len(words) >= 5:
+            key = hashlib.sha256(" ".join(words).encode()).digest()
+            if self.exact_texts.setdefault(key, split) != split:
+                raise PolicyError("exact_answer_split_leakage")
         if len(words) < 10:
-            return  # Existing exact normalized-input checks cover short fixtures.
+            return  # Short text relies on exact and source-lineage checks.
         shingles = {
             hashlib.blake2b(
                 " ".join(words[i : i + 5]).encode(), digest_size=16
@@ -153,8 +171,8 @@ class LeakageIndex:
         if self.shingle_count > 2_000_000:
             raise PolicyError("near_duplicate_review_capacity_exceeded")
         candidates: set[int] = set()
-        for value in shingles:
-            candidates.update(self.postings.get(value, ()))
+        for shingle in shingles:
+            candidates.update(self.postings.get(shingle, ()))
         for index in candidates:
             other_split, other = self.rows[index]
             if (
@@ -164,8 +182,8 @@ class LeakageIndex:
                 raise PolicyError("near_duplicate_split_leakage")
         index = len(self.rows)
         self.rows.append((split, shingles))
-        for value in shingles:
-            self.postings.setdefault(value, set()).add(index)
+        for shingle in shingles:
+            self.postings.setdefault(shingle, set()).add(index)
 
 
 def review_subject(manifest: Dataset) -> str:
@@ -196,6 +214,17 @@ def read_dataset(manifest_file: Path, family: Family, *, smoke=False):
         review.reviewer_kind != "HUMAN" or manifest.quality_tier == "TEST_FIXTURE"
     ):
         raise PolicyError("human_dataset_review_required")
+    if not smoke:
+        if review.owner_decision is None:
+            raise PolicyError("owner_dataset_decision_required")
+        owner = require_owner_approval(
+            review.owner_decision.verify(manifest_file.parent),
+            "DATASET",
+            review_subject(manifest),
+            "commercial_training",
+        )
+        if review.reviewer != owner.approver_name:
+            raise PolicyError("dataset_reviewer_is_not_project_owner")
     rows, ids, inputs, groups, generators = {}, set(), set(), set(), set()
     leakage = LeakageIndex()
     for split, ref in manifest.splits.items():
@@ -211,7 +240,7 @@ def read_dataset(manifest_file: Path, family: Family, *, smoke=False):
                     or row.task not in manifest.allowed_tasks
                 ):
                     raise PolicyError("example_lineage_and_task_review_required")
-                leakage.add(row, split)
+                leakage.add(row, split, include_target=family in {"writer", "embed"})
                 key = hashlib.sha256(
                     " ".join(row.input.casefold().split()).encode()
                 ).hexdigest()
@@ -278,7 +307,12 @@ def register(manifest_file: Path, registry: Path, *, smoke=False):
         read_dataset(manifest_file, family, smoke=smoke)
     output = registry / manifest.dataset_id / manifest.version
     output.mkdir(parents=True, exist_ok=False)
-    for ref in [*manifest.splits.values(), manifest.review]:
+    review_file = manifest.review.verify(manifest_file.parent)
+    review = DatasetReview.model_validate_json(review_file.read_bytes())
+    references = [*manifest.splits.values(), manifest.review]
+    if review.owner_decision is not None:
+        references.append(review.owner_decision)
+    for ref in references:
         source = ref.verify(manifest_file.parent)
         destination = output / ref.path
         destination.parent.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,21 @@
+{
+  "candidate_sha256": "19fe23dd9302d4cb73e8cf9866f42b6a73399c9ec9398c28a340cda1acf1b8ce",
+  "comment_body_sha256": "c3d6d8340ae758842fa0562b9bc058e0d14f34643772c3d97c9b87005cbee6cc",
+  "comment_id": 6122705989,
+  "comment_url": "https://github.com/arajmir7/Azaeron-Verity/pull/2#issuecomment-6122705989",
+  "confirmation_reference": "github-issue-comment:6122705989:sha256:c3d6d8340ae758842fa0562b9bc058e0d14f34643772c3d97c9b87005cbee6cc",
+  "created_at": "2026-10-12T10:45:40Z",
+  "decision": "APPROVE_WITHIN_SCOPE",
+  "limitations": [
+    "Authenticates control of the repository-owner GitHub account, not physical identity or third-party rights.",
+    "Dataset admission, human technical acceptance and release require separate evidence and decisions."
+  ],
+  "mechanism": "GITHUB_PR_ISSUE_COMMENT_ACCOUNT_AUTHENTICATION",
+  "owner_github_id": 236520801,
+  "owner_login": "arajmir7",
+  "permitted_use": "commercial_derivative_training",
+  "pr_number": 2,
+  "repository": "arajmir7/Azaeron-Verity",
+  "reviewed_packet_sha256": "eb6f3f0615628abedd9baecd5eab2b5595e1841f844157e35a8449963c6a2314",
+  "schema_version": 1
+}

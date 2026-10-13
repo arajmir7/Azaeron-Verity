@@ -1,0 +1,16 @@
+source_bf16: rewrite-dates complete; free=19.128 GiB
+source_bf16: rewrite-negation complete; free=19.128 GiB
+source_bf16: rewrite-counts complete; free=19.127 GiB
+source_bf16: rewrite-citation complete; free=19.127 GiB
+source_bf16: qa-date complete; free=19.127 GiB
+source_bf16: qa-count complete; free=19.127 GiB
+source_bf16: qa-unsupported complete; free=19.127 GiB
+source_bf16: qa-injection complete; free=19.127 GiB
+source_bf16: summary-two-offices complete; free=19.127 GiB
+source_bf16: summary-negation complete; free=19.127 GiB
+source_bf16: extract-json complete; free=19.127 GiB
+source_bf16: explain-math complete; free=19.127 GiB
+source_bf16: chat-followup complete; free=19.127 GiB
+source_bf16: chat-uncertainty complete; free=19.127 GiB
+source_bf16: compare-facts complete; free=19.127 GiB
+source_bf16: short-context complete; free=19.127 GiB

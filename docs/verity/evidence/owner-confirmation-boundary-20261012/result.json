@@ -1,0 +1,36 @@
+{
+  "base_commit": "6a66f3f588471dc80b61aeeb5655b9ac5b53a6c1",
+  "closed_defects": [
+    "Forged non-placeholder owner confirmation references previously bypassed authenticated account verification",
+    "Production dataset registration omitted its hash-verified owner-decision record",
+    "Nested reasoning delimiters could expose private text in DEV_ONLY streaming output"
+  ],
+  "data_admission": "NONE",
+  "limitations": [
+    "Live GitHub owner confirmation is not present, so no base admission was executed",
+    "The GOV.UK review-only source is not an admitted training dataset",
+    "Exact-commit hosted CI and image scans must run on the resulting commit"
+  ],
+  "local_checks": {
+    "backend_unit": "366 passed, 1 skipped",
+    "bandit_1_9_4": "PASS",
+    "black": "PASS",
+    "mypy": "PASS_201_SOURCE_FILES",
+    "ruff": "PASS",
+    "scripts_unit": "6 passed, 8 subtests passed",
+    "secret_gate": "PASS_0_UNREVIEWED_74_EXACT_REVIEWED_FINGERPRINTS"
+  },
+  "log_sha256": {
+    "backend-unit.log": "d045b2a98c9458b4a781603c6dce565882e2e6bd462f1412f350371da3ad7085",
+    "bandit.log": "b50e5026e0e3f30fadb769fc86b0e7b8669bbda41477d83f24d7fac52171ae0e",
+    "black.log": "bcd0aac853c304d567741af313f37d1acaebe42d3dec4f4e6e111e6b5ab4b881",
+    "mypy.log": "66d1e1376914aebd3df98f2d92a3227b07bafb60b2327103183c309404bb2ce0",
+    "ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "scripts-unit.log": "54719c80edb66dbebadf2958cdc9f6234341575250c214925fcdc1de8f603784",
+    "secret-gate.log": "b57301894adaff909eddd8a244df64e313e4dd4657cff8972fd134bd2bb01d91"
+  },
+  "owner_confirmation": "PENDING_NO_PERSONALLY_POSTED_GITHUB_COMMENT",
+  "production_model_approved": false,
+  "scope": "Non-training owner-admission and DEV_ONLY response-boundary hardening",
+  "training_performed": false
+}

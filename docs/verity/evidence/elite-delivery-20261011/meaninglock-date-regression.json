@@ -1,0 +1,24 @@
+{
+  "backend_log_sha256": "130d347b16e2be0d8a7f3c2ef28fa8bfd773e780e4028d17545a3961d9f7433b",
+  "captured_at_utc": "2026-10-11T16:11:51.654340+00:00",
+  "change": "Protect day-month and ISO dates in deterministic MeaningLock; reject novel ISO dates in DEV_ONLY document-grounded responses and include source ISO dates in prompt hints.",
+  "files_sha256": {
+    "backend/app/modules/aegiswrite/invariants.py": "04aca59ee6072182d44ad98d0fef0a35565f56f5fb1779778ab80e6cf63d09c4",
+    "backend/app/modules/inference/dev_mlx.py": "d4119e278d054dc845ac847f4b4c02c3680fb73a372d9460693b6c65b03de49f",
+    "backend/tests/test_dev_mlx.py": "6ec678e65cccf5e35799f58a14514cc35673b12e26060df90ba15afd081b7f1b",
+    "backend/tests/test_semantic_verification.py": "a3462f0626b8bf533977688778694ef801a61d4bb9d0652af46354580855603e"
+  },
+  "focused_result": "48 passed; dev MLX, semantic verification, editorial invariants",
+  "prior_deterministic_gap": {
+    "baseline": "eaff4d1",
+    "baseline_reasons": [],
+    "case": "6 August 2024 + 8 September 2024 -> 6 September 2024 + 8 August 2024",
+    "fixed_reasons": [
+      "protected_date_changed"
+    ]
+  },
+  "regression": "DEV_ONLY source 2024-06-08 to output 2024-08-06 is rejected even when both 06 and 08 occur elsewhere; deterministic MeaningLock rejects cross-recombined 6 August/8 September dates.",
+  "requirement": "PRD-004 / TRD-004 / FLOW-007",
+  "scope_limit": "No independent model quality, approved training data, or production model is established by deterministic date checks.",
+  "test_result": "337 passed, 35 skipped; local backend suite, 2026-10-11"
+}

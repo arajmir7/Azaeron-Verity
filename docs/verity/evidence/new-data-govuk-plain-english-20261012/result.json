@@ -1,0 +1,49 @@
+{
+  "blockers": [
+    "OGL does not expressly resolve this commercial AI-training use; owner/legal review required",
+    "Third-party rights and personal-data exclusions require passage-level review",
+    "Published guide does not establish human target authorship or independent editorial process",
+    "Eight of fourteen source summary passages use 'reasonable' where aligned guide passages omit it",
+    "One source group cannot yield isolated TRAIN/VAL/CAL/TEST/OOD splits or broad Writer task coverage"
+  ],
+  "candidate_numbered_pairs": 14,
+  "dataset_splits": "NONE",
+  "documents": {
+    "code": {
+      "api_url": "https://www.gov.uk/api/content/government/publications/code-of-practice-for-the-remediation-of-residential-buildings/code-of-practice-for-the-remediation-of-residential-buildings",
+      "body_sha256": "9660554ce17980abe1451bb1c03a9b3bd05f6a4396806f143e98ce2c98016a72",
+      "content_id": "293031ce-fb33-4181-b331-f9befa35f880",
+      "page_url": "https://www.gov.uk/government/publications/code-of-practice-for-the-remediation-of-residential-buildings/code-of-practice-for-the-remediation-of-residential-buildings",
+      "public_updated_at": "2025-12-12T10:00:01+00:00",
+      "title": "Code of Practice for the remediation of residential buildings"
+    },
+    "guide": {
+      "api_url": "https://www.gov.uk/api/content/government/publications/code-of-practice-for-the-remediation-of-residential-buildings/plain-english-guide-to-the-code-of-practice-for-the-remediation-of-residential-buildings",
+      "body_sha256": "563b866128332cce074a1c94b9143f3c911224b858cb0cf1c7b173dbf0e7f5f1",
+      "content_id": "a15c3e68-1529-4b38-9f2a-34e5d3859f0c",
+      "page_url": "https://www.gov.uk/government/publications/code-of-practice-for-the-remediation-of-residential-buildings/plain-english-guide-to-the-code-of-practice-for-the-remediation-of-residential-buildings",
+      "public_updated_at": "2025-12-12T10:00:01+00:00",
+      "title": "Plain English guide to the Code of Practice for the remediation of residential buildings"
+    }
+  },
+  "email_pattern_leads_among_all_pairs": 0,
+  "legal_privacy_review": "PENDING",
+  "license_evidence": {
+    "ai_training_permission": "OWNER_LEGAL_REVIEW_PENDING",
+    "copyright_ai_context_url": "https://www.gov.uk/government/publications/report-and-impact-assessment-on-copyright-and-artificial-intelligence/report-on-copyright-and-artificial-intelligence",
+    "license_scope": "permits adaptation and commercial exploitation of covered information; excludes personal data and unauthorized third-party rights",
+    "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "observed_license_html_sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+    "page_notice": "Crown copyright 2025; OGL v3.0 except where otherwise stated; identified third-party copyright needs permission"
+  },
+  "owner_admission": "PENDING",
+  "qualifier_leads_among_all_pairs": 8,
+  "sample_rows": 4,
+  "sample_sha256": "23d2856611e560d5b82ee38260ea2f15f507b39fc4782c45bf3be283f0e91538",
+  "source_group_count": 1,
+  "source_group_split_policy": "KEEP_ALL_14_TOGETHER_IF_EVER_REVIEWED",
+  "status": "QUARANTINED_REVIEW_ONLY",
+  "target_human_authorship": "UNKNOWN",
+  "task_coverage": "ONE_NARROW_PLAIN_ENGLISH_SUMMARIZATION_SOURCE_ONLY",
+  "training_allowed": false
+}

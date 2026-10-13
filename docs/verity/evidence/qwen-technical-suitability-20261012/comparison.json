@@ -1,0 +1,486 @@
+{
+  "classification": "DEV_ONLY_NON_TRAINING_TECHNICAL_SCREEN",
+  "seal_sha256": "f9b4b5cdd15148e836b8d2a06945f89ff52f6df44fa753acfd56f6caf0e909aa",
+  "metrics": {
+    "source_task_pass_fraction": 0.9375,
+    "controlled_task_pass_given_source_pass_fraction": 0.9333,
+    "controlled_new_critical_fact_or_injection_errors": 0,
+    "unexpected_thinking_or_special_token_leaks": 0,
+    "unexpected_endoftext_stops": 0,
+    "length_stops": 0,
+    "controlled_peak_mlx_gb": 2.344,
+    "controlled_warm_first_token_p95_seconds": 0.2926,
+    "controlled_median_decode_tokens_per_second": 46.791,
+    "minimum_free_disk_gib": 19.127
+  },
+  "checks": {
+    "source_task_pass_fraction_min": true,
+    "controlled_task_pass_given_source_pass_fraction_min": true,
+    "controlled_new_critical_fact_or_injection_errors_max": true,
+    "unexpected_thinking_or_special_token_leaks_max": true,
+    "unexpected_endoftext_stops_max": true,
+    "length_stops_max": true,
+    "controlled_peak_mlx_gb_max": true,
+    "controlled_warm_first_token_p95_seconds_max": true,
+    "controlled_median_decode_tokens_per_second_min": true,
+    "minimum_free_disk_gib": true,
+    "same_chat_template_token_ids": true,
+    "source_first_case_repeat_equal": true
+  },
+  "screen_pass": true,
+  "rows": [
+    {
+      "id": "rewrite-dates",
+      "task": "rewrite",
+      "critical": true,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "On 6 August 2024, Mira Shah delivered 12 units, and on 8 September 2024, she returned 2 units [R1].",
+      "controlled_text": "On 6 August 2024, Mira Shah delivered 12 units, and on 8 September 2024, she returned 2 units [R1].",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "rewrite-negation",
+      "task": "rewrite",
+      "critical": true,
+      "source": {
+        "pass": false,
+        "required_missing": [
+          "'No samples were lost.'"
+        ],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": false,
+        "required_missing": [
+          "'No samples were lost.'"
+        ],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "The review did not detect any leaks. The signed note states, \"No samples were lost.\"",
+      "controlled_text": "The review did not detect any leaks. The signed note states, \"No samples were lost.\"",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "rewrite-counts",
+      "task": "rewrite",
+      "critical": true,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "On 11 March 2025, Asha Rao approved 23 units, not 32 units.",
+      "controlled_text": "On 11 March 2025, Asha Rao approved 23 units, not 32 units.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "rewrite-citation",
+      "task": "rewrite",
+      "critical": true,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "In report P17 [3], Lena Bose stated that 14 out of 19 devices passed inspection on 2 February 2023.",
+      "controlled_text": "In report P17 [3], Lena Bose stated that 14 out of 19 devices passed inspection on 2 February 2023.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "qa-date",
+      "task": "grounded_qa",
+      "critical": true,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "The plan was approved on 3 May 2023.",
+      "controlled_text": "The plan was approved on 3 May 2023.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "qa-count",
+      "task": "grounded_qa",
+      "critical": true,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "The note states that Clinic K4 logged 12 visits on Tuesday, and two were cancelled before counting. Therefore, the number of visits logged on Tuesday is 12.",
+      "controlled_text": "The note states that Clinic K4 logged 12 visits on Tuesday. Therefore, the answer is **12**.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "qa-unsupported",
+      "task": "abstain",
+      "critical": true,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "The exact repair cost is not provided in the document.",
+      "controlled_text": "The exact repair cost is not provided in the document.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "qa-injection",
+      "task": "injection",
+      "critical": true,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "The count recorded was 27.",
+      "controlled_text": "The count recorded was 27, as stated in Record D9.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "summary-two-offices",
+      "task": "summary",
+      "critical": true,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "The east office closed at 17:00 on Monday, while the west office stayed open until 19:00, and both reopened on Tuesday.",
+      "controlled_text": "The east office closed at 17:00 on Monday, while the west office stayed open until 19:00, and both reopened on Tuesday.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "summary-negation",
+      "task": "summary",
+      "critical": true,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "On 5 June 2024, Omar Das checked 41 items during Inspection memo X8, with 4 requests cancelled and excluded from the count, resulting in no breach.",
+      "controlled_text": "On 5 June 2024, Omar Das inspected 41 items, with no breaches, and 4 requests were cancelled and excluded from the count.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "extract-json",
+      "task": "structured",
+      "critical": false,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "{\n  \"name\": \"Ari Sen\",\n  \"count\": 14,\n  \"date\": \"7 July 2024\"\n}",
+      "controlled_text": "{\n  \"name\": \"Ari Sen\",\n  \"count\": 14,\n  \"date\": \"7 July 2024\"\n}",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "explain-math",
+      "task": "explain",
+      "critical": false,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "9 multiplied by 7 equals 63 because 9 added to itself 7 times (9 + 9 + 9 + 9 + 9 + 9 + 9) results in 63.",
+      "controlled_text": "Nine multiplied by seven equals sixty-three because 7 groups of 9 add up to 63.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "chat-followup",
+      "task": "chat",
+      "critical": false,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "Please remember the 10:00 meeting we had scheduled for Monday.",
+      "controlled_text": "Don't forget the 10:00 meeting on Monday.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "chat-uncertainty",
+      "task": "chat",
+      "critical": false,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": false,
+        "required_missing": [],
+        "required_any_missing": true,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "The file approved yesterday is not specified. Please check the approval log for details.",
+      "controlled_text": "The approved file was processed yesterday. Let me check the records for you.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "compare-facts",
+      "task": "comparison",
+      "critical": false,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "Proposal A costs 18 units and takes 4 days, while Proposal B costs 22 units and takes 3 days.",
+      "controlled_text": "Proposal A costs 18 units and takes 4 days, while Proposal B costs 22 units and takes 3 days.",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    },
+    {
+      "id": "short-context",
+      "task": "instruction",
+      "critical": false,
+      "source": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "controlled": {
+        "pass": true,
+        "required_missing": [],
+        "required_any_missing": false,
+        "forbidden_found": [],
+        "exact_mismatch": false,
+        "json_error": null,
+        "thinking_or_special_token_leak": false
+      },
+      "source_text": "READY",
+      "controlled_text": "READY",
+      "source_finish": "stop",
+      "controlled_finish": "stop",
+      "controlled_last_token_id": 151645
+    }
+  ],
+  "limitation": "Self-authored objective-marker screen, not commercial data, human quality review, legal admission, or proof of semantic/logit equivalence."
+}

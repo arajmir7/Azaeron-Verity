@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "candidate_id": "dolly-review-v1",
+  "status": "QUARANTINED_REVIEW_ONLY",
+  "admission": "NOT_APPROVED",
+  "publisher": "Databricks, Inc.",
+  "source_repository": "https://huggingface.co/datasets/databricks/databricks-dolly-15k",
+  "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+  "declared_license": "CC BY-SA 3.0 Unported",
+  "publisher_commercial_ml_training_statement": "VERIFIED_PUBLISHER_STATEMENT",
+  "source_file_sha256": {
+    "README.md": "db06c60090a11b20e79d1933b2f316f781605f07761ff2ae2795d6523e3e960b",
+    "databricks-dolly-15k.jsonl": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec"
+  },
+  "source_rows": 15011,
+  "context_free_rows": 10544,
+  "publisher_described_wikipedia_context_rows": 4467,
+  "candidate_scope": [
+    "general instruction following",
+    "creative writing",
+    "brainstorming",
+    "classification",
+    "question answering",
+    "Wikipedia-grounded summarization and extraction, subject to source-specific attribution review"
+  ],
+  "explicit_exclusions": [
+    "humanisation or editing-pair quality",
+    "voice preservation",
+    "AI Detector calibration",
+    "private Embed retrieval",
+    "sealed competitive evaluation"
+  ],
+  "findings": {
+    "publisher_license_and_commercial_training_declaration": "VERIFIED",
+    "publisher_employee_authorship_statement": "VERIFIED",
+    "source_payload_integrity_and_row_count": "VERIFIED",
+    "per_row_author_identity_or_credible_pseudonym": "NOT_FOUND",
+    "employee_work_product_or_contributor_grant_by_row": "NOT_FOUND",
+    "wikipedia_page_revision_author_attribution_by_row": "NOT_FOUND",
+    "row_level_privacy_review": "PENDING",
+    "row_level_copyright_review": "PENDING",
+    "share_alike_obligations_for_training_and_model_distribution": "OWNER_REVIEW_REQUIRED",
+    "source_isolated_five_split_dataset": "NOT_BUILT",
+    "independent_quality_review": "NOT_DONE",
+    "owner_decision": "NOT_REQUESTED"
+  },
+  "evidence": [
+    "docs/verity/evidence/new-data-dolly-20261011/README.md",
+    "docs/verity/evidence/new-data-dolly-20261011/audit-summary.json",
+    "docs/verity/evidence/new-data-dolly-20261011/row-hashes.jsonl"
+  ],
+  "training_permitted_by_azaeron_gate": false,
+  "production_registry_eligible": false
+}

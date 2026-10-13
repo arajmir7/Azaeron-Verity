@@ -1,0 +1,36 @@
+{
+  "classification": "ENGINEERING_EVIDENCE_NOT_MODEL_APPROVAL",
+  "prechange_head": "58b1730046bf650d6a2faaf47b379f19abae612c",
+  "changes": [
+    "Derivative promotion and serving now recheck authenticated base and dataset admissions and their exact hashes.",
+    "MLX training intent now binds base and dataset decisions and rejects mid-run admission changes.",
+    "Technical acceptance now recomputes answer scores, stopping answers, resource success and reasoning flags from hash-bound responses."
+  ],
+  "local_checks": {
+    "backend": "403 passed, 35 skipped",
+    "black": "PASS",
+    "ruff": "PASS",
+    "mypy": "PASS, 201 source files",
+    "bandit": "PASS, zero findings",
+    "secret_gate": "PASS, zero unreviewed findings; 74 exact previously reviewed fingerprints",
+    "schema_snapshots": "PASS, four changed or new snapshots match Pydantic models"
+  },
+  "controlled_base_screen": {
+    "evidence": "../qwen-technical-32case-20261013/verdict.json",
+    "protocol_sha256": "06aa420893fedc087a03578729247b3d7c191fb8c2ee9fd1e54546d0aee19a9c",
+    "bf16_source_score": "25/32",
+    "controlled_mlx_4bit_score": "18/32",
+    "score_drop": 0.21875,
+    "predeclared_max_drop": 0.1,
+    "result": "FAIL"
+  },
+  "production_dataset_rows_admitted": 0,
+  "approved_production_models": 0,
+  "real_derivative_training_run": "NOT_STARTED_NO_ADMITTED_DATA_OR_TECHNICALLY_ACCEPTED_BASE",
+  "release_status": "BLOCKED",
+  "limitations": [
+    "Local backend integration tests requiring PostgreSQL were skipped; exact-commit hosted CI must run.",
+    "Admission attestations bind rights decisions and hashes but do not prove physical training execution.",
+    "Serving cold-start confirmation currently depends on live GitHub and fails closed offline."
+  ]
+}

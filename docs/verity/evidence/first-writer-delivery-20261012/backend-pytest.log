@@ -1,0 +1,62 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/ajmiraribam/Projects/azaeron_verity_specs/backend
+configfile: pytest.ini
+testpaths: tests
+plugins: asyncio-1.4.0, Faker-30.0.0, anyio-4.15.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 385 items
+
+tests/integration/test_agent_rls.py ssss                                 [  1%]
+tests/integration/test_postgres_rls.py sssssssssssssssssssssssss         [  7%]
+tests/integration/test_usage_concurrency.py sssss                        [  8%]
+tests/security/test_document_mutation_authorization.py ......            [ 10%]
+tests/security/test_failure_privacy.py ..                                [ 10%]
+tests/security/test_readonly_permissions.py ..                           [ 11%]
+tests/security/test_security_gate.py ...                                 [ 12%]
+tests/security/test_session_boundary.py ...........                      [ 15%]
+tests/security/test_tenant_authorization.py ..                           [ 15%]
+tests/security/test_upload_validation.py ....                            [ 16%]
+tests/security/test_zero_external_ai.py .........                        [ 18%]
+tests/test_aegiswrite.py ....                                            [ 20%]
+tests/test_agent.py ...............                                      [ 23%]
+tests/test_agent_voice_corpus.py ..                                      [ 24%]
+tests/test_api_keys.py ......                                            [ 25%]
+tests/test_auth.py .........                                             [ 28%]
+tests/test_authorship_consistency.py ...                                 [ 29%]
+tests/test_candidate_program.py ..............................           [ 36%]
+tests/test_capability_contract.py ...                                    [ 37%]
+tests/test_citation_intelligence.py ..                                   [ 38%]
+tests/test_derivative_mlx.py ........                                    [ 40%]
+tests/test_detector_calibration_protocol.py ....                         [ 41%]
+tests/test_detector_intelligence.py .......                              [ 43%]
+tests/test_dev_mlx.py .............                                      [ 46%]
+tests/test_dev_mlx_live.py s                                             [ 46%]
+tests/test_document_intelligence.py ..........                           [ 49%]
+tests/test_editor_revisions.py ....                                      [ 50%]
+tests/test_evidence_graph.py ....                                        [ 51%]
+tests/test_evidence_report.py ...                                        [ 52%]
+tests/test_failure_gate.py ......                                        [ 53%]
+tests/test_governance.py ...                                             [ 54%]
+tests/test_identity.py .......                                           [ 56%]
+tests/test_lineage_contract.py ...................                       [ 61%]
+tests/test_model_layer_hardening.py .................                    [ 65%]
+tests/test_model_platform.py .........                                   [ 68%]
+tests/test_observability.py ....                                         [ 69%]
+tests/test_operations.py ....                                            [ 70%]
+tests/test_organization_state_contract.py ..                             [ 70%]
+tests/test_privacy.py .........                                          [ 72%]
+tests/test_private_inference.py .......................                  [ 78%]
+tests/test_provenance.py ..                                              [ 79%]
+tests/test_refine_invariants.py ................                         [ 83%]
+tests/test_semantic_verification.py ......................               [ 89%]
+tests/test_similarity_engine.py .....                                    [ 90%]
+tests/test_similarity_workflow.py .......                                [ 92%]
+tests/test_storage_urls.py .                                             [ 92%]
+tests/test_transaction_boundary.py ..                                    [ 93%]
+tests/test_usage.py ....                                                 [ 94%]
+tests/test_validation_gate.py ......                                     [ 95%]
+tests/test_worker_redelivery.py ....                                     [ 96%]
+tests/test_workspace_onboarding.py ............                          [100%]
+
+================== 350 passed, 35 skipped in 78.16s (0:01:18) ==================

@@ -1,0 +1,16 @@
+{
+  "classification": "NEW_NON_TRAINING_DIAGNOSTIC_PROTOCOL",
+  "source_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "candidate_manifest_sha256": "19fe23dd9302d4cb73e8cf9866f42b6a73399c9ec9398c28a340cda1acf1b8ce",
+  "original_seal_sha256": "44a794bd680564de347303d7266f0ac25d8fcb63f0e80e016598ec48dc3aff03",
+  "original_fixtures_sha256": "d44de175e4c14a3660c308f34daf6aaa49098cfd57ad891e5675a603909ba9c3",
+  "original_run_source_sha256": "cfe2fcf06a77db236d0e3a922edb9d3048acfa098ac9c995adac9f9c71b4daf7",
+  "original_run_candidate_sha256": "a9e2d8b8f076627914cbc941555396ed96ebd83519253d304032d2cbadd08107",
+  "diagnostic_case_ids": ["E06", "A02", "Q03", "P02", "P05", "P07", "P08", "S04"],
+  "controls": ["E01", "P01", "S01"],
+  "runtime": "mlx-lm==0.32.0; mlx==0.32.3; greedy; no-thinking chat template; offline",
+  "max_tokens_task": 48,
+  "max_tokens_stopping": 96,
+  "minimum_free_disk_gib": 15,
+  "acceptance": "NONE: explanation only; original failure remains immutable"
+}

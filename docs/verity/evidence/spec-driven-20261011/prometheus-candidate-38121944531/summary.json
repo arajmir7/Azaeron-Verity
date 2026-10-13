@@ -1,0 +1,13 @@
+{
+  "run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38121944531",
+  "source_commit": "dc16619c61bfffa95f4d520e877f1a428bc2a303",
+  "image_id": "sha256:f2b1658def4a7bed49573c95be2c71554e55c8618a37729bb4fff449c65a0a6c",
+  "vulnerability_gate": "PASS",
+  "sbom_gate": "PASS",
+  "high_critical_count": 0,
+  "runtime_smoke": "PASS: nonroot process ready, /api/v1/targets successful, UI HTML served",
+  "source": "prometheus/prometheus v3.15.0 commit 5241a27fe3c6983549fccc32f6e65917408c63cd",
+  "source_archive_sha256": "d6383dea2f9b26c1673a52859c453653f2c6c046f7fb6d01db59603a65a732eb",
+  "ui_archive_sha256": "fa8c918ed05e3f89e232e9b69eccd6ed074602cd9e8a2cab7a92bec9651974ae",
+  "production_gate": "PENDING exact-commit full-stack scraping, alert and image scan"
+}

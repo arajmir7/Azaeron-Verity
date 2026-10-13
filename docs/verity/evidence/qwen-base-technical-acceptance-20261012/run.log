@@ -1,0 +1,5 @@
+single-quoted-negation: finish=stop token=151645
+double-quoted-date: finish=stop token=151645
+no-phantom-record-check: finish=stop token=151645
+closed-answer-stop: finish=stop token=151645
+thinking-mode-boundary: finish=length token=5601

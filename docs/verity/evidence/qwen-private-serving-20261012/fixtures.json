@@ -1,0 +1,101 @@
+{
+  "classification": "DEV_ONLY_ORIGINAL_SYNTHETIC_PERFORMANCE_ONLY",
+  "endpoint": "http://127.0.0.1:18080",
+  "model_path": "/Users/ajmiraribam/Projects/azaeron_verity_specs/.verity-local/qwen3-4b-mlx-controlled-1cfa9a-4bit",
+  "weight_sha256": "55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d",
+  "server_flags": {
+    "host": "127.0.0.1",
+    "port": 18080,
+    "chat_template_args": {
+      "enable_thinking": false
+    },
+    "max_tokens": 64,
+    "prompt_cache_size": 0,
+    "decode_concurrency": 1,
+    "prompt_concurrency": 1
+  },
+  "warmup": 2,
+  "serial": [
+    {
+      "id": "serial-01",
+      "prompt": "Reply with one sentence explaining why a document citation is useful."
+    },
+    {
+      "id": "serial-02",
+      "prompt": "Rewrite without changing facts: Mira Shah submitted 17 forms on 6 August 2024."
+    },
+    {
+      "id": "serial-03",
+      "prompt": "Summarize in one sentence: The library opened on 4 June 2023. It has 24 desks. It closes on Mondays."
+    },
+    {
+      "id": "serial-04",
+      "prompt": "Answer using only this source: Document R4 states that 29 visits occurred on 8 May 2024. How many visits occurred?"
+    },
+    {
+      "id": "serial-05",
+      "prompt": "Explain in one sentence why an absent source fact should remain unknown."
+    },
+    {
+      "id": "serial-06",
+      "prompt": "Rewrite without changing facts: Noor Sen did not approve the 12-item request [1]."
+    },
+    {
+      "id": "serial-07",
+      "prompt": "Summarize in one sentence: Report R7 lists 15 visits and 2 cancellations. No breach was recorded."
+    },
+    {
+      "id": "serial-08",
+      "prompt": "Answer using only this source: Record R8 reports 31 books returned. How many books were returned?"
+    },
+    {
+      "id": "serial-09",
+      "prompt": "Explain in one sentence what a reversible edit means for document history."
+    },
+    {
+      "id": "serial-10",
+      "prompt": "Rewrite without changing facts: On 9 July 2024, Ira Mehta paid 42 rupees [2]."
+    },
+    {
+      "id": "serial-11",
+      "prompt": "Summarize in one sentence: Document R11 was signed on 3 March 2022. The approved total was 18 units."
+    },
+    {
+      "id": "serial-12",
+      "prompt": "Answer using only this source: Note R12 says the meeting happened on 5 April 2024. When did it happen?"
+    }
+  ],
+  "concurrency": [
+    {
+      "parallel": 2,
+      "rounds": 4,
+      "prompt_indices": [
+        0,
+        3
+      ]
+    },
+    {
+      "parallel": 4,
+      "rounds": 2,
+      "prompt_indices": [
+        1,
+        4,
+        7,
+        10
+      ]
+    }
+  ],
+  "error_recovery": "POST missing required messages, then one valid streamed request",
+  "cancel_recovery": "Close one stream after first visible delta, then one valid streamed request",
+  "generation": {
+    "stream": true,
+    "temperature": 0,
+    "max_tokens": 64,
+    "timeout_seconds": 45
+  },
+  "minimum_free_disk_gib": 15,
+  "maximum_physical_ram_gib": 16,
+  "no_external_inference": true,
+  "no_training": true,
+  "no_release_certification": true
+}

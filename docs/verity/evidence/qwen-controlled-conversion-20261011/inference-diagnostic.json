@@ -1,0 +1,72 @@
+{
+  "classification": "NON_TRAINING_QUANTIZATION_DIAGNOSTIC",
+  "conclusion": "4-bit packed-weight error is measurable; quantized inference equivalence is not established by these diagnostics.",
+  "config_changes": {
+    "eos_token_id": [
+      151645,
+      [
+        151645,
+        151643
+      ]
+    ],
+    "quantization": [
+      null,
+      {
+        "bits": 4,
+        "group_size": 128,
+        "mode": "affine"
+      }
+    ],
+    "quantization_config": [
+      null,
+      {
+        "bits": 4,
+        "group_size": 128,
+        "mode": "affine"
+      }
+    ]
+  },
+  "converted_model_type": "qwen3",
+  "converted_same_model_repeated_logit_count": 10,
+  "converted_same_model_repeated_logits_identical_count": 10,
+  "identical_chat_template_token_ids_all_cases": true,
+  "model_forward_implementation": "mlx_lm.models.qwen3.Model.__call__ for both; converted layers use quantized MLX modules",
+  "peak_mlx_bytes": 1422819760,
+  "sampled_embedding_token_rows": 105,
+  "source_model_type": "qwen3",
+  "source_same_model_repeat_not_tested": true,
+  "weight_error": {
+    "model.embed_tokens.weight": {
+      "max_absolute_delta": 0.00878906,
+      "relative_rmse": 0.09448997,
+      "shape": [
+        105,
+        2560
+      ]
+    },
+    "model.layers.0.mlp.gate_proj.weight": {
+      "max_absolute_delta": 0.02636719,
+      "relative_rmse": 0.10146963,
+      "shape": [
+        9728,
+        2560
+      ]
+    },
+    "model.layers.0.self_attn.q_proj.weight": {
+      "max_absolute_delta": 0.04101562,
+      "relative_rmse": 0.10250753,
+      "shape": [
+        4096,
+        2560
+      ]
+    },
+    "model.layers.35.self_attn.o_proj.weight": {
+      "max_absolute_delta": 0.05273438,
+      "relative_rmse": 0.10123999,
+      "shape": [
+        2560,
+        4096
+      ]
+    }
+  }
+}

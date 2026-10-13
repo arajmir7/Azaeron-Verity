@@ -1,0 +1,52 @@
+{
+  "status": "TRAINING_BLOCKED_NO_ADMITTED_DATA",
+  "base_commit": "915864e83ddc9035af88b9f62b1c015062993d34",
+  "admission_inventory": {
+    "config/model-platform/datasets.json": {
+      "sha256": "f242f51676851fc67af8aa497602454b866604de780eaa5faa79f922001d26a7",
+      "entries": 0
+    },
+    "config/model-platform/candidates.json": {
+      "sha256": "22195a507d5b0cd3c599c829428642150b65b5e08c5a1cc5af924bd3ef7c6f07",
+      "entries": 0
+    },
+    "config/models/registry.json": {
+      "sha256": "7e4df07a42c71821d64422b8f75fa1f446a198641c1a55cdc01d7bca15e348ec",
+      "entries": 0
+    }
+  },
+  "technical_change": "Writer and Embed leakage review now checks target and input text across all five splits",
+  "focused_probe": {
+    "exact_target": "PASS_REJECTED",
+    "near_target": "PASS_REJECTED",
+    "cross_field": "PASS_REJECTED"
+  },
+  "lint": "PASS",
+  "format": "PASS",
+  "full_tests": "PENDING_EXACT_COMMIT_CI",
+  "training_executed": false,
+  "reason": "Human dataset rights, copyright, privacy, provenance and commercial-training attestations are absent; no production manifest is admitted.",
+  "review_packets": [
+    "production-model-final/APPROVAL_DOSSIER.md",
+    "final-model-release/approval-record.json"
+  ],
+  "unapproved_local_quarantine": "preserved in original worktree; excluded from training and Git",
+  "production_registry_modified": false,
+  "review_packets_location": "preserved in original worktree, not copied into this branch",
+  "quarantined_split_probe": {
+    "oasst1_rows": 360,
+    "historical_prose_rows": 185,
+    "new_lexical_leakage_rejections": 0,
+    "admission": "BLOCKED_PENDING_HUMAN_REVIEW"
+  },
+  "prior_ci": {
+    "commit": "dc1340d5292d53ac7d6979f7b8d6eaef2d058946",
+    "run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38139563126",
+    "format": "FAIL_FIXED_IN_FOLLOWUP",
+    "typecheck": "FAIL_FIXED_IN_FOLLOWUP",
+    "unit_postgres_browser": "PASS",
+    "image_and_sbom_gates": "24/24 PASS"
+  },
+  "black_26_5_1": "PASS_AFTER_FIX",
+  "mypy_1_11_0_changed_module": "PASS_AFTER_FIX"
+}

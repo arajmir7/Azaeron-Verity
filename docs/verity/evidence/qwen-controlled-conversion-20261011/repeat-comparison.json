@@ -1,0 +1,14 @@
+{
+  "all_output_file_hashes_identical": true,
+  "base_admitted": false,
+  "chat_template_jinja_sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+  "classification": "NON_TRAINING_REPRODUCIBILITY_CHECK_ONLY",
+  "first_manifest_sha256": "0d7039fc5cbd7bf9404138f1d87a88323d6cbea175d7e2805e40b3a857279dba",
+  "model_safetensors_sha256": "55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d",
+  "output_file_count": 9,
+  "pinned_source_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "repeat_environment": "same Mac and installed dependency environment; cross-host reproducibility not tested",
+  "second_manifest_sha256": "9bdee0c604d62c7937a18f579697d3df1ada665c508cd1994fdfbe22ed419e2e",
+  "tokenizer_json_sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+  "training_authorized": false
+}

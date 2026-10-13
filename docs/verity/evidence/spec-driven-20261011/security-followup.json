@@ -1,0 +1,12 @@
+{
+  "source_run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38087749611",
+  "source_commit": "698069b",
+  "hosted_spec_gate": "PASS",
+  "hosted_repository_gates": "11/11 PASS",
+  "hosted_tests": {"backend": 328, "backend_skipped": 1, "postgres_rls": 34, "browser": 30, "browser_skipped": 1},
+  "dependency_audit": {"status": "FAIL", "frontend_dev_high": 5, "upstream_advisory": "GHSA-vfj7-8cjw-p6xm"},
+  "image_scans": {"vulnerability_reports": 12, "sboms": 12, "high": 28, "critical": 0, "failed_images": {"grafana": 12, "jaeger": 4, "otel_collector": 4, "prometheus": 8}},
+  "sast_finding": {"rule": "B101", "file": "backend/app/modules/inference/dev_mlx.py", "line_before_fix": 208, "cause": "assert used to require parsed endpoint port", "fix": "explicit fail-closed InferenceUnavailable"},
+  "local_fix_validation": {"focused_tests_passed": 13, "opt_in_live_skipped": 1, "black": "PASS", "ruff": "PASS", "mypy": "PASS", "bandit_full_backend": "PASS", "secret_gate_unreviewed": 0},
+  "release_status": "NOT_PRODUCTION_READY"
+}

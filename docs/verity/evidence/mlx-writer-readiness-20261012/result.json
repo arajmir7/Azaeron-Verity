@@ -1,0 +1,41 @@
+{
+  "status": "BLOCKED_NO_APPROVED_BASE_OR_WRITER_DATA",
+  "scope": "Controlled Qwen3-4B MLX 4-bit Writer LoRA training path; no training was run",
+  "base_weight_sha256_required": "55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d",
+  "base_candidate_manifest_sha256_required": "19fe23dd9302d4cb73e8cf9866f42b6a73399c9ec9398c28a340cda1acf1b8ce",
+  "base_revision_required": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "runtime_version_required": "mlx-lm==0.32.0",
+  "implemented": [
+    "Commercial owner decision and exact admitted candidate/dataset gates run before model/tokenizer loading or output creation",
+    "Only train and validation rows are serialized for MLX-LM; calibration, test and OOD remain sealed",
+    "Exact local tokenizer/chat-template preflight rejects overlength or empty masked-target examples before MLX-LM's silent truncation",
+    "Local Apple Silicon, memory, disk and pinned MLX runtime are checked before execution",
+    "MLX runs offline with local model path, disabled telemetry, bounded iterations, wall time, sequence, layer count and adapter size",
+    "Fresh output and any weights-only continuation bind candidate, dataset, adapter and hyperparameters; exact optimizer/RNG/iteration resume is explicitly not claimed",
+    "Result is an experimental, hash-bound adapter with no production approval"
+  ],
+  "executed_checks": {
+    "focused_pytest": "38 passed in test_derivative_mlx.py and test_candidate_program.py",
+    "ruff_0_6_0": "PASS",
+    "black_26_5_1": "PASS",
+    "mypy_1_11_0": "PASS for two new modules",
+    "real_controlled_qwen_tokenizer_preflight": "Valid synthetic date-preservation prompt accepted; overlength synthetic prompt rejected; no model training",
+    "real_mlx_lm_config_parse": "Installed mlx-lm 0.32.0 parsed generated JSON as YAML, recognized all 24 keys in CONFIG_DEFAULTS, and accepted the CLI -c flag without model loading or training",
+    "tokenization_source_review": "Installed mlx_lm.tuner.datasets.CompletionsDataset.process constructs the same user/assistant chat-template tokens and masked-prefix offset as mlx_token_preflight.py; no training invoked",
+    "mac_preflight": {
+      "machine": "Darwin/arm64",
+      "physical_memory_bytes": 17179869184,
+      "reclaimable_memory_bytes": 8165343232,
+      "disk_free_bytes": 21605601280,
+      "classification": "PREFLIGHT_ESTIMATE_NOT_TRAINING_MEASUREMENT"
+    }
+  },
+  "remaining": [
+    "The owner has not approved the exact new base packet; it remains an unadmitted third-party candidate",
+    "Zero Writer data rows have approved commercial training rights and accountable admission",
+    "No MLX LoRA run, checkpoint or Writer-vs-Qwen quality result exists",
+    "MLX-LM 0.32.0 restarts from adapter weights only and does not restore optimizer/RNG/iteration state",
+    "Mac memory floor and disk check are estimates, not proof that a full approved run will finish",
+    "Independent approved semantic Verifier checkpoint and data are absent"
+  ]
+}

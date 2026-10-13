@@ -1,0 +1,68 @@
+{
+  "classification": "non-training compatibility smoke, not quality evaluation",
+  "generation": {
+    "enable_thinking": false,
+    "max_tokens": 80,
+    "seed": 7,
+    "temperature": 0
+  },
+  "items": [
+    {
+      "exact_text_equal": false,
+      "name": "date",
+      "prompt": "Rewrite clearly without changing facts: On 6 August 2024, Mira delivered 12 units. On 8 September 2024, she returned 2.",
+      "responses": {
+        "controlled": {
+          "elapsed_seconds": 3.259,
+          "exit_code": 0,
+          "stderr": "",
+          "text": "On August 6, 2024, Mira delivered 12 units. On September 8, 2024, she returned 2 units."
+        },
+        "existing": {
+          "elapsed_seconds": 3.085,
+          "exit_code": 0,
+          "stderr": "",
+          "text": "On 6 August 2024, Mira delivered 12 units. On 8 September 2024, she returned 2 units."
+        }
+      }
+    },
+    {
+      "exact_text_equal": false,
+      "name": "summary",
+      "prompt": "Summarize in one sentence: The east office closed at 17:00 on Monday. The west office stayed open until 19:00. Both offices reopened Tuesday.",
+      "responses": {
+        "controlled": {
+          "elapsed_seconds": 2.968,
+          "exit_code": 0,
+          "stderr": "",
+          "text": "The east office closed at 5:00 PM on Monday, while the west office stayed open until 7:00 PM, and both reopened on Tuesday."
+        },
+        "existing": {
+          "elapsed_seconds": 2.949,
+          "exit_code": 0,
+          "stderr": "",
+          "text": "The east office closed at 17:00 on Monday while the west office stayed open until 19:00, and both reopened on Tuesday."
+        }
+      }
+    },
+    {
+      "exact_text_equal": false,
+      "name": "grounding",
+      "prompt": "Use only this source: The council approved the plan on 3 May 2023 by a vote of 8 to 2. Question: On what date was the plan approved?",
+      "responses": {
+        "controlled": {
+          "elapsed_seconds": 2.542,
+          "exit_code": 0,
+          "stderr": "",
+          "text": "The plan was approved on **3 May 2023**."
+        },
+        "existing": {
+          "elapsed_seconds": 2.47,
+          "exit_code": 0,
+          "stderr": "",
+          "text": "The plan was approved on 3 May 2023."
+        }
+      }
+    }
+  ]
+}

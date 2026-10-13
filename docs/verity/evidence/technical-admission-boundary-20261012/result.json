@@ -1,0 +1,50 @@
+{
+  "current_qwen_base_admission": "BLOCKED",
+  "current_qwen_base_owner_decision": "CONFIRMED_BASE_ONLY",
+  "current_qwen_independent_technical_comment": "NOT_FOUND",
+  "current_qwen_probe": "FIVE_CASE_DEV_ONLY_SCREEN_NOT_SUBSTANTIVE_TECHNICAL_EVIDENCE",
+  "current_qwen_technical_acceptance": "BLOCKED",
+  "current_qwen_training": "NOT_STARTED",
+  "hosted_ci": {
+    "last_exact_head": "ddcae8a53105e12662d74e57cc193b89abbd1e64",
+    "last_images": "12/12 vulnerability scans and 12/12 SBOMs PASS; zero HIGH/CRITICAL in configured scope",
+    "last_repository_gates": "11/11 PASS; container backend 392 passed, 1 skipped",
+    "last_result": "FAIL: SAST/source-secret step found two false-positive public SHA values in copied test fixture; Bandit had zero findings",
+    "last_run": "https://github.com/arajmir7/Azaeron-Verity/actions/runs/38320796930",
+    "this_source": "PENDING_EXACT_COMMIT_RERUN"
+  },
+  "limitations": "The gate authenticates account control and hash-bound self-reported per-case results, but does not prove physical identity, independent execution, that thresholds preceded execution, dataset rights, trained-checkpoint quality, or production release.",
+  "requirements": [
+    "Exact candidate, protocol, execution, raw-results and reviewer-decision hashes are bound in adjacent files",
+    "At least 32 unique scored task cases, eight stopping cases and one resource measurement; recomputed thresholds must pass",
+    "Upstream revision and complete artifact hashes must match the admitted candidate manifest",
+    "Live unedited GitHub PR #2 comment from a non-owner collaborator or member User, binding candidate and evidence hashes",
+    "Reverification when an admitted candidate is loaded; TEST_ONLY fixtures remain separate"
+  ],
+  "scope": "PRODUCTION_BASE_CANDIDATE_TECHNICAL_ATTESTATION",
+  "source_sha256": {
+    ".github/workflows/verity.yml": "314c308f30f60cce17381b259d86b65218833e7c4e998ba4e88b7e39c015d63b",
+    "backend/app/modules/model_platform/admission.py": "af4dd4455ad0f7f325889f6b1a092c75a96f26917f6b95bc20af50ef29f01e2f",
+    "backend/tests/test_candidate_program.py": "dac36135985a099fa6027a2b268b2b08d08befa72889a88826f213bcae6ca14f",
+    "config/model-platform/technical-acceptance.schema.json": "37613f0468096413015f3ab013ec1f52baa0661c3a377af571630909b0438ef4",
+    "config/model-platform/technical-evidence.schema.json": "695b0ee3170678bd22e1294eec5e73cac210cc876fde4fe8e35f707aa462b89c",
+    "config/model-platform/technical-execution.schema.json": "9fe538d27a8ed31dda7129d3223c360f7cfe435874a41539304634e9c9435050",
+    "config/model-platform/technical-protocol.schema.json": "87c455f88e33d319986e744c57306158cfbf43d63c307da65374b432bdb40ebd",
+    "config/model-platform/technical-raw-results.schema.json": "66f2e4b0784ec175c0b60f96c061f534832ebd575419224a93b4d0d35e3f1774"
+  },
+  "status": "ENGINEERING_GATE_PASS_MODEL_ADMISSION_BLOCKED",
+  "tests": {
+    "bandit": "PASS; 0 findings in backend/app",
+    "black": "PASS",
+    "diff_check": "PASS",
+    "focused": "56 passed",
+    "full_backend": "392 passed, 35 skipped; local database-dependent checks unavailable",
+    "full_backend_log_sha256": "4b876c2350d476627bc376795fb98021de3375d59afb6ca001ffd9c3a3896d7d",
+    "mypy": "PASS; 201 source files",
+    "ruff": "PASS",
+    "schema_matches_code": "4 of 4",
+    "script_owner_confirmation": "2 passed",
+    "script_spec_gate": "4 passed",
+    "secret_gate": "PASS; 0 unreviewed, 74 existing reviewed fingerprints; no new exemptions"
+  }
+}

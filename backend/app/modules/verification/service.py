@@ -95,6 +95,12 @@ def deterministic_reasons(
                 reasons.append("locked_text_changed")
         elif candidate_spans[(kind, value)] != count:
             reasons.append(f"protected_{kind}_changed")
+    # A rewrite cannot introduce source-looking evidence absent from the original.
+    # Numeric citations and dates are also covered below by QUANTITIES, but an
+    # alphabetic citation or URL would otherwise pass deterministic validation.
+    for (kind, value), count in candidate_spans.items():
+        if kind in {"citation", "identifier"} and count > protected[(kind, value)]:
+            reasons.append(f"protected_{kind}_added")
     for label, pattern in (
         ("negation_or_qualifier", QUALIFIERS),
         ("quantity", QUANTITIES),

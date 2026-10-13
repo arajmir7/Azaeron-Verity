@@ -1,0 +1,28 @@
+[
+  {
+    "image": "verity-prometheus:candidate",
+    "aliases": [
+      "verity-prometheus:candidate"
+    ],
+    "image_id": "sha256:7adc90e45ce79c2c67fe932be9cbf3fa3f1bcce520599d85abb0cdddd34a78a6",
+    "bytes": 112295272,
+    "gate": "vulnerabilities",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-vulnerabilities.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  },
+  {
+    "image": "verity-prometheus:candidate",
+    "aliases": [
+      "verity-prometheus:candidate"
+    ],
+    "image_id": "sha256:7adc90e45ce79c2c67fe932be9cbf3fa3f1bcce520599d85abb0cdddd34a78a6",
+    "bytes": 112295272,
+    "gate": "sbom",
+    "status": "PASS",
+    "exit_code": 0,
+    "report": "image-0-sbom.json",
+    "scanner": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969"
+  }
+]

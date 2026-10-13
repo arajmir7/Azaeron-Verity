@@ -1,0 +1,7 @@
+{
+  "classification": "PRE_INFERENCE_DIAGNOSTIC_SEAL",
+  "input_sha256": {
+    "diagnostic-protocol.json": "34ed5a15cba071d8b09afe8eec51683a18171b3b697aa6f4c9b12903e515464c",
+    "diagnostic.py": "4bc0d34ea0cc348ba3e86ead98fb0ae50b8f3f9b4db288cfb5303fef6f101553"
+  }
+}

@@ -28,6 +28,8 @@ def promote(
 ):
     lineage = Lineage.model_validate_json((bundle / "lineage.json").read_bytes())
     release = ReleaseApproval.model_validate(approval)
+    if release.owner_decision is None:
+        raise PolicyError("owner_release_decision_required")
     if any(path.is_symlink() for path in bundle.rglob("*")):
         raise PolicyError("symlink_not_allowed")
     artifacts = {

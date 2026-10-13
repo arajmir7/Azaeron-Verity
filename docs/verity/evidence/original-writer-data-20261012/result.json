@@ -1,0 +1,27 @@
+{
+  "as_of": "2026-10-12",
+  "status": "BLOCKED_NO_ORIGINAL_PERMISSIONED_ROWS",
+  "scope": "filename-only local inventory and existing admission evidence; private content was not inspected or committed",
+  "production_dataset_registry": "config/model-platform/datasets.json",
+  "production_dataset_registry_sha256": "f242f51676851fc67af8aa497602454b866604de780eaa5faa79f922001d26a7",
+  "production_dataset_registry_entries": 0,
+  "original_source_to_human_edit_rows_with_verified_commercial_training_grants_found": 0,
+  "writer_rows_admitted": 0,
+  "training_authorized": false,
+  "first_tranche_request": {
+    "contributors": 12,
+    "source_documents_minimum": 72,
+    "source_target_pairs": 720,
+    "train": 480,
+    "validation": 60,
+    "calibration": 60,
+    "test": 60,
+    "ood": 60,
+    "invariant_rich_rows_minimum": 216,
+    "person_hours_range_excluding_recruitment_legal_and_revisions": [278, 464]
+  },
+  "grant_authenticity_and_row_clearance": "PENDING_REAL_RIGHTS_HOLDER_AND_REVIEWER_ACTION",
+  "owner_dataset_decision": "NOT_REQUESTED_NO_COMPLETE_SUBJECT",
+  "desktop_search": "NOT_PERMITTED_BY_MACOS",
+  "evidence": "README.md"
+}

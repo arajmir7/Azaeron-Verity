@@ -1,0 +1,1 @@
+{"contracts": {"api_operations": 104, "api_sha256": "2930e0c2c0921a868fce107b54f6e58f8afec3a2d4b4cd2793048cf0a5acc162", "migration_head": "20260929_0039", "schema_sha256": "c1d024483a5c8959185c9433a5d90ba4c023909b7e4407c252503170fc88bfd5", "schema_tables": 55}, "status": "PASS", "trace": {"blocked": 8, "flows": 14, "partial": 14, "requirements": 22}}

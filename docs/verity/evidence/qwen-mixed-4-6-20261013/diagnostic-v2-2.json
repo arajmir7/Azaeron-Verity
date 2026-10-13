@@ -1,0 +1,21 @@
+{
+  "base_admitted": false,
+  "candidate_weight_sha256": "10e2c9de6a3a74628b644deb3d1577bc5f5d8d778abe797ee0ff158b2a0cddcc",
+  "classification": "KNOWN_SET_DIAGNOSTIC_NOT_ACCEPTANCE",
+  "eos_token_ids": [
+    151643,
+    151645
+  ],
+  "literal_reasoning_markers": 0,
+  "peak_mlx_memory_gib": 2.7012,
+  "private_raw_sha256": "24ccbcd212c0e1503cf049140e5e678405933e5fe1c2b31ac47c77d1425849c8",
+  "protocol_sha256": "34ed5a15cba071d8b09afe8eec51683a18171b3b697aa6f4c9b12903e515464c",
+  "repetition": 2,
+  "resource_input_tokens": 529,
+  "resource_success": true,
+  "stopping_cases": 8,
+  "stopping_exact": 7,
+  "stopping_terminal_stop": 8,
+  "task_cases": 32,
+  "task_score": 18.0
+}

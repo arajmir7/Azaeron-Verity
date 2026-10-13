@@ -1,0 +1,24 @@
+==========
+ready
+==========
+Prompt: 19 tokens, 124.714 tokens-per-sec
+Generation: 2 tokens, 85.805 tokens-per-sec
+Peak memory: 2.242 GB
+        2.13 real         0.77 user         0.53 sys
+          2500820992  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              156011  page reclaims
+                  22  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                2770  voluntary context switches
+                5895  involuntary context switches
+         15715434079  instructions retired
+          5266982767  cycles elapsed
+          2587609560  peak memory footprint

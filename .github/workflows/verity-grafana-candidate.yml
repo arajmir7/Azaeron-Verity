@@ -1,0 +1,85 @@
+name: Verity Grafana source candidate
+on:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  grafana-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - name: Check isolated runner disk before source build
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/verity-grafana-candidate
+          df -h / | tee /tmp/verity-grafana-candidate/disk-before.txt
+          available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+          if (( available < 25 * 1024 * 1024 * 1024 )); then
+            echo 'BLOCKED: less than 25 GiB free for bounded Grafana source build' | tee /tmp/verity-grafana-candidate/preflight.txt
+            exit 78
+          fi
+      - name: Build supported Grafana 13.1.7 with bundled datasources and an 8 GiB disk floor
+        run: |
+          set -euo pipefail
+          (
+            docker build --progress=plain \
+              -f infrastructure/grafana/Dockerfile \
+              -t verity-grafana:candidate infrastructure/grafana
+          ) > /tmp/verity-grafana-candidate/build.log 2>&1 &
+          build_pid=$!
+          (
+            while kill -0 "$build_pid" 2>/dev/null; do
+              available=$(df -P -B1 / | awk 'NR == 2 {print $4}')
+              if (( available < 8 * 1024 * 1024 * 1024 )); then
+                echo 'BLOCKED: source build reached 8 GiB free-disk floor' >> /tmp/verity-grafana-candidate/build.log
+                kill -TERM "$build_pid"
+                exit 0
+              fi
+              sleep 5
+            done
+          ) &
+          monitor_pid=$!
+          set +e
+          wait "$build_pid"
+          result=$?
+          set -e
+          kill "$monitor_pid" 2>/dev/null || true
+          wait "$monitor_pid" 2>/dev/null || true
+          tail -n 80 /tmp/verity-grafana-candidate/build.log
+          df -h / | tee /tmp/verity-grafana-candidate/disk-after.txt
+          exit "$result"
+      - name: Verify server lineage and Grafana health
+        run: |
+          set -euo pipefail
+          docker run --rm --entrypoint cat verity-grafana:candidate /usr/share/grafana/build-info.txt \
+            | tee /tmp/verity-grafana-candidate/build-info.txt
+          grep -F 'go1.27.2' /tmp/verity-grafana-candidate/build-info.txt
+          grep -F 'golang.org/x/net' /tmp/verity-grafana-candidate/build-info.txt | grep -F 'v0.60.0'
+          if grep -F 'github.com/grafana/tempo' /tmp/verity-grafana-candidate/build-info.txt; then
+            echo 'Unused Tempo dependency remains linked into Grafana' >&2
+            exit 1
+          fi
+          container=$(docker run -d -p 127.0.0.1:13000:3000 \
+            -e GF_ANALYTICS_CHECK_FOR_UPDATES=false \
+            -e GF_ANALYTICS_REPORTING_ENABLED=false \
+            -e GF_PLUGINS_PREINSTALL_DISABLED=true \
+            verity-grafana:candidate)
+          trap 'docker rm -f "$container" >/dev/null 2>&1 || true' EXIT
+          for attempt in $(seq 1 40); do
+            if curl --fail --silent --show-error --max-time 3 http://127.0.0.1:13000/api/health \
+              -o /tmp/verity-grafana-candidate/health.json; then
+              break
+            fi
+            sleep 1
+          done
+          python -c 'import json; assert json.load(open("/tmp/verity-grafana-candidate/health.json"))["database"] == "ok"'
+          docker logs "$container" > /tmp/verity-grafana-candidate/runtime.log 2>&1
+      - name: Scan candidate and generate SBOM without waivers
+        run: python scripts/verity_image_gate.py verity-grafana:candidate --output /tmp/verity-grafana-candidate/images
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: grafana-source-candidate-evidence
+          path: /tmp/verity-grafana-candidate
+          retention-days: 7

@@ -1,0 +1,21 @@
+{
+  "published_files": [
+    ".gitattributes",
+    "LICENSE",
+    "README.md",
+    "config.json",
+    "generation_config.json",
+    "merges.txt",
+    "model-00001-of-00003.safetensors",
+    "model-00002-of-00003.safetensors",
+    "model-00003-of-00003.safetensors",
+    "model.safetensors.index.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "vocab.json"
+  ],
+  "published_notice_file": false,
+  "publisher": "Qwen",
+  "repository": "Qwen/Qwen3-4B",
+  "revision": "1cfa9a7208912126459214e8b04321603b3df60c"
+}

@@ -1,0 +1,45 @@
+{
+  "answer_marker_counts": {
+    "1": 8792
+  },
+  "automated_review_limit": "Pattern flags and lexical overlap are not copyright, contributor-authority, privacy, semantic-leakage, or quality clearance.",
+  "candidate": "openai/grade-school-math:main",
+  "commercial_training_admission": "NOT_APPROVED",
+  "counts": {
+    "test": {
+      "pattern_flagged_rows": 1,
+      "phone_pattern": 1,
+      "rows": 1319
+    },
+    "train": {
+      "long_number_pattern": 3,
+      "pattern_flagged_rows": 4,
+      "phone_pattern": 2,
+      "rows": 7473
+    }
+  },
+  "exact_question_cross_split_overlap": [],
+  "license_source_sha256": "86bbb73e855821d7c401912fd4bf82e34313e6e3b6fd6f909f2b6cc9e209a53b",
+  "number_template_cross_split_overlap": [],
+  "row_hash_inventory": {
+    "path": "row-hashes.jsonl",
+    "sha256": "e47018c14c86b9ad02fad40227d59550c0665ae5d3f698aa8ddbe3066fe0a07e"
+  },
+  "schema_version": 1,
+  "source_files": {
+    "LICENSE": {
+      "bytes": 1062,
+      "sha256": "86bbb73e855821d7c401912fd4bf82e34313e6e3b6fd6f909f2b6cc9e209a53b"
+    },
+    "test.jsonl": {
+      "bytes": 749738,
+      "sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14"
+    },
+    "train.jsonl": {
+      "bytes": 4166206,
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465"
+    }
+  },
+  "source_revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+  "status": "QUARANTINED_REVIEW_ONLY"
+}

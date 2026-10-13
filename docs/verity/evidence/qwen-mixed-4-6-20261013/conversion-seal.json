@@ -1,0 +1,9 @@
+{
+  "classification": "LOCAL_PREEXECUTION_SEAL_NOT_INDEPENDENT_PREREGISTRATION",
+  "input_sha256": {
+    "conversion-protocol.json": "7505234b879842b8545e3d1d6503e9e7239f236feda194537cef7d6d4c35c220",
+    "convert.py": "c30603464a22e5f80bc29eba42aa2a039ceb5a99264795fa42a42a8654611ec1"
+  },
+  "prechange_commit": "072e21e399ade717df7f3f18c17fec7588529714",
+  "sealed_at_utc": "2026-10-13T11:33:31.285926+00:00"
+}

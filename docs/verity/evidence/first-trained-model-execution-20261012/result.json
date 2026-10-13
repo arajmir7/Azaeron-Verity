@@ -1,0 +1,29 @@
+{
+  "status": "ENGINEERING_CHECKS_PASS_MODEL_TRAINING_BLOCKED",
+  "scope": "Exact controlled third-party Qwen base, original Writer data intake, DEV_ONLY authenticated API boundary",
+  "base_owner_intent": "APPROVE_WITHIN_SCOPE_REPORTED_BUT_UNCONFIRMED",
+  "base_owner_packet_sha256": "eb6f3f0615628abedd9baecd5eab2b5595e1841f844157e35a8449963c6a2314",
+  "owner_confirmation_reference": null,
+  "human_technical_acceptance": "PENDING",
+  "rights_cleared_original_writer_rows_acquired": 0,
+  "admitted_writer_rows": 0,
+  "real_lora_training_attempted": false,
+  "azaeron_writer_checkpoint": null,
+  "production_models_approved": 0,
+  "local_checks": {
+    "backend_unit": "359 passed, 1 skipped; backend-unit.log",
+    "focused_api_and_owner_admission": "50 passed; focused.log",
+    "owner_confirmation_and_spec_contract": "6 passed; scripts-unit.log",
+    "mypy": "PASS: 201 source files; mypy.log",
+    "black": "PASS; black.log",
+    "ruff": "PASS; ruff.log",
+    "bandit": "PASS; bandit.log",
+    "secret_gate": "PASS: 0 unreviewed findings, 72 exact reviewed fingerprints; secret-gate.log"
+  },
+  "limitations": [
+    "No owner GitHub confirmation comment exists yet, so the base owner record remains PENDING.",
+    "No original source-to-human-edit rows with verified commercial training grants were found; the acquisition brief is not a dataset admission.",
+    "The controlled Qwen technical probe supports only a bounded engineering trial; quote fidelity remains prompt-dependent and an independent human technical reviewer has not accepted the base.",
+    "Local unit/static checks do not replace exact-commit hosted CI, real-model quality evaluation or production certification."
+  ]
+}

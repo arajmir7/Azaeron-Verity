@@ -1,0 +1,20 @@
+{
+  "candidate_admission": "BLOCKED",
+  "candidate_sha256": "19fe23dd9302d4cb73e8cf9866f42b6a73399c9ec9398c28a340cda1acf1b8ce",
+  "candidate_technical_review": "PENDING",
+  "comment_url": "https://github.com/arajmir7/Azaeron-Verity/pull/2#issuecomment-6122705989",
+  "confirmation_reference": "github-issue-comment:6122705989:sha256:c3d6d8340ae758842fa0562b9bc058e0d14f34643772c3d97c9b87005cbee6cc",
+  "confirmed_decision_sha256": "54044cff9ee8d46a5f5b0405422b1332569d7fb1b5036880e7e7f137ec30ecf1",
+  "limitation": "GitHub verifies repository-owner account control, not physical identity; this confirmation grants no dataset, technical, or release approval.",
+  "live_owner_decision_policy": "PASS",
+  "owner_account": "arajmir7",
+  "owner_github_id": 236520801,
+  "permitted_use": "commercial_derivative_training",
+  "production_registry_models": 0,
+  "receipt_sha256": "720cd25b5b629aca73df707a45ee0d2ac352014888e508bced467bf7c06f2d0f",
+  "reviewed_packet_sha256": "eb6f3f0615628abedd9baecd5eab2b5595e1841f844157e35a8449963c6a2314",
+  "status": "BASE_ONLY_OWNER_CONFIRMATION_VERIFIED",
+  "training_datasets_admitted": 0,
+  "training_started": false,
+  "verified_at_utc": "2026-10-12T14:59:45Z"
+}

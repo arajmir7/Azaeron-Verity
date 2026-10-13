@@ -1,0 +1,23 @@
+# Aya original English annotation audit — 12 October 2026
+
+**QUARANTINED_REVIEW_ONLY. No rows admitted and no training authorized.** This is a distinct source from the rejected OASST1 packet and the quarantined Dolly/GSM8K reviews. It was audited to find a small human-authored Writer set; the evidence shows it cannot yet serve as a complete Writer admission packet.
+
+The [pinned publisher dataset card](https://huggingface.co/datasets/CohereLabs/aya_dataset/blob/f9ea04583f02a8f86404ff6c58bf75fe637df8a2/README.md) calls Aya a human-annotated instruction-finetuning dataset, says it may train/fine-tune LLMs, and expressly permits academic or commercial use under Apache-2.0. The [authors' paper](https://arxiv.org/abs/2402.06619) describes original prompt-completion pairs authored by volunteers, separate from re-annotations of other datasets, and a peer-feedback process. These are strong publisher-side permission and provenance signals. The pinned repository has an Apache-2.0 declaration in the card but no standalone `LICENSE` file. Neither the card nor paper provides the contributor assent/grant record for each source row or a row-level originality, copyright or privacy disposition. The publisher explicitly notes possible mislabeled, biased and offensive data. Azaeron cannot independently infer those missing rights.
+
+The pinned revision is `f9ea04583f02a8f86404ff6c58bf75fe637df8a2`. `README.md`, original train parquet and original test parquet match the publisher metadata SHA-256 values in [audit-summary.json](audit-summary.json). The 137 MB train payload and 1 MB test payload were fetched solely into `/private/tmp/azaeron-aya-audit-20261012`; the demographics file was not acquired. [audit.py](audit.py) reads the exact local payload, emits [row-hashes.jsonl](row-hashes.jsonl), and stores only source locators, pseudonymous author hashes, row/input hashes, automated review leads and provisional split labels. No prompt/completion or raw author ID is committed.
+
+The English *original-annotation* subset contains **2,164 publisher-train pairs by 49 pseudonymous contributors** and **250 publisher-test pairs by 23 contributors**. Every test contributor also occurs in publisher train, and 13 train rows share nine normalized prompt keys with test. Thus the publisher test split is excluded from this proposed review set and cannot be treated as independent Writer evaluation. Within the 2,164 train rows, 63 repeated-prompt groups contain 135 rows; 38 long-completion duplicates contain 80 rows. Grouping by contributor plus repeated prompts/completions produces a **1,618-row largest source component**. A deterministic five-way *review-only* partition has 1,618/140/136/135/135 rows and zero cross-partition overlap in author, normalized prompt or long completion. Its `ood` portion is merely author holdout, not an adjudicated domain shift. These are hash-only review partitions, not admitted dataset splits.
+
+Automated privacy/copyright leads include 10 email-pattern rows, one URL-pattern row, 29 English-label anomaly leads, 28 targets over 2,000 characters, 289 under 20 characters, and three target-equals-input rows. These flags are not a privacy or copyright clearance. The audit deliberately excludes source re-annotations because the underlying NLP dataset rights vary; including them would invalidate the narrow original-authorship claim.
+
+The English original prompts are overwhelmingly generic QA. Heuristic task tags find **one** rewrite/edit request, **seven** summary requests and **five** document-grounded questions; tags may undercount or overcount, but this is plainly insufficient for high-quality Humaniser, factual-preserving editing and document-QA fine-tuning. The source does not provide professional editing credentials, protected-invariant labels or an independent blinded evaluation set. No row-level human quality ratings were made by Azaeron.
+
+Reproduce the read-only audit with `duckdb==1.4.1` and the three pinned files placed under the names in `audit.py`:
+
+```bash
+PYTHONPATH=/path/to/duckdb python3 docs/verity/evidence/new-data-aya-20261012/audit.py \
+  --source-dir /private/tmp/azaeron-aya-audit-20261012 \
+  --out-dir /path/to/empty/audit-output
+```
+
+The next dataset submission needs documented contributor rights/consent for commercial AI training; accountable disposition of flagged and unflagged rows for copyright and privacy; a larger, task-complete set of original human editing, summarization and grounded-QA demonstrations; source-isolated real TEST/OOD splits; independent quality review; and a new authenticated, hash-bound owner decision. Until those exist, keep this source outside `config/model-platform/datasets.json` and all training jobs.

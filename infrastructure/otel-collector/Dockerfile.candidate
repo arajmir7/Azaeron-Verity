@@ -1,0 +1,27 @@
+# Minimal official OCB-generated distribution. Release remains blocked until
+# the exact-commit image scan and full-stack trace-forwarding gates pass.
+FROM golang:1.27.2-alpine3.24@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS build
+WORKDIR /src
+COPY otel-collector/builder-config.yaml /src/builder-config.yaml
+ENV CGO_ENABLED=0 GOTOOLCHAIN=local GOMAXPROCS=2
+RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build \
+    go install go.opentelemetry.io/collector/cmd/builder@v0.162.0
+RUN --mount=type=cache,target=/go/pkg/mod \
+    /go/bin/builder --skip-compilation --config /src/builder-config.yaml
+WORKDIR /src/dist
+RUN --mount=type=cache,target=/go/pkg/mod go get golang.org/x/net@v0.60.0 \
+    && test "$(go list -m -f '{{.Version}}' golang.org/x/net)" = v0.60.0
+RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build \
+    go build -trimpath -ldflags='-s -w' -o /out/otelcol-verity . \
+    && go version -m /out/otelcol-verity > /out/build-info.txt \
+    && go mod verify
+
+FROM alpine:3.24.2@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6
+RUN apk add --no-cache ca-certificates
+COPY --from=build /out/otelcol-verity /usr/local/bin/otelcol-verity
+COPY --from=build /out/build-info.txt /usr/share/otelcol/build-info.txt
+COPY otel-collector.yml /etc/otelcol/config.yaml
+USER 10001:0
+EXPOSE 4317 4318
+ENTRYPOINT ["/usr/local/bin/otelcol-verity"]
+CMD ["--config=/etc/otelcol/config.yaml"]

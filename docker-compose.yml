@@ -320,7 +320,10 @@ services:
       - azaeron-network
 
   prometheus:
-    image: prom/prometheus:v3.15.0@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e
+    image: azaeron-prometheus:3.15.0-go1.27.2
+    build:
+      context: ./infrastructure/prometheus
+      dockerfile: Dockerfile.candidate
     container_name: azaeron-prometheus
     ports:
       - "127.0.0.1:9090:9090"
@@ -333,7 +336,7 @@ services:
       - azaeron-network
 
   jaeger:
-    image: azaeron-jaeger:2.21.0-minimal
+    image: azaeron-jaeger:2.22.0-go1.27.2
     build:
       context: ./infrastructure/jaeger
       dockerfile: Dockerfile
@@ -347,7 +350,10 @@ services:
       - azaeron-network
 
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.161.0@sha256:fd328de2552466ad78385e1b1289c3f2402b1c45f265b252aab1955b42845ac1
+    image: azaeron-otel:0.162.0-go1.27.2-minimal
+    build:
+      context: ./infrastructure
+      dockerfile: otel-collector/Dockerfile.candidate
     container_name: azaeron-otel-collector
     command: ["--config=/etc/otelcol/config.yaml"]
     volumes:
@@ -359,7 +365,7 @@ services:
       - azaeron-network
 
   grafana:
-    image: azaeron-grafana:13.2.3-minimal
+    image: azaeron-grafana:13.1.7-go1.27.2
     build:
       context: ./infrastructure/grafana
       dockerfile: Dockerfile
@@ -369,6 +375,8 @@ services:
       GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
       GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
       GF_PLUGINS_PREINSTALL_DISABLED: "true"
+      # The pinned server intentionally excludes unused Tempo backend code.
+      GF_PLUGINS_DISABLE_PLUGINS: "tempo"
       # Jaeger v2 serves service discovery at /api/v3/services, which the
       # bundled datasource uses when this supported toggle is enabled.
       GF_FEATURE_TOGGLES_ENABLE: "jaegerEnableGrpcEndpoint"

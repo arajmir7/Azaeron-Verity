@@ -84,9 +84,43 @@ def main():
     )
     assert len(dashboard["dashboard"]["panels"]) >= 13
     checks["provisioned_dashboard"] = dashboard["dashboard"]["title"]
+    for uid, datasource_type in (
+        ("verity-prometheus", "prometheus"),
+        ("verity-traces", "jaeger"),
+    ):
+        datasource = get(
+            args.grafana + "/api/datasources/uid/" + uid, authorization
+        )
+        assert datasource["type"] == datasource_type
+    grafana_metrics = get(
+        args.grafana
+        + "/api/datasources/proxy/uid/verity-prometheus/api/v1/query?"
+        + urlencode({"query": "up"}),
+        authorization,
+    )
+    assert grafana_metrics["status"] == "success"
+    assert grafana_metrics["data"]["result"]
+    checks["authenticated_datasource_metrics_query"] = "PASS"
     trace_url = args.jaeger + "/api/traces/" + evidence["trace_id"]
     before = get(trace_url)["data"][0]
     assert evidence["canary"] not in json.dumps(before)
+    grafana_trace = get(
+        args.grafana
+        + "/api/datasources/proxy/uid/verity-traces/api/traces/"
+        + evidence["trace_id"],
+        authorization,
+    )
+    assert grafana_trace["data"]
+    checks["authenticated_datasource_trace_query"] = "PASS"
+    grafana_logs = subprocess.run(
+        ["docker", "compose", "-f", str(args.compose), "logs", "--no-color", "grafana"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+    assert "Could not start plugin backend" not in grafana_logs
+    assert "Could not initialize plugin" not in grafana_logs
+    checks["grafana_plugin_initialization"] = "PASS"
     subprocess.run(
         ["docker", "compose", "-f", str(args.compose), "restart", "jaeger"],
         check=True,

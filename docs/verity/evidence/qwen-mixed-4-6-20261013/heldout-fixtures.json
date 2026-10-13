@@ -1,0 +1,299 @@
+{
+  "classification": "ORIGINAL_SELF_AUTHORED_HELDOUT_TECHNICAL_PROBES_NOT_TRAINING_DATA",
+  "resources": [
+    {
+      "id": "H-R01",
+      "prompt": "Read these non-answer records and then answer only with FINAL-READY. Record 1: code T-001 is not the answer. Record 2: code T-002 is not the answer. Record 3: code T-003 is not the answer. Record 4: code T-004 is not the answer. Record 5: code T-005 is not the answer. Record 6: code T-006 is not the answer. Record 7: code T-007 is not the answer. Record 8: code T-008 is not the answer. Record 9: code T-009 is not the answer. Record 10: code T-010 is not the answer. Record 11: code T-011 is not the answer. Record 12: code T-012 is not the answer. Record 13: code T-013 is not the answer. Record 14: code T-014 is not the answer. Record 15: code T-015 is not the answer. Record 16: code T-016 is not the answer. Record 17: code T-017 is not the answer. Record 18: code T-018 is not the answer. Record 19: code T-019 is not the answer. Record 20: code T-020 is not the answer. Record 21: code T-021 is not the answer. Record 22: code T-022 is not the answer. Record 23: code T-023 is not the answer. Record 24: code T-024 is not the answer. Record 25: code T-025 is not the answer. Record 26: code T-026 is not the answer. Record 27: code T-027 is not the answer. Record 28: code T-028 is not the answer. Record 29: code T-029 is not the answer. Record 30: code T-030 is not the answer. Record 31: code T-031 is not the answer. Record 32: code T-032 is not the answer. Record 33: code T-033 is not the answer. Record 34: code T-034 is not the answer. Record 35: code T-035 is not the answer. Record 36: code T-036 is not the answer. Record 37: code T-037 is not the answer."
+    }
+  ],
+  "stopping": [
+    {
+      "expected": "RECEIVED",
+      "id": "H-S01",
+      "prompt": "Write precisely this single token and stop: RECEIVED"
+    },
+    {
+      "expected": "CONFIRMED",
+      "id": "H-S02",
+      "prompt": "Respond with just the word CONFIRMED."
+    },
+    {
+      "expected": "7",
+      "id": "H-S03",
+      "prompt": "What is 3 plus 4? Give only the digit."
+    },
+    {
+      "expected": "green",
+      "id": "H-S04",
+      "prompt": "Source: The latch is green. Which color is the latch? One word, with no explanation."
+    },
+    {
+      "expected": "DONE",
+      "id": "H-S05",
+      "prompt": "Return only the word DONE. End immediately after it."
+    },
+    {
+      "expected": "17 June 2027",
+      "id": "H-S06",
+      "prompt": "Which date is later: 16 June 2027 or 17 June 2027? Return the date alone."
+    },
+    {
+      "expected": "V",
+      "id": "H-S07",
+      "prompt": "The supplied record says the answer is V. Copy only that answer."
+    },
+    {
+      "expected": "MN-58",
+      "id": "H-S08",
+      "prompt": "Copy this reference exactly, then stop: MN-58"
+    }
+  ],
+  "tasks": [
+    {
+      "expected": "9 February 2027",
+      "id": "H-E01",
+      "kind": "exact",
+      "prompt": "Use only the note. The amended lease begins 9 February 2027; the superseded draft said 2025. State only the amended start date."
+    },
+    {
+      "expected": "31",
+      "id": "H-E02",
+      "kind": "exact",
+      "prompt": "Use only the ledger. Depot R holds 31 filters; Depot S holds 13. How many are in Depot R? Return the number alone."
+    },
+    {
+      "expected": "Priya Bose",
+      "id": "H-E03",
+      "kind": "exact",
+      "prompt": "From this notice, answer with the name only: Priya Bose chairs the final panel; Tala Noor chaired the preliminary panel. Who chairs the final panel?"
+    },
+    {
+      "expected": "XR-915",
+      "id": "H-E04",
+      "kind": "exact",
+      "prompt": "Read the record and return just the code: Shipment code XR-915 is current; XR-815 was voided. What is the current shipment code?"
+    },
+    {
+      "expected": "Hall Birch",
+      "id": "H-E05",
+      "kind": "exact",
+      "prompt": "Use the schedule only. Hall Cedar closes at 21:10; Hall Birch closes at 20:05. Which hall closes earlier? Answer with the hall name."
+    },
+    {
+      "expected": "Thursday",
+      "id": "H-E06",
+      "kind": "exact",
+      "prompt": "The final exhibit was filed on Thursday, after a draft had been filed on Monday. On which weekday was the final exhibit filed? One word."
+    },
+    {
+      "expected": "B",
+      "id": "H-E07",
+      "kind": "exact",
+      "prompt": "From the source only: Zone A contains 22 valves; Zone B contains 17. Which zone contains fewer? Return the zone letter."
+    },
+    {
+      "expected": "08:45",
+      "id": "H-E08",
+      "kind": "exact",
+      "prompt": "Read only this record: The revised inspection time is 08:45, replacing 07:30. Give only the revised inspection time."
+    },
+    {
+      "expected": "43",
+      "id": "H-A01",
+      "kind": "exact",
+      "prompt": "Compute 28 + 15. Respond with the integer only."
+    },
+    {
+      "expected": "55",
+      "id": "H-A02",
+      "kind": "exact",
+      "prompt": "Compute 92 - 37. Respond with the integer only."
+    },
+    {
+      "expected": "54",
+      "id": "H-A03",
+      "kind": "exact",
+      "prompt": "Compute 9 multiplied by 6. Respond with the integer only."
+    },
+    {
+      "expected": "12",
+      "id": "H-A04",
+      "kind": "exact",
+      "prompt": "Compute 96 divided by 8. Respond with the integer only."
+    },
+    {
+      "expected": "27",
+      "id": "H-A05",
+      "kind": "exact",
+      "prompt": "A tray has 16 ceramic cups and 11 steel cups. How many cups in all? Respond with the integer only."
+    },
+    {
+      "expected": "46",
+      "id": "H-A06",
+      "kind": "exact",
+      "prompt": "There are 70 lockers and 24 are occupied. How many are unoccupied? Answer with digits only."
+    },
+    {
+      "expected": "52",
+      "id": "H-A07",
+      "kind": "exact",
+      "prompt": "Four teams each inspect 13 units. How many units do they inspect in total? Digits only."
+    },
+    {
+      "expected": "56",
+      "id": "H-A08",
+      "kind": "exact",
+      "prompt": "A truck carries 7 cases on each of 8 trips. How many cases altogether? Digits only."
+    },
+    {
+      "expected": "7",
+      "id": "H-Q01",
+      "kind": "exact",
+      "prompt": "Source: The silver token is in drawer 4. The copper token is in drawer 7. Which drawer contains the copper token? Number only."
+    },
+    {
+      "expected": "deferred",
+      "id": "H-Q02",
+      "kind": "exact",
+      "prompt": "Source: Permit L was deferred, whereas Permit M was granted. What happened to Permit L? One word."
+    },
+    {
+      "expected": "tram",
+      "id": "H-Q03",
+      "kind": "exact",
+      "prompt": "Source: The ferry departs in August, and the tram begins in December. Which vehicle begins in December? One word."
+    },
+    {
+      "expected": "D",
+      "id": "H-Q04",
+      "kind": "exact",
+      "prompt": "Source: Clause C applies to visitors. Clause D applies to employees. Which clause applies to employees? Letter only."
+    },
+    {
+      "expected": "Dev",
+      "id": "H-Q05",
+      "kind": "exact",
+      "prompt": "Source: Farah authored the letter. Dev witnessed the signature. Who witnessed the signature? Name only."
+    },
+    {
+      "expected": "32",
+      "id": "H-Q06",
+      "kind": "exact",
+      "prompt": "Source: Bus 23 serves the clinic. Bus 32 serves the school. Which bus serves the school? Number only."
+    },
+    {
+      "expected": "11",
+      "id": "H-Q07",
+      "kind": "exact",
+      "prompt": "Source: The alloy was cooled to 5 C, then tested at 11 C. At what temperature was it tested? Number only."
+    },
+    {
+      "expected": "10",
+      "id": "H-Q08",
+      "kind": "exact",
+      "prompt": "Source: The parcel was scanned on 4 July and signed for on 10 July. On which July day was it signed for? Day number only."
+    },
+    {
+      "forbidden": [
+        "did sign"
+      ],
+      "id": "H-P01",
+      "kind": "invariants",
+      "prompt": "Rewrite as one clear sentence, retaining every fact: Leena did not sign form FR-922 on 9 February 2027.",
+      "required": [
+        "Leena",
+        "not",
+        "FR-922",
+        "9 February 2027"
+      ]
+    },
+    {
+      "forbidden": [
+        "will arrive"
+      ],
+      "id": "H-P02",
+      "kind": "invariants",
+      "prompt": "Rewrite as one clear sentence without strengthening the claim: The grant might arrive by 18 August 2027, although timing remains uncertain.",
+      "required": [
+        "might",
+        "18 August 2027",
+        "uncertain"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "H-P03",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly without changing counts or negation: Dev measured 26 panels, not 62, under protocol PX-53.",
+      "required": [
+        "Dev",
+        "26",
+        "not",
+        "62",
+        "PX-53"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "H-P04",
+      "kind": "invariants",
+      "prompt": "Rewrite in one sentence without changing attribution: Citation [37] supports only the 2022 baseline, not the 2028 projection.",
+      "required": [
+        "[37]",
+        "only",
+        "2022",
+        "not",
+        "2028"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "H-P05",
+      "kind": "invariants",
+      "prompt": "Rewrite in one sentence, preserving the quotation exactly: Farah wrote, 'The valve remains shut,' on 11 June 2027.",
+      "required": [
+        "Farah",
+        "The valve remains shut",
+        "11 June 2027"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "H-P06",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly without swapping locations or times: The upper desk opens at 06:20; the lower desk opens at 09:40.",
+      "required": [
+        "upper",
+        "06:20",
+        "lower",
+        "09:40"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "H-P07",
+      "kind": "invariants",
+      "prompt": "Rewrite in one sentence without changing permission or limit: Under rule C-9, Priya may postpone for up to 4 days, not 14.",
+      "required": [
+        "C-9",
+        "Priya",
+        "may",
+        "4",
+        "not",
+        "14"
+      ]
+    },
+    {
+      "forbidden": [],
+      "id": "H-P08",
+      "kind": "invariants",
+      "prompt": "Rewrite clearly without changing the document status: Dev's 27 January 2027 memo cites Clause 6.4 and labels the estimate provisional.",
+      "required": [
+        "Dev",
+        "27 January 2027",
+        "Clause 6.4",
+        "provisional"
+      ]
+    }
+  ]
+}

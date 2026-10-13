@@ -1,0 +1,8 @@
+{
+  "classification": "FAILED_PRESEALED_RUN_PRESERVED",
+  "diagnostic_seal_sha256": "5836c44d66f7f76f0fa1d65020cc476a5d7be273e0715ab7123213aad99c1500",
+  "error": "KeyError: expected in resources fixture; original resource protocol has no expected field",
+  "inference_completed_before_failure": "32 tasks, 8 stopping cases, 1 resource case; results not written",
+  "technical_admission": "NOT_EVALUATED",
+  "remediation": "Use a new sealed v2 runner and preserve this original seal and script"
+}

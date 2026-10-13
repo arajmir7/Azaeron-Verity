@@ -1,0 +1,21 @@
+{
+  "classification": "NEW_OFFLINE_THIRD_PARTY_CONVERSION_EXPERIMENT_NOT_ADMISSION",
+  "source_repository": "Qwen/Qwen3-4B",
+  "source_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "source_inventory_sha256": "cfe2fcf06a77db236d0e3a922edb9d3048acfa098ac9c995adac9f9c71b4daf7",
+  "environment_lock": "../qwen-controlled-conversion-20261011/environment.lock.txt",
+  "environment_lock_sha256": "7e14311e201c67eeb6a1068bad8c9ea6a3ca1594e35123395a14ba882f4237e1",
+  "quantization": {
+    "tool": "mlx-lm==0.32.0",
+    "mode": "affine",
+    "recipe": "mixed_4_6",
+    "group_size": 128,
+    "trust_remote_code": false,
+    "network": "offline"
+  },
+  "minimum_free_disk_gib_during_and_after": 15,
+  "minimum_free_disk_gib_before": 18,
+  "maximum_conversion_seconds": 600,
+  "output": ".verity-local/qwen3-4b-mlx-controlled-1cfa9a-mixed4-6",
+  "purpose": "Test whether selective 6-bit projection quantization reduces the diagnosed 4-bit generation divergence within Mac disk and memory limits; no training or production approval"
+}

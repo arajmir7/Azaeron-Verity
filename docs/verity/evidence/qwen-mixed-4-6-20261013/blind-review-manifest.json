@@ -1,0 +1,11 @@
+{
+  "classification": "PREPARED_NOT_REVIEWED",
+  "evidence_set": "previously observed technical diagnostic probes",
+  "item_count": 32,
+  "limitation": "Strict format/fidelity review only; not a sealed real-world quality benchmark or independent commercial-quality certification",
+  "minimum_independent_reviewers_per_item": 2,
+  "packet_sha256": "dfc0c0a42ab1b6c75630c0ae1eba618e4b142c400695d9b7837b4c6ab3849788",
+  "private_key_sha256": "d193e46bf2f2e4436cf4eeebc04aa5288eeaca781a788403a0cafd4ebbf1099c",
+  "ratings_received": 0,
+  "responses_per_item": 3
+}

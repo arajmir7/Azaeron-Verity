@@ -1,0 +1,9 @@
+{
+  "classification": "PRE_INFERENCE_INDEPENDENT_TECHNICAL_HELDOUT_SEAL",
+  "input_sha256": {
+    "heldout-fixtures.json": "94a660d6c0e43b3ca38307d23f17d0529a0046c6dbd60ee482d2020f11c6ef21",
+    "heldout-protocol.json": "adcc0ecb2423d9d4c0fcf77b5a87b69ef44fc9a84a4e30f9bebbd097a3f086ed",
+    "heldout.py": "4d2045f9cfab8667beb288707aa479299e8f26edb366584f520d27fdeb70b016",
+    "make-heldout.py": "4ad0061781278ca13cee238362599d31a604f7169c03eb2b61ce8c7c8c6d36a4"
+  }
+}

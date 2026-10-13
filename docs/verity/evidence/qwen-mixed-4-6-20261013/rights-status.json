@@ -1,0 +1,44 @@
+{
+  "as_of": "2026-10-13",
+  "base": {
+    "azaeron_trained_derivative": false,
+    "license": "Apache-2.0",
+    "local_license_sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "new_mixed_4_6_owner_scope": "NOT_APPROVED; technical diagnostic failed, so no new owner request submitted",
+    "new_mixed_4_6_weight_sha256": "10e2c9de6a3a74628b644deb3d1577bc5f5d8d778abe797ee0ff158b2a0cddcc",
+    "obligations": [
+      "retain the Apache-2.0 license",
+      "retain applicable attribution/copyright/patent/trademark notices",
+      "review and retain applicable NOTICE material",
+      "mark changed files if redistributed"
+    ],
+    "old_4bit_owner_scope": "Verified base-only decision covers only weight SHA256 55467c6157306f2a4463e9d149b0ed2552943f187778cc67d02e5bef4735773d; technical admission failed",
+    "publisher": "Qwen/Qwen3-4B",
+    "publisher_license_url": "https://huggingface.co/Qwen/Qwen3-4B/blob/1cfa9a7208912126459214e8b04321603b3df60c/LICENSE",
+    "publisher_model_card_url": "https://huggingface.co/Qwen/Qwen3-4B/blob/1cfa9a7208912126459214e8b04321603b3df60c/README.md",
+    "revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+    "source_file_hashes": "conversion-result.json:source_artifact_hashes",
+    "third_party_foundation": true
+  },
+  "classification": "EVIDENCE_ONLY_NO_ADMISSION_OR_OWNER_SIGNATURE",
+  "dataset": {
+    "admitted_rows": 0,
+    "candidate": "CohereLabs/aya_dataset English original annotations",
+    "commercial_training_admission": "REJECT_UNTIL_EVIDENCE",
+    "existing_audit_sha256": "aaea7ee2f1cf4878c59846152c8d4eec0b0d3ea9c882fbfdc0cbcc0d7cbc70c5",
+    "publisher_card_url": "https://huggingface.co/datasets/CohereLabs/aya_dataset/blob/f9ea04583f02a8f86404ff6c58bf75fe637df8a2/README.md",
+    "publisher_revision": "f9ea04583f02a8f86404ff6c58bf75fe637df8a2",
+    "publisher_statement": "Apache-2.0 declaration and commercial model-training permission stated in pinned card",
+    "unresolved": [
+      "record-level contributor grants and assent",
+      "copyright originality for each row",
+      "privacy/PII disposition",
+      "source-isolated real TEST/OOD quality",
+      "insufficient rewrite, summarization and document-QA task coverage",
+      "owner admission"
+    ]
+  },
+  "other_dataset_status": "OASST1 owner-rejected; Dolly/GSM8K quarantined; no replacement admitted",
+  "release_authorized": false,
+  "training_authorized": false
+}

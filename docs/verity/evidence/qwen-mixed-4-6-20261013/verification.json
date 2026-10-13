@@ -1,0 +1,15 @@
+{
+  "application_source_changed": false,
+  "evidence_integrity": "PASS",
+  "free_disk_gib": 14.917,
+  "full_local_gate": "NOT_RERUN_EVIDENCE_ONLY_AND_DISK_GUARD",
+  "heldout_candidate": "BLOCKED_DISK_GUARD",
+  "hosted_ci": "PENDING_EXACT_COMMIT",
+  "json_parse_count": 22,
+  "new_mixed_diagnostic": "FAIL_18_OF_32_AND_7_OF_8",
+  "original_sealed_benchmark": "UNCHANGED_FAIL",
+  "python_compileall": "PASS",
+  "secret_gate": "PASS",
+  "secret_gate_unreviewed_findings": 0,
+  "spec_gate": "PASS"
+}

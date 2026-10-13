@@ -1,0 +1,13 @@
+{
+  "eos_token_ids": [
+    151643,
+    151645
+  ],
+  "model_class": "mlx_lm.models.qwen3.Model",
+  "peak_mlx_memory_gib": 2.1483,
+  "private_raw_sha256": "fd5fb82d30fd1c65cd4809de50c84e91d296f5be015a1ba601d3c1410be286b1",
+  "projection_class": "mlx.nn.layers.quantized.QuantizedLinear",
+  "protocol_sha256": "9771a912b5890d81974796a2397c972bfabb8df7695d3ed576bddc9be3009e60",
+  "record_count": 11,
+  "stage": "candidate"
+}

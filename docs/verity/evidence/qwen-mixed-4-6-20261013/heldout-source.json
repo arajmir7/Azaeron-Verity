@@ -1,0 +1,19 @@
+{
+  "classification": "HELDOUT_TECHNICAL_PROBE_NOT_WRITING_QUALITY",
+  "eos_token_ids": [
+    151643,
+    151645
+  ],
+  "invariant_scores": 7.0,
+  "owner_approval": "NOT_REQUESTED_FOR_THIS_ARTIFACT",
+  "peak_mlx_memory_gib": 7.8362,
+  "private_raw_sha256": "ddee423f5c6460e955f5d916c8df256aa88e4e4b54a8e7da9cf8b6d8d76afe2c",
+  "protocol_sha256": "adcc0ecb2423d9d4c0fcf77b5a87b69ef44fc9a84a4e30f9bebbd097a3f086ed",
+  "resource_input_tokens": 609,
+  "resource_success": true,
+  "stage": "source",
+  "stopping_exact": 7,
+  "stopping_terminal_stop": 8,
+  "task_score": 25.0,
+  "visible_reasoning_markers": 0
+}
